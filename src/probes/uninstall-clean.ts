@@ -42,7 +42,13 @@ export async function runUninstallClean(opts: UninstallOptions): Promise<Uninsta
     const ranInstallers: string[] = [];
     for (const script of facts.scripts) {
       const abs = path.join(opts.packageRoot!, script);
-      const res = await runShell(`${process.platform === 'win32' ? 'bash' : 'sh'} "${abs}"`, {
+      // 按扩展名选解释器：.mjs/.js 用 node，其余当 shell 脚本
+      const ext = path.extname(abs).toLowerCase();
+      const cmd =
+        ext === '.mjs' || ext === '.js'
+          ? `"${process.execPath}" "${abs}"`
+          : `${process.platform === 'win32' ? 'bash' : 'sh'} "${abs}"`;
+      const res = await runShell(cmd, {
         cwd: workspace,
         env: { HOME: home, USERPROFILE: home, CLAUDE_HOME: path.join(home, '.claude') },
         timeoutMs: (opts.timeoutSec ?? 60) * 1000

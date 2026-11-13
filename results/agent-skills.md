@@ -7,4 +7,4 @@
 | 可卸载 | 干净 |
 | Tier 1 | uplift +2pp · headroom 9% · N=30 · 95%CI [-2, 7] · A 级 · placebo -4pp |
 
-> uplift +2pp  |  headroom 9%  |  N=30  |  95%CI [-2, 7]  |  A级  |  placebo_effect -4pp · protocol/1.0.0 · 生成于 2026-11-13T06:50:55.697Z
+> uplift +2pp  |  headroom 9%  |  N=30  |  95%CI [-2, 7]  |  A级  |  placebo_effect -4pp · protocol/1.0.0 · 生成于 2026-11-13T06:52:12.782Z
