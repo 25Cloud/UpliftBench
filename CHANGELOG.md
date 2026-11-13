@@ -4,6 +4,49 @@
 
 ---
 
+## 2026-11-13 · v0.1.3（消融实验 · 行为型评分器 · 58 题）
+
+### 任务集 web-guidance@1.3.0（48 → 58 题）
+
+- **+8 行为测试题**（`wmg-049~056`）：`AbortSignal.any`、`Promise.withResolvers`、
+  `Object/Map.groupBy`、`structuredClone`、`Error cause`、`toReversed/with/toSpliced`、
+  `URL.parse/canParse`、`Intl.Segmenter`。评分器不再只看正则——它把候选代码 **import 进来真跑**，
+  真起 HTTP server、真做深拷贝、真按字素簇切。
+- **+2 消融题**（`wmg-057/058`）：与 `wmg-045/044` **共用同一份 fixture 与评分器**，
+  只把提示词里的 API 名字拿掉。用来测量「提示词给不给答案」这件事值多少分。
+- 全部 58 题重新标定（5/8/3/6 次采样），`expected_baseline` 与难度标签按实测回填。
+
+### 软件 v0.1.3
+
+**新增**
+
+- 行为型评分器模板 `VERIFY_BEHAVIORAL_TEMPLATE`：正则 + `behavior.mjs` 双闸
+- `tests/graders-behavioral.test.ts`：对每道行为题断言「原始 fixture 判不过 / 参考解判通过」
+  （参考解放在 `tests/fixtures/grader-solutions/`，不进任务集）
+- `tools/calibration-report.mjs`、`tools/baseline-from-db.mjs`、`tools/arm-matrix.mjs`、
+  `tools/inspect-task.mjs`：标定分布、逐题基线、逐题×逐臂矩阵、单题失败归因
+
+**修复**
+
+- `calibrate-web-guidance.mjs` 两个埋着的 bug：不筛 arm（会把 treatment 当 baseline 写进标定）、
+  `samples` 恒为 1。现在按 arm 过滤、按任务聚合，并支持 `--db=a,b,c` 多库合并
+- **单臂/两臂跑的输出是垃圾**：`--arms baseline` 会打印 `uplift 0pp / placebo -100pp` 并给出 A 级卡。
+  现在 `tier1` 只在三臂齐备时生成，否则打 `未做三臂对照（uncorrected）` + 各臂通过率。
+  这是协议 §1 硬约束 2 的直接执行
+- `wmg-057` 评分器把「声明式 popover」和「命令式 showPopover」两种正解各判错一次
+  （详见 `docs/16 §四.3`），现在用 alternation 表达「二者其一」
+
+**测试**：104 个（+19：行为评分器自检 17 条、任务集结构 2 条）
+
+**已知问题**
+
+- 天花板比例仍有 60%（35/58 题 baseline 100%）——加题不是解法，提示词才是；
+  判据写在 `docs/16 §七`
+- `wmg-044/058` 的正则判不了「首选 + 特性检测回退」，会把照技能做事的 treatment 判错；
+  下一轮用行为断言替代
+
+---
+
 ## 2026-11-13 · v0.1.2（激活率进卡片，榜单按条件分表）
 
 ### 协议 protocol/1.0.0
