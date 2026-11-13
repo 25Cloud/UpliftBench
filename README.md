@@ -171,6 +171,24 @@ to look at anyway, because a 1.27M-token retrieval corpus can cost 2,444 tokens 
 400k-token single skill costs all 400k. Write-up with the patterns behind those numbers:
 [docs/17-横向评测.md](docs/17-横向评测.md).
 
+### A control from the wrong domain
+
+The first question a reviewer asks is whether any skill would show a gain. We took the tiny
+`karpathy-guidelines` package, 644 tokens of generic coding advice and nothing about web APIs, and ran
+it against the 27 tasks that still had headroom. 243 runs, $22.92.
+
+| arm | pass rate |
+|---|---|
+| baseline | 48.1% |
+| placebo | 42.0% |
+| treatment | 46.9% |
+
+uplift +4.9pp, 95% CI [−3.7, +14.8], placebo effect −6.2pp. It loaded in all 81 treatment runs,
+because its description says "Use when writing, reviewing, or refactoring code" and every task is
+code. Generic advice is not worthless on coding tasks, but 27 tasks cannot tell +4.9pp from noise, and
+it never came close to the +36pp block. Whatever the instrument is measuring, it is not manufacturing
+gains.
+
 ### About that +27pp number
 
 `GoogleChrome/modern-web-guidance` is the only package in this ecosystem that published a number about
@@ -201,7 +219,7 @@ the earlier claims.
 
 Not that any particular skill is useless. One task set, one model, one harness per number.
 
-Not a cross-package ranking. Twelve packages have cards, five have three-arm numbers.
+Not a cross-package ranking. Twelve packages have cards, three have three-arm numbers.
 
 Not stable at small n. `wmg-064`'s baseline came out 0/3 in one batch and 2/3 in the next, same task,
 same model, same prompt. Single-task numbers stay in the lab.
@@ -293,7 +311,7 @@ gets translated.
 
 ## Status
 
-`protocol/1.0.0`, software `v0.2.2`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
+`protocol/1.0.0`, software `v0.2.3`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
 
 CI runs build, tests, task-set validation, a card schema check, a markdown link check, and the demo.
 Everything in `results/` and `site/` is generated from committed run databases, and every run's cost is

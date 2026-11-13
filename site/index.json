@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-13T13:00:27.440Z",
+  "generated_at": "2026-11-13T13:39:20.925Z",
   "protocol": "protocol/1.0.0",
   "count": 13,
   "cards": [
@@ -120,19 +120,34 @@
     {
       "repo": "multica-ai/andrej-karpathy-skills",
       "commit": "2c606141936f1eeef17fa3043a72095b4765b9c2",
-      "taskset": null,
-      "grader_tier": null,
-      "n": null,
-      "uplift_pp": null,
-      "headroom_closed": null,
-      "placebo_effect_pp": null,
-      "raw_gain_pp": null,
-      "ci95": null,
-      "activation": null,
-      "grade": "unrated",
+      "taskset": "web-guidance@1.4.0",
+      "grader_tier": "A",
+      "n": 27,
+      "uplift_pp": 4.94,
+      "headroom_closed": 0.0851,
+      "placebo_effect_pp": -6.17,
+      "raw_gain_pp": -1.23,
+      "ci95": [
+        -3.73,
+        14.81
+      ],
+      "activation": {
+        "mode": "auto",
+        "rate": 0.5679,
+        "by_arm": {
+          "placebo": 0.1358,
+          "treatment": 1
+        },
+        "preloaded_tokens_p50": null
+      },
+      "grade": "B",
       "total_tokens": 644,
       "largest_skill_tokens": 644,
-      "flags": [],
+      "flags": [
+        "n_lt_30",
+        "ci_crosses_zero",
+        "flaky_tasks"
+      ],
       "card_file": "results/karpathy-skills.json"
     },
     {

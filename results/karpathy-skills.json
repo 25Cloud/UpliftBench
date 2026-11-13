@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T11:44:41.532Z",
+  "generated_at": "2026-11-13T13:31:44.395Z",
   "skill": {
     "source": "github",
     "repo": "multica-ai/andrej-karpathy-skills",
@@ -77,9 +77,97 @@
       "declared_hooks": []
     }
   },
+  "tier1": {
+    "taskset": "web-guidance@1.4.0",
+    "grader_tier": "A",
+    "n": 27,
+    "arms": {
+      "baseline": {
+        "pass_rate": 0.4815,
+        "pass_rate_std": 0.0642
+      },
+      "placebo": {
+        "pass_rate": 0.4198,
+        "pass_rate_std": 0.0566
+      },
+      "treatment": {
+        "pass_rate": 0.4691,
+        "pass_rate_std": 0.0566
+      }
+    },
+    "metrics": {
+      "uplift_pp": 4.94,
+      "headroom_closed": 0.0851,
+      "raw_gain_pp": -1.23,
+      "placebo_effect_pp": -6.17,
+      "ci95": [
+        -3.73,
+        14.81
+      ]
+    },
+    "cost": {
+      "tokens_in_total": 795857,
+      "tokens_out_total": 46584,
+      "token_overhead_pct": 77.14,
+      "wall_time_p50_ms": 24180,
+      "wall_time_p95_ms": 79940,
+      "tool_calls_mean": 6.19,
+      "cost_usd_total": 22.92
+    },
+    "stability": {
+      "flaky_tasks": [
+        "wmg-038",
+        "wmg-030",
+        "wmg-043",
+        "wmg-041",
+        "wmg-011",
+        "wmg-044",
+        "wmg-027",
+        "wmg-058",
+        "wmg-037",
+        "wmg-064",
+        "wmg-045",
+        "wmg-061",
+        "wmg-017",
+        "wmg-034",
+        "wmg-042"
+      ],
+      "determinism_gain": 0.0076
+    },
+    "failures": {
+      "wrong_answer": 129,
+      "gave_up": 0,
+      "hallucinated": 0,
+      "constraint_violated": 0,
+      "broke_something": 0,
+      "timeout": 3,
+      "tool_error": 0,
+      "grader_error": 0
+    },
+    "activation": {
+      "mode": "auto",
+      "rate": 0.5679,
+      "by_arm": {
+        "placebo": 0.1358,
+        "treatment": 1
+      },
+      "preloaded_tokens_p50": null
+    },
+    "protocol_notes": [
+      "harness=openai-compat",
+      "model=glm-5.3-flash",
+      "repeats=3",
+      "activation=auto",
+      "runs_db=.uplift\\control-karpathy\\runs.db"
+    ]
+  },
   "verdict": {
-    "headline": "Tier 0 · 644 tok · 1 个技能",
-    "grade": "unrated",
-    "flags": []
+    "headline": "uplift +4.9pp  |  headroom 8.5%  |  N=27  |  95%CI [-3.7, 14.8]  |  B级  |  placebo_effect -6.2pp",
+    "grade": "B",
+    "flags": [
+      "n_lt_30",
+      "ci_crosses_zero",
+      "flaky_tasks"
+    ]
   }
 }
