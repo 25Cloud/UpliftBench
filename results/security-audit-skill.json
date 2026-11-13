@@ -1,0 +1,165 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T06:26:04.818Z",
+  "skill": {
+    "source": "github",
+    "repo": "cloudflare/security-audit-skill",
+    "commit": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+    "path": "benchmarks\\skills\\security-audit-skill\\skills",
+    "skill_count": 1,
+    "total_tokens": 79967
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 79967,
+      "context_tokens": 49910,
+      "tokenizer": "approx:weighted",
+      "file_count": 20,
+      "skill_count": 1,
+      "per_file": [
+        {
+          "path": "security-audit/validate-coverage-ledger.cjs",
+          "tokens": 8599,
+          "bytes": 34394
+        },
+        {
+          "path": "security-audit/validate-findings.cjs",
+          "tokens": 7395,
+          "bytes": 29579
+        },
+        {
+          "path": "security-audit/validate-coverage-ledger.test.cjs",
+          "tokens": 7306,
+          "bytes": 29223
+        },
+        {
+          "path": "security-audit/validate-findings.test.cjs",
+          "tokens": 6757,
+          "bytes": 27036
+        },
+        {
+          "path": "security-audit/HUNTING.md",
+          "tokens": 5672,
+          "bytes": 22697
+        },
+        {
+          "path": "security-audit/SKILL.md",
+          "tokens": 5546,
+          "bytes": 22218
+        },
+        {
+          "path": "security-audit/VALIDATION-AND-REPORTING.md",
+          "tokens": 4507,
+          "bytes": 18029
+        },
+        {
+          "path": "security-audit/RECONNAISSANCE.md",
+          "tokens": 4014,
+          "bytes": 16058
+        },
+        {
+          "path": "security-audit/ATTACK-CLASSES.md",
+          "tokens": 3951,
+          "bytes": 15825
+        },
+        {
+          "path": "security-audit/report-schema.json",
+          "tokens": 3739,
+          "bytes": 14955
+        },
+        {
+          "path": "security-audit/WEB-PROTOCOL-AND-AUTH.md",
+          "tokens": 3099,
+          "bytes": 12405
+        },
+        {
+          "path": "security-audit/AI-AND-LLM.md",
+          "tokens": 2674,
+          "bytes": 10700
+        },
+        {
+          "path": "security-audit/MEMORY-SAFETY-AND-BINARY.md",
+          "tokens": 2654,
+          "bytes": 10614
+        },
+        {
+          "path": "security-audit/DESKTOP-MOBILE-AND-LOCAL-IPC.md",
+          "tokens": 2207,
+          "bytes": 8828
+        },
+        {
+          "path": "security-audit/CLIENT-SIDE.md",
+          "tokens": 2170,
+          "bytes": 8677
+        },
+        {
+          "path": "security-audit/CLOUD-AND-DEPLOYMENT.md",
+          "tokens": 2095,
+          "bytes": 8377
+        },
+        {
+          "path": "security-audit/DATA-ISOLATION-AND-LIFECYCLE.md",
+          "tokens": 1971,
+          "bytes": 7882
+        },
+        {
+          "path": "security-audit/PROTOCOLS-RPC-AND-MESSAGING.md",
+          "tokens": 1889,
+          "bytes": 7564
+        },
+        {
+          "path": "security-audit/RESOURCE-EXHAUSTION-AND-AVAILABILITY.md",
+          "tokens": 1889,
+          "bytes": 7554
+        },
+        {
+          "path": "security-audit/SUPPLY-CHAIN-AND-RELEASE.md",
+          "tokens": 1833,
+          "bytes": 7331
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "over_by": 39910,
+        "over_pct": 399.1
+      },
+      "duplicates": [],
+      "structure": {
+        "headings": 140,
+        "lists": 388,
+        "code_blocks": 23
+      },
+      "warnings": [
+        "security-audit/validate-coverage-ledger.cjs 超过 5000 token（8599），多数 harness 会截断",
+        "security-audit/validate-findings.cjs 超过 5000 token（7395），多数 harness 会截断",
+        "security-audit/validate-coverage-ledger.test.cjs 超过 5000 token（7306），多数 harness 会截断",
+        "security-audit/validate-findings.test.cjs 超过 5000 token（6757），多数 harness 会截断",
+        "security-audit/HUNTING.md 超过 5000 token（5672），多数 harness 会截断",
+        "另有 1 个文件超单文件预算",
+        "注入上下文 49910 token，超出预算 10000（+39910）",
+        "包内脚本占 30057 token（38%），它们不进上下文"
+      ]
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": false,
+      "residual_delta_pp": null,
+      "leaked_paths": [
+        ".claude/settings.json"
+      ],
+      "note": "1 处残留：卸载后仍存在的注册表项 / hooks / 全局技能目录"
+    }
+  },
+  "verdict": {
+    "headline": "Tier 0 · 79,967 tok · 1 个技能",
+    "grade": "unrated",
+    "flags": [
+      "static_cost_over_budget",
+      "uninstall_residue"
+    ]
+  }
+}

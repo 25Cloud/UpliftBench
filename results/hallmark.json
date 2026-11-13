@@ -1,0 +1,659 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T06:26:05.286Z",
+  "skill": {
+    "source": "github",
+    "repo": "Nutlope/hallmark",
+    "commit": "04977e15f3dfd6ee4b74c887dac3eb52665d6c92",
+    "path": "benchmarks\\skills\\hallmark\\skills",
+    "skill_count": 1,
+    "total_tokens": 409006
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 409006,
+      "context_tokens": 292316,
+      "tokenizer": "approx:weighted",
+      "file_count": 119,
+      "skill_count": 1,
+      "per_file": [
+        {
+          "path": "hallmark/scripts/photos.json",
+          "tokens": 113128,
+          "bytes": 452868
+        },
+        {
+          "path": "hallmark/scripts/sloplint.mjs",
+          "tokens": 57902,
+          "bytes": 231740
+        },
+        {
+          "path": "hallmark/scripts/sloplint-render.mjs",
+          "tokens": 24988,
+          "bytes": 99965
+        },
+        {
+          "path": "hallmark/scripts/theme.mjs",
+          "tokens": 14847,
+          "bytes": 59476
+        },
+        {
+          "path": "hallmark/references/themes/index.json",
+          "tokens": 12763,
+          "bytes": 51051
+        },
+        {
+          "path": "hallmark/references/gates.md",
+          "tokens": 9745,
+          "bytes": 39061
+        },
+        {
+          "path": "hallmark/scripts/refcheck.mjs",
+          "tokens": 6128,
+          "bytes": 24529
+        },
+        {
+          "path": "hallmark/references/craft.md",
+          "tokens": 4813,
+          "bytes": 19279
+        },
+        {
+          "path": "hallmark/SKILL.md",
+          "tokens": 4542,
+          "bytes": 18239
+        },
+        {
+          "path": "hallmark/references/flow.md",
+          "tokens": 4176,
+          "bytes": 16750
+        },
+        {
+          "path": "hallmark/references/layout.md",
+          "tokens": 4064,
+          "bytes": 16258
+        },
+        {
+          "path": "hallmark/references/macrostructures.md",
+          "tokens": 3631,
+          "bytes": 14614
+        },
+        {
+          "path": "hallmark/references/imagery.md",
+          "tokens": 3583,
+          "bytes": 14343
+        },
+        {
+          "path": "hallmark/references/redesign.md",
+          "tokens": 3050,
+          "bytes": 12231
+        },
+        {
+          "path": "hallmark/references/patterns.md",
+          "tokens": 2732,
+          "bytes": 10928
+        },
+        {
+          "path": "hallmark/scripts/capture.mjs",
+          "tokens": 2415,
+          "bytes": 9659
+        },
+        {
+          "path": "hallmark/references/themes/bloom.md",
+          "tokens": 1999,
+          "bytes": 7995
+        },
+        {
+          "path": "hallmark/references/themes/cobalt.md",
+          "tokens": 1998,
+          "bytes": 7990
+        },
+        {
+          "path": "hallmark/references/themes/coral.md",
+          "tokens": 1992,
+          "bytes": 7966
+        },
+        {
+          "path": "hallmark/references/themes/dusk.md",
+          "tokens": 1989,
+          "bytes": 7955
+        },
+        {
+          "path": "hallmark/references/themes/refract.md",
+          "tokens": 1989,
+          "bytes": 7953
+        },
+        {
+          "path": "hallmark/references/themes/furrow.md",
+          "tokens": 1979,
+          "bytes": 7914
+        },
+        {
+          "path": "hallmark/references/themes/dose.md",
+          "tokens": 1978,
+          "bytes": 7912
+        },
+        {
+          "path": "hallmark/references/themes/ribbon.md",
+          "tokens": 1977,
+          "bytes": 7906
+        },
+        {
+          "path": "hallmark/references/themes/atelier.md",
+          "tokens": 1963,
+          "bytes": 7851
+        },
+        {
+          "path": "hallmark/references/themes/grid.md",
+          "tokens": 1951,
+          "bytes": 7803
+        },
+        {
+          "path": "hallmark/references/comp.md",
+          "tokens": 1914,
+          "bytes": 7669
+        },
+        {
+          "path": "hallmark/references/themes/README.md",
+          "tokens": 1912,
+          "bytes": 7649
+        },
+        {
+          "path": "hallmark/references/themes/studio.md",
+          "tokens": 1908,
+          "bytes": 7629
+        },
+        {
+          "path": "hallmark/references/themes/vellum.md",
+          "tokens": 1902,
+          "bytes": 7606
+        },
+        {
+          "path": "hallmark/references/themes/lumen.md",
+          "tokens": 1901,
+          "bytes": 7604
+        },
+        {
+          "path": "hallmark/references/themes/console.md",
+          "tokens": 1900,
+          "bytes": 7598
+        },
+        {
+          "path": "hallmark/references/themes/overprint.md",
+          "tokens": 1899,
+          "bytes": 7597
+        },
+        {
+          "path": "hallmark/references/themes/darkroom.md",
+          "tokens": 1898,
+          "bytes": 7591
+        },
+        {
+          "path": "hallmark/references/themes/carnival.md",
+          "tokens": 1897,
+          "bytes": 7588
+        },
+        {
+          "path": "hallmark/references/themes/riso.md",
+          "tokens": 1896,
+          "bytes": 7585
+        },
+        {
+          "path": "hallmark/references/themes/loom.md",
+          "tokens": 1895,
+          "bytes": 7578
+        },
+        {
+          "path": "hallmark/references/themes/squeeze.md",
+          "tokens": 1895,
+          "bytes": 7579
+        },
+        {
+          "path": "hallmark/references/themes/pasteup.md",
+          "tokens": 1892,
+          "bytes": 7568
+        },
+        {
+          "path": "hallmark/references/themes/terminal.md",
+          "tokens": 1891,
+          "bytes": 7564
+        },
+        {
+          "path": "hallmark/references/themes/blueprint.md",
+          "tokens": 1890,
+          "bytes": 7561
+        },
+        {
+          "path": "hallmark/references/themes/sticker.md",
+          "tokens": 1889,
+          "bytes": 7554
+        },
+        {
+          "path": "hallmark/references/themes/editorial.md",
+          "tokens": 1888,
+          "bytes": 7551
+        },
+        {
+          "path": "hallmark/references/direction.md",
+          "tokens": 1880,
+          "bytes": 7525
+        },
+        {
+          "path": "hallmark/references/themes/arcade.md",
+          "tokens": 1876,
+          "bytes": 7504
+        },
+        {
+          "path": "hallmark/references/themes/halftone.md",
+          "tokens": 1875,
+          "bytes": 7498
+        },
+        {
+          "path": "hallmark/references/themes/almanac.md",
+          "tokens": 1873,
+          "bytes": 7491
+        },
+        {
+          "path": "hallmark/references/themes/hum.md",
+          "tokens": 1872,
+          "bytes": 7485
+        },
+        {
+          "path": "hallmark/references/themes/kiln.md",
+          "tokens": 1867,
+          "bytes": 7467
+        },
+        {
+          "path": "hallmark/references/themes/formwork.md",
+          "tokens": 1861,
+          "bytes": 7444
+        },
+        {
+          "path": "hallmark/references/themes/werkstatt.md",
+          "tokens": 1861,
+          "bytes": 7441
+        },
+        {
+          "path": "hallmark/references/themes/sport.md",
+          "tokens": 1857,
+          "bytes": 7425
+        },
+        {
+          "path": "hallmark/references/themes/newsprint.md",
+          "tokens": 1843,
+          "bytes": 7373
+        },
+        {
+          "path": "hallmark/references/themes/broadside.md",
+          "tokens": 1840,
+          "bytes": 7360
+        },
+        {
+          "path": "hallmark/references/themes/ultraviolet.md",
+          "tokens": 1840,
+          "bytes": 7359
+        },
+        {
+          "path": "hallmark/references/themes/wayfind.md",
+          "tokens": 1838,
+          "bytes": 7351
+        },
+        {
+          "path": "hallmark/references/themes/ink.md",
+          "tokens": 1837,
+          "bytes": 7347
+        },
+        {
+          "path": "hallmark/references/themes/solstice.md",
+          "tokens": 1837,
+          "bytes": 7346
+        },
+        {
+          "path": "hallmark/references/themes/spore.md",
+          "tokens": 1828,
+          "bytes": 7312
+        },
+        {
+          "path": "hallmark/references/themes/vantage.md",
+          "tokens": 1824,
+          "bytes": 7295
+        },
+        {
+          "path": "hallmark/references/themes/manifesto.md",
+          "tokens": 1803,
+          "bytes": 7212
+        },
+        {
+          "path": "hallmark/references/themes/hedgerow.md",
+          "tokens": 1796,
+          "bytes": 7181
+        },
+        {
+          "path": "hallmark/references/themes/piste.md",
+          "tokens": 1771,
+          "bytes": 7082
+        },
+        {
+          "path": "hallmark/references/themes/brutal.md",
+          "tokens": 1767,
+          "bytes": 7065
+        },
+        {
+          "path": "hallmark/references/themes/garden.md",
+          "tokens": 1761,
+          "bytes": 7041
+        },
+        {
+          "path": "hallmark/references/anatomy.md",
+          "tokens": 1759,
+          "bytes": 7037
+        },
+        {
+          "path": "hallmark/references/themes/terrazzo.md",
+          "tokens": 1759,
+          "bytes": 7034
+        },
+        {
+          "path": "hallmark/references/themes/rim.md",
+          "tokens": 1755,
+          "bytes": 7018
+        },
+        {
+          "path": "hallmark/references/themes/midnight.md",
+          "tokens": 1750,
+          "bytes": 6998
+        },
+        {
+          "path": "hallmark/references/themes/specimen.md",
+          "tokens": 1720,
+          "bytes": 6880
+        },
+        {
+          "path": "hallmark/scripts/fixtures/imagegen/imagegen.test.mjs",
+          "tokens": 1675,
+          "bytes": 6700
+        },
+        {
+          "path": "hallmark/references/microinteractions.md",
+          "tokens": 1620,
+          "bytes": 6484
+        },
+        {
+          "path": "hallmark/scripts/picture.mjs",
+          "tokens": 1605,
+          "bytes": 6423
+        },
+        {
+          "path": "hallmark/references/export-formats.md",
+          "tokens": 1574,
+          "bytes": 6294
+        },
+        {
+          "path": "hallmark/references/scroll-choreography.md",
+          "tokens": 1521,
+          "bytes": 6099
+        },
+        {
+          "path": "hallmark/references/texture.md",
+          "tokens": 1519,
+          "bytes": 6082
+        },
+        {
+          "path": "hallmark/scripts/install.mjs",
+          "tokens": 1518,
+          "bytes": 6073
+        },
+        {
+          "path": "hallmark/references/interaction-and-states.md",
+          "tokens": 1508,
+          "bytes": 6034
+        },
+        {
+          "path": "hallmark/references/fonts.md",
+          "tokens": 1326,
+          "bytes": 5302
+        },
+        {
+          "path": "hallmark/scripts/capture.test.mjs",
+          "tokens": 1100,
+          "bytes": 4400
+        },
+        {
+          "path": "hallmark/scripts/imagegen.mjs",
+          "tokens": 1042,
+          "bytes": 4165
+        },
+        {
+          "path": "hallmark/scripts/sloplint-render.test.mjs",
+          "tokens": 985,
+          "bytes": 3940
+        },
+        {
+          "path": "hallmark/references/dark-mode.md",
+          "tokens": 980,
+          "bytes": 3919
+        },
+        {
+          "path": "hallmark/references/review-finish.md",
+          "tokens": 966,
+          "bytes": 3865
+        },
+        {
+          "path": "hallmark/references/brand-truth.md",
+          "tokens": 921,
+          "bytes": 3685
+        },
+        {
+          "path": "hallmark/references/responsive.md",
+          "tokens": 876,
+          "bytes": 3504
+        },
+        {
+          "path": "hallmark/references/data-viz.md",
+          "tokens": 849,
+          "bytes": 3398
+        },
+        {
+          "path": "hallmark/scripts/install-hook.mjs",
+          "tokens": 769,
+          "bytes": 3075
+        },
+        {
+          "path": "hallmark/references/design-md.md",
+          "tokens": 760,
+          "bytes": 3061
+        },
+        {
+          "path": "hallmark/scripts/lint-hook.mjs",
+          "tokens": 651,
+          "bytes": 2603
+        },
+        {
+          "path": "hallmark/references/review-hero.md",
+          "tokens": 637,
+          "bytes": 2548
+        },
+        {
+          "path": "hallmark/scripts/theme.test.mjs",
+          "tokens": 568,
+          "bytes": 2272
+        },
+        {
+          "path": "hallmark/references/macrostructures/14-narrative-workflow.md",
+          "tokens": 524,
+          "bytes": 2096
+        },
+        {
+          "path": "hallmark/scripts/reroll-exhaustion.test.mjs",
+          "tokens": 497,
+          "bytes": 1985
+        },
+        {
+          "path": "hallmark/references/macrostructures/07-manifesto.md",
+          "tokens": 483,
+          "bytes": 1931
+        },
+        {
+          "path": "hallmark/references/macrostructures/04-stat-led.md",
+          "tokens": 480,
+          "bytes": 1923
+        },
+        {
+          "path": "hallmark/references/macrostructures/02-long-document.md",
+          "tokens": 457,
+          "bytes": 1833
+        },
+        {
+          "path": "hallmark/references/macrostructures/16-feature-stack.md",
+          "tokens": 437,
+          "bytes": 1753
+        },
+        {
+          "path": "hallmark/references/macrostructures/05-workbench.md",
+          "tokens": 417,
+          "bytes": 1671
+        },
+        {
+          "path": "hallmark/references/genres/atmospheric.md",
+          "tokens": 416,
+          "bytes": 1664
+        },
+        {
+          "path": "hallmark/references/macrostructures/09-quote-led.md",
+          "tokens": 416,
+          "bytes": 1666
+        },
+        {
+          "path": "hallmark/references/macrostructures/03-marquee-hero.md",
+          "tokens": 412,
+          "bytes": 1649
+        },
+        {
+          "path": "hallmark/references/genres/playful.md",
+          "tokens": 403,
+          "bytes": 1610
+        },
+        {
+          "path": "hallmark/references/genres/modern-minimal.md",
+          "tokens": 388,
+          "bytes": 1551
+        },
+        {
+          "path": "hallmark/references/macrostructures/08-photographic.md",
+          "tokens": 388,
+          "bytes": 1554
+        },
+        {
+          "path": "hallmark/references/macrostructures/01-bento-grid.md",
+          "tokens": 387,
+          "bytes": 1554
+        },
+        {
+          "path": "hallmark/references/macrostructures/06-conversational-faq.md",
+          "tokens": 382,
+          "bytes": 1530
+        },
+        {
+          "path": "hallmark/references/macrostructures/10-specimen.md",
+          "tokens": 382,
+          "bytes": 1527
+        },
+        {
+          "path": "hallmark/references/macrostructures/11-catalogue.md",
+          "tokens": 374,
+          "bytes": 1495
+        },
+        {
+          "path": "hallmark/references/macrostructures/19-map-diagram.md",
+          "tokens": 374,
+          "bytes": 1497
+        },
+        {
+          "path": "hallmark/references/macrostructures/15-split-studio.md",
+          "tokens": 356,
+          "bytes": 1426
+        },
+        {
+          "path": "hallmark/references/genres/editorial.md",
+          "tokens": 343,
+          "bytes": 1372
+        },
+        {
+          "path": "hallmark/references/macrostructures/20-ecosystem-index.md",
+          "tokens": 329,
+          "bytes": 1315
+        },
+        {
+          "path": "hallmark/references/macrostructures/21-component-playground.md",
+          "tokens": 329,
+          "bytes": 1315
+        },
+        {
+          "path": "hallmark/references/macrostructures/12-letter.md",
+          "tokens": 320,
+          "bytes": 1282
+        },
+        {
+          "path": "hallmark/references/macrostructures/13-index-first.md",
+          "tokens": 309,
+          "bytes": 1237
+        },
+        {
+          "path": "hallmark/references/macrostructures/17-type-specimen.md",
+          "tokens": 303,
+          "bytes": 1211
+        },
+        {
+          "path": "hallmark/references/macrostructures/18-portfolio-grid.md",
+          "tokens": 294,
+          "bytes": 1177
+        },
+        {
+          "path": "hallmark/agents/openai.yaml",
+          "tokens": 97,
+          "bytes": 386
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "over_by": 282316,
+        "over_pct": 2823.2
+      },
+      "duplicates": [],
+      "structure": {
+        "headings": 749,
+        "lists": 1632,
+        "code_blocks": 216
+      },
+      "warnings": [
+        "hallmark/scripts/photos.json 超过 5000 token（113128），多数 harness 会截断",
+        "hallmark/scripts/sloplint.mjs 超过 5000 token（57902），多数 harness 会截断",
+        "hallmark/scripts/sloplint-render.mjs 超过 5000 token（24988），多数 harness 会截断",
+        "hallmark/scripts/theme.mjs 超过 5000 token（14847），多数 harness 会截断",
+        "hallmark/references/themes/index.json 超过 5000 token（12763），多数 harness 会截断",
+        "另有 2 个文件超单文件预算",
+        "注入上下文 292316 token，超出预算 10000（+282316）"
+      ]
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": false,
+      "residual_delta_pp": null,
+      "leaked_paths": [
+        ".claude/settings.json"
+      ],
+      "note": "1 处残留：卸载后仍存在的注册表项 / hooks / 全局技能目录"
+    }
+  },
+  "verdict": {
+    "headline": "Tier 0 · 409,006 tok · 1 个技能",
+    "grade": "unrated",
+    "flags": [
+      "static_cost_over_budget",
+      "uninstall_residue"
+    ]
+  }
+}

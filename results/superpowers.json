@@ -1,0 +1,423 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T06:27:06.613Z",
+  "skill": {
+    "source": "github",
+    "repo": "obra/superpowers",
+    "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+    "path": "benchmarks\\skills\\superpowers\\skills",
+    "skill_count": 15,
+    "total_tokens": 100774
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 100774,
+      "context_tokens": 87126,
+      "tokenizer": "approx:weighted",
+      "file_count": 72,
+      "skill_count": 15,
+      "per_file": [
+        {
+          "path": "writing-skills/references/anthropic-best-practices.md",
+          "tokens": 11514,
+          "bytes": 46197
+        },
+        {
+          "path": "brainstorming/scripts/server.cjs",
+          "tokens": 6603,
+          "bytes": 26422
+        },
+        {
+          "path": "subagent-driven-development/SKILL.md",
+          "tokens": 4907,
+          "bytes": 19740
+        },
+        {
+          "path": "executing-plans/SKILL.md",
+          "tokens": 4565,
+          "bytes": 18364
+        },
+        {
+          "path": "writing-skills/SKILL.md",
+          "tokens": 4175,
+          "bytes": 16738
+        },
+        {
+          "path": "brainstorming/SKILL.md",
+          "tokens": 3798,
+          "bytes": 15190
+        },
+        {
+          "path": "brainstorming/visual-companion.md",
+          "tokens": 3334,
+          "bytes": 13413
+        },
+        {
+          "path": "writing-skills/references/testing-skills-with-subagents.md",
+          "tokens": 3133,
+          "bytes": 12557
+        },
+        {
+          "path": "writing-plans/SKILL.md",
+          "tokens": 2580,
+          "bytes": 10335
+        },
+        {
+          "path": "test-driven-development/SKILL.md",
+          "tokens": 2389,
+          "bytes": 9578
+        },
+        {
+          "path": "systematic-debugging/SKILL.md",
+          "tokens": 2377,
+          "bytes": 9530
+        },
+        {
+          "path": "subagent-driven-development/task-reviewer-prompt.md",
+          "tokens": 2277,
+          "bytes": 9175
+        },
+        {
+          "path": "test-driven-development/writing-good-tests.md",
+          "tokens": 2053,
+          "bytes": 8268
+        },
+        {
+          "path": "finishing-a-development-branch/SKILL.md",
+          "tokens": 1933,
+          "bytes": 7781
+        },
+        {
+          "path": "writing-skills/references/discovery.md",
+          "tokens": 1891,
+          "bytes": 7616
+        },
+        {
+          "path": "brainstorming/scripts/start-server.sh",
+          "tokens": 1828,
+          "bytes": 7315
+        },
+        {
+          "path": "diagnosing-superpowers/SKILL.md",
+          "tokens": 1730,
+          "bytes": 6941
+        },
+        {
+          "path": "using-git-worktrees/SKILL.md",
+          "tokens": 1701,
+          "bytes": 6813
+        },
+        {
+          "path": "requesting-code-review/code-reviewer.md",
+          "tokens": 1610,
+          "bytes": 6449
+        },
+        {
+          "path": "subagent-driven-development/implementer-prompt.md",
+          "tokens": 1581,
+          "bytes": 6335
+        },
+        {
+          "path": "receiving-code-review/SKILL.md",
+          "tokens": 1542,
+          "bytes": 6203
+        },
+        {
+          "path": "dispatching-parallel-agents/SKILL.md",
+          "tokens": 1513,
+          "bytes": 6078
+        },
+        {
+          "path": "writing-skills/references/persuasion-principles.md",
+          "tokens": 1469,
+          "bytes": 5901
+        },
+        {
+          "path": "brainstorming/scripts/helper.js",
+          "tokens": 1402,
+          "bytes": 5615
+        },
+        {
+          "path": "writing-skills/references/CLAUDE_MD_TESTING.md",
+          "tokens": 1356,
+          "bytes": 5423
+        },
+        {
+          "path": "systematic-debugging/root-cause-tracing.md",
+          "tokens": 1329,
+          "bytes": 5321
+        },
+        {
+          "path": "systematic-debugging/condition-based-waiting-example.ts",
+          "tokens": 1263,
+          "bytes": 5054
+        },
+        {
+          "path": "writing-skills/render-graphs.js",
+          "tokens": 1242,
+          "bytes": 4968
+        },
+        {
+          "path": "subagent-driven-development/re-review-prompt.md",
+          "tokens": 1201,
+          "bytes": 4833
+        },
+        {
+          "path": "using-superpowers/references/codex-tools.md",
+          "tokens": 1183,
+          "bytes": 4762
+        },
+        {
+          "path": "using-superpowers/references/gemini-tools.md",
+          "tokens": 1149,
+          "bytes": 4598
+        },
+        {
+          "path": "subagent-driven-development/references/fix-loop.md",
+          "tokens": 1069,
+          "bytes": 4314
+        },
+        {
+          "path": "diagnosing-superpowers/templates/bundle-README.md",
+          "tokens": 913,
+          "bytes": 3672
+        },
+        {
+          "path": "systematic-debugging/defense-in-depth.md",
+          "tokens": 912,
+          "bytes": 3650
+        },
+        {
+          "path": "verification-before-completion/SKILL.md",
+          "tokens": 900,
+          "bytes": 3646
+        },
+        {
+          "path": "systematic-debugging/condition-based-waiting.md",
+          "tokens": 875,
+          "bytes": 3516
+        },
+        {
+          "path": "brainstorming/scripts/stop-server.sh",
+          "tokens": 816,
+          "bytes": 3263
+        },
+        {
+          "path": "using-superpowers/SKILL.md",
+          "tokens": 795,
+          "bytes": 3192
+        },
+        {
+          "path": "diagnosing-superpowers/templates/case.md",
+          "tokens": 745,
+          "bytes": 2983
+        },
+        {
+          "path": "requesting-code-review/SKILL.md",
+          "tokens": 743,
+          "bytes": 2974
+        },
+        {
+          "path": "diagnosing-superpowers/templates/issue.md",
+          "tokens": 670,
+          "bytes": 2680
+        },
+        {
+          "path": "writing-skills/references/bulletproofing.md",
+          "tokens": 644,
+          "bytes": 2577
+        },
+        {
+          "path": "subagent-driven-development/references/final-review.md",
+          "tokens": 641,
+          "bytes": 2576
+        },
+        {
+          "path": "diagnosing-superpowers/templates/report.md",
+          "tokens": 588,
+          "bytes": 2359
+        },
+        {
+          "path": "diagnosing-superpowers/references/redaction-policy.md",
+          "tokens": 561,
+          "bytes": 2243
+        },
+        {
+          "path": "systematic-debugging/find-polluter.sh",
+          "tokens": 494,
+          "bytes": 1986
+        },
+        {
+          "path": "using-superpowers/references/hermes-tools.md",
+          "tokens": 491,
+          "bytes": 1964
+        },
+        {
+          "path": "using-superpowers/references/muse-tools.md",
+          "tokens": 477,
+          "bytes": 1908
+        },
+        {
+          "path": "diagnosing-superpowers/references/session-discovery.md",
+          "tokens": 465,
+          "bytes": 1859
+        },
+        {
+          "path": "diagnosing-superpowers/prompts/similar-session.md",
+          "tokens": 424,
+          "bytes": 1711
+        },
+        {
+          "path": "diagnosing-superpowers/prompts/skill-timeline.md",
+          "tokens": 412,
+          "bytes": 1646
+        },
+        {
+          "path": "diagnosing-superpowers/prompts/cost-and-time.md",
+          "tokens": 410,
+          "bytes": 1640
+        },
+        {
+          "path": "diagnosing-superpowers/prompts/plan-adherence.md",
+          "tokens": 410,
+          "bytes": 1637
+        },
+        {
+          "path": "diagnosing-superpowers/references/github-issues.md",
+          "tokens": 409,
+          "bytes": 1636
+        },
+        {
+          "path": "diagnosing-superpowers/prompts/analyst-common.md",
+          "tokens": 395,
+          "bytes": 1582
+        },
+        {
+          "path": "using-superpowers/references/antigravity-tools.md",
+          "tokens": 372,
+          "bytes": 1495
+        },
+        {
+          "path": "diagnosing-superpowers/prompts/quality-evidence.md",
+          "tokens": 369,
+          "bytes": 1476
+        },
+        {
+          "path": "diagnosing-superpowers/prompts/repeated-work.md",
+          "tokens": 368,
+          "bytes": 1469
+        },
+        {
+          "path": "diagnosing-superpowers/prompts/scrub.md",
+          "tokens": 367,
+          "bytes": 1471
+        },
+        {
+          "path": "using-superpowers/references/claude-code-tools.md",
+          "tokens": 366,
+          "bytes": 1469
+        },
+        {
+          "path": "diagnosing-superpowers/prompts/scrub-audit.md",
+          "tokens": 340,
+          "bytes": 1363
+        },
+        {
+          "path": "subagent-driven-development/references/preflight.md",
+          "tokens": 336,
+          "bytes": 1353
+        },
+        {
+          "path": "diagnosing-superpowers/prompts/stumbles.md",
+          "tokens": 333,
+          "bytes": 1330
+        },
+        {
+          "path": "writing-skills/references/flowcharts.md",
+          "tokens": 314,
+          "bytes": 1262
+        },
+        {
+          "path": "using-superpowers/references/pi-tools.md",
+          "tokens": 311,
+          "bytes": 1242
+        },
+        {
+          "path": "subagent-driven-development/references/handling-reports.md",
+          "tokens": 266,
+          "bytes": 1062
+        },
+        {
+          "path": "diagnosing-superpowers/prompts/request-conflicts.md",
+          "tokens": 253,
+          "bytes": 1011
+        },
+        {
+          "path": "diagnosing-superpowers/references/context-safety.md",
+          "tokens": 247,
+          "bytes": 990
+        },
+        {
+          "path": "brainstorming/builder-check-prompt.md",
+          "tokens": 221,
+          "bytes": 881
+        },
+        {
+          "path": "subagent-driven-development/references/resuming.md",
+          "tokens": 152,
+          "bytes": 614
+        },
+        {
+          "path": "subagent-driven-development/references/batching.md",
+          "tokens": 145,
+          "bytes": 583
+        },
+        {
+          "path": "subagent-driven-development/references/cannot-verify.md",
+          "tokens": 127,
+          "bytes": 513
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "basis": "largest_skill",
+        "subject_tokens": 25738,
+        "over_by": 15738,
+        "over_pct": 157.4,
+        "package_over_by": 77126,
+        "largest_skill_tokens": 25738
+      },
+      "duplicates": [],
+      "structure": {
+        "headings": 599,
+        "lists": 1348,
+        "code_blocks": 238
+      },
+      "warnings": [
+        "writing-skills/references/anthropic-best-practices.md 超过 5000 token（11514），多数 harness 会截断",
+        "brainstorming/scripts/server.cjs 超过 5000 token（6603），多数 harness 会截断",
+        "最大的单个技能 25738 token，超出注入预算 10000（+15738）",
+        "15 个技能模块，SkillsBench 结论是 ≤3 个模块更优"
+      ]
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": true,
+      "residual_delta_pp": null,
+      "leaked_paths": [],
+      "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
+      "declared_hooks": []
+    }
+  },
+  "verdict": {
+    "headline": "Tier 0 · 100,774 tok · 15 个技能",
+    "grade": "unrated",
+    "flags": [
+      "static_cost_over_budget"
+    ]
+  }
+}

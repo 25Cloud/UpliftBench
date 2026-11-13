@@ -44,10 +44,28 @@ describe('探针 1：静态开销', () => {
     expect(res.warnings.some((w) => w.includes('超出预算'))).toBe(true);
   });
 
-  it('total 与 context 分别统计', async () => {
-    const res = await runStaticCost(tmp);
-    expect(res.context_tokens).toBeLessThanOrEqual(res.total_tokens);
-    expect(res.context_tokens).toBeGreaterThan(0);
+  it('多技能包按「最大单技能」判定预算（不是整包）', async () => {
+    const dir = await fsp.mkdtemp(path.join(os.tmpdir(), 'uplift-multi-budget-'));
+    for (const name of ['small', 'big']) {
+      await fsp.mkdir(path.join(dir, 'skills', name), { recursive: true });
+      const filler = name === 'big' ? 'x '.repeat(2000) : 'y ';
+      await fsp.writeFile(
+        path.join(dir, 'skills', name, 'SKILL.md'),
+        `---\nname: ${name}\ndescription: ${name}\n---\n\n# ${name}\n\n${filler}\n`
+      );
+    }
+    const res = await runStaticCost(dir, { budget: 100 });
+    expect(res.budget.basis).toBe('largest_skill');
+    expect(res.budget.largest_skill_tokens).toBeGreaterThan(100);
+    expect(res.budget.subject_tokens).toBe(res.budget.largest_skill_tokens);
+    expect(res.budget.package_over_by).toBeGreaterThanOrEqual(res.budget.over_by);
+    await fsp.rm(dir, { recursive: true, force: true });
+  });
+
+  it('单个技能包按整包判定预算', async () => {
+    const res = await runStaticCost(tmp, { budget: 100 });
+    expect(res.budget.basis).toBe('package');
+    expect(res.budget.subject_tokens).toBe(res.context_tokens);
   });
 
   it('统计 markdown 结构', async () => {

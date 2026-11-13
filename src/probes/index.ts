@@ -79,7 +79,7 @@ export async function runProbes(opts: ProbeOptions): Promise<ProbeBundle> {
     log('uninstall-clean');
     tier0.uninstall_clean = (await runUninstallClean({
       skills,
-      workspace: path.join(opts.cwd, '.uplift', 'uninstall-ws'),
+      packageRoot: opts.skillPath,
       timeoutSec: opts.timeoutSec
     })) as UninstallCleanProbe;
   }

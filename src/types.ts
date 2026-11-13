@@ -46,7 +46,17 @@ export interface StaticCostProbe extends ProbeBase {
   file_count: number;
   skill_count: number;
   per_file: Array<{ path: string; tokens: number; bytes: number }>;
-  budget: { limit: number; over_by: number; over_pct: number };
+  budget: {
+    limit: number;
+    /** package = 按整包上下文判定；largest_skill = 按最大单技能判定（多技能包的默认口径） */
+    basis: 'package' | 'largest_skill';
+    subject_tokens: number;
+    over_by: number;
+    over_pct: number;
+    /** 整包上下文超预算的部分（信息性，不参与判定） */
+    package_over_by: number;
+    largest_skill_tokens: number;
+  };
   duplicates: Array<{ hash: string; files: string[]; wasted_tokens: number }>;
   structure: { headings: number; lists: number; code_blocks: number };
   warnings: string[];

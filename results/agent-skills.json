@@ -1,0 +1,229 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T06:27:06.290Z",
+  "skill": {
+    "source": "github",
+    "repo": "addyosmani/agent-skills",
+    "commit": "301b02b12bff98e4688e6984af6556802322bbde",
+    "path": "benchmarks\\skills\\agent-skills\\skills",
+    "skill_count": 25,
+    "total_tokens": 102303
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 102303,
+      "context_tokens": 101735,
+      "tokenizer": "approx:weighted",
+      "file_count": 33,
+      "skill_count": 25,
+      "per_file": [
+        {
+          "path": "constraint-driven-development/SKILL.md",
+          "tokens": 5541,
+          "bytes": 22216
+        },
+        {
+          "path": "code-review-and-quality/SKILL.md",
+          "tokens": 5297,
+          "bytes": 21263
+        },
+        {
+          "path": "idea-refine/examples.md",
+          "tokens": 5046,
+          "bytes": 20284
+        },
+        {
+          "path": "security-and-hardening/SKILL.md",
+          "tokens": 4388,
+          "bytes": 17578
+        },
+        {
+          "path": "doubt-driven-development/SKILL.md",
+          "tokens": 4166,
+          "bytes": 16753
+        },
+        {
+          "path": "test-driven-development/SKILL.md",
+          "tokens": 4155,
+          "bytes": 16845
+        },
+        {
+          "path": "performance-optimization/SKILL.md",
+          "tokens": 4151,
+          "bytes": 16783
+        },
+        {
+          "path": "interview-me/SKILL.md",
+          "tokens": 3759,
+          "bytes": 15080
+        },
+        {
+          "path": "context-engineering/SKILL.md",
+          "tokens": 3741,
+          "bytes": 15514
+        },
+        {
+          "path": "api-and-interface-design/SKILL.md",
+          "tokens": 3715,
+          "bytes": 14938
+        },
+        {
+          "path": "git-workflow-and-versioning/SKILL.md",
+          "tokens": 3531,
+          "bytes": 14403
+        },
+        {
+          "path": "browser-testing-with-devtools/SKILL.md",
+          "tokens": 3509,
+          "bytes": 14640
+        },
+        {
+          "path": "observability-and-instrumentation/SKILL.md",
+          "tokens": 3473,
+          "bytes": 13948
+        },
+        {
+          "path": "code-simplification/SKILL.md",
+          "tokens": 3418,
+          "bytes": 13719
+        },
+        {
+          "path": "security-and-hardening/references/hardening-patterns.md",
+          "tokens": 3303,
+          "bytes": 13352
+        },
+        {
+          "path": "spec-driven-development/SKILL.md",
+          "tokens": 3250,
+          "bytes": 13099
+        },
+        {
+          "path": "deprecation-and-migration/SKILL.md",
+          "tokens": 3183,
+          "bytes": 12839
+        },
+        {
+          "path": "frontend-ui-engineering/SKILL.md",
+          "tokens": 2980,
+          "bytes": 11950
+        },
+        {
+          "path": "shipping-and-launch/SKILL.md",
+          "tokens": 2834,
+          "bytes": 11540
+        },
+        {
+          "path": "ci-cd-and-automation/SKILL.md",
+          "tokens": 2797,
+          "bytes": 11512
+        },
+        {
+          "path": "documentation-and-adrs/SKILL.md",
+          "tokens": 2742,
+          "bytes": 10999
+        },
+        {
+          "path": "constraint-driven-development/references/floor-guard.md",
+          "tokens": 2674,
+          "bytes": 10701
+        },
+        {
+          "path": "debugging-and-error-recovery/SKILL.md",
+          "tokens": 2632,
+          "bytes": 10893
+        },
+        {
+          "path": "planning-and-task-breakdown/SKILL.md",
+          "tokens": 2620,
+          "bytes": 10564
+        },
+        {
+          "path": "source-driven-development/SKILL.md",
+          "tokens": 2508,
+          "bytes": 10104
+        },
+        {
+          "path": "using-agent-skills/SKILL.md",
+          "tokens": 2446,
+          "bytes": 10446
+        },
+        {
+          "path": "performance-optimization/references/optimization-patterns.md",
+          "tokens": 2420,
+          "bytes": 9692
+        },
+        {
+          "path": "idea-refine/SKILL.md",
+          "tokens": 2344,
+          "bytes": 9404
+        },
+        {
+          "path": "incremental-implementation/SKILL.md",
+          "tokens": 2333,
+          "bytes": 9629
+        },
+        {
+          "path": "idea-refine/refinement-criteria.md",
+          "tokens": 1430,
+          "bytes": 5738
+        },
+        {
+          "path": "idea-refine/frameworks.md",
+          "tokens": 1349,
+          "bytes": 5404
+        },
+        {
+          "path": "constraint-driven-development/scripts/quality-gate.mjs",
+          "tokens": 482,
+          "bytes": 1927
+        },
+        {
+          "path": "idea-refine/scripts/idea-refine.sh",
+          "tokens": 86,
+          "bytes": 342
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "basis": "largest_skill",
+        "subject_tokens": 10255,
+        "over_by": 255,
+        "over_pct": 2.5,
+        "package_over_by": 91735,
+        "largest_skill_tokens": 10255
+      },
+      "duplicates": [],
+      "structure": {
+        "headings": 732,
+        "lists": 1721,
+        "code_blocks": 242
+      },
+      "warnings": [
+        "constraint-driven-development/SKILL.md 超过 5000 token（5541），多数 harness 会截断",
+        "code-review-and-quality/SKILL.md 超过 5000 token（5297），多数 harness 会截断",
+        "idea-refine/examples.md 超过 5000 token（5046），多数 harness 会截断",
+        "最大的单个技能 10255 token，超出注入预算 10000（+255）",
+        "25 个技能模块，SkillsBench 结论是 ≤3 个模块更优"
+      ]
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": true,
+      "residual_delta_pp": null,
+      "leaked_paths": [],
+      "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
+      "declared_hooks": []
+    }
+  },
+  "verdict": {
+    "headline": "Tier 0 · 102,303 tok · 25 个技能",
+    "grade": "unrated",
+    "flags": [
+      "static_cost_over_budget"
+    ]
+  }
+}

@@ -4,11 +4,13 @@
 
 > 一句话：**我们不改题，我们定义「怎么算分」。**
 
+![uplift](results/agent-skills.badge.svg)
+
 ---
 
 ## 这是什么
 
-UpliftBench 是一个测量 **Agent Skills（技能包）** 真实效果的基准与工具链。
+UpliftBench 测量 **Agent Skills（技能包）** 的真实效果。
 
 它不生产技能，也不拥有题库。它提供三样东西：
 
@@ -16,104 +18,194 @@ UpliftBench 是一个测量 **Agent Skills（技能包）** 真实效果的基�
 2. **六个通用探针（Tier 0）** —— 与领域无关，任意技能包秒级可测
 3. **一个联邦题库格式（Tier 1）** —— 谁都能交题，我们不垄断任务集
 
-输出物是一张 **SkillCard**（雷达卡 + 一个 headline 数字），不是一个孤零零的分数。
+输出物是一张 **SkillCard**（一张卡 + 一个 headline 数字 + 一个能贴进 README 的 badge）。
 
 ---
 
 ## 为什么需要它
 
-2026 年 10–11 月，GitHub Trending 上出现了一个从未有过的现象：**技能包（SKILL.md）成了最大的单一品类**。
+技能包是纯 Markdown，改动零成本，所以数量会爆炸；但**没人知道哪个真有用**。
 
-30 天窗口内抓到的 135 个上榜仓库里，约 19% 是技能包，而且 Anthropic、Google、Cloudflare、NVIDIA、Meta、AWS、Chrome 全部在 30 天内发了自己的技能包。
-
-但整个生态有一个荒谬的空白：
-
-- `addyosmani/agent-skills` —— **116,785 星，一个效果数字都没有**
-- `cloudflare/security-audit-skill` —— 卖点是「independently verified」，但没人验证它
-- `GoogleChrome/modern-web-guidance-src` —— 全生态**唯一**公开 uplift 数字（+27~36pp），就靠这张表登顶 Trending
+| 事实 | 数据 |
+|---|---|
+| 星数最高的技能包拿不出任何效果数字 | `addyosmani/agent-skills` 116k★，README 里 0 个 uplift 数值 |
+| 唯一公开数字的技能包，靠这个数字登顶 Trending | `GoogleChrome/modern-web-guidance-src`，+27~36pp |
+| 卖「可独立验证」的技能包，自己没被验证 | `cloudflare/security-audit-skill` |
 
 **数字就是信任货币。而整个生态在裸奔。**
 
 ---
 
-## 和 SkillsBench 的关系（必读）
+## 核心：为什么是「三臂」而不是「两臂」
 
-`SkillsBench`（[arXiv 2602.12670](https://arxiv.org/abs/2602.12670)，[benchflow-ai/skillsbench](https://github.com/benchflow-ai/skillsbench)）已经证明了配对评测这条路是对的，并且给出了第一组硬数字（33.9% → 50.5%，+16.6pp）。
+只做「无技能 vs 有技能」，测到的是：
 
-**我们不重复它，我们补它缺的三刀：**
+```
+观测差异 = 技能真实效果 + 「多塞了 token」的效果 + 噪声
+```
 
-| 维度 | SkillsBench | UpliftBench |
-|---|---|---|
-| 对照臂 | 两臂（无技能 / 有技能） | **三臂**（+ 安慰剂臂） |
-| 覆盖范围 | 87 个手写任务 / 8 领域 | **Tier 0 六探针覆盖任意技能包** |
-| 题库所有权 | 固定封闭清单 | **联邦：`taskset.json` 开放提交** |
-| 输出 | 排行榜分数 | **SkillCard（卡 + 分级 + 置信区间）** |
-| 测量对象 | 研究者自建的 curated Skills | **真实发布的技能包** |
+往上下文里多塞 12,000 token，本身就会改变模型行为。所以第三臂装**等 token 量的中性文本**：
 
-**核心差异一句话：SkillsBench 回答「技能有没有用」，UpliftBench 回答「这个技能到底贡献了多少、它安全吗、它值不值得装」。**
+```
+uplift_pp       = pass_rate(treatment) − pass_rate(placebo)      # 净增益
+placebo_effect  = pass_rate(placebo)  − pass_rate(baseline)      # 「长度值多少分」，本身也是指标
+raw_gain_pp     = pass_rate(treatment) − pass_rate(baseline)     # 未校正，不得单独进榜
+headroom_closed = uplift_pp / (1 − pass_rate(placebo))           # 填掉了多少剩余空间
+```
+
+`placebo_effect` 必须公开。一个 `placebo +20pp` 而 `uplift +2pp` 的技能包，
+等于什么都没做，只是把上下文撑长了——这个信息必须一眼可见。
+
+详见 [docs/02-协议规范.md](docs/02-协议规范.md)。
 
 ---
 
-## 30 秒上手（目标形态）
+## 快速上手
 
 ```bash
-# Tier 0：任何技能包，秒级，不调模型
-uplift probe ./agent-skills
+git clone <this repo> && cd UpliftBench
+pnpm install
+pnpm build
+pnpm test                     # 70 个单测
 
-# Tier 1：三臂对照，需要任务集
-uplift run \
+# Tier 0：任何技能包，秒级，不调模型
+node dist/cli.js probe ./examples/demo-skill --only static-cost
+
+# Tier 1：三臂对照（需要任务集 + 模型）
+export UPLIFT_BASE_URL=https://api.openai.com/v1
+export UPLIFT_API_KEY=sk-...
+export UPLIFT_MODEL=gpt-4o-mini
+
+node dist/cli.js run \
   --taskset web-guidance@1.0 \
-  --skill ./modern-web-guidance \
-  --agent claude-code \
-  --arms baseline,placebo,treatment \
-  --repeats 3
+  --skill ./benchmarks/skills/agent-skills/skills \
+  --repeats 3 --jobs 6
 ```
 
 产出：
 
 ```
 SkillCard  addyosmani/agent-skills
-────────────────────────────────────────────
-静态开销      12,400 tok   ⚠️ 超预算 24%
-触发精度      P 0.91 / R 0.78
-约束遵循      违规 2/40
-注入抗性      被劫持 1/12   ⚠️
-负迁移        −3.2pp（无关任务）
-可卸载        干净
-────────────────────────────────────────────
-Tier 1        uplift +18pp / headroom 41%   [A 级评分器]
+──────────────────────────────────────────────────────
+  静态开销     12,400 tok (包内合计 14,900)   ⚠️ 超预算 24%
+           └ 重复内容 1,800 tok (14.5%)
+  触发精度     P 0.91 / R 0.78 / F1 0.84
+  约束遵循     40 条规则，违规 2 条 (5.0%)
+  注入抗性     12 例，被劫持 1 例（baseline 0）⚠️
+  负迁移       −3.2pp  CI [-7.1, 0.7]  n=20
+  可卸载       干净
+──────────────────────────────────────────────────────
+  Tier 1   uplift +17pp / headroom 30%   95%CI [4, 30] · N=30 · A级 · placebo +5pp
+```
+
+badge 生成：
+
+```bash
+node dist/cli.js badge --file results/agent-skills.json --style full
 ```
 
 ---
 
-## 文档索引
+## 六个 Tier 0 探针
+
+Tier 0 不需要题库，也不需要领域知识。它产出**事实**，不产出分数——所以它不需要安慰剂臂。
+
+| # | 探针 | 测什么 |
+|---|---|---|
+| 1 | `static-cost` | token 开销、重复内容、结构；脚本与上下文分账 |
+| 2 | `trigger-precision` | 该触发时触发了吗、不该触发时误触发了吗 |
+| 3 | `constraint-following` | 技能里写的「never / must」agent 真遵守了吗 |
+| 4 | `injection-resistance` | 装了技能之后是否**更容易**被工具输出里的注入劫持 |
+| 5 | `negative-transfer` | 装了技能之后**无关任务**是否变差 |
+| 6 | `uninstall-clean` | 卸载后环境是否完全恢复（全局目录、hooks） |
+
+第 5、6 两条是现有基准完全不测的维度：**一个领域内 +20pp、领域外 −10pp 的技能，净值可能是负的。**
+
+---
+
+## 任务集：联邦，不垄断
+
+`taskset.json` 是开放格式（[schema](schema/taskset.schema.json)）。官方只维护两个示范任务集：
+
+| 任务集 | 题数 | 评分器 | 说明 |
+|---|---|---|---|
+| `web-guidance@1.0` | 30 | A（tests） | 现代 Web API 合规；实测 baseline 73%，见 [docs/13](docs/13-任务集标定.md) |
+| `general-20@1.0` | 20 | A（tests） | 通用算法小任务，供负迁移 / 卸载探针使用 |
+
+评分器分级是公信力的唯一来源：
+
+| 等级 | 定义 | 能否进榜 |
+|---|---|---|
+| **A** | 可执行验证（测试通过、精确匹配） | ✅ 主榜 |
+| **B** | rubric + 固定版本 judge（prompt 与模型公开） | ✅ 副榜，与 A 分组显示 |
+| **C** | 人工抽检 | ❌ 只做附录 |
+
+**A 和 B 不并排排名。** 把「测试通过」和「LLM 觉得不错」混排，等于用不同尺子量身高再排名。
+
+---
+
+## 仓库结构
+
+```
+src/
+├─ cli.ts                 # 七个命令
+├─ probes/                # Tier 0 六探针
+├─ runner/                # 三臂编排 / worktree 隔离 / SQLite
+├─ harness/               # openai-compat | claude-code | mock
+├─ graders/               # tests | exact | rubric | visual-diff
+├─ metrics/               # uplift / headroom / bootstrap CI
+├─ placebo/               # 中性语料 + 等量构造
+├─ render/                # SkillCard / badge / 榜单页
+└─ taskset/               # 校验 + 准入检查
+
+tasksets/                 # 官方任务集（生成器可复现）
+benchmarks/               # 5 个真实技能包的 manifest + commit 锁
+results/                  # 产出的 SkillCard 与 badge
+docs/                     # 协议、探针、数据模型、路线图、标定
+tools/                    # 生成器 / 抓取 / 出卡 / 标定
+```
+
+---
+
+## 五条硬约束
+
+1. **协议优先于实现** —— 指标定义在 `docs/02`，代码服从它
+2. **安慰剂臂不可选** —— 只有两臂的结果必须标 `uncorrected` 且不许进榜
+3. **评分器必须标 A/B/C** —— 不许混排
+4. **任务集必须可复现** —— 锁 commit、锁评分器版本
+5. **不做技能** —— 我们测量技能，不生产技能；发自己的技能包，中立性就没了
+
+---
+
+## 文档
 
 | 文档 | 内容 |
 |---|---|
-| [AGENTS.md](AGENTS.md) | **给下一个 Agent 的操作手册，先读这个** |
-| [docs/00-WHY.md](docs/00-WHY.md) | 为什么做这个项目（完整论证） |
-| [docs/01-竞争格局.md](docs/01-竞争格局.md) | SkillsBench 深度拆解 + 我们的差异化 |
-| [docs/02-协议规范.md](docs/02-协议规范.md) | 三臂对照、指标定义、归一化公式 |
-| [docs/03-Tier0-六探针.md](docs/03-Tier0-六探针.md) | 六个通用探针的完整规格 |
-| [docs/04-Tier1-任务集与评分器.md](docs/04-Tier1-任务集与评分器.md) | taskset 协议、评分器分级 |
-| [docs/05-数据模型.md](docs/05-数据模型.md) | SkillCard / TaskSet JSON schema |
-| [docs/06-CLI设计.md](docs/06-CLI设计.md) | 命令行界面规格 |
-| [docs/07-路线图.md](docs/07-路线图.md) | 一周 MVP 排期 + 后续阶段 |
-| [docs/08-风险与对策.md](docs/08-风险与对策.md) | 已知风险与对冲 |
-| [docs/09-命名与品牌.md](docs/09-命名与品牌.md) | 名字来由、badge 设计、重名核查结果 |
-| [docs/10-背景调研.md](docs/10-背景调研.md) | GitHub Trending 30 天调研原始结论 |
-| [docs/11-开放问题.md](docs/11-开放问题.md) | 尚未决定的事，别当已定 |
+| [AGENTS.md](AGENTS.md) | 给下一个 Agent 的操作手册 |
+| [docs/00-WHY.md](docs/00-WHY.md) | 为什么做这个项目 |
+| [docs/01-竞争格局.md](docs/01-竞争格局.md) | SkillsBench 拆解 + 三个差异化楔子 |
+| [docs/02-协议规范.md](docs/02-协议规范.md) | **协议宪法**：三臂、指标、归一化 |
+| [docs/03-Tier0-六探针.md](docs/03-Tier0-六探针.md) | 六个探针的完整规格 |
+| [docs/04-Tier1-任务集与评分器.md](docs/04-Tier1-任务集与评分器.md) | taskset 协议与评分器分级 |
+| [docs/05-数据模型.md](docs/05-数据模型.md) | SkillCard / TaskSet / SQLite schema |
+| [docs/06-CLI设计.md](docs/06-CLI设计.md) | 命令行规格 |
+| [docs/07-路线图.md](docs/07-路线图.md) | 排期与进度表 |
+| [docs/11-开放问题.md](docs/11-开放问题.md) | 尚未决定的事 |
+| [docs/12-实现说明.md](docs/12-实现说明.md) | **实现时做的判断**（与文档默认值的出入） |
+| [docs/13-任务集标定.md](docs/13-任务集标定.md) | 30 题实测标定 + 双峰分布发现 |
 
 ---
 
 ## 状态
 
-- 阶段：**开题（pre-code）**
-- 代码：尚未开始
-- 命名：`UpliftBench` 已核查可用（npm/PyPI/域名全空，GitHub 仅 2 个无关僵尸仓库）
-
----
+- 版本：**v0.1.0**（`protocol/1.0.0`）
+- Tier 0：六探针全部可用
+- Tier 1：三臂 runner 可用，官方任务集 30 题 + 20 题
+- 真实技能包：5 个，结果在 [`results/`](results/)
+- 榜单页：`uplift site` → `site/index.html`
 
 ## 许可
 
-待定（建议 Apache-2.0，与生态主流一致；协议文档建议 CC-BY-4.0）
+Apache-2.0。协议文档建议 CC-BY-4.0。
+
+与 Criteo 的营销增益模型（uplift modeling）同名，本项目测的是 AI Agent Skills。

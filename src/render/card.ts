@@ -21,11 +21,16 @@ export function renderStaticCostText(p: StaticCostProbe): string[] {
   const out: string[] = [];
   const budgetOver = p.budget.over_by > 0;
   const ctx = p.context_tokens ?? p.total_tokens;
+  const basisNote =
+    p.budget.basis === 'largest_skill'
+      ? `按最大单技能判定（${humanInt(p.budget.largest_skill_tokens)} tok；整包 ${humanInt(ctx)}）`
+      : `注入上下文 ${humanInt(ctx)} tok`;
   out.push(
-    `  ${pad('静态开销')} ${c.bold(humanInt(ctx))} tok ${c.dim(`(包内合计 ${humanInt(p.total_tokens)})`)}   ${
+    `  ${pad('静态开销')} ${c.bold(humanInt(p.total_tokens))} tok ${c.dim('包内合计')}   ${
       budgetOver ? c.yellow(`${sym.warn} 超预算 ${p.budget.over_pct}%`) : c.green('在预算内')
     }`
   );
+  out.push(`  ${pad('')} ${c.dim(`└ ${basisNote}，预算 ${humanInt(p.budget.limit)}`)}`);
   const dupWaste = p.duplicates.reduce((s, d) => s + d.wasted_tokens, 0);
   if (p.total_tokens > 0) {
     out.push(
@@ -155,9 +160,9 @@ export function renderCardMarkdown(card: SkillCardJson): string {
   const sc = card.tier0.static_cost as StaticCostProbe | undefined;
   if (sc?.supported) {
     out.push(
-      `| 静态开销 | ${humanInt(sc.context_tokens ?? sc.total_tokens)} tok 注入上下文（包内合计 ${humanInt(
-        sc.total_tokens
-      )}） ${sc.budget.over_by > 0 ? `⚠️ 超预算 ${sc.budget.over_pct}%` : '✅'} |`
+      `| 静态开销 | ${humanInt(sc.total_tokens)} tok 包内合计 · 预算口径 ${
+        sc.budget.basis === 'largest_skill' ? `最大单技能 ${humanInt(sc.budget.largest_skill_tokens)}` : `整包 ${humanInt(sc.context_tokens ?? sc.total_tokens)}`
+      } ${sc.budget.over_by > 0 ? `⚠️ 超预算 ${sc.budget.over_pct}%` : '✅'} |`
     );
   }
   const tp = card.tier0.trigger_precision as TriggerPrecisionProbe | undefined;

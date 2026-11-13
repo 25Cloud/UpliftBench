@@ -46,7 +46,15 @@ export async function runStaticCost(root: string, opts: StaticCostOptions = {}):
         file_count: 0,
         skill_count: 0,
         per_file: [],
-        budget: { limit: budget, over_by: 0, over_pct: 0 },
+        budget: {
+          limit: budget,
+          basis: 'package',
+          subject_tokens: 0,
+          over_by: 0,
+          over_pct: 0,
+          package_over_by: 0,
+          largest_skill_tokens: 0
+        },
         duplicates: [],
         structure: { headings: 0, lists: 0, code_blocks: 0 },
         warnings: [e.what]
@@ -105,8 +113,23 @@ export async function runStaticCost(root: string, opts: StaticCostOptions = {}):
 
   const overBy = Math.max(0, contextTokens - budget);
   const wasted = duplicates.reduce((s, d) => s + d.wasted_tokens, 0);
-  if (overBy > 0) {
-    warnings.push(`注入上下文 ${contextTokens} token，超出预算 ${budget}（+${overBy}）`);
+
+  /**
+   * 预算口径：10,000 token 是「一次技能注入」的预算，不是「整包」的预算。
+   * 25 个技能的包总共 100k token 很正常——agent 一次只激活一两个。
+   * 所以多技能包的判定基准取**最大的单个技能**（最坏情况激活成本）。
+   */
+  const largestSkill = pkg.skills.reduce((m, s) => Math.max(m, s.tokens), 0);
+  const budgetBasis: 'package' | 'largest_skill' = pkg.skills.length > 1 ? 'largest_skill' : 'package';
+  const budgetSubject = budgetBasis === 'largest_skill' ? largestSkill : contextTokens;
+  const budgetOverBy = Math.max(0, budgetSubject - budget);
+
+  if (budgetOverBy > 0) {
+    warnings.push(
+      budgetBasis === 'largest_skill'
+        ? `最大的单个技能 ${largestSkill} token，超出注入预算 ${budget}（+${budgetOverBy}）`
+        : `注入上下文 ${contextTokens} token，超出预算 ${budget}（+${budgetOverBy}）`
+    );
   }
   if (totalTokens > contextTokens) {
     const scriptTokens = totalTokens - contextTokens;
@@ -136,8 +159,13 @@ export async function runStaticCost(root: string, opts: StaticCostOptions = {}):
       .sort((a, b) => b.tokens - a.tokens),
     budget: {
       limit: budget,
-      over_by: overBy,
-      over_pct: budget > 0 ? Number(((overBy / budget) * 100).toFixed(1)) : 0
+      basis: budgetBasis,
+      /** 判定用的那个数（整包上下文 或 最大单技能） */
+      subject_tokens: budgetSubject,
+      over_by: budgetOverBy,
+      over_pct: budget > 0 ? Number(((budgetOverBy / budget) * 100).toFixed(1)) : 0,
+      package_over_by: overBy,
+      largest_skill_tokens: largestSkill
     },
     duplicates,
     structure,
