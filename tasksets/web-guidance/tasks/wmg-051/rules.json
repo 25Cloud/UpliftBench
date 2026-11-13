@@ -1,0 +1,11 @@
+{
+  "forbid": [
+    "\\.reduce\\(",
+    "\\.sort\\("
+  ],
+  "require": [
+    "Object\\.groupBy\\(",
+    "Map\\.groupBy\\(",
+    "\\.toSorted\\("
+  ]
+}

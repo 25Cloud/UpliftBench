@@ -1,0 +1,12 @@
+{
+  "forbid": [
+    "\\.reverse\\(",
+    "\\.splice\\(",
+    "list\\[index\\] ="
+  ],
+  "require": [
+    "\\.toReversed\\(",
+    "\\.with\\(",
+    "\\.toSpliced\\("
+  ]
+}

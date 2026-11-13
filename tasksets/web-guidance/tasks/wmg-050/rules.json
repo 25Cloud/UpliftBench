@@ -1,0 +1,10 @@
+{
+  "forbid": [
+    "new Promise\\(\\(",
+    "for await \\("
+  ],
+  "require": [
+    "Promise\\.withResolvers\\(",
+    "Array\\.fromAsync\\("
+  ]
+}

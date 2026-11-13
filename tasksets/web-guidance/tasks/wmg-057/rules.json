@@ -1,0 +1,11 @@
+{
+  "forbid": [
+    "classList\\.toggle\\(",
+    "classList\\.remove\\(",
+    "document\\.addEventListener\\('click'"
+  ],
+  "require": [
+    "popover",
+    "(popovertarget|showPopover\\(\\))"
+  ]
+}

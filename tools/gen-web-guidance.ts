@@ -51,7 +51,422 @@ interface TaskSpec {
   forbid: string[];
   /** 初始不存在、正确修复后必须出现 */
   require: string[];
+  /**
+   * 行为测试源码（可选）：导出 `async run(ws) -> {pass, detail, cases}`。
+   *
+   * 有它就意味着这题**不止看写法**：评分器会把候选代码真的 import 进来跑一遍，
+   * 写法对了但行为错了照样 0 分。前 48 题只查正则，能被"把 API 名字写上就算过"骗过去；
+   * 这批新题用行为测试堵这个洞。
+   */
+  behavior?: string;
 }
+
+/* ============================ 行为测试源码 ============================
+ * 每个都是独立文件（生成到 tasks/<id>/behavior.mjs），签名统一：
+ *   export async function run(ws) -> { pass, detail, cases: [{name, pass, detail?}] }
+ *
+ * 写法约束（因为外层是 TS 模板字符串）：这里不许出现 ${ 和反引号。
+ * 需要拼字符串就用 +，需要插值就用 concat。看着笨，但生成的产物好读。
+ */
+
+/** 049 超时与取消：起一个真 HTTP server 测，外部 signal 在场时超时必须仍然生效 */
+const BEHAVIOR_049 = `import http from 'node:http';
+import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+export async function run(ws) {
+  const mod = await import(pathToFileURL(path.join(ws, 'net.js')).href);
+  const getJson = mod.getJson;
+  if (typeof getJson !== 'function') return { pass: false, detail: 'net.js 没有导出 getJson', cases: [] };
+
+  const server = http.createServer((req, res) => {
+    const delay = Number(new URL(req.url, 'http://127.0.0.1').searchParams.get('delay') || '0');
+    setTimeout(() => {
+      res.writeHead(200, { 'content-type': 'application/json' });
+      res.end('{"ok":true}');
+    }, delay);
+  });
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+  const base = 'http://127.0.0.1:' + server.address().port;
+  const cases = [];
+
+  try {
+    const got = await getJson(base + '/?delay=1', { timeoutMs: 800 });
+    cases.push({ name: '正常请求返回解析后的 JSON', pass: !!got && got.ok === true });
+  } catch (e) {
+    cases.push({ name: '正常请求返回解析后的 JSON', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const never = new AbortController();
+    const t0 = Date.now();
+    let threw = false;
+    try {
+      await getJson(base + '/?delay=400', { timeoutMs: 80, signal: never.signal });
+    } catch (e) {
+      threw = true;
+    }
+    const dt = Date.now() - t0;
+    cases.push({ name: '外部 signal 不取消时，超时仍然生效', pass: threw && dt < 350, detail: '耗时 ' + dt + 'ms' });
+  } catch (e) {
+    cases.push({ name: '外部 signal 不取消时，超时仍然生效', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const c = new AbortController();
+    setTimeout(() => c.abort(new Error('user cancel')), 40);
+    let threw = false;
+    try {
+      await getJson(base + '/?delay=500', { timeoutMs: 5000, signal: c.signal });
+    } catch (e) {
+      threw = true;
+    }
+    cases.push({ name: '外部取消能中断请求', pass: threw });
+  } catch (e) {
+    cases.push({ name: '外部取消能中断请求', pass: false, detail: String(e && e.message) });
+  }
+
+  await new Promise((resolve) => server.close(resolve));
+  return {
+    pass: cases.every((c) => c.pass),
+    detail: cases.filter((c) => !c.pass).map((c) => c.name).join(' / ') || '全过',
+    cases
+  };
+}
+`;
+
+/** 050 并发批处理：resolvers 的 resolve/reject 都要能穿透，collect 要吃同步与异步两种源 */
+const BEHAVIOR_050 = `import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+export async function run(ws) {
+  const mod = await import(pathToFileURL(path.join(ws, 'batch.js')).href);
+  const cases = [];
+
+  try {
+    const gate = mod.createGate();
+    let seen;
+    const p = gate.promise.then((v) => { seen = v; return v; });
+    gate.resolve(42);
+    await p;
+    cases.push({ name: 'createGate().resolve 让 promise 兑现', pass: seen === 42 });
+  } catch (e) {
+    cases.push({ name: 'createGate().resolve 让 promise 兑现', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const gate = mod.createGate();
+    let code = null;
+    const p = gate.promise.catch((e) => { code = e && e.message; });
+    gate.reject(new Error('boom'));
+    await p;
+    cases.push({ name: 'createGate().reject 把错误传出去', pass: code === 'boom' });
+  } catch (e) {
+    cases.push({ name: 'createGate().reject 把错误传出去', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const out = await mod.collect([Promise.resolve(1), 2, Promise.resolve(3)]);
+    cases.push({ name: 'collect 处理混着 Promise 的同步可迭代', pass: JSON.stringify(out) === '[1,2,3]', detail: JSON.stringify(out) });
+  } catch (e) {
+    cases.push({ name: 'collect 处理混着 Promise 的同步可迭代', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    async function* gen() { yield 'a'; yield 'b'; }
+    const out = await mod.collect(gen());
+    cases.push({ name: 'collect 处理异步生成器', pass: JSON.stringify(out) === '["a","b"]', detail: JSON.stringify(out) });
+  } catch (e) {
+    cases.push({ name: 'collect 处理异步生成器', pass: false, detail: String(e && e.message) });
+  }
+
+  return {
+    pass: cases.every((c) => c.pass),
+    detail: cases.filter((c) => !c.pass).map((c) => c.name).join(' / ') || '全过',
+    cases
+  };
+}
+`;
+
+/** 051 分组与排序：Object.groupBy 与 Map.groupBy 是两个不同的东西，ranked 不许改入参 */
+const BEHAVIOR_051 = `import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+export async function run(ws) {
+  const mod = await import(pathToFileURL(path.join(ws, 'report.js')).href);
+  const people = [
+    { name: 'Ada', team: 'core' },
+    { name: 'Bo', team: 'web' },
+    { name: 'Cy', team: 'core' }
+  ];
+  const cases = [];
+
+  try {
+    const o = mod.byTeam(people);
+    const ok = !!o && !(o instanceof Map) && JSON.stringify(o.core) === '["Ada","Cy"]' && JSON.stringify(o.web) === '["Bo"]';
+    cases.push({ name: 'byTeam 返回普通对象，值是名字数组', pass: ok, detail: JSON.stringify(o) });
+  } catch (e) {
+    cases.push({ name: 'byTeam 返回普通对象，值是名字数组', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const m = mod.byTeamMap(people);
+    const ok = m instanceof Map && JSON.stringify(m.get('core')) === '["Ada","Cy"]' && JSON.stringify(m.get('web')) === '["Bo"]';
+    cases.push({ name: 'byTeamMap 返回 Map 实例', pass: ok, detail: String(m) });
+  } catch (e) {
+    cases.push({ name: 'byTeamMap 返回 Map 实例', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const scores = [3, 1, 2];
+    const ranked = mod.ranked(scores);
+    const ok = JSON.stringify(ranked) === '[3,2,1]' && JSON.stringify(scores) === '[3,1,2]';
+    cases.push({ name: 'ranked 降序返回且不改原数组', pass: ok, detail: '返回 ' + JSON.stringify(ranked) + ' / 原数组 ' + JSON.stringify(scores) });
+  } catch (e) {
+    cases.push({ name: 'ranked 降序返回且不改原数组', pass: false, detail: String(e && e.message) });
+  }
+
+  return {
+    pass: cases.every((c) => c.pass),
+    detail: cases.filter((c) => !c.pass).map((c) => c.name).join(' / ') || '全过',
+    cases
+  };
+}
+`;
+
+/** 052 深拷贝与集合运算：JSON 往返会吃掉 Date/Map/Set，这是这题的核心 */
+const BEHAVIOR_052 = `import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+export async function run(ws) {
+  const mod = await import(pathToFileURL(path.join(ws, 'state.js')).href);
+  const cases = [];
+
+  const original = {
+    name: 'x',
+    when: new Date('2020-01-02T03:04:05Z'),
+    settings: new Map([['a', 1]]),
+    tags: new Set(['t1']),
+    nested: { n: 1 }
+  };
+  try {
+    const copy = mod.cloneState(original);
+    const checks = [
+      copy !== original,
+      copy.nested !== original.nested && copy.nested.n === 1,
+      copy.when instanceof Date && copy.when.getTime() === original.when.getTime(),
+      copy.settings instanceof Map && copy.settings.get('a') === 1,
+      copy.tags instanceof Set && copy.tags.has('t1')
+    ];
+    cases.push({ name: 'cloneState 保留 Date/Map/Set 且是深拷贝', pass: checks.every(Boolean), detail: JSON.stringify(checks) });
+  } catch (e) {
+    cases.push({ name: 'cloneState 保留 Date/Map/Set 且是深拷贝', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const a = new Set([1, 2]);
+    const b = new Set([2, 3]);
+    const u = mod.merged(a, b);
+    const okU = u instanceof Set && u.has(1) && u.has(2) && u.has(3) && u.size === 3;
+    cases.push({ name: 'merged 返回并集 Set', pass: okU, detail: String(u) });
+    const s = mod.shared(a, b);
+    const okS = s instanceof Set && s.size === 1 && s.has(2);
+    cases.push({ name: 'shared 返回交集 Set', pass: okS, detail: String(s) });
+    const d = mod.onlyA(a, b);
+    const okD = d instanceof Set && d.size === 1 && d.has(1);
+    cases.push({ name: 'onlyA 返回差集 Set', pass: okD, detail: String(d) });
+    const untouched = a.size === 2 && b.size === 2;
+    cases.push({ name: '集合运算不改入参', pass: untouched });
+  } catch (e) {
+    cases.push({ name: '集合运算', pass: false, detail: String(e && e.message) });
+  }
+
+  return {
+    pass: cases.every((c) => c.pass),
+    detail: cases.filter((c) => !c.pass).map((c) => c.name).join(' / ') || '全过',
+    cases
+  };
+}
+`;
+
+/** 053 错误链：cause 要指回原始错误，message 不许再拼一遍，AggregateError 要带 errors */
+const BEHAVIOR_053 = `import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+export async function run(ws) {
+  const mod = await import(pathToFileURL(path.join(ws, 'api.js')).href);
+  const cases = [];
+
+  const original = new Error('socket hang up');
+  try {
+    const wrapped = mod.wrap(original, '加载失败');
+    const checks = [
+      wrapped instanceof Error,
+      wrapped.cause === original,
+      wrapped.message === '加载失败'
+    ];
+    cases.push({ name: 'wrap 用 cause 指回原错误，message 保持干净', pass: checks.every(Boolean), detail: JSON.stringify(checks) + ' message=' + wrapped.message });
+  } catch (e) {
+    cases.push({ name: 'wrap 用 cause 指回原错误，message 保持干净', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const ok = await mod.loadAll(async (u) => ({ u }), ['a', 'b']);
+    cases.push({ name: 'loadAll 全成功时返回结果数组', pass: JSON.stringify(ok) === '[{"u":"a"},{"u":"b"}]', detail: JSON.stringify(ok) });
+  } catch (e) {
+    cases.push({ name: 'loadAll 全成功时返回结果数组', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const boom = new Error('nope');
+    let caught = null;
+    try {
+      await mod.loadAll(async (u) => { if (u === 'b') throw boom; return { u }; }, ['a', 'b']);
+    } catch (e) {
+      caught = e;
+    }
+    const ok = caught instanceof AggregateError && Array.isArray(caught.errors) && caught.errors.length === 1 && caught.errors[0] === boom;
+    cases.push({ name: 'loadAll 失败时抛 AggregateError 且 errors 里是原错误', pass: ok, detail: caught ? caught.constructor.name + ' errors=' + (caught.errors ? caught.errors.length : 'n/a') : '没抛' });
+  } catch (e) {
+    cases.push({ name: 'loadAll 失败时抛 AggregateError 且 errors 里是原错误', pass: false, detail: String(e && e.message) });
+  }
+
+  return {
+    pass: cases.every((c) => c.pass),
+    detail: cases.filter((c) => !c.pass).map((c) => c.name).join(' / ') || '全过',
+    cases
+  };
+}
+`;
+
+/** 054 不可变数组：三个函数都不许改入参 */
+const BEHAVIOR_054 = `import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+export async function run(ws) {
+  const mod = await import(pathToFileURL(path.join(ws, 'todo.js')).href);
+  const cases = [];
+  const list = [{ id: 1, text: 'a' }, { id: 2, text: 'b' }];
+  const snapshot = JSON.stringify(list);
+
+  try {
+    const rev = mod.undoLast(list);
+    const ok = Array.isArray(rev) && rev !== list && rev.length === 2 && rev[0].id === 2 && rev[1].id === 1 && JSON.stringify(list) === snapshot;
+    cases.push({ name: 'undoLast 返回倒序副本且不改入参', pass: ok, detail: JSON.stringify(rev) });
+  } catch (e) {
+    cases.push({ name: 'undoLast 返回倒序副本且不改入参', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const renamed = mod.rename(list, 1, 'B');
+    const ok = Array.isArray(renamed) && renamed !== list && renamed[1].text === 'B' && renamed[0].text === 'a' && JSON.stringify(list) === snapshot;
+    cases.push({ name: 'rename 返回替换后的副本且不改入参', pass: ok, detail: JSON.stringify(renamed) });
+  } catch (e) {
+    cases.push({ name: 'rename 返回替换后的副本且不改入参', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const removed = mod.removeAt(list, 0);
+    const ok = Array.isArray(removed) && removed !== list && removed.length === 1 && removed[0].id === 2 && JSON.stringify(list) === snapshot;
+    cases.push({ name: 'removeAt 返回删除后的副本且不改入参', pass: ok, detail: JSON.stringify(removed) });
+  } catch (e) {
+    cases.push({ name: 'removeAt 返回删除后的副本且不改入参', pass: false, detail: String(e && e.message) });
+  }
+
+  return {
+    pass: cases.every((c) => c.pass),
+    detail: cases.filter((c) => !c.pass).map((c) => c.name).join(' / ') || '全过',
+    cases
+  };
+}
+`;
+
+/** 055 URL 校验：解析失败要给 null / false，不许靠 try-catch */
+const BEHAVIOR_055 = `import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+export async function run(ws) {
+  const mod = await import(pathToFileURL(path.join(ws, 'links.js')).href);
+  const cases = [];
+
+  try {
+    const bad = mod.safeParse('not a url');
+    cases.push({ name: 'safeParse 对非法输入返回 null', pass: bad === null, detail: String(bad) });
+  } catch (e) {
+    cases.push({ name: 'safeParse 对非法输入返回 null', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const good = mod.safeParse('https://a.test/x?y=1');
+    const ok = !!good && good.host === 'a.test' && good.searchParams.get('y') === '1';
+    cases.push({ name: 'safeParse 对合法输入返回 URL 实例', pass: ok, detail: String(good) });
+  } catch (e) {
+    cases.push({ name: 'safeParse 对合法输入返回 URL 实例', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const ok = mod.isLink('https://a.test') === true && mod.isLink('nope') === false;
+    cases.push({ name: 'isLink 走布尔判断', pass: ok, detail: String(mod.isLink('nope')) });
+  } catch (e) {
+    cases.push({ name: 'isLink 走布尔判断', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const ok = mod.hostOf('https://b.test/path') === 'b.test' && mod.hostOf('::') === '';
+    cases.push({ name: 'hostOf 对非法输入给空串', pass: ok, detail: mod.hostOf('::') });
+  } catch (e) {
+    cases.push({ name: 'hostOf 对非法输入给空串', pass: false, detail: String(e && e.message) });
+  }
+
+  return {
+    pass: cases.every((c) => c.pass),
+    detail: cases.filter((c) => !c.pass).map((c) => c.name).join(' / ') || '全过',
+    cases
+  };
+}
+`;
+
+/** 056 字符与语言：字素簇、NFC、土耳其语 i —— 三个都是「看着没问题其实错」的经典坑 */
+const BEHAVIOR_056 = `import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+const COMBINING = 'e\\u0301';
+const FAMILY = '\\u{1F468}\\u200D\\u{1F469}\\u200D\\u{1F467}\\u200D\\u{1F466}';
+
+export async function run(ws) {
+  const mod = await import(pathToFileURL(path.join(ws, 'text.js')).href);
+  const cases = [];
+
+  try {
+    const a = mod.graphemes(COMBINING);
+    const b = mod.graphemes(FAMILY);
+    const ok = Array.isArray(a) && a.length === 1 && b.length === 1;
+    cases.push({ name: 'graphemes 按字素簇切（组合符、ZWJ 家族都算一个）', pass: ok, detail: 'a=' + a.length + ' b=' + b.length });
+  } catch (e) {
+    cases.push({ name: 'graphemes 按字素簇切（组合符、ZWJ 家族都算一个）', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const out = mod.normalize(COMBINING);
+    cases.push({ name: 'normalize 输出 NFC（组合符并成一个码位）', pass: out.length === 1, detail: 'length=' + out.length });
+  } catch (e) {
+    cases.push({ name: 'normalize 输出 NFC（组合符并成一个码位）', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const out = mod.fold('I');
+    cases.push({ name: 'fold 用土耳其语规则（大写 I 的小写是 ı）', pass: out === '\\u0131', detail: out });
+  } catch (e) {
+    cases.push({ name: 'fold 用土耳其语规则（大写 I 的小写是 ı）', pass: false, detail: String(e && e.message) });
+  }
+
+  return {
+    pass: cases.every((c) => c.pass),
+    detail: cases.filter((c) => !c.pass).map((c) => c.name).join(' / ') || '全过',
+    cases
+  };
+}
+`;
 
 const TASKS: TaskSpec[] = [
   {
@@ -1084,6 +1499,315 @@ export function swapSections(parent, a, b) {
     },
     forbid: ['contain:\\s*layout paint'],
     require: ['content-visibility:\\s*auto', 'contain-intrinsic-size']
+  },
+  {
+    id: 'wmg-049',
+    title: '超时与取消要同时生效（AbortSignal.any + Timeout）',
+    difficulty: 'medium',
+    tags: ['behavioral', 'network', 'new-api'],
+    prompt:
+      'net.js 里 getJson 同时支持「调用方传进来的 signal」和「自己的超时」，但现在的实现是二选一——只要调用方给了 signal，超时就彻底失效，慢接口会一直挂着。请用 AbortSignal.any 合并两个信号、用 AbortSignal.timeout 造超时信号，让两条取消路径都生效。别再用 setTimeout 手动 abort，也不许再出现 clearTimeout。',
+    files: {
+      'net.js': `export async function getJson(url, options = {}) {
+  const timeoutMs = options.timeoutMs ?? 1000;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(new Error('timeout')), timeoutMs);
+  // bug：调用方给了 signal 就只监听它，超时彻底失效
+  const signal = options.signal ?? controller.signal;
+  try {
+    const res = await fetch(url, { signal });
+    return await res.json();
+  } finally {
+    clearTimeout(timer);
+  }
+}
+`
+    },
+    forbid: ['clearTimeout\\(', 'options\\.signal \\?\\?'],
+    require: ['AbortSignal\\.any\\(', 'AbortSignal\\.timeout\\('],
+    behavior: BEHAVIOR_049
+  },
+  {
+    id: 'wmg-050',
+    title: 'deferred 与批收集改用 withResolvers / fromAsync',
+    difficulty: 'medium',
+    tags: ['behavioral', 'async', 'new-api'],
+    prompt:
+      'batch.js 里 createGate 靠手写 new Promise 把 resolve/reject 泄漏到外面，collect 靠 for await 手动 push。请把 createGate 改成 Promise.withResolvers()，把 collect 改成 Array.fromAsync。要求：createGate 返回的对象仍能拿到 promise 和两个控制函数；collect 既能吃同步可迭代（里面的 Promise 要被解包），也能吃异步生成器。',
+    files: {
+      'batch.js': `export function createGate() {
+  let resolve;
+  let reject;
+  const promise = new Promise((res, rej) => {
+    resolve = res;
+    reject = rej;
+  });
+  return { promise, resolve, reject };
+}
+
+export async function collect(iterable) {
+  const out = [];
+  for await (const value of iterable) out.push(value);
+  return out;
+}
+`
+    },
+    forbid: ['new Promise\\(\\(', 'for await \\('],
+    require: ['Promise\\.withResolvers\\(', 'Array\\.fromAsync\\('],
+    behavior: BEHAVIOR_050
+  },
+  {
+    id: 'wmg-051',
+    title: '分组用 groupBy，排序用 toSorted',
+    difficulty: 'medium',
+    tags: ['behavioral', 'collection', 'new-api'],
+    prompt:
+      'report.js 里三个函数都用老写法：两个分组函数用 reduce 手搓累加器，ranked 用 sort 把调用方传进来的数组就地排序（这是个 bug，调用方数组被改了）。请改成 Object.groupBy / Map.groupBy / toSorted。输出要保持原样：byTeam 返回普通对象、byTeamMap 返回 Map、两者的值都是「人名数组」；ranked 返回新的降序数组，且不许改动入参。',
+    files: {
+      'report.js': `export function byTeam(people) {
+  return people.reduce((acc, p) => {
+    const list = acc[p.team] ?? [];
+    list.push(p.name);
+    acc[p.team] = list;
+    return acc;
+  }, {});
+}
+
+export function byTeamMap(people) {
+  return people.reduce((acc, p) => {
+    const list = acc.get(p.team) ?? [];
+    list.push(p.name);
+    acc.set(p.team, list);
+    return acc;
+  }, new Map());
+}
+
+export function ranked(scores) {
+  return scores.sort((a, b) => b - a);
+}
+`
+    },
+    forbid: ['\\.reduce\\(', '\\.sort\\('],
+    require: ['Object\\.groupBy\\(', 'Map\\.groupBy\\(', '\\.toSorted\\('],
+    behavior: BEHAVIOR_051
+  },
+  {
+    id: 'wmg-052',
+    title: '深拷贝丢了 Date/Map/Set，集合运算改用手法',
+    difficulty: 'medium',
+    tags: ['behavioral', 'collection', 'new-api'],
+    prompt:
+      'state.js 里 cloneState 用 JSON 往返做深拷贝——Date 变字符串、Map 变空对象、Set 变空对象，这是真 bug。请改成 structuredClone。另外 merged/shared/onlyA 现在是手工展开 + filter，请改成 Set 自带的 union / intersection / difference。四个函数都不许改动入参，返回值类型保持不变（三个集合函数返回 Set）。',
+    files: {
+      'state.js': `export function cloneState(state) {
+  return JSON.parse(JSON.stringify(state));
+}
+
+export function merged(a, b) {
+  return new Set([...a, ...b]);
+}
+
+export function shared(a, b) {
+  return new Set([...a].filter((x) => b.has(x)));
+}
+
+export function onlyA(a, b) {
+  return new Set([...a].filter((x) => !b.has(x)));
+}
+`
+    },
+    forbid: ['JSON\\.parse\\(JSON\\.stringify\\(', '\\.filter\\('],
+    require: ['structuredClone\\(', '\\.union\\(', '\\.intersection\\(', '\\.difference\\('],
+    behavior: BEHAVIOR_052
+  },
+  {
+    id: 'wmg-053',
+    title: '错误链改用 cause 与 AggregateError',
+    difficulty: 'medium',
+    tags: ['behavioral', 'error', 'new-api'],
+    prompt:
+      'api.js 里 wrap 把原始错误信息拼进 message 并存到自定义字段 originalError 上；loadAll 把多个失败拼成一个字符串错误抛出去，调用方拿不到原始错误对象。请改成标准写法：wrap 用 Error 的 cause 选项指回原错误、message 保持干净；loadAll 用 AggregateError，把每个原始错误放进 errors 数组。',
+    files: {
+      'api.js': `export function wrap(err, message) {
+  const wrapped = new Error(message + ': ' + err.message);
+  wrapped.originalError = err;
+  return wrapped;
+}
+
+export async function loadAll(fetchJson, urls) {
+  const out = [];
+  const failed = [];
+  for (const url of urls) {
+    try {
+      out.push(await fetchJson(url));
+    } catch (err) {
+      failed.push(err);
+    }
+  }
+  if (failed.length > 0) {
+    throw new Error('failed: ' + failed.map((e) => e.message).join('; '));
+  }
+  return out;
+}
+`
+    },
+    forbid: ['originalError', 'new Error\\(message \\+'],
+    require: ['cause:', 'AggregateError'],
+    behavior: BEHAVIOR_053
+  },
+  {
+    id: 'wmg-054',
+    title: '三个数组函数都在偷改入参',
+    difficulty: 'medium',
+    tags: ['behavioral', 'collection', 'new-api'],
+    prompt:
+      'todo.js 里 undoLast 用 reverse 就地翻转、rename 直接给下标赋值、removeAt 用 splice 就地删除——三个函数都把调用方的数组改坏了。请改成非破坏性写法：toReversed / with / toSpliced。要求返回值与原来语义一致，且入参一个字节都不许动。',
+    files: {
+      'todo.js': `export function undoLast(list) {
+  return list.reverse();
+}
+
+export function rename(list, index, text) {
+  list[index] = { ...list[index], text };
+  return list;
+}
+
+export function removeAt(list, index) {
+  list.splice(index, 1);
+  return list;
+}
+`
+    },
+    forbid: ['\\.reverse\\(', '\\.splice\\(', 'list\\[index\\] ='],
+    require: ['\\.toReversed\\(', '\\.with\\(', '\\.toSpliced\\('],
+    behavior: BEHAVIOR_054
+  },
+  {
+    id: 'wmg-055',
+    title: 'URL 校验别再靠 try-catch',
+    difficulty: 'medium',
+    tags: ['behavioral', 'url', 'new-api'],
+    prompt:
+      'links.js 里 safeParse / isLink 都用 try-catch 包 new URL 来判断合法性。请改成静态方法：URL.parse 解析失败返回 null，URL.canParse 返回布尔值。hostOf 要保持「非法输入给空串」。改完文件里不该再出现 try。',
+    files: {
+      'links.js': `export function safeParse(input) {
+  try {
+    return new URL(input);
+  } catch (err) {
+    return null;
+  }
+}
+
+export function isLink(input) {
+  try {
+    new URL(input);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+export function hostOf(input) {
+  const parsed = safeParse(input);
+  return parsed ? parsed.host : '';
+}
+`
+    },
+    forbid: ['try\\s*\\{'],
+    require: ['URL\\.parse\\(', 'URL\\.canParse\\('],
+    behavior: BEHAVIOR_055
+  },
+  {
+    id: 'wmg-056',
+    title: '字素簇、NFC、土耳其语小写',
+    difficulty: 'medium',
+    tags: ['behavioral', 'i18n', 'new-api'],
+    prompt:
+      'text.js 里三个函数各踩一个坑：graphemes 用展开运算符切字符串，组合符和 ZWJ 表情会被切成好几段；normalize 什么都没做，而它应该输出 NFC；fold 用 toLowerCase，在土耳其语环境里大写 I 的小写是 ı 而不是 i。请分别改成 Intl.Segmenter（granularity 用 grapheme）、normalize(\'NFC\')、toLocaleLowerCase(\'tr\')。',
+    files: {
+      'text.js': `export function graphemes(s) {
+  return [...s];
+}
+
+export function normalize(s) {
+  return s;
+}
+
+export function fold(s) {
+  return s.toLowerCase();
+}
+`
+    },
+    forbid: ['\\[\\.\\.\\.s\\]', '\\.toLowerCase\\('],
+    require: ['Intl\\.Segmenter', "normalize\\('NFC'\\)", "toLocaleLowerCase\\('tr'\\)"],
+    behavior: BEHAVIOR_056
+  },
+
+  /* --------- 消融组：同 fixture、同评分器，只把提示词里的 API 名字拿掉 ---------
+   *
+   * 为什么要有这一组：wmg-045 的提示词直接写了 popover / popovertarget / showPopover，
+   * 于是它变成一道「照抄」题，baseline 100%。把 API 名字删掉，同样的活就变成
+   * 「你知道浏览器有这个东西吗」——那才是技能要补的信息差。
+   * 两组配对（045 ↔ 057、044 ↔ 058）构成一个干净的对照：变量只有提示词。
+   */
+
+  {
+    id: 'wmg-057',
+    title: '下拉菜单要原生浮层，不许手写 class 开关（提示词不给 API 名）',
+    difficulty: 'hard',
+    tags: ['popover', 'a11y', 'new-api', 'ablation'],
+    prompt:
+      'menu.js 用手写 class 切换 + document 级点击监听做下拉菜单：层级、点击穿透、Esc 关闭全得自己处理，还常常关不掉。' +
+      '请改成浏览器**原生**的浮层机制：触发按钮和面板用原生属性关联，脚本只负责显示与隐藏，' +
+      '删掉所有手写的 class 开关与 document 点击监听；Esc 和点空白处关闭走原生实现。',
+    files: {
+      'menu.js': `export function setupMenu(btn, panel) {
+  let open = false;
+  btn.addEventListener('click', function () {
+    open = !open;
+    panel.classList.toggle('open', open);
+  });
+  document.addEventListener('click', function (e) {
+    if (!panel.contains(e.target) && e.target !== btn) {
+      open = false;
+      panel.classList.remove('open');
+    }
+  });
+}
+`,
+      'index.html': `<button id="trigger">Menu</button>
+<div id="panel" class="panel">…</div>
+`
+    },
+    forbid: ['classList\\.toggle\\(', 'classList\\.remove\\(', "document\\.addEventListener\\('click'"],
+    // 这里**不要求**某一种特定写法：声明式（popovertarget）和命令式（showPopover()）都是正解。
+    // 用单条正则里的 alternation 表达「二者其一」，否则会把另一条正解判成错——
+    // 这一条是实测踩出来的：第一版要求 showPopover() 把声明式答案全判错了，见 docs/16 §四。
+    require: ['popover', '(popovertarget|showPopover\\(\\))']
+  },
+  {
+    id: 'wmg-058',
+    title: '移动 DOM 节点不许重载状态（提示词不给 API 名）',
+    difficulty: 'hard',
+    tags: ['dom', 'new-api', 'ablation'],
+    prompt:
+      'reorder.js 用 removeChild + insertBefore 移动节点，副作用是 iframe/video 重新加载、焦点丢失、CSS 过渡被打断。' +
+      '请改成浏览器原生的移动能力：节点在 DOM 里换位置，但它**不算被重新插入**——状态要保留。不要再 removeChild。',
+    files: {
+      'reorder.js': `export function moveToTop(list, item) {
+  list.removeChild(item);
+  list.insertBefore(item, list.firstChild);
+}
+
+export function swapSections(parent, a, b) {
+  const anchor = a.nextSibling;
+  parent.removeChild(a);
+  parent.insertBefore(a, b);
+}
+`
+    },
+    forbid: ['removeChild\\(', 'insertBefore\\('],
+    require: ['moveBefore\\(']
   }
 ];
 
@@ -1156,7 +1880,95 @@ ${t.prompt}
 
 - 只改 workspace 里的源码，不要新增构建配置。
 - 保持对外导出的函数名与调用方式不变。
-- 改完直接用标准 API，不要引入第三方依赖。
+- 改完直接用标准 API，不要引入第三方依赖。${t.behavior ? `
+- 评分器会把你的代码真的 import 进来跑一遍边界用例：写法对了但行为错了，一样不给分。` : ''}
+`;
+
+/**
+ * 行为版评分器：先查写法，再把候选代码真的跑一遍。
+ *
+ * 为什么要有第二种模板：纯正则评分器能被「把 API 名字抄进注释/字符串里」骗过去，
+ * 也能被「写法对但语义错」骗过去。wmg-049 之后的任务改成「正则 + 行为」双闸：
+ * behavior.mjs 里跑的是真实的边界用例（真起 HTTP server、真做深拷贝、真按字素簇切）。
+ */
+const VERIFY_BEHAVIORAL_TEMPLATE = `#!/usr/bin/env node
+// 自动生成：web-guidance A 级评分器（行为版）
+// stdin: {"task_id":"...","workspace":"..."}
+// stdout: {"pass":bool,"detail":"...","metrics":{...}}
+import { readFileSync, readdirSync, statSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
+
+const HERE = path.dirname(fileURLToPath(import.meta.url));
+const RULES = JSON.parse(readFileSync(new URL('./rules.json', import.meta.url), 'utf8'));
+const input = JSON.parse(readFileSync(0, 'utf8'));
+const ws = input.workspace;
+
+const TEXT_EXT = new Set(['.js', '.mjs', '.cjs', '.ts', '.html', '.htm', '.css', '.json', '.md', '.txt']);
+function walk(dir, out = []) {
+  for (const name of readdirSync(dir)) {
+    if (name === 'node_modules' || name === '.git' || name === '.uplift-skills') continue;
+    const abs = path.join(dir, name);
+    const st = statSync(abs);
+    if (st.isDirectory()) walk(abs, out);
+    else if (TEXT_EXT.has(path.extname(abs).toLowerCase())) out.push(abs);
+  }
+  return out;
+}
+
+const files = walk(ws);
+if (files.length === 0) {
+  console.log(JSON.stringify({ pass: false, detail: 'workspace 里没有任何源文件' }));
+  process.exit(0);
+}
+const corpus = files.map((f) => readFileSync(f, 'utf8')).join('\\n');
+
+const remaining = [];
+for (const pattern of RULES.forbid) {
+  const re = new RegExp(pattern, 'm');
+  const m = corpus.match(re);
+  if (m) remaining.push({ pattern, hit: m[0].trim().slice(0, 60) });
+}
+const missing = [];
+for (const pattern of RULES.require) {
+  const re = new RegExp(pattern, 'm');
+  if (!corpus.match(re)) missing.push(pattern);
+}
+
+let behavior = { pass: false, detail: 'behavior.mjs 没跑起来', cases: [] };
+try {
+  const mod = await import(pathToFileURL(path.join(HERE, 'behavior.mjs')).href);
+  behavior = await mod.run(ws);
+} catch (e) {
+  behavior = { pass: false, detail: '行为测试抛异常：' + (e && e.message ? e.message : String(e)), cases: [] };
+}
+
+const rulePass = remaining.length === 0 && missing.length === 0;
+const pass = rulePass && behavior.pass === true;
+const failedCases = (behavior.cases || []).filter((c) => !c.pass);
+const detail = pass
+  ? '废弃写法已清除，行为测试全过（' + (behavior.cases || []).length + ' 个用例）'
+  : [
+      remaining.length ? '仍存在：' + remaining.map((r) => r.pattern + ' => ' + r.hit).join(' | ') : '',
+      missing.length ? '缺少：' + missing.join(' | ') : '',
+      failedCases.length ? '行为不符：' + failedCases.map((c) => c.name + (c.detail ? '(' + c.detail + ')' : '')).join(' | ') : ''
+    ]
+      .filter(Boolean)
+      .join('；');
+
+console.log(
+  JSON.stringify({
+    pass,
+    detail,
+    metrics: {
+      forbidden_total: RULES.forbid.length,
+      forbidden_remaining: remaining.length,
+      missing: missing.length,
+      behavior_cases: (behavior.cases || []).length,
+      behavior_failed: failedCases.length
+    }
+  })
+);
 `;
 
 async function main(): Promise<void> {
@@ -1181,7 +1993,14 @@ async function main(): Promise<void> {
       JSON.stringify({ forbid: t.forbid, require: t.require }, null, 2) + '\n',
       'utf8'
     );
-    await fsp.writeFile(path.join(dir, 'verify.mjs'), VERIFY_TEMPLATE, 'utf8');
+    if (t.behavior) {
+      await fsp.writeFile(path.join(dir, 'behavior.mjs'), t.behavior, 'utf8');
+    }
+    await fsp.writeFile(
+      path.join(dir, 'verify.mjs'),
+      t.behavior ? VERIFY_BEHAVIORAL_TEMPLATE : VERIFY_TEMPLATE,
+      'utf8'
+    );
     const measured = calibration?.tasks?.[t.id];
     const difficulty = measured ? (measured.baseline >= 0.85 ? 'easy' : measured.baseline <= 0.2 ? 'hard' : 'medium') : t.difficulty;
     tasks.push({
@@ -1202,17 +2021,17 @@ async function main(): Promise<void> {
   const taskset = {
     schema_version: '1.0.0',
     domain: 'web-guidance',
-    version: '1.1.0',
+    version: '1.3.0',
     title: 'Modern Web Guidance 合规任务集',
     description:
-      '40 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~040 是多规则/多文件任务（为了打破双峰难度分布）。评分器是 A 级 tests：可执行规则检查，零主观判断。',
+      '58 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~048 是多规则/多文件任务，wmg-049~056 是行为测试题（评分器把候选代码 import 进来真跑一遍边界用例，堵住「写法对、行为错」），wmg-057~058 是消融组（同 fixture、同评分器，只把提示词里的 API 名字拿掉）。评分器都是 A 级 tests：可执行检查，零主观判断。',
     maintainer: 'upliftbench',
     official: true,
     grader: {
       kind: 'tests',
       tier: 'A',
       entry: 'tasks/wmg-001/verify.mjs',
-      version: '1.1.0',
+      version: '1.3.0',
       timeout_sec: 120
     },
     env: {

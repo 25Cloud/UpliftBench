@@ -1,0 +1,10 @@
+{
+  "forbid": [
+    "originalError",
+    "new Error\\(message \\+"
+  ],
+  "require": [
+    "cause:",
+    "AggregateError"
+  ]
+}

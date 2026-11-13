@@ -6,14 +6,14 @@ import { admissionCheck, validateTasksetJson } from '../src/taskset/validate.js'
 const CWD = process.cwd();
 
 describe('任务集校验与准入检查（docs/04 §6）', () => {
-  it('web-guidance@1.1.0 通过 schema 与结构性检查', async () => {
-    const ts = await loadTaskset('web-guidance@1.1.0', CWD);
+  it('web-guidance@1.3.0 通过 schema 与结构性检查', async () => {
+    const ts = await loadTaskset('web-guidance@1.3.0', CWD);
     const schema = await validateTasksetJson(ts.json);
     expect(schema.errors).toEqual([]);
     const report = await admissionCheck(ts.dir, ts.json);
     expect(report.ok).toBe(true);
-    expect(ts.json.task_count).toBe(48);
-    expect(ts.json.tasks.length).toBe(48);
+    expect(ts.json.task_count).toBe(58);
+    expect(ts.json.tasks.length).toBe(58);
   });
 
   it('general-20@1.0 有 20 个任务且都是 A 级', async () => {
@@ -25,7 +25,7 @@ describe('任务集校验与准入检查（docs/04 §6）', () => {
   });
 
   it('v1.1 新增任务都带 v1.1 标签，且每题至少 3 条规则', async () => {
-    const ts = await loadTaskset('web-guidance@1.1.0', CWD);
+    const ts = await loadTaskset('web-guidance@1.3.0', CWD);
     const fresh = ts.json.tasks.filter((t) => t.tags?.includes('v1.1'));
     expect(fresh.length).toBe(18);
     for (const t of fresh) {
@@ -33,8 +33,34 @@ describe('任务集校验与准入检查（docs/04 §6）', () => {
     }
   });
 
+  it('行为型任务都带 behavior.mjs，且被 behavioral 标签标出（8 题）', async () => {
+    const ts = await loadTaskset('web-guidance@1.3.0', CWD);
+    const fs = await import('node:fs');
+    const withBehavior = ts.json.tasks.filter((t) =>
+      fs.existsSync(path.join(ts.dir, 'tasks', t.id, 'behavior.mjs'))
+    );
+    expect(withBehavior.length).toBe(8);
+    for (const t of withBehavior) {
+      expect(t.tags).toContain('behavioral');
+    }
+    // 反向：打了 behavioral 标签的必须有 behavior.mjs，否则标签在骗人
+    const tagged = ts.json.tasks.filter((t) => t.tags?.includes('behavioral'));
+    expect(tagged.length).toBe(withBehavior.length);
+  });
+
+  it('消融组有 2 题，且与它们的对照组共用同一份 fixture', async () => {
+    const ts = await loadTaskset('web-guidance@1.3.0', CWD);
+    const ablation = ts.json.tasks.filter((t) => t.tags?.includes('ablation'));
+    expect(ablation.length).toBe(2);
+    const fs = await import('node:fs');
+    const read = (id: string) =>
+      fs.readFileSync(path.join(ts.dir, 'tasks', id, 'fixture', 'reorder.js'), 'utf8');
+    // 058 与 044 必须是同一份起点代码，否则「只改提示词」这个前提不成立
+    expect(read('wmg-058')).toBe(read('wmg-044'));
+  });
+
   it('行为性检查如实标 skipped（不假装验过）', async () => {
-    const ts = await loadTaskset('web-guidance@1.1.0', CWD);
+    const ts = await loadTaskset('web-guidance@1.3.0', CWD);
     const report = await admissionCheck(ts.dir, ts.json);
     const behavior = report.checks.filter((c) => c.ok === 'skipped');
     expect(behavior.length).toBeGreaterThanOrEqual(2);

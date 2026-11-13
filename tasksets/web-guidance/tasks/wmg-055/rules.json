@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "try\\s*\\{"
+  ],
+  "require": [
+    "URL\\.parse\\(",
+    "URL\\.canParse\\("
+  ]
+}

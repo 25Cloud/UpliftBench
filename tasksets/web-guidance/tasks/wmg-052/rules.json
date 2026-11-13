@@ -1,0 +1,12 @@
+{
+  "forbid": [
+    "JSON\\.parse\\(JSON\\.stringify\\(",
+    "\\.filter\\("
+  ],
+  "require": [
+    "structuredClone\\(",
+    "\\.union\\(",
+    "\\.intersection\\(",
+    "\\.difference\\("
+  ]
+}

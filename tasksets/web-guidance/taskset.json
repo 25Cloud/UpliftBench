@@ -1,23 +1,22 @@
 {
   "schema_version": "1.0.0",
   "domain": "web-guidance",
-  "version": "1.1.0",
+  "version": "1.3.0",
   "title": "Modern Web Guidance 合规任务集",
-  "description": "40 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~040 是多规则/多文件任务（为了打破双峰难度分布）。评分器是 A 级 tests：可执行规则检查，零主观判断。",
+  "description": "58 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~048 是多规则/多文件任务，wmg-049~056 是行为测试题（评分器把候选代码 import 进来真跑一遍边界用例，堵住「写法对、行为错」），wmg-057~058 是消融组（同 fixture、同评分器，只把提示词里的 API 名字拿掉）。评分器都是 A 级 tests：可执行检查，零主观判断。",
   "maintainer": "upliftbench",
   "official": true,
   "grader": {
     "kind": "tests",
     "tier": "A",
     "entry": "tasks/wmg-001/verify.mjs",
-    "version": "1.1.0",
+    "version": "1.3.0",
     "timeout_sec": 120
   },
   "env": {
-    "kind": "local",
-    "commit": "37c797669edc96a34561ad4db551f69992e7e87e"
+    "kind": "local"
   },
-  "task_count": 48,
+  "task_count": 58,
   "tasks": [
     {
       "id": "wmg-001",
@@ -96,10 +95,10 @@
       "fixture": "tasks/wmg-005/fixture/",
       "verify": "tasks/wmg-005/verify.mjs",
       "weight": 1,
-      "difficulty": "easy",
+      "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.85,
-        "max": 1
+        "min": 0.65,
+        "max": 0.95
       },
       "tags": [
         "dom",
@@ -202,10 +201,10 @@
       "fixture": "tasks/wmg-011/fixture/",
       "verify": "tasks/wmg-011/verify.mjs",
       "weight": 1,
-      "difficulty": "easy",
+      "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.85,
-        "max": 1
+        "min": 0.05,
+        "max": 0.35
       },
       "tags": [
         "network",
@@ -256,8 +255,8 @@
       "weight": 1,
       "difficulty": "hard",
       "expected_baseline": {
-        "min": 0,
-        "max": 0.15
+        "min": 0.05,
+        "max": 0.35
       },
       "tags": [
         "animation",
@@ -306,10 +305,10 @@
       "fixture": "tasks/wmg-017/fixture/",
       "verify": "tasks/wmg-017/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "medium",
       "expected_baseline": {
-        "min": 0,
-        "max": 0.15
+        "min": 0.45,
+        "max": 0.75
       },
       "tags": [
         "clipboard",
@@ -479,10 +478,10 @@
       "fixture": "tasks/wmg-027/fixture/",
       "verify": "tasks/wmg-027/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "medium",
       "expected_baseline": {
-        "min": 0,
-        "max": 0.15
+        "min": 0.45,
+        "max": 0.75
       },
       "tags": [
         "feature-detection",
@@ -514,10 +513,10 @@
       "fixture": "tasks/wmg-029/fixture/",
       "verify": "tasks/wmg-029/verify.mjs",
       "weight": 1,
-      "difficulty": "easy",
+      "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.85,
-        "max": 1
+        "min": 0.25,
+        "max": 0.55
       },
       "tags": [
         "dialog",
@@ -532,10 +531,10 @@
       "fixture": "tasks/wmg-030/fixture/",
       "verify": "tasks/wmg-030/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "medium",
       "expected_baseline": {
-        "min": 0,
-        "max": 0.15
+        "min": 0.45,
+        "max": 0.75
       },
       "tags": [
         "async",
@@ -550,15 +549,16 @@
       "fixture": "tasks/wmg-031/fixture/",
       "verify": "tasks/wmg-031/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "multi-file",
         "refactor",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -568,15 +568,16 @@
       "fixture": "tasks/wmg-032/fixture/",
       "verify": "tasks/wmg-032/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "forms",
         "validation",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -588,13 +589,14 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "images",
         "performance",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -606,13 +608,14 @@
       "weight": 1,
       "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0.45,
+        "max": 0.75
       },
       "tags": [
         "date",
         "i18n",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -622,15 +625,16 @@
       "fixture": "tasks/wmg-035/fixture/",
       "verify": "tasks/wmg-035/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "dialog",
         "a11y",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -642,13 +646,14 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "css",
         "layout",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -658,15 +663,16 @@
       "fixture": "tasks/wmg-037/fixture/",
       "verify": "tasks/wmg-037/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0.05,
+        "max": 0.35
       },
       "tags": [
         "events",
         "performance",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -676,15 +682,16 @@
       "fixture": "tasks/wmg-038/fixture/",
       "verify": "tasks/wmg-038/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.65,
+        "max": 0.95
       },
       "tags": [
         "async",
         "network",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -696,12 +703,13 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "modules",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -711,15 +719,16 @@
       "fixture": "tasks/wmg-040/fixture/",
       "verify": "tasks/wmg-040/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.45,
+        "max": 0.75
       },
       "tags": [
         "security",
         "dom",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -732,12 +741,13 @@
       "difficulty": "hard",
       "expected_baseline": {
         "min": 0.05,
-        "max": 0.2
+        "max": 0.35
       },
       "tags": [
         "scheduling",
         "new-api",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -747,15 +757,16 @@
       "fixture": "tasks/wmg-042/fixture/",
       "verify": "tasks/wmg-042/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.65,
+        "max": 0.95
       },
       "tags": [
         "url",
         "new-api",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -765,15 +776,16 @@
       "fixture": "tasks/wmg-043/fixture/",
       "verify": "tasks/wmg-043/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.65,
+        "max": 0.95
       },
       "tags": [
         "i18n",
         "new-api",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -783,15 +795,16 @@
       "fixture": "tasks/wmg-044/fixture/",
       "verify": "tasks/wmg-044/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "dom",
         "new-api",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -801,16 +814,17 @@
       "fixture": "tasks/wmg-045/fixture/",
       "verify": "tasks/wmg-045/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.73,
+        "max": 1
       },
       "tags": [
         "popover",
         "a11y",
         "new-api",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -822,14 +836,15 @@
       "weight": 1,
       "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0,
+        "max": 0.15
       },
       "tags": [
         "css",
         "animation",
         "new-api",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -839,15 +854,16 @@
       "fixture": "tasks/wmg-047/fixture/",
       "verify": "tasks/wmg-047/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "events",
         "new-api",
-        "v1.1"
+        "v1.1",
+        "calibrated"
       ]
     },
     {
@@ -859,14 +875,206 @@
       "weight": 1,
       "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0,
+        "max": 0.15
       },
       "tags": [
         "css",
         "performance",
         "new-api",
-        "v1.1"
+        "v1.1",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-049",
+      "title": "超时与取消要同时生效（AbortSignal.any + Timeout）",
+      "prompt_file": "tasks/wmg-049/prompt.md",
+      "fixture": "tasks/wmg-049/fixture/",
+      "verify": "tasks/wmg-049/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "behavioral",
+        "network",
+        "new-api",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-050",
+      "title": "deferred 与批收集改用 withResolvers / fromAsync",
+      "prompt_file": "tasks/wmg-050/prompt.md",
+      "fixture": "tasks/wmg-050/fixture/",
+      "verify": "tasks/wmg-050/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "behavioral",
+        "async",
+        "new-api",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-051",
+      "title": "分组用 groupBy，排序用 toSorted",
+      "prompt_file": "tasks/wmg-051/prompt.md",
+      "fixture": "tasks/wmg-051/fixture/",
+      "verify": "tasks/wmg-051/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "behavioral",
+        "collection",
+        "new-api",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-052",
+      "title": "深拷贝丢了 Date/Map/Set，集合运算改用手法",
+      "prompt_file": "tasks/wmg-052/prompt.md",
+      "fixture": "tasks/wmg-052/fixture/",
+      "verify": "tasks/wmg-052/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "behavioral",
+        "collection",
+        "new-api",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-053",
+      "title": "错误链改用 cause 与 AggregateError",
+      "prompt_file": "tasks/wmg-053/prompt.md",
+      "fixture": "tasks/wmg-053/fixture/",
+      "verify": "tasks/wmg-053/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "behavioral",
+        "error",
+        "new-api",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-054",
+      "title": "三个数组函数都在偷改入参",
+      "prompt_file": "tasks/wmg-054/prompt.md",
+      "fixture": "tasks/wmg-054/fixture/",
+      "verify": "tasks/wmg-054/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "behavioral",
+        "collection",
+        "new-api",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-055",
+      "title": "URL 校验别再靠 try-catch",
+      "prompt_file": "tasks/wmg-055/prompt.md",
+      "fixture": "tasks/wmg-055/fixture/",
+      "verify": "tasks/wmg-055/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "behavioral",
+        "url",
+        "new-api",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-056",
+      "title": "字素簇、NFC、土耳其语小写",
+      "prompt_file": "tasks/wmg-056/prompt.md",
+      "fixture": "tasks/wmg-056/fixture/",
+      "verify": "tasks/wmg-056/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "behavioral",
+        "i18n",
+        "new-api",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-057",
+      "title": "下拉菜单要原生浮层，不许手写 class 开关（提示词不给 API 名）",
+      "prompt_file": "tasks/wmg-057/prompt.md",
+      "fixture": "tasks/wmg-057/fixture/",
+      "verify": "tasks/wmg-057/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.35,
+        "max": 0.65
+      },
+      "tags": [
+        "popover",
+        "a11y",
+        "new-api",
+        "ablation",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-058",
+      "title": "移动 DOM 节点不许重载状态（提示词不给 API 名）",
+      "prompt_file": "tasks/wmg-058/prompt.md",
+      "fixture": "tasks/wmg-058/fixture/",
+      "verify": "tasks/wmg-058/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0,
+        "max": 0.15
+      },
+      "tags": [
+        "dom",
+        "new-api",
+        "ablation",
+        "calibrated"
       ]
     }
   ]

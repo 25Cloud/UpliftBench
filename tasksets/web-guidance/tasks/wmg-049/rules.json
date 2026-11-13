@@ -1,0 +1,10 @@
+{
+  "forbid": [
+    "clearTimeout\\(",
+    "options\\.signal \\?\\?"
+  ],
+  "require": [
+    "AbortSignal\\.any\\(",
+    "AbortSignal\\.timeout\\("
+  ]
+}

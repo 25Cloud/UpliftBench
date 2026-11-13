@@ -1,0 +1,11 @@
+{
+  "forbid": [
+    "\\[\\.\\.\\.s\\]",
+    "\\.toLowerCase\\("
+  ],
+  "require": [
+    "Intl\\.Segmenter",
+    "normalize\\('NFC'\\)",
+    "toLocaleLowerCase\\('tr'\\)"
+  ]
+}
