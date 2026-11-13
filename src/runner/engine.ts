@@ -12,6 +12,7 @@ import { nowIso, stableId } from '../version.js';
 import { ensureDir, writeTextFile } from '../util/fsx.js';
 import { UpliftError } from '../util/log.js';
 import type { ArmName, FailureKind, RunRow, Tier1Block } from '../types.js';
+import { ARM_NAMES } from '../types.js';
 import type { Harness, InstalledSkill } from '../harness/types.js';
 
 export interface RunnerConfig {
@@ -55,7 +56,8 @@ export interface RunnerResult {
   placeboSkills: InstalledSkill[];
   placeboValidation: ReturnType<typeof validatePlacebo>;
   rows: RunRow[];
-  tier1: Tier1Block;
+  /** 三臂齐了才有；只跑了一两臂时是 undefined（协议 §1：uplift 必须来自三臂对照） */
+  tier1?: Tier1Block;
   costUsd: number;
   stopped: boolean;
   stopReason?: string;
@@ -322,22 +324,34 @@ export async function runBenchmark(cfg: RunnerConfig): Promise<RunnerResult> {
     taskset: taskset.ref,
     model: cfg.model
   });
-  const tier1 = computeTier1(rows, {
-    taskset: taskset.ref,
-    graderTier: taskset.json.grader.tier,
-    repeats: cfg.repeats,
-    seed: cfg.seed,
-    protocolNotes: [
-      `harness=${cfg.harness.name}`,
-      `model=${cfg.model}`,
-      `temperature=${cfg.temperature}`,
-      `seed=${cfg.seed}`,
-      `repeats=${cfg.repeats}`,
-      'placebo_delta_pct=' + (placeboValidation.deltaPct * 100).toFixed(2),
-      'activation=' + (cfg.activation ?? 'auto'),
-      'uplift_pp = treatment − placebo（协议/1.0.0 §1.1）'
-    ]
-  });
+  /**
+   * 只有三臂都有数据时才出 tier1。
+   *
+   * 为什么：`uplift = treatment − placebo` 需要两臂都存在。少一臂时算出来的数是
+   * 「0 减某个数」这种垃圾（以前会打印 `uplift 0pp / placebo -100pp`），
+   * 而且它会带着 A 级标记进卡片——协议 §1 硬约束 2 明确禁止两臂结果进榜。
+   * 所以这里直接不出 tier1，让上层打「未做三臂对照（uncorrected）」。
+   */
+  const armsPresent = new Set(rows.map((r) => r.arm));
+  const allArms = ARM_NAMES.every((a) => armsPresent.has(a));
+  const tier1 = allArms
+    ? computeTier1(rows, {
+        taskset: taskset.ref,
+        graderTier: taskset.json.grader.tier,
+        repeats: cfg.repeats,
+        seed: cfg.seed,
+        protocolNotes: [
+          `harness=${cfg.harness.name}`,
+          `model=${cfg.model}`,
+          `temperature=${cfg.temperature}`,
+          `seed=${cfg.seed}`,
+          `repeats=${cfg.repeats}`,
+          'placebo_delta_pct=' + (placeboValidation.deltaPct * 100).toFixed(2),
+          'activation=' + (cfg.activation ?? 'auto'),
+          'uplift_pp = treatment − placebo（协议/1.0.0 §1.1）'
+        ]
+      })
+    : undefined;
   db.close();
 
   return {

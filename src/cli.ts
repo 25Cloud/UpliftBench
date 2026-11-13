@@ -252,6 +252,30 @@ program
         console.log(JSON.stringify(card, null, 2));
       } else if (opts.format === 'markdown') {
         console.log(renderCardMarkdown(card));
+      } else if (!result.tier1) {
+        /**
+         * 少跑了臂，就**不出 uplift**。
+         * 以前这里照样打印 `uplift 0pp / placebo -100pp`——那不是数字，是没做对照的痕迹，
+         * 而且它会以 A 级卡片的样子出现在屏幕上。协议 §1 硬约束 2：两臂/单臂结果必须标 uncorrected。
+         */
+        console.log(heading('UpliftBench · 未做三臂对照', 'uncorrected'));
+        const byArm = new Map<string, { n: number; pass: number }>();
+        for (const r of result.rows) {
+          const cur = byArm.get(r.arm) ?? { n: 0, pass: 0 };
+          cur.n += 1;
+          cur.pass += r.pass ?? 0;
+          byArm.set(r.arm, cur);
+        }
+        for (const [arm, v] of byArm) {
+          console.log(kv(arm.padEnd(9), `${v.n} 个 run · 通过率 ${((v.pass / Math.max(1, v.n)) * 100).toFixed(1)}%`));
+        }
+        console.log(c.gray('─'.repeat(54)));
+        console.log(
+          warnLine(
+            `只跑了 ${arms.join(',')}；uplift 必须来自三臂对照（空技能 / 等量安慰剂 / 真技能），这份结果只能当标定用`
+          )
+        );
+        console.log(kv('成本', `$${result.costUsd.toFixed(4)}`));
       } else {
         console.log(renderCardText(card));
         console.log(c.gray('─'.repeat(54)));
@@ -458,6 +482,13 @@ program
         results.push(r);
       }
       const [a, b] = results;
+      if (!a.tier1 || !b.tier1) {
+        throw new UpliftError(
+          '对比需要两边都做三臂对照',
+          `${a.tier1 ? 'B' : 'A'} 只有部分臂，没有 uplift 可比`,
+          '用 --arms baseline,placebo,treatment 各跑一遍再做比较'
+        );
+      }
       console.log(heading('对比结果'));
       const fmt = (v: number) => `${v >= 0 ? '+' : ''}${v.toFixed(0)}pp`;
       console.log(`  uplift      ${fmt(a.tier1.metrics.uplift_pp).padEnd(12)} ${fmt(b.tier1.metrics.uplift_pp)}`);
