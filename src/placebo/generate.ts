@@ -30,10 +30,16 @@ export function generatePlaceboDocument(spec: PlaceboSpec): string {
   let order = seededShuffle(NEUTRAL_PARAGRAPHS, spec.seed);
   let cursor = 0;
   let headingCounter = 0;
+  let length = parts.join('\n').length;
 
-  const current = () => countTokens(parts.join('\n'));
+  /*
+   * 组合阶段的性能很关键：292k token 的安慰剂如果每加一段就重新分词，是 O(n²)。
+   * 所以大循环用「字符数上界估算」终止（纯英文约 4 chars/token，取 4.2 保证只会过长），
+   * 精确收敛交给后面的二分——二分只能往下收，所以宁可多写。
+   */
+  const estimatedChars = Math.ceil(target * 4.2);
 
-  while (current() < target) {
+  while (length < estimatedChars) {
     if (cursor >= order.length) {
       order = seededShuffle(NEUTRAL_PARAGRAPHS, Math.floor(rnd() * 2 ** 31));
       cursor = 0;
@@ -41,29 +47,28 @@ export function generatePlaceboDocument(spec: PlaceboSpec): string {
     if (structured && headingCounter % 4 === 0) {
       const h = NEUTRAL_HEADINGS[Math.floor(rnd() * NEUTRAL_HEADINGS.length)];
       parts.push('', `## ${h}`, '');
+      length += h.length + 5;
     }
     headingCounter += 1;
     const para = order[cursor++];
     const connector = structured && rnd() < 0.25 ? NEUTRAL_CONNECTORS[Math.floor(rnd() * NEUTRAL_CONNECTORS.length)] : '';
-    parts.push(`${connector}${para}`, '');
+    const chunk = `${connector}${para}`;
+    parts.push(chunk, '');
+    length += chunk.length + 2;
     if (structured && rnd() < 0.18) {
-      parts.push(
-        '- 先写清楚目标再动手',
-        '- 把边界条件提到最前面',
-        '- 改动之后立刻验证一次',
-        ''
-      );
+      const list = '- 先写清楚目标再动手\n- 把边界条件提到最前面\n- 改动之后立刻验证一次\n';
+      parts.push(list);
+      length += list.length + 1;
     }
   }
 
-  // 先补到不少于目标，再用二分把前缀收到最接近目标的位置
-  let text = parts.join('\n');
-  let guard = 0;
-  while (countTokens(text) < target && guard < 600) {
-    text += padText(40);
-    guard += 1;
+  let composed = parts.join('\n');
+  // 兜底：估算不够就一次性补一大块（只调一次 countTokens，避免回到 O(n²)）
+  const deficit = target - countTokens(composed);
+  if (deficit > 0) {
+    composed += padText(Math.ceil(deficit * 4.2) + 32);
   }
-  return fitToTarget(text, target);
+  return fitToTarget(composed, target);
 }
 
 /**
@@ -81,9 +86,12 @@ function fitToTarget(text: string, target: number): string {
     else hi = mid - 1;
   }
   let best = text.slice(0, lo);
-  // 尽量停在词边界，但别为了一个词把偏差拉大
+  // 停在词边界更好看，但只在偏差不扩大时才剥词
   const tail = best.match(/\S+$/);
-  if (tail && tail[0].length < 16) best = best.slice(0, best.length - tail[0].length);
+  if (tail && tail[0].length < 16) {
+    const cand = best.slice(0, best.length - tail[0].length);
+    if (cand.length > 0 && Math.abs(countTokens(cand) - target) / target <= 0.005) best = cand;
+  }
   return best.trimEnd();
 }
 
