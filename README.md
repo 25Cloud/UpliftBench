@@ -48,7 +48,7 @@ A skill that looks great against baseline can be worthless against placebo. That
 No API key, no model calls, no cost — this only reads the skill's files.
 
 ```bash
-git clone https://github.com/upliftbench/upliftbench && cd upliftbench
+git clone https://github.com/25Cloud/UpliftBench && cd UpliftBench
 pnpm install && pnpm build
 node dist/cli.js demo
 ```
@@ -271,7 +271,7 @@ Run it in CI on every PR — this repo dogfoods a composite action that posts a 
 summary ([`action.yml`](action.yml)):
 
 ```yaml
-- uses: upliftbench/upliftbench@main
+- uses: 25Cloud/UpliftBench@main
   with:
     path: path/to/skill
 ```

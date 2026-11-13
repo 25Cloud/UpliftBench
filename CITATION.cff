@@ -10,8 +10,8 @@ type: software
 authors:
   - name: "UpliftBench contributors"
 license: Apache-2.0
-repository-code: "https://github.com/upliftbench/upliftbench"
-url: "https://github.com/upliftbench/upliftbench"
+repository-code: "https://github.com/25Cloud/UpliftBench"
+url: "https://github.com/25Cloud/UpliftBench"
 version: "0.2.0"
 date-released: "2026-11-13"
 keywords:

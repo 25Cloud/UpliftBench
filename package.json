@@ -19,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/upliftbench/upliftbench.git"
+    "url": "git+https://github.com/25Cloud/UpliftBench.git"
   },
   "keywords": [
     "agent-skills",
