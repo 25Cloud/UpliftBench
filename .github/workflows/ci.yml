@@ -29,6 +29,12 @@ jobs:
       - name: Unit tests
         run: pnpm test
 
+      - name: Docs links
+        run: pnpm check:links
+
+      - name: Demo (no model, no key)
+        run: node dist/cli.js demo --lang en
+
       - name: Validate tasksets
         run: |
           set +e

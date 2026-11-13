@@ -4,6 +4,7 @@ import {
   nowIso
 } from '../version.js';
 import { decideGrade, formatHeadlineMetrics } from '../metrics/uplift.js';
+import { getLang } from '../render/card.js';
 import { humanInt } from '../util/fsx.js';
 import type {
   ConstraintFollowingProbe,
@@ -71,7 +72,10 @@ export function buildSkillCard(input: BuildCardInput): SkillCardJson {
 
   const headline = input.tier1
     ? formatHeadlineMetrics(input.tier1, decision.grade === 'unrated' ? input.tier1.grader_tier : decision.grade)
-    : `Tier 0 · ${humanInt(input.totalTokens)} tok · ${input.skillCount} 个技能`;
+    : // Tier 0 的 headline 也要跟输出语言走，否则英文卡下面挂一行中文
+      getLang() === 'en'
+      ? `Tier 0 · ${humanInt(input.totalTokens)} tok · ${input.skillCount} skill${input.skillCount === 1 ? '' : 's'}`
+      : `Tier 0 · ${humanInt(input.totalTokens)} tok · ${input.skillCount} 个技能`;
 
   return {
     schema_version: SCHEMA_VERSION,

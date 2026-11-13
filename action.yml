@@ -1,0 +1,88 @@
+name: 'UpliftBench probe'
+description: 'Run the cheap Tier 0 probes on a skill package and print a SkillCard (no model calls, no API key)'
+author: 'upliftbench'
+branding:
+  icon: 'activity'
+  color: 'green'
+
+inputs:
+  path:
+    description: 'Path to the skill package (directory containing SKILL.md)'
+    required: false
+    default: '.'
+  only:
+    description: 'Comma-separated probes. Default avoids anything that needs a model.'
+    required: false
+    default: 'static-cost,uninstall-clean'
+  budget:
+    description: 'Token budget used to judge the cost probe'
+    required: false
+    default: '10000'
+  lang:
+    description: 'Card language: zh | en'
+    required: false
+    default: 'en'
+  upload-card:
+    description: 'Also write the JSON card to .uplift/skillcard.json as a build artifact'
+    required: false
+    default: 'true'
+
+outputs:
+  total_tokens:
+    description: 'Total tokens counted across the package'
+    value: ${{ steps.card.outputs.total_tokens }}
+  card:
+    description: 'Path to the generated JSON SkillCard'
+    value: ${{ steps.card.outputs.path }}
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 10
+
+    # 复合动作跑在调用者仓库里，所以 UpliftBench 自己要装依赖 + 编译。
+    # 首次约 30–60 秒，之后靠 pnpm store 缓存。
+    - name: Build UpliftBench
+      shell: bash
+      working-directory: ${{ github.action_path }}
+      run: |
+        pnpm install --frozen-lockfile
+        pnpm build
+
+    - name: Probe
+      id: card
+      shell: bash
+      working-directory: ${{ github.workspace }}
+      env:
+        UPLIFT_LANG: ${{ inputs.lang }}
+      run: |
+        set -euo pipefail
+        OUT="$RUNNER_TEMP/uplift-skillcard.json"
+        node "${{ github.action_path }}/dist/cli.js" probe "${{ inputs.path }}" \
+          --only "${{ inputs.only }}" \
+          --budget "${{ inputs.budget }}" \
+          --format text --out "$OUT"
+        {
+          echo '### UpliftBench · Tier 0'
+          echo ''
+          node "${{ github.action_path }}/dist/cli.js" card --file "$OUT" --format markdown
+        } >> "$GITHUB_STEP_SUMMARY"
+        TOKENS=$(node -e "const c=require('$OUT');console.log(c.tier0.static_cost.total_tokens)")
+        echo "total_tokens=$TOKENS" >> "$GITHUB_OUTPUT"
+        echo "path=$OUT" >> "$GITHUB_OUTPUT"
+
+    - name: Upload card
+      if: inputs.upload-card == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: uplift-skillcard
+        path: ${{ runner.temp }}/uplift-skillcard.json
+        if-no-files-found: ignore

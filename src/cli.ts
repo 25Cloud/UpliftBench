@@ -8,7 +8,7 @@ import { runProbes, ALL_PROBES, type ProbeName } from './probes/index.js';
 import { runBenchmark } from './runner/engine.js';
 import { runStaticCost } from './probes/static-cost.js';
 import { buildSkillCard } from './card/build.js';
-import { renderCardMarkdown, renderCardText } from './render/card.js';
+import { renderCardMarkdown, renderCardText, setLang } from './render/card.js';
 import { renderBadgeSvg, badgeMarkdown } from './render/badge.js';
 import { openStore, queryRuns } from './runner/store.js';
 import { createWorktree, prepareTaskRepo, removeWorktree, findRepoRoot } from './runner/worktree.js';
@@ -75,9 +75,11 @@ program
   .option('--out <file>', 'SkillCard 输出路径，默认 .uplift/skillcard.json')
   .option('--badge <file>', 'badge.svg 输出路径，默认 .uplift/badge.svg')
   .option('--format <fmt>', 'text | json | markdown', 'text')
+  .option('--lang <lang>', '卡片输出语言：zh | en（也可用 UPLIFT_LANG）')
   .option('--verbose', '打印每个探针的进度')
   .action(async (skillPath: string, opts: Record<string, any>) => {
     try {
+      if (opts.lang === 'en' || opts.lang === 'zh') setLang(opts.lang);
       const root = path.resolve(skillPath);
       const label = opts.label ?? path.basename(root);
       const only = parseList(opts.only) as ProbeName[] | undefined;
@@ -138,6 +140,76 @@ program
         for (const p of bundle.problems) console.log(warnLine(p));
       }
       if (unsupported > 0) process.exit(3);
+      process.exit(0);
+    } catch (e) {
+      fail(e);
+    }
+  });
+
+/* ------------------------------------------------------------------- demo */
+
+program
+  .command('demo')
+  .description('零依赖自检：对内置示例技能跑便宜的 Tier 0（不调模型，几秒钟出卡）')
+  .option('--format <fmt>', 'text | json', 'text')
+  .option('--lang <lang>', '输出语言：zh | en（也可用 UPLIFT_LANG）')
+  .action(async (opts: Record<string, any>) => {
+    try {
+      if (opts.lang === 'en' || opts.lang === 'zh') setLang(opts.lang);
+      const en = opts.lang === 'en';
+      const skillPath = path.resolve('examples', 'demo-skill');
+      if (!(await pathExists(skillPath))) {
+        throw new UpliftError(
+          '找不到内置示例技能',
+          `期望路径：${skillPath}`,
+          '在仓库根目录运行：pnpm build && node dist/cli.js demo'
+        );
+      }
+      const started = Date.now();
+      const bundle = await runProbes({
+        cwd: process.cwd(),
+        skillPath,
+        skillLabel: 'upliftbench/demo-skill',
+        harness: createHarness('openai-compat', {}),
+        only: ['static-cost', 'uninstall-clean'],
+        model: ''
+      });
+      const card = buildSkillCard({
+        skillRepo: 'upliftbench/demo-skill',
+        skillCommit: bundle.commit,
+        skillPath: 'examples/demo-skill',
+        skillCount: bundle.pkg.skills.length,
+        totalTokens: bundle.pkg.totalTokens,
+        source: 'local',
+        tier0: bundle.tier0,
+        extraFlags: []
+      });
+
+      if (opts.format === 'json') {
+        console.log(JSON.stringify(card, null, 2));
+        process.exit(0);
+      }
+      console.log(renderCardText(card));
+      console.log(c.gray('─'.repeat(54)));
+      console.log(kv(en ? 'took' : '耗时', `${Date.now() - started}ms · 0 model calls · $0.00`));
+      console.log('');
+      if (en) {
+        console.log(c.bold('  This is Tier 0 (facts). It is not a score yet.'));
+        console.log(c.dim('  Tier 1 is where uplift comes from: run the same tasks in three arms —'));
+        console.log(c.dim('  no skill / token-matched neutral text / the real skill.'));
+        console.log(c.dim('  uplift = treatment − placebo. Without the placebo arm you are only'));
+        console.log(c.dim('  measuring "does a longer prompt help".'));
+        console.log('');
+        console.log(kv('  next', 'node dist/cli.js run --taskset tasksets/general-20 --skill examples/demo-skill --arms baseline,placebo,treatment --repeats 1 --max-cost 2'));
+        console.log(kv('', 'node dist/cli.js probe examples/demo-skill --only static-cost,uninstall-clean'));
+      } else {
+        console.log(c.bold('  这只是 Tier 0（事实），还不是分数。'));
+        console.log(c.dim('  Tier 1 才有 uplift：同一套任务跑三臂——空技能 / 等 token 中性文本 / 真技能，'));
+        console.log(c.dim('  uplift = treatment − placebo。少了安慰剂那一臂，你测到的是"多塞 token 有没有用"。'));
+        console.log('');
+        console.log(kv('  下一步', 'node dist/cli.js run --taskset tasksets/general-20 --skill examples/demo-skill --arms baseline,placebo,treatment --repeats 1 --max-cost 2'));
+        console.log(kv('', 'node dist/cli.js probe examples/demo-skill --only static-cost,uninstall-clean'));
+      }
       process.exit(0);
     } catch (e) {
       fail(e);

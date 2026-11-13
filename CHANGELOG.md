@@ -4,6 +4,40 @@
 
 ---
 
+## 2026-11-13 · v0.2.0（英文 README · `uplift demo` · 复合 Action · 中英双语输出）
+
+目标是把仓库从「研究笔记 + 工具」推到「别人能立刻上手、能贴进自己 README」的状态。
+这一版**没有改任何指标定义**（protocol 仍是 1.0.0），改的全是门面与可用性。
+
+### 新增
+
+- **`README.md` 重写为英文**（面向国际读者的精简版：三臂设计 → 60 秒 demo → 三组结果 →
+  我们错过的三件事 → 不主张什么 → 自己的技能怎么用）。原中文 README 保留为 `README.zh-CN.md`，
+  两边互相链接。
+- **`docs/assets/hero.svg`**：由 `tools/gen-hero.mjs` 生成的三臂对照图。数字写在脚本里
+  （带出处注释），改数字要回 `docs/15`/`docs/16` 核对——不留一张"看着专业"的旧图。
+- **`uplift demo`**：零依赖、零模型调用、113ms 出卡的自检命令。新读者 clone 完就跑得动，
+  不用 key、不用任务集。会把"这只是 Tier 0，还不是分数"讲清楚。
+- **中英双语终端输出**：`--lang en` 或 `UPLIFT_LANG=en`。默认仍是中文（保持历史文档里引用的输出不变）。
+  翻译只覆盖人读的标签，JSON 字段名一律不动——那是数据契约。
+- **`action.yml`（复合 GitHub Action）**：PR 里跑 Tier 0，把卡片写进 job summary，
+  卡 JSON 作为 artifact 上传。输出 `total_tokens` 与 `card` 两个 output。
+- `pnpm demo` / `pnpm gen:hero` 两个脚本。
+
+### 顺手修掉
+
+- Tier 0 卡的 markdown 行有冗余（整包口径下会重复写一遍「整包 N」），现在只在
+  「按最大单技能判定」时才解释口径。
+- `card.verdict.headline` 的 Tier 0 文案跟着输出语言走（以前英文卡下面会挂一行中文）。
+
+### 不变量（这一版特意确认过）
+
+- `protocol/1.0.0` 一个字没改；`uplift = treatment − placebo`
+- 中文终端输出与 v0.1.5 逐字节一致（`demo`、`card --format markdown` 都对照过）
+- 109 个单测全过；6 张卡仍过 schema；任务集仍 `validate` 通过
+
+---
+
 ## 2026-11-13 · v0.1.5（n=10 定稿 · 五题全正 · +36pp）
 
 ### 实测（150 次 run，$29.79）

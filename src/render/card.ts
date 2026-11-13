@@ -13,17 +13,145 @@ import type {
   UninstallCleanProbe
 } from '../types.js';
 
-const pad = (label: string) => label.padEnd(8);
+/** 标签列宽：中文 8 显示宽度够用，英文要宽一些（否则 "static cost" 会顶到数值上） */
+const pad = (label: string) => label.padEnd(LANG === 'en' ? 12 : 8);
+
+/* ---------------------------------------------------------------- 双语输出 --
+ *
+ * 为什么有这一层：这个基准的读者一半在中文社区、一半在英文社区。
+ * 文档可以是中文（docs/ 全是），但**终端输出**必须两边都能读——不然英文 README 里
+ * 贴一张中文卡，看起来就像半成品。
+ *
+ * 默认中文（保持与历史文档里引用的输出一致），`UPLIFT_LANG=en` 或 `--lang en` 切英文。
+ * 注意：只翻译「人读的标签」，JSON 字段名一律不动（那是数据契约）。
+ */
+export type Lang = 'zh' | 'en';
+
+let LANG: Lang = /^en/i.test(process.env.UPLIFT_LANG ?? '') ? 'en' : 'zh';
+
+export function setLang(lang: Lang): void {
+  LANG = lang;
+}
+
+export function getLang(): Lang {
+  return LANG;
+}
+
+const zh = {
+  cost: '静态开销',
+  packageTotal: '包内合计',
+  overBudget: (pct: number) => `超预算 ${pct}%`,
+  inBudget: '在预算内',
+  basisLargest: (largest: string, whole: string) => `按最大单技能判定（${largest} tok；整包 ${whole}）`,
+  basisContext: (ctx: string) => `注入上下文 ${ctx} tok`,
+  budgetLine: (basis: string, limit: string) => `${basis}，预算 ${limit}`,
+  dupLine: (tok: string, pct: string) => `重复内容 ${tok} tok (${pct}%)`,
+  moreFiles: (n: number) => `(另外 ${n} 个文件)`,
+  tokenizer: (id: string) => `tokenizer ${id}（近似，非精确分词）`,
+  trigger: '触发精度',
+  triggerUnsupported: 'harness 不暴露技能激活事件',
+  constraint: '约束遵循',
+  constraintLine: (total: number, testable: number, rate: string) => `抽出 ${total} 条（可测 ${testable}），违规率 ${rate}`,
+  injection: '注入抗性',
+  injectionLine: (total: number, hijacked: number, baseline: number) => `${total} 例，被劫持 ${hijacked} 例（baseline ${baseline}）`,
+  injectionWorse: '技能增加了注入风险',
+  injectionSame: '与 baseline 持平',
+  negative: '负迁移',
+  uninstall: '可卸载',
+  clean: '干净',
+  dirty: '有残留',
+  leaked: '残留',
+  moreLeaks: (n: number) => `另有 ${n} 处`,
+  tier1: 'Tier 1',
+  untested: '未测（需任务集）',
+  activation: '激活',
+  auto: '自动激活',
+  forced: '强制注入',
+  medianInjected: (tok: string) => `中位注入 ${tok} tok`,
+  lowActivation: '大半 run 没触发技能，这个 uplift 主要反映「肯不肯调工具」',
+  flags: '标记',
+  mdHeader: ['项', '结果'],
+  mdCost: '静态开销',
+  mdBasis: (x: string) => x,
+  mdSkillBasisLargest: (tok: string) => `最大单技能 ${tok}`,
+  mdSkillBasisWhole: (tok: string) => `整包 ${tok}`,
+  mdTrigger: '触发精度',
+  mdConstraint: '约束遵循',
+  mdConstraintLine: (n: number, v: number) => `${n} 条规则，违规 ${v} 条`,
+  mdInjection: '注入抗性',
+  mdInjectionLine: (total: number, hijacked: number, baseline: number) => `${total} 例，被劫持 ${hijacked}（baseline ${baseline}）`,
+  mdNegative: '负迁移',
+  mdUninstall: '可卸载',
+  mdResidue: (n: number) => `残留 ${n} 处`,
+  mdActivation: '技能激活',
+  mdGenerated: (at: string) => `生成于 ${at}`
+};
+
+const en = {
+  cost: 'static cost',
+  packageTotal: 'package total',
+  overBudget: (pct: number) => `over budget by ${pct}%`,
+  inBudget: 'within budget',
+  basisLargest: (largest: string, whole: string) => `judged on the largest single skill (${largest} tok; ${whole} whole package)`,
+  basisContext: (ctx: string) => `context injection ${ctx} tok`,
+  budgetLine: (basis: string, limit: string) => `${basis}, budget ${limit}`,
+  dupLine: (tok: string, pct: string) => `duplicated content ${tok} tok (${pct}%)`,
+  moreFiles: (n: number) => `(+${n} more files)`,
+  tokenizer: (id: string) => `tokenizer ${id} (approximation, not an exact tokenizer)`,
+  trigger: 'trigger precision',
+  triggerUnsupported: 'harness does not expose skill activation events',
+  constraint: 'constraint following',
+  constraintLine: (total: number, testable: number, rate: string) =>
+    `${total} constraints (${testable} testable), violation rate ${rate}`,
+  injection: 'injection resistance',
+  injectionLine: (total: number, hijacked: number, baseline: number) =>
+    `${total} probes, ${hijacked} hijacked (baseline ${baseline})`,
+  injectionWorse: 'skill increases injection risk',
+  injectionSame: 'same as baseline',
+  negative: 'negative transfer',
+  uninstall: 'uninstall',
+  clean: 'clean',
+  dirty: 'residue left behind',
+  leaked: 'leaked',
+  moreLeaks: (n: number) => `+${n} more`,
+  tier1: 'Tier 1',
+  untested: 'not measured (needs a task set)',
+  activation: 'activation',
+  auto: 'auto',
+  forced: 'forced',
+  medianInjected: (tok: string) => `median injected ${tok} tok`,
+  lowActivation: 'most runs never loaded the skill — this uplift mostly measures willingness to use a tool',
+  flags: 'flags',
+  mdHeader: ['field', 'result'],
+  mdCost: 'static cost',
+  mdBasis: (x: string) => x,
+  mdSkillBasisLargest: (tok: string) => `largest single skill ${tok}`,
+  mdSkillBasisWhole: (tok: string) => `whole package ${tok}`,
+  mdTrigger: 'trigger precision',
+  mdConstraint: 'constraint following',
+  mdConstraintLine: (n: number, v: number) => `${n} constraints, ${v} violated`,
+  mdInjection: 'injection resistance',
+  mdInjectionLine: (total: number, hijacked: number, baseline: number) =>
+    `${total} probes, ${hijacked} hijacked (baseline ${baseline})`,
+  mdNegative: 'negative transfer',
+  mdUninstall: 'uninstall',
+  mdResidue: (n: number) => `${n} paths left behind`,
+  mdActivation: 'skill activation',
+  mdGenerated: (at: string) => `generated ${at}`
+};
+
+const T = () => (LANG === 'en' ? en : zh);
 
 /** 两种激活条件的人话名字。auto 是协议默认（模型自己决定触发），forced 是审计用的强制注入。 */
 export function activationModeLabel(mode: 'auto' | 'forced'): string {
-  return mode === 'forced' ? '强制注入' : '自动激活';
+  const t = T();
+  return mode === 'forced' ? t.forced : t.auto;
 }
 
 /** 激活率的简短说明，卡片正文与榜单页共用 */
 export function activationSummary(a: ActivationStats): string {
   const parts = [`${activationModeLabel(a.mode)} ${(a.rate * 100).toFixed(0)}%`];
-  if (a.preloaded_tokens_p50) parts.push(`中位注入 ${humanInt(a.preloaded_tokens_p50)} tok`);
+  if (a.preloaded_tokens_p50) parts.push(T().medianInjected(humanInt(a.preloaded_tokens_p50)));
   return parts.join(' · ');
 }
 
@@ -32,23 +160,24 @@ function flag(v: boolean, text: string): string {
 }
 
 export function renderStaticCostText(p: StaticCostProbe): string[] {
+  const t = T();
   const out: string[] = [];
   const budgetOver = p.budget.over_by > 0;
   const ctx = p.context_tokens ?? p.total_tokens;
   const basisNote =
     p.budget.basis === 'largest_skill'
-      ? `按最大单技能判定（${humanInt(p.budget.largest_skill_tokens)} tok；整包 ${humanInt(ctx)}）`
-      : `注入上下文 ${humanInt(ctx)} tok`;
+      ? t.basisLargest(humanInt(p.budget.largest_skill_tokens), humanInt(ctx))
+      : t.basisContext(humanInt(ctx));
   out.push(
-    `  ${pad('静态开销')} ${c.bold(humanInt(p.total_tokens))} tok ${c.dim('包内合计')}   ${
-      budgetOver ? c.yellow(`${sym.warn} 超预算 ${p.budget.over_pct}%`) : c.green('在预算内')
+    `  ${pad(t.cost)} ${c.bold(humanInt(p.total_tokens))} tok ${c.dim(t.packageTotal)}   ${
+      budgetOver ? c.yellow(`${sym.warn} ${t.overBudget(p.budget.over_pct)}`) : c.green(t.inBudget)
     }`
   );
-  out.push(`  ${pad('')} ${c.dim(`└ ${basisNote}，预算 ${humanInt(p.budget.limit)}`)}`);
+  out.push(`  ${pad('')} ${c.dim(`└ ${t.budgetLine(basisNote, humanInt(p.budget.limit))}`)}`);
   const dupWaste = p.duplicates.reduce((s, d) => s + d.wasted_tokens, 0);
   if (p.total_tokens > 0) {
     out.push(
-      `  ${pad('')} ${c.dim(`└ 重复内容 ${humanInt(dupWaste)} tok (${((dupWaste / p.total_tokens) * 100).toFixed(1)}%)`)}`
+      `  ${pad('')} ${c.dim(`└ ${t.dupLine(humanInt(dupWaste), ((dupWaste / p.total_tokens) * 100).toFixed(1))}`)}`
     );
   }
   const top = p.per_file.slice(0, 3);
@@ -60,51 +189,58 @@ export function renderStaticCostText(p: StaticCostProbe): string[] {
   if (rest > 0) {
     const restTokens = p.per_file.slice(top.length).reduce((s, f) => s + f.tokens, 0);
     out.push(
-      `  ${pad('')} ${c.dim('└')} ${c.dim(`(另外 ${rest} 个文件)`.padEnd(30))} ${humanInt(restTokens).padStart(7)}`
+      `  ${pad('')} ${c.dim('└')} ${c.dim(t.moreFiles(rest).padEnd(30))} ${humanInt(restTokens).padStart(7)}`
     );
   }
-  out.push(`  ${pad('')} ${c.dim(`tokenizer ${p.tokenizer}（近似，非精确分词）`)}`);
+  out.push(`  ${pad('')} ${c.dim(t.tokenizer(p.tokenizer))}`);
   return out;
 }
 
 export function renderTriggerText(p: TriggerPrecisionProbe): string[] {
-  if (!p.supported) return [`  ${pad('触发精度')} ${c.dim(`unsupported · ${p.reason ?? 'harness 不暴露技能激活事件'}`)}`];
+  const t = T();
+  if (!p.supported) return [`  ${pad(t.trigger)} ${c.dim(`unsupported · ${p.reason ?? t.triggerUnsupported}`)}`];
   const f = (v: number | null) => (v === null ? 'n/a' : v.toFixed(2));
   return [
-    `  ${pad('触发精度')} P ${f(p.precision)} / R ${f(p.recall)} / F1 ${f(p.f1)}   ${c.dim(`n+ ${p.n_positive} / n- ${p.n_negative}`)}`
+    `  ${pad(t.trigger)} P ${f(p.precision)} / R ${f(p.recall)} / F1 ${f(p.f1)}   ${c.dim(`n+ ${p.n_positive} / n- ${p.n_negative}`)}`
   ];
 }
 
 export function renderConstraintText(p: ConstraintFollowingProbe): string[] {
-  if (!p.supported) return [`  ${pad('约束遵循')} ${c.dim(`unsupported · ${p.reason ?? ''}`)}`];
+  const t = T();
+  if (!p.supported) return [`  ${pad(t.constraint)} ${c.dim(`unsupported · ${p.reason ?? ''}`)}`];
   const tested = p.constraints.filter((x) => x.testable).length;
   const rate = p.violation_rate === null ? 'n/a' : `${(p.violation_rate * 100).toFixed(1)}%`;
   return [
-    `  ${pad('约束遵循')} 抽出 ${p.constraints.length} 条（可测 ${tested}），违规率 ${rate}   ${c.dim(`n_checked ${p.n_checked}`)}`
+    `  ${pad(t.constraint)} ${t.constraintLine(p.constraints.length, tested, rate)}   ${c.dim(`n_checked ${p.n_checked}`)}`
   ];
 }
 
 export function renderInjectionText(p: InjectionResistanceProbe): string[] {
-  if (!p.supported) return [`  ${pad('注入抗性')} ${c.dim(`unsupported · ${p.reason ?? ''}`)}`];
-  const tail = p.delta > 0 ? c.yellow(`${sym.warn} 技能增加了注入风险`) : c.green('与 baseline 持平');
+  const t = T();
+  if (!p.supported) return [`  ${pad(t.injection)} ${c.dim(`unsupported · ${p.reason ?? ''}`)}`];
+  const tail = p.delta > 0 ? c.yellow(`${sym.warn} ${t.injectionWorse}`) : c.green(t.injectionSame);
   return [
-    `  ${pad('注入抗性')} ${p.total} 例，被劫持 ${p.hijacked} 例（baseline ${p.baseline_hijacked}）   ${tail}`
+    `  ${pad(t.injection)} ${t.injectionLine(p.total, p.hijacked, p.baseline_hijacked)}   ${tail}`
   ];
 }
 
 export function renderNegativeTransferText(p: NegativeTransferProbe): string[] {
-  if (!p.supported) return [`  ${pad('负迁移')} ${c.dim(`unsupported · ${p.reason ?? ''}`)}`];
+  const t = T();
+  if (!p.supported) return [`  ${pad(t.negative)} ${c.dim(`unsupported · ${p.reason ?? ''}`)}`];
   const sign = p.delta_pp >= 0 ? '+' : '';
   const ci = `CI [${p.ci95[0].toFixed(1)}, ${p.ci95[1].toFixed(1)}]`;
-  return [`  ${pad('负迁移')} ${sign}${p.delta_pp.toFixed(1)}pp  ${c.dim(`${ci}  n=${p.n}`)}`];
+  return [`  ${pad(t.negative)} ${sign}${p.delta_pp.toFixed(1)}pp  ${c.dim(`${ci}  n=${p.n}`)}`];
 }
 
 export function renderUninstallText(p: UninstallCleanProbe): string[] {
-  if (!p.supported) return [`  ${pad('可卸载')} ${c.dim(`unsupported · ${p.reason ?? ''}`)}`];
-  const head = p.clean ? c.green('干净') : c.yellow(`${sym.warn} 有残留`);
-  const lines = [`  ${pad('可卸载')} ${head}`];
-  for (const leak of p.leaked_paths.slice(0, 5)) lines.push(`  ${pad('')} ${c.dim('└ 残留')} ${leak}`);
-  if (p.leaked_paths.length > 5) lines.push(`  ${pad('')} ${c.dim(`└ 另有 ${p.leaked_paths.length - 5} 处`)}`);
+  const t = T();
+  if (!p.supported) return [`  ${pad(t.uninstall)} ${c.dim(`unsupported · ${p.reason ?? ''}`)}`];
+  const head = p.clean ? c.green(t.clean) : c.yellow(`${sym.warn} ${t.dirty}`);
+  const lines = [`  ${pad(t.uninstall)} ${head}`];
+  for (const leak of p.leaked_paths.slice(0, 5)) lines.push(`  ${pad('')} ${c.dim(`└ ${t.leaked}`)} ${leak}`);
+  if (p.leaked_paths.length > 5) {
+    lines.push(`  ${pad('')} ${c.dim(`└ ${t.moreLeaks(p.leaked_paths.length - 5)}`)}`);
+  }
   return lines;
 }
 
@@ -129,6 +265,7 @@ export function renderProbeText(p: ProbeResult): string[] {
 
 /** 完整 SkillCard 的终端渲染（docs/03 §Tier 0 产出格式） */
 export function renderCardText(card: SkillCardJson): string {
+  const t = T();
   const lines: string[] = [];
   const rule = '─'.repeat(54);
   lines.push(`SkillCard  ${c.bold(card.skill.repo)}   ${c.dim(card.tier1 ? '' : '[Tier 0]')}`.trimEnd());
@@ -151,72 +288,93 @@ export function renderCardText(card: SkillCardJson): string {
     const m = card.tier1.metrics;
     const ci = `[${trim1(m.ci95[0])}, ${trim1(m.ci95[1])}]`;
     lines.push(
-      `  ${pad('Tier 1')} uplift ${signed1(m.uplift_pp)}pp / headroom ${trim1(m.headroom_closed * 100)}%   ${c.dim(`95%CI ${ci} · N=${card.tier1.n} · placebo ${signed1(m.placebo_effect_pp)}pp`)}`
+      `  ${pad(t.tier1)} uplift ${signed1(m.uplift_pp)}pp / headroom ${trim1(m.headroom_closed * 100)}%   ${c.dim(`95%CI ${ci} · N=${card.tier1.n} · placebo ${signed1(m.placebo_effect_pp)}pp`)}`
     );
     if (card.tier1.activation) {
       const a = card.tier1.activation;
-      const perArm =
-        a.by_arm && (a.by_arm.treatment !== undefined || a.by_arm.placebo !== undefined)
-          ? `（treatment ${((a.by_arm.treatment ?? 0) * 100).toFixed(0)}% / placebo ${((a.by_arm.placebo ?? 0) * 100).toFixed(0)}%）`
-          : '';
-      lines.push(`  ${pad('激活')} ${c.bold(activationSummary(a))}${c.dim(perArm)}`);
+      const trPct = ((a.by_arm?.treatment ?? 0) * 100).toFixed(0);
+      const plPct = ((a.by_arm?.placebo ?? 0) * 100).toFixed(0);
+      const hasArms = a.by_arm && (a.by_arm.treatment !== undefined || a.by_arm.placebo !== undefined);
+      const perArm = hasArms
+        ? LANG === 'en'
+          ? ` (treatment ${trPct}% / placebo ${plPct}%)`
+          : `（treatment ${trPct}% / placebo ${plPct}%）`
+        : '';
+      lines.push(`  ${pad(t.activation)} ${c.bold(activationSummary(a))}${c.dim(perArm)}`);
       if (a.mode === 'auto' && a.rate < 0.5) {
-        lines.push(`  ${pad('')} ${c.yellow(`${sym.warn} 大半 run 没触发技能，这个 uplift 主要反映「肯不肯调工具」`)}`);
+        lines.push(`  ${pad('')} ${c.yellow(`${sym.warn} ${t.lowActivation}`)}`);
       }
     }
   } else {
-    lines.push(`  ${pad('Tier 1')} ${c.dim('未测（需任务集）')}`);
+    lines.push(`  ${pad(t.tier1)} ${c.dim(t.untested)}`);
   }
   if (card.verdict.flags.length > 0) {
-    lines.push(`  ${pad('标记')} ${card.verdict.flags.map((f) => c.yellow(f)).join('  ')}`);
+    lines.push(`  ${pad(t.flags)} ${card.verdict.flags.map((f) => c.yellow(f)).join('  ')}`);
   }
   return lines.join('\n');
 }
 
 /** markdown 版：能直接贴进 GitHub PR / README */
 export function renderCardMarkdown(card: SkillCardJson): string {
+  const t = T();
   const out: string[] = [];
   out.push(`## SkillCard · \`${card.skill.repo}\``);
   out.push('');
-  out.push('| 项 | 结果 |');
+  out.push(`| ${t.mdHeader[0]} | ${t.mdHeader[1]} |`);
   out.push('|---|---|');
   const sc = card.tier0.static_cost as StaticCostProbe | undefined;
   if (sc?.supported) {
+    // 只有「按最大单技能判定」时才需要解释口径；整包口径下 total 就是上下文，说了是重复
+    const basis =
+      sc.budget.basis === 'largest_skill' ? ` · ${t.mdSkillBasisLargest(humanInt(sc.budget.largest_skill_tokens))}` : '';
     out.push(
-      `| 静态开销 | ${humanInt(sc.total_tokens)} tok 包内合计 · 预算口径 ${
-        sc.budget.basis === 'largest_skill' ? `最大单技能 ${humanInt(sc.budget.largest_skill_tokens)}` : `整包 ${humanInt(sc.context_tokens ?? sc.total_tokens)}`
-      } ${sc.budget.over_by > 0 ? `⚠️ 超预算 ${sc.budget.over_pct}%` : '✅'} |`
+      `| ${t.mdCost} | ${humanInt(sc.total_tokens)} tok ${t.packageTotal}${basis} ${
+        sc.budget.over_by > 0 ? `⚠️ ${t.overBudget(sc.budget.over_pct)}` : '✅'
+      } |`
     );
   }
   const tp = card.tier0.trigger_precision as TriggerPrecisionProbe | undefined;
-  if (tp) out.push(`| 触发精度 | ${tp.supported ? `P ${tp.precision?.toFixed(2)} / R ${tp.recall?.toFixed(2)} / F1 ${tp.f1?.toFixed(2)}` : 'unsupported'} |`);
+  if (tp) {
+    out.push(
+      `| ${t.mdTrigger} | ${tp.supported ? `P ${tp.precision?.toFixed(2)} / R ${tp.recall?.toFixed(2)} / F1 ${tp.f1?.toFixed(2)}` : 'unsupported'} |`
+    );
+  }
   const cf = card.tier0.constraint_following as ConstraintFollowingProbe | undefined;
-  if (cf)
+  if (cf) {
     out.push(
-      `| 约束遵循 | ${cf.supported ? `${cf.constraints.length} 条规则，违规 ${(cf.violations ?? []).length} 条` : 'unsupported'} |`
+      `| ${t.mdConstraint} | ${cf.supported ? t.mdConstraintLine(cf.constraints.length, (cf.violations ?? []).length) : 'unsupported'} |`
     );
+  }
   const ir = card.tier0.injection_resistance as InjectionResistanceProbe | undefined;
-  if (ir) out.push(`| 注入抗性 | ${ir.supported ? `${ir.total} 例，被劫持 ${ir.hijacked}（baseline ${ir.baseline_hijacked}）` : 'unsupported'} |`);
-  const nt = card.tier0.negative_transfer as NegativeTransferProbe | undefined;
-  if (nt)
+  if (ir) {
     out.push(
-      `| 负迁移 | ${nt.supported ? `${nt.delta_pp >= 0 ? '+' : ''}${nt.delta_pp.toFixed(1)}pp CI [${nt.ci95[0].toFixed(1)}, ${nt.ci95[1].toFixed(1)}] n=${nt.n}` : 'unsupported'} |`
+      `| ${t.mdInjection} | ${ir.supported ? t.mdInjectionLine(ir.total, ir.hijacked, ir.baseline_hijacked) : 'unsupported'} |`
     );
+  }
+  const nt = card.tier0.negative_transfer as NegativeTransferProbe | undefined;
+  if (nt) {
+    out.push(
+      `| ${t.mdNegative} | ${nt.supported ? `${nt.delta_pp >= 0 ? '+' : ''}${nt.delta_pp.toFixed(1)}pp CI [${nt.ci95[0].toFixed(1)}, ${nt.ci95[1].toFixed(1)}] n=${nt.n}` : 'unsupported'} |`
+    );
+  }
   const uc = card.tier0.uninstall_clean as UninstallCleanProbe | undefined;
-  if (uc) out.push(`| 可卸载 | ${uc.supported ? (uc.clean ? '干净' : `残留 ${uc.leaked_paths.length} 处`) : 'unsupported'} |`);
+  if (uc) {
+    out.push(`| ${t.mdUninstall} | ${uc.supported ? (uc.clean ? t.clean : t.mdResidue(uc.leaked_paths.length)) : 'unsupported'} |`);
+  }
   if (card.tier1) {
     const m = card.tier1.metrics;
+    const grade = LANG === 'en' ? `grade ${card.tier1.grader_tier}` : `${card.tier1.grader_tier} 级`;
     out.push(
-      `| Tier 1 | uplift ${signed1(m.uplift_pp)}pp · headroom ${trim1(m.headroom_closed * 100)}% · N=${card.tier1.n} · 95%CI [${trim1(m.ci95[0])}, ${trim1(m.ci95[1])}] · ${card.tier1.grader_tier} 级 · placebo ${signed1(m.placebo_effect_pp)}pp |`
+      `| ${t.tier1} | uplift ${signed1(m.uplift_pp)}pp · headroom ${trim1(m.headroom_closed * 100)}% · N=${card.tier1.n} · 95%CI [${trim1(m.ci95[0])}, ${trim1(m.ci95[1])}] · ${grade} · placebo ${signed1(m.placebo_effect_pp)}pp |`
     );
     if (card.tier1.activation) {
-      out.push(`| 技能激活 | ${activationSummary(card.tier1.activation)} |`);
+      out.push(`| ${t.mdActivation} | ${activationSummary(card.tier1.activation)} |`);
     }
   } else {
-    out.push('| Tier 1 | 未测（需任务集） |');
+    out.push(`| ${t.tier1} | ${t.untested} |`);
   }
   out.push('');
-  out.push(`> ${card.verdict.headline} · ${card.protocol_version} · 生成于 ${card.generated_at}`);
+  out.push(`> ${card.verdict.headline} · ${card.protocol_version} · ${t.mdGenerated(card.generated_at)}`);
   return out.join('\n');
 }
 
