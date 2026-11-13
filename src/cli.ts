@@ -277,11 +277,15 @@ program
   .description('查看 / 渲染已有的 SkillCard')
   .option('--file <file>', 'SkillCard 路径，默认 .uplift/skillcard.json')
   .option('--format <fmt>', 'text | markdown | json', 'text')
-  .option('--compare <a> <b>', '并排比较两张卡')
+  .option('--compare <files...>', '并排比较两张卡：--compare a.json b.json')
   .action(async (opts: Record<string, any>) => {
     try {
       if (opts.compare) {
-        const [a, b] = opts.compare as string[];
+        const files = Array.isArray(opts.compare) ? (opts.compare as string[]) : [String(opts.compare)];
+        if (files.length < 2) {
+          throw new UpliftError('--compare 需要两个 SkillCard', `收到 ${files.length} 个`, 'uplift card --compare a.json b.json');
+        }
+        const [a, b] = files;
         const ca = await readJson<SkillCardJson>(path.resolve(a));
         const cb = await readJson<SkillCardJson>(path.resolve(b));
         console.log(heading('UpliftBench · compare'));

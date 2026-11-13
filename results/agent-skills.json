@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T06:36:06.710Z",
+  "generated_at": "2026-11-13T06:50:55.697Z",
   "skill": {
     "source": "github",
     "repo": "addyosmani/agent-skills",
@@ -217,6 +217,44 @@
       "leaked_paths": [],
       "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
       "declared_hooks": []
+    },
+    "trigger_precision": {
+      "probe": "trigger-precision",
+      "supported": true,
+      "precision": 0.8,
+      "recall": 1,
+      "f1": 0.889,
+      "false_positives": [
+        {
+          "prompt": "帮我写一首关于秋天的诗",
+          "why": "负样本被误触发（kind=unrelated）"
+        },
+        {
+          "prompt": "帮我生成一个新的 UUID",
+          "why": "负样本被误触发（kind=same_domain）"
+        },
+        {
+          "prompt": "这个 SQL 查询该在哪一列建索引",
+          "why": "负样本被误触发（kind=same_domain）"
+        }
+      ],
+      "false_negatives": [],
+      "n_positive": 12,
+      "n_negative": 12,
+      "by_negative_kind": {
+        "unrelated": {
+          "n": 4,
+          "precision": 0.75
+        },
+        "adjacent": {
+          "n": 4,
+          "precision": 1
+        },
+        "same_domain": {
+          "n": 4,
+          "precision": 0.5
+        }
+      }
     }
   },
   "tier1": {

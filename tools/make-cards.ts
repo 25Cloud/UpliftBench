@@ -50,24 +50,22 @@ async function main(): Promise<void> {
     const scanned = await loadSkillsForPackage(skillPath);
     console.log(`\n=== ${entry.repo} ===`);
 
-    // 如果之前跑过完整六探针（贵的那四个），直接复用，不重复花钱
+    // 便宜的探针每次都重跑；贵的那几个（触发精度/注入/约束/负迁移）如果之前跑过就复用
+    const bundle = await runProbes({
+      cwd: root,
+      skillPath,
+      skillLabel: entry.repo,
+      harness,
+      only: ['static-cost', 'uninstall-clean'],
+      model,
+      onProgress: (m) => console.log(`  · ${m}`)
+    });
+    let tier0 = bundle.tier0 as Record<string, unknown>;
     const fullProbePath = path.join(root, '.uplift', `probe-${entry.id}.json`);
-    let tier0: Record<string, unknown>;
     if (await pathExists(fullProbePath)) {
       const cached = JSON.parse(await fsp.readFile(fullProbePath, 'utf8')) as { tier0: Record<string, unknown> };
-      tier0 = cached.tier0;
-      console.log(`  · 复用完整探针结果 ${path.relative(root, fullProbePath)}`);
-    } else {
-      const bundle = await runProbes({
-        cwd: root,
-        skillPath,
-        skillLabel: entry.repo,
-        harness,
-        only: ['static-cost', 'uninstall-clean'],
-        model,
-        onProgress: (m) => console.log(`  · ${m}`)
-      });
-      tier0 = bundle.tier0;
+      tier0 = { ...tier0, ...cached.tier0 };
+      console.log(`  · 合并 ${path.relative(root, fullProbePath)} 里的 ${Object.keys(cached.tier0).length} 个探针结果`);
     }
 
     let tier1;

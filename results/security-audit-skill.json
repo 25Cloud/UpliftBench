@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T06:36:07.118Z",
+  "generated_at": "2026-11-13T06:50:56.203Z",
   "skill": {
     "source": "github",
     "repo": "cloudflare/security-audit-skill",
@@ -155,6 +155,31 @@
       "leaked_paths": [],
       "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
       "declared_hooks": []
+    },
+    "trigger_precision": {
+      "probe": "trigger-precision",
+      "supported": true,
+      "precision": 1,
+      "recall": 1,
+      "f1": 1,
+      "false_positives": [],
+      "false_negatives": [],
+      "n_positive": 8,
+      "n_negative": 9,
+      "by_negative_kind": {
+        "unrelated": {
+          "n": 3,
+          "precision": 1
+        },
+        "adjacent": {
+          "n": 3,
+          "precision": 1
+        },
+        "same_domain": {
+          "n": 3,
+          "precision": 1
+        }
+      }
     }
   },
   "verdict": {
