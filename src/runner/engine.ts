@@ -115,7 +115,7 @@ export async function runBenchmark(cfg: RunnerConfig): Promise<RunnerResult> {
   let nextIndex = 0;
   const total = pending.length;
 
-  const taskRepoCache = new Map<string, string>();
+  const taskRepoCache = new Map<string, Promise<string>>();
 
   const runUnit = async (workerId: number, unit: RunUnit): Promise<void> => {
     const taskRepo = await getTaskRepo(unit.taskId);
@@ -238,14 +238,21 @@ export async function runBenchmark(cfg: RunnerConfig): Promise<RunnerResult> {
     });
   };
 
-  async function getTaskRepo(taskId: string): Promise<string> {
+  /**
+   * 同一个任务的仓库只初始化一次：三个 worker 会同时碰到同一个 taskId，
+   * 并发 `git init` + `git commit` 会撞上 `cannot lock ref 'HEAD'`。
+   * 所以这里缓存的是 Promise，不是结果。
+   */
+  function getTaskRepo(taskId: string): Promise<string> {
     const cached = taskRepoCache.get(taskId);
     if (cached) return cached;
-    const fixture = taskFixtureDir(taskset, taskId);
-    const dest = path.join(path.resolve(cfg.cwd, cfg.workRoot), 'repos', taskId);
-    const repo = await prepareTaskRepo(fixture, dest);
-    taskRepoCache.set(taskId, repo);
-    return repo;
+    const p = (async () => {
+      const fixture = taskFixtureDir(taskset, taskId);
+      const dest = path.join(path.resolve(cfg.cwd, cfg.workRoot), 'repos', taskId);
+      return prepareTaskRepo(fixture, dest);
+    })();
+    taskRepoCache.set(taskId, p);
+    return p;
   }
 
   const workers: Promise<void>[] = [];

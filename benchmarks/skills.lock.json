@@ -1,0 +1,32 @@
+{
+  "agent-skills": {
+    "repo": "addyosmani/agent-skills",
+    "commit": "301b02b12bff98e4688e6984af6556802322bbde",
+    "skill_path": "agent-skills/skills",
+    "fetched_at": "2026-11-13T06:19:40.149Z"
+  },
+  "modern-web-guidance-src": {
+    "repo": "GoogleChrome/modern-web-guidance-src",
+    "commit": "3bb177a6de62b7fd8cd0432c33756e6f3c9ece9d",
+    "skill_path": "modern-web-guidance-src/.agents/skills",
+    "fetched_at": "2026-11-13T06:19:40.189Z"
+  },
+  "security-audit-skill": {
+    "repo": "cloudflare/security-audit-skill",
+    "commit": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+    "skill_path": "security-audit-skill/skills",
+    "fetched_at": "2026-11-13T06:19:40.231Z"
+  },
+  "hallmark": {
+    "repo": "Nutlope/hallmark",
+    "commit": "04977e15f3dfd6ee4b74c887dac3eb52665d6c92",
+    "skill_path": "hallmark/skills",
+    "fetched_at": "2026-11-13T06:19:40.271Z"
+  },
+  "superpowers": {
+    "repo": "obra/superpowers",
+    "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+    "skill_path": "superpowers/skills",
+    "fetched_at": "2026-11-13T06:19:40.313Z"
+  }
+}

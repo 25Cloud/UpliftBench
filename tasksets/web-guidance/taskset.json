@@ -28,12 +28,13 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "api-modernization",
-        "network"
+        "network",
+        "calibrated"
       ]
     },
     {
@@ -45,11 +46,12 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "dom"
+        "dom",
+        "calibrated"
       ]
     },
     {
@@ -61,11 +63,12 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "syntax"
+        "syntax",
+        "calibrated"
       ]
     },
     {
@@ -75,14 +78,15 @@
       "fixture": "tasks/wmg-004/fixture/",
       "verify": "tasks/wmg-004/verify.mjs",
       "weight": 1,
-      "difficulty": "easy",
+      "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0,
+        "max": 0.15
       },
       "tags": [
         "syntax",
-        "correctness"
+        "correctness",
+        "calibrated"
       ]
     },
     {
@@ -92,14 +96,15 @@
       "fixture": "tasks/wmg-005/fixture/",
       "verify": "tasks/wmg-005/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "dom",
-        "xss"
+        "xss",
+        "calibrated"
       ]
     },
     {
@@ -109,14 +114,15 @@
       "fixture": "tasks/wmg-006/fixture/",
       "verify": "tasks/wmg-006/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "dom",
-        "events"
+        "events",
+        "calibrated"
       ]
     },
     {
@@ -126,14 +132,15 @@
       "fixture": "tasks/wmg-007/fixture/",
       "verify": "tasks/wmg-007/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "animation",
-        "performance"
+        "performance",
+        "calibrated"
       ]
     },
     {
@@ -145,11 +152,12 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "dom"
+        "dom",
+        "calibrated"
       ]
     },
     {
@@ -161,11 +169,12 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "encoding"
+        "encoding",
+        "calibrated"
       ]
     },
     {
@@ -177,12 +186,13 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "events",
-        "legacy"
+        "legacy",
+        "calibrated"
       ]
     },
     {
@@ -192,14 +202,15 @@
       "fixture": "tasks/wmg-011/fixture/",
       "verify": "tasks/wmg-011/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "network",
-        "blocking"
+        "blocking",
+        "calibrated"
       ]
     },
     {
@@ -209,13 +220,14 @@
       "fixture": "tasks/wmg-012/fixture/",
       "verify": "tasks/wmg-012/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "events"
+        "events",
+        "calibrated"
       ]
     },
     {
@@ -227,11 +239,12 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "dom"
+        "dom",
+        "calibrated"
       ]
     },
     {
@@ -241,14 +254,15 @@
       "fixture": "tasks/wmg-014/fixture/",
       "verify": "tasks/wmg-014/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0,
+        "max": 0.15
       },
       "tags": [
         "animation",
-        "performance"
+        "performance",
+        "calibrated"
       ]
     },
     {
@@ -260,11 +274,12 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "syntax"
+        "syntax",
+        "calibrated"
       ]
     },
     {
@@ -276,11 +291,12 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "date"
+        "date",
+        "calibrated"
       ]
     },
     {
@@ -290,14 +306,15 @@
       "fixture": "tasks/wmg-017/fixture/",
       "verify": "tasks/wmg-017/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0,
+        "max": 0.15
       },
       "tags": [
         "clipboard",
-        "permissions"
+        "permissions",
+        "calibrated"
       ]
     },
     {
@@ -307,13 +324,14 @@
       "fixture": "tasks/wmg-018/fixture/",
       "verify": "tasks/wmg-018/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "events"
+        "events",
+        "calibrated"
       ]
     },
     {
@@ -325,11 +343,12 @@
       "weight": 1,
       "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0,
+        "max": 0.15
       },
       "tags": [
-        "network"
+        "network",
+        "calibrated"
       ]
     },
     {
@@ -339,13 +358,14 @@
       "fixture": "tasks/wmg-020/fixture/",
       "verify": "tasks/wmg-020/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "dom"
+        "dom",
+        "calibrated"
       ]
     },
     {
@@ -357,11 +377,12 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "ux"
+        "ux",
+        "calibrated"
       ]
     },
     {
@@ -371,13 +392,14 @@
       "fixture": "tasks/wmg-022/fixture/",
       "verify": "tasks/wmg-022/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "security"
+        "security",
+        "calibrated"
       ]
     },
     {
@@ -387,13 +409,14 @@
       "fixture": "tasks/wmg-023/fixture/",
       "verify": "tasks/wmg-023/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "collections"
+        "collections",
+        "calibrated"
       ]
     },
     {
@@ -405,11 +428,12 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 0.9
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
-        "syntax"
+        "syntax",
+        "calibrated"
       ]
     },
     {
@@ -419,14 +443,15 @@
       "fixture": "tasks/wmg-025/fixture/",
       "verify": "tasks/wmg-025/verify.mjs",
       "weight": 1,
-      "difficulty": "medium",
+      "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.3,
-        "max": 0.6
+        "min": 0,
+        "max": 0.15
       },
       "tags": [
         "collections",
-        "iteration"
+        "iteration",
+        "calibrated"
       ]
     },
     {
@@ -438,12 +463,13 @@
       "weight": 1,
       "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0,
+        "max": 0.15
       },
       "tags": [
         "async",
-        "refactor"
+        "refactor",
+        "calibrated"
       ]
     },
     {
@@ -455,11 +481,12 @@
       "weight": 1,
       "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0,
+        "max": 0.15
       },
       "tags": [
-        "feature-detection"
+        "feature-detection",
+        "calibrated"
       ]
     },
     {
@@ -469,14 +496,15 @@
       "fixture": "tasks/wmg-028/fixture/",
       "verify": "tasks/wmg-028/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "events",
-        "lifecycle"
+        "lifecycle",
+        "calibrated"
       ]
     },
     {
@@ -486,14 +514,15 @@
       "fixture": "tasks/wmg-029/fixture/",
       "verify": "tasks/wmg-029/verify.mjs",
       "weight": 1,
-      "difficulty": "hard",
+      "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0.85,
+        "max": 1
       },
       "tags": [
         "dialog",
-        "legacy"
+        "legacy",
+        "calibrated"
       ]
     },
     {
@@ -505,12 +534,13 @@
       "weight": 1,
       "difficulty": "hard",
       "expected_baseline": {
-        "min": 0.05,
-        "max": 0.2
+        "min": 0,
+        "max": 0.15
       },
       "tags": [
         "async",
-        "performance"
+        "performance",
+        "calibrated"
       ]
     }
   ]

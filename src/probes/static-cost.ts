@@ -18,7 +18,12 @@ interface FileEntry {
   bytes: number;
   hash: string;
   text: string;
+  /** 会进上下文（md/json/yaml/txt）还是只是随包脚本 */
+  context: boolean;
 }
+
+/** 会真正注入模型上下文的扩展名；其余按「随包脚本」计 */
+const CONTEXT_EXTENSIONS = new Set(['.md', '.markdown', '.json', '.yaml', '.yml', '.txt']);
 
 /** 探针 1：静态开销（docs/03 §探针 1） */
 export async function runStaticCost(root: string, opts: StaticCostOptions = {}): Promise<StaticCostProbe> {
@@ -36,6 +41,7 @@ export async function runStaticCost(root: string, opts: StaticCostOptions = {}):
         supported: false,
         reason: e.what,
         total_tokens: 0,
+        context_tokens: 0,
         tokenizer: TOKENIZER_ID,
         file_count: 0,
         skill_count: 0,
@@ -52,16 +58,19 @@ export async function runStaticCost(root: string, opts: StaticCostOptions = {}):
   const entries: FileEntry[] = [];
   for (const abs of pkg.files) {
     const text = await readTextFile(abs);
+    const rel = relPath(root, abs);
     entries.push({
-      path: relPath(root, abs),
+      path: rel,
       tokens: countTokens(text),
       bytes: Buffer.byteLength(text, 'utf8'),
       hash: contentHash(text),
-      text
+      text,
+      context: CONTEXT_EXTENSIONS.has(path.extname(rel).toLowerCase())
     });
   }
 
   const totalTokens = entries.reduce((s, f) => s + f.tokens, 0);
+  const contextTokens = entries.filter((f) => f.context).reduce((s, f) => s + f.tokens, 0);
 
   // 重复内容：同哈希归组，wasted = 组内除第一份外的全部 token
   const byHash = new Map<string, FileEntry[]>();
@@ -94,9 +103,19 @@ export async function runStaticCost(root: string, opts: StaticCostOptions = {}):
   }
   if (bigFiles.length > 5) warnings.push(`另有 ${bigFiles.length - 5} 个文件超单文件预算`);
 
-  const overBy = Math.max(0, totalTokens - budget);
+  const overBy = Math.max(0, contextTokens - budget);
   const wasted = duplicates.reduce((s, d) => s + d.wasted_tokens, 0);
-  if (overBy > 0) warnings.push(`总开销 ${totalTokens} 超出预算 ${budget}（+${overBy}）`);
+  if (overBy > 0) {
+    warnings.push(`注入上下文 ${contextTokens} token，超出预算 ${budget}（+${overBy}）`);
+  }
+  if (totalTokens > contextTokens) {
+    const scriptTokens = totalTokens - contextTokens;
+    if (scriptTokens / Math.max(1, totalTokens) > 0.3) {
+      warnings.push(
+        `包内脚本占 ${scriptTokens} token（${((scriptTokens / totalTokens) * 100).toFixed(0)}%），它们不进上下文`
+      );
+    }
+  }
   if (totalTokens > 0 && (wasted / totalTokens) * 100 > duplicateWarnPct) {
     warnings.push(`重复内容 ${wasted} token，占 ${((wasted / totalTokens) * 100).toFixed(1)}%（阈值 ${duplicateWarnPct}%）`);
   }
@@ -108,6 +127,7 @@ export async function runStaticCost(root: string, opts: StaticCostOptions = {}):
     probe: 'static-cost',
     supported: true,
     total_tokens: totalTokens,
+    context_tokens: contextTokens,
     tokenizer: TOKENIZER_ID,
     file_count: entries.length,
     skill_count: pkg.skills.length,

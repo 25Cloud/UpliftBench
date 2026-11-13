@@ -1,4 +1,5 @@
 import path from 'node:path';
+import fs from 'node:fs';
 import { readJson } from '../util/json.js';
 import { pathExists } from '../util/fsx.js';
 import { UpliftError } from '../util/log.js';
@@ -49,7 +50,6 @@ export async function loadTaskset(ref: string, cwd = process.cwd()): Promise<Loa
 
 export function listLocalTasksets(cwd = process.cwd()): Array<{ domain: string; path: string }> {
   const root = tasksetRoot(cwd);
-  const fs = require('node:fs') as typeof import('node:fs');
   if (!fs.existsSync(root)) return [];
   const out: Array<{ domain: string; path: string }> = [];
   for (const name of fs.readdirSync(root)) {

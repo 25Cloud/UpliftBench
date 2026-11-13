@@ -699,6 +699,7 @@ ${t.prompt}
 `;
 
 async function main(): Promise<void> {
+  const calibration = await loadCalibration();
   await fsp.rm(outDir, { recursive: true, force: true });
   const tasksDir = path.join(outDir, 'tasks');
   await fsp.mkdir(tasksDir, { recursive: true });
@@ -720,6 +721,8 @@ async function main(): Promise<void> {
       'utf8'
     );
     await fsp.writeFile(path.join(dir, 'verify.mjs'), VERIFY_TEMPLATE, 'utf8');
+    const measured = calibration?.tasks?.[t.id];
+    const difficulty = measured ? (measured.baseline >= 0.85 ? 'easy' : measured.baseline <= 0.2 ? 'hard' : 'medium') : t.difficulty;
     tasks.push({
       id: t.id,
       title: t.title,
@@ -727,9 +730,11 @@ async function main(): Promise<void> {
       fixture: `tasks/${t.id}/fixture/`,
       verify: `tasks/${t.id}/verify.mjs`,
       weight: 1.0,
-      difficulty: t.difficulty,
-      expected_baseline: baselineRange(t.difficulty),
-      tags: t.tags
+      difficulty,
+      expected_baseline: measured
+        ? { min: round2(Math.max(0, measured.baseline - 0.15)), max: round2(Math.min(1, measured.baseline + 0.15)) }
+        : baselineRange(t.difficulty),
+      tags: measured ? [...t.tags, 'calibrated'] : t.tags
     });
   }
 
@@ -758,6 +763,10 @@ async function main(): Promise<void> {
   };
 
   await fsp.writeFile(path.join(outDir, 'taskset.json'), JSON.stringify(taskset, null, 2) + '\n', 'utf8');
+  // 生成器会先清空目录，所以标定文件要原样写回
+  if (calibration) {
+    await fsp.writeFile(path.join(outDir, 'calibration.json'), JSON.stringify(calibration, null, 2) + '\n', 'utf8');
+  }
 
   const byDiff = tasks.reduce<Record<string, number>>((acc, t) => {
     acc[t.difficulty] = (acc[t.difficulty] ?? 0) + 1;
@@ -765,6 +774,36 @@ async function main(): Promise<void> {
   }, {});
   console.log(`web-guidance@1.0 生成完成：${tasks.length} 个任务 -> ${path.relative(root, outDir)}`);
   console.log(`  难度分布：${JSON.stringify(byDiff)}`);
+  console.log(
+    calibration
+      ? `  已用实测标定回填 expected_baseline（${Object.keys(calibration.tasks).length}/${tasks.length} 个任务，model=${calibration.model ?? '?'}）`
+      : '  尚未标定：expected_baseline 用的是设计意图区间'
+  );
+}
+
+interface Calibration {
+  measured_at?: string;
+  model?: string;
+  tasks: Record<string, { baseline: number; samples: number }>;
+}
+
+/**
+ * 读实测标定（uplift run --arms baseline 的产物）。
+ *
+ * 有标定就用实测值回填 expected_baseline 并把难度标签改成与实测一致；
+ * 没有就退回设计意图的区间。**这是刻意的：声明的难度必须能被实测推翻。**
+ */
+async function loadCalibration(): Promise<Calibration | null> {
+  const p = path.join(outDir, 'calibration.json');
+  try {
+    return JSON.parse(await fsp.readFile(p, 'utf8')) as Calibration;
+  } catch {
+    return null;
+  }
+}
+
+function round2(n: number): number {
+  return Math.round(n * 100) / 100;
 }
 
 function baselineRange(d: TaskSpec['difficulty']): { min: number; max: number } {

@@ -1,0 +1,24 @@
+{
+  "$comment": "触发精度样本：security-audit-skill 只有一个技能，正样本全部围绕安全审计",
+  "positive": [
+    "审计这个 /api/login 端点有没有注入风险",
+    "review 这段代码的安全问题，重点看鉴权",
+    "检查这个 Dockerfile 有没有权限过大的地方",
+    "这个 CSV 导入功能有没有路径穿越风险",
+    "帮我对这个仓库做一次安全审计，出一份机器可读的报告",
+    "这段代码把用户输入拼进 shell 命令了，帮我确认风险等级",
+    "检查依赖里有没有已知 CVE",
+    "这个 JWT 校验逻辑有没有绕过风险"
+  ],
+  "negative": [
+    { "prompt": "给这个按钮加一个 hover 效果", "kind": "unrelated" },
+    { "prompt": "帮我把这段英文摘要成三句话", "kind": "unrelated" },
+    { "prompt": "推荐一本讲分布式系统的书", "kind": "unrelated" },
+    { "prompt": "解释一下 HTTP/3 的 QUIC 握手过程", "kind": "adjacent" },
+    { "prompt": "如何用 pandas 做一个透视表", "kind": "adjacent" },
+    { "prompt": "讲一下 Rust 的所有权和借用规则", "kind": "adjacent" },
+    { "prompt": "把这个 JSON 转成 CSV", "kind": "same_domain" },
+    { "prompt": "帮我写一个 Dockerfile，跑一个 Node 服务", "kind": "same_domain" },
+    { "prompt": "这个 SQL 查询该在哪一列建索引", "kind": "same_domain" }
+  ]
+}

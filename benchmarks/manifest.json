@@ -1,0 +1,41 @@
+{
+  "$comment": "D7 要测的 5 个真实技能包。clone 到 benchmarks/skills/（gitignore），不改它们的代码。path = 技能包在仓库内的相对路径。",
+  "skills": [
+    {
+      "id": "agent-skills",
+      "repo": "addyosmani/agent-skills",
+      "url": "https://github.com/addyosmani/agent-skills.git",
+      "path": "skills",
+      "why": "116k★，全生态星数最高却没有任何效果数字（25 个技能）"
+    },
+    {
+      "id": "modern-web-guidance-src",
+      "repo": "GoogleChrome/modern-web-guidance-src",
+      "url": "https://github.com/GoogleChrome/modern-web-guidance-src.git",
+      "path": ".agents/skills",
+      "why": "全生态唯一公开 uplift 数字（+27~36pp），可以交叉验证我们的方法"
+    },
+    {
+      "id": "security-audit-skill",
+      "repo": "cloudflare/security-audit-skill",
+      "url": "https://github.com/cloudflare/security-audit-skill.git",
+      "path": "skills",
+      "why": "卖点是「independently verified」，正好用注入抗性探针验一下"
+    },
+    {
+      "id": "hallmark",
+      "repo": "Nutlope/hallmark",
+      "url": "https://github.com/Nutlope/hallmark.git",
+      "path": "skills",
+      "sparse": ["skills"],
+      "why": "CSS 设计技能，跨领域对照（证明 Tier 0 不挑领域）"
+    },
+    {
+      "id": "superpowers",
+      "repo": "obra/superpowers",
+      "url": "https://github.com/obra/superpowers.git",
+      "path": "skills",
+      "why": "skills 框架本体，15 个模块，用来验证「≤3 个模块更优」这条结论"
+    }
+  ]
+}

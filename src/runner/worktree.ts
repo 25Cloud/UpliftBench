@@ -13,12 +13,16 @@ import { UpliftError } from '../util/log.js';
  * 出一份干净树。重置成本低（reset --hard + clean -fdx），且天然可复现。
  */
 export async function ensureGitRepoAt(dir: string): Promise<void> {
-  const gitDir = path.join(dir, '.git');
-  if (await pathExists(gitDir)) return;
   await ensureDir(dir);
-  await runGit(['init', '-b', 'main'], dir);
+  const gitDir = path.join(dir, '.git');
+  if (!(await pathExists(gitDir))) {
+    await runGit(['init', '-b', 'main'], dir);
+  }
   await runGit(['config', 'user.email', 'runner@upliftbench.dev'], dir);
   await runGit(['config', 'user.name', 'UpliftBench Runner'], dir);
+  // 已经有提交就直接用；只有 .git 但没提交（上次中断）就补一次
+  const head = await runGit(['rev-parse', 'HEAD'], dir);
+  if (head.code === 0 && head.stdout.trim().length > 0) return;
   await runGit(['add', '-A'], dir);
   const commit = await runGit(['commit', '-m', 'task fixture', '--allow-empty', '--no-gpg-sign'], dir);
   if (commit.code !== 0) {
@@ -29,7 +33,12 @@ export async function ensureGitRepoAt(dir: string): Promise<void> {
 /** fixture -> 一次性 git 仓库（缓存复用；内容变了就重建） */
 export async function prepareTaskRepo(fixtureDir: string | null, dest: string): Promise<string> {
   const marker = path.join(dest, '.git');
-  if (await pathExists(marker)) return dest;
+  if (await pathExists(marker)) {
+    const head = await runGit(['rev-parse', 'HEAD'], dest);
+    if (head.code === 0 && head.stdout.trim().length > 0) return dest;
+    await ensureGitRepoAt(dest);
+    return dest;
+  }
   await removeDir(dest);
   await ensureDir(dest);
   if (fixtureDir && (await pathExists(fixtureDir))) {
@@ -44,12 +53,17 @@ export async function prepareTaskRepo(fixtureDir: string | null, dest: string): 
 export async function createWorktree(repo: string, dest: string): Promise<string> {
   await removeDir(dest);
   await ensureDir(path.dirname(dest));
-  const res = await runGit(['worktree', 'add', '--detach', '--force', dest, 'HEAD'], repo);
+  // 上一次中断可能留下 locked 的 worktree 记录，先 prune 再 add
+  await runGit(['worktree', 'prune'], repo);
+  let res = await runGit(['worktree', 'add', '--detach', '--force', dest, 'HEAD'], repo);
+  if (res.code !== 0 && /locked/i.test(res.stderr)) {
+    res = await runGit(['worktree', 'add', '--detach', '--force', '--force', dest, 'HEAD'], repo);
+  }
   if (res.code !== 0) {
     throw new UpliftError(
       `git worktree add 失败：${dest}`,
       res.stderr.slice(0, 500),
-      '确认目标目录没被占用，以及磁盘可写'
+      '确认目标目录没被占用，以及磁盘可写；中断过的 run 会在下次自动 prune'
     );
   }
   return dest;

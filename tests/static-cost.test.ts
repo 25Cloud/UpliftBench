@@ -37,11 +37,17 @@ describe('探针 1：静态开销', () => {
     expect(res.duplicates[0].wasted_tokens).toBeGreaterThan(0);
   });
 
-  it('超预算时 over_by 正确', async () => {
+  it('超预算时 over_by 正确（预算按注入上下文算，不含脚本）', async () => {
     const res = await runStaticCost(tmp, { budget: 10 });
-    expect(res.budget.over_by).toBe(res.total_tokens - 10);
-    expect(res.budget.over_pct).toBeCloseTo(((res.total_tokens - 10) / 10) * 100, 0);
+    expect(res.budget.over_by).toBe(res.context_tokens - 10);
+    expect(res.budget.over_pct).toBeCloseTo(((res.context_tokens - 10) / 10) * 100, 0);
     expect(res.warnings.some((w) => w.includes('超出预算'))).toBe(true);
+  });
+
+  it('total 与 context 分别统计', async () => {
+    const res = await runStaticCost(tmp);
+    expect(res.context_tokens).toBeLessThanOrEqual(res.total_tokens);
+    expect(res.context_tokens).toBeGreaterThan(0);
   });
 
   it('统计 markdown 结构', async () => {

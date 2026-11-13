@@ -38,7 +38,10 @@ export interface ProbeBase {
 
 export interface StaticCostProbe extends ProbeBase {
   probe: 'static-cost';
+  /** 包内全部被计量文件（含脚本），按 docs/03 的输入定义 */
   total_tokens: number;
+  /** 真正会进上下文的那些（md/json/yaml/txt），预算判定用它 */
+  context_tokens: number;
   tokenizer: string;
   file_count: number;
   skill_count: number;

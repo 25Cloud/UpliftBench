@@ -37,8 +37,8 @@
     "test:watch": "vitest",
     "gen:web": "tsx tools/gen-web-guidance.ts",
     "gen:general": "tsx tools/gen-general-tasks.ts",
-    "gen:placebo": "tsx tools/gen-placebo-corpus.ts",
-    "site": "tsx tools/build-site.ts"
+    "fetch:skills": "tsx tools/fetch-benchmarks.ts",
+    "site": "node dist/cli.js site"
   },
   "dependencies": {
     "ajv": "^8.17.1",

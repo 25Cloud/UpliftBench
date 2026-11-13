@@ -159,8 +159,10 @@ program
   .option('--seed <n>', '默认 42', '42')
   .option('--jobs <n>', '并发数，默认 4', '4')
   .option('--timeout <sec>', '单任务超时，默认 600', '600')
+  .option('--max-steps <n>', '单次 run 的 agent 最大步数，默认 14', '14')
   .option('--max-cost <usd>', '成本上限，超过即停')
   .option('--tasks <ids>', '只跑指定任务 id（逗号分隔）')
+  .option('--label <repo>', '展示名，默认取技能目录名')
   .option('--resume', '从 .uplift/runs.db 续跑')
   .option('--out <dir>', '结果目录，默认 .uplift')
   .option('--format <fmt>', 'text | json | markdown', 'text')
@@ -207,6 +209,7 @@ program
         dbPath: path.join(outDir, 'runs.db'),
         transcriptDir: path.join(outDir, 'transcripts'),
         workRoot: path.join(outDir, 'ws'),
+        maxSteps: Number(opts.maxSteps ?? 14),
         taskIds: parseList(opts.tasks),
         onEvent: (e) => {
           if (opts.quiet) return;

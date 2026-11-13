@@ -20,8 +20,9 @@ function flag(v: boolean, text: string): string {
 export function renderStaticCostText(p: StaticCostProbe): string[] {
   const out: string[] = [];
   const budgetOver = p.budget.over_by > 0;
+  const ctx = p.context_tokens ?? p.total_tokens;
   out.push(
-    `  ${pad('静态开销')} ${c.bold(humanInt(p.total_tokens))} tok   ${
+    `  ${pad('静态开销')} ${c.bold(humanInt(ctx))} tok ${c.dim(`(包内合计 ${humanInt(p.total_tokens)})`)}   ${
       budgetOver ? c.yellow(`${sym.warn} 超预算 ${p.budget.over_pct}%`) : c.green('在预算内')
     }`
   );
@@ -154,7 +155,9 @@ export function renderCardMarkdown(card: SkillCardJson): string {
   const sc = card.tier0.static_cost as StaticCostProbe | undefined;
   if (sc?.supported) {
     out.push(
-      `| 静态开销 | ${humanInt(sc.total_tokens)} tok ${sc.budget.over_by > 0 ? `⚠️ 超预算 ${sc.budget.over_pct}%` : '✅'} |`
+      `| 静态开销 | ${humanInt(sc.context_tokens ?? sc.total_tokens)} tok 注入上下文（包内合计 ${humanInt(
+        sc.total_tokens
+      )}） ${sc.budget.over_by > 0 ? `⚠️ 超预算 ${sc.budget.over_pct}%` : '✅'} |`
     );
   }
   const tp = card.tier0.trigger_precision as TriggerPrecisionProbe | undefined;

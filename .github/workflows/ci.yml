@@ -1,0 +1,43 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm build
+
+      - name: Unit tests
+        run: pnpm test
+
+      - name: Validate tasksets
+        run: |
+          set +e
+          node dist/cli.js taskset validate web-guidance@1.0; a=$?
+          node dist/cli.js taskset validate general-20@1.0; b=$?
+          # 退出码 3 = 有检查项需要真跑模型，本地 CI 允许；1 = 硬失败
+          if [ $a -eq 1 ] || [ $b -eq 1 ]; then exit 1; fi
+
+      - name: Tier 0 smoke (no model)
+        run: |
+          node dist/cli.js probe ./examples/demo-skill --only static-cost,uninstall-clean --format json > /tmp/card.json
+          node -e "const c=require('/tmp/card.json'); if(!c.tier0.static_cost.supported) process.exit(1); console.log('tokens', c.tier0.static_cost.total_tokens)"

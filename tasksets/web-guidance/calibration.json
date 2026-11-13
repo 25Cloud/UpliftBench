@@ -1,0 +1,129 @@
+{
+  "": "由 uplift run --arms baseline 实测得到（1 repeat），用于回填 expected_baseline 与难度标签。改动任务后必须重跑标定。",
+  "measured_at": "2026-11-13T06:21:07.911Z",
+  "model": "glm-5.3-flash",
+  "harness": "openai-compat",
+  "repeats": 1,
+  "tasks": {
+    "wmg-001": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-002": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-003": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-004": {
+      "baseline": 0,
+      "samples": 1
+    },
+    "wmg-005": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-006": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-007": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-008": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-009": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-010": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-011": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-012": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-013": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-014": {
+      "baseline": 0,
+      "samples": 1
+    },
+    "wmg-015": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-016": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-017": {
+      "baseline": 0,
+      "samples": 1
+    },
+    "wmg-018": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-019": {
+      "baseline": 0,
+      "samples": 1
+    },
+    "wmg-020": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-021": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-022": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-023": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-024": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-025": {
+      "baseline": 0,
+      "samples": 1
+    },
+    "wmg-026": {
+      "baseline": 0,
+      "samples": 1
+    },
+    "wmg-027": {
+      "baseline": 0,
+      "samples": 1
+    },
+    "wmg-028": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-029": {
+      "baseline": 1,
+      "samples": 1
+    },
+    "wmg-030": {
+      "baseline": 0,
+      "samples": 1
+    }
+  }
+}
