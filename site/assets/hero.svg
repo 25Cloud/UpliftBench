@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="356" viewBox="0 0 1200 356" role="img" aria-label="UpliftBench three-arm results. Experiment A: baseline 73.75, placebo 73.75, treatment 71.25, uplift -2.5pp. Experiment B: baseline 34, placebo 32, treatment 68, uplift +36pp with a -2pp placebo.">
+  <title>UpliftBench · three arm results</title>
+  <rect x="0.5" y="0.5" width="1199" height="355" rx="12" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="36" y="46" font-size="21" font-weight="700" fill="#1f2328" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Same skill. Same model. The only difference is whether it gets loaded.</text>
+  <text x="36" y="72" font-size="13" fill="#57606a" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">A length-matched placebo arm separates "more context helps" from "this skill's knowledge helps".</text>
+  <line x1="36" y1="90" x2="1164" y2="90" stroke="#d8dee4"/>
+<text x="36" y="122" font-size="13" fill="#57606a" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">Experiment A · 48 tasks · agent decides whether to load the skill</text>
+<text x="36" y="166" font-size="13" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">baseline</text>
+<rect x="128" y="152" width="243" height="19" rx="3" fill="#8c959f" opacity="0.55"/>
+<text x="379" y="166" font-size="13" font-weight="600" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">73.75%</text>
+<text x="36" y="200" font-size="13" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">placebo</text>
+<rect x="128" y="186" width="243" height="19" rx="3" fill="#bf8700" opacity="0.55"/>
+<text x="379" y="200" font-size="13" font-weight="600" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">73.75%</text>
+<text x="36" y="234" font-size="13" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">treatment</text>
+<rect x="128" y="220" width="235" height="19" rx="3" fill="#2ea44f" opacity="1"/>
+<text x="371" y="234" font-size="13" font-weight="600" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">71.25%</text>
+<text x="36" y="270" font-size="15" font-weight="700" fill="#d73a49" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">uplift −2.5pp · placebo ±0</text>
+<line x1="600" y1="112" x2="600" y2="272" stroke="#d8dee4"/>
+<text x="636" y="122" font-size="13" fill="#57606a" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">Experiment B · 5 tasks · skill forced into context</text>
+<text x="636" y="166" font-size="13" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">baseline</text>
+<rect x="728" y="152" width="112" height="19" rx="3" fill="#8c959f" opacity="0.55"/>
+<text x="848" y="166" font-size="13" font-weight="600" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">34%</text>
+<text x="636" y="200" font-size="13" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">placebo</text>
+<rect x="728" y="186" width="106" height="19" rx="3" fill="#bf8700" opacity="0.55"/>
+<text x="842" y="200" font-size="13" font-weight="600" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">32%</text>
+<text x="636" y="234" font-size="13" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">treatment</text>
+<rect x="728" y="220" width="224" height="19" rx="3" fill="#2ea44f" opacity="1"/>
+<text x="960" y="234" font-size="13" font-weight="600" fill="#1f2328" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">68%</text>
+<text x="636" y="270" font-size="15" font-weight="700" fill="#1a7f37" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">uplift +36pp · placebo −2pp</text>
+  <line x1="36" y1="296" x2="1164" y2="296" stroke="#d8dee4"/>
+  <text x="36" y="322" font-size="12" fill="#57606a" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">1,829 runs · 64 tasks · 5 real skill packages · 1 model · protocol/1.0.0</text>
+  <text x="1164" y="322" text-anchor="end" font-size="12" fill="#8c959f" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">upliftbench</text>
+</svg>

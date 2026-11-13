@@ -13,7 +13,7 @@ Every skill package ships a claim. Almost none survive a length-matched placebo.
 [![protocol](https://img.shields.io/badge/protocol-1.0.0-blue)](docs/02-protocol.en.md)
 [![license](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
 
-**[Leaderboard](https://25cloud.github.io/UpliftBench/)** · [60-second demo](#60-second-demo) · [Results](#what-we-measured) · [Protocol](docs/02-protocol.en.md) · [Roadmap](docs/07-路线图.md) · [中文说明](README.zh-CN.md)
+**[Leaderboard](https://25cloud.github.io/UpliftBench/)** ([`index.json`](https://25cloud.github.io/UpliftBench/index.json)) · [60-second demo](#60-second-demo) · [Results](#what-we-measured) · [Protocol](docs/02-protocol.en.md) · [中文说明](README.zh-CN.md)
 
 </div>
 
@@ -271,14 +271,16 @@ we measure skills rather than ship them.
 
 | | |
 |---|---|
-| [`docs/02-protocol.en.md`](docs/02-protocol.en.md) | the protocol in English: three arms, metrics, grader tiers, versioning |
+| [`docs/19-how-to-read.md`](docs/19-how-to-read.md) | what the columns mean and the four ways a skill's number goes wrong |
+| [`docs/02-protocol.en.md`](docs/02-protocol.en.md) | the protocol: three arms, metrics, grader tiers, versioning |
 | [docs/16](docs/16-消融实验.md) | what actually moves a skill's number, five grader bugs, the +36pp block |
 | [docs/15](docs/15-第二轮实测.md) | 1,152 runs of the same skill under auto and forced |
 | [docs/13](docs/13-任务集标定.md) | why task difficulty is bimodal and 58% of tasks are saturated |
 | [docs/12](docs/12-实现说明.md) | every default we chose where the spec was silent |
 
-The protocol is translated. The analysis docs are Chinese, written for whoever runs the next round. Ask
-for a section and it gets translated.
+The protocol and the how-to-read page are in English. The analysis docs are Chinese, written for
+whoever runs the next round; [docs/README.md](docs/README.md) is the index. Ask for a section and it
+gets translated.
 
 ## Status
 

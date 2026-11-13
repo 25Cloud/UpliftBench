@@ -717,6 +717,50 @@ program
       const out = path.resolve(opts.out);
       await ensureDir(path.dirname(out));
       await writeTextFile(out, renderSite(entries));
+
+      /**
+       * 页面用的图要跟着页面走。Pages 只发布 site/ 这一个目录，
+       * docs/assets/hero.svg 在那边不存在，所以生成时拷一份过去。
+       */
+      const heroSrc = path.resolve('docs/assets/hero.svg');
+      if (await pathExists(heroSrc)) {
+        const assetDir = path.join(path.dirname(out), 'assets');
+        await ensureDir(assetDir);
+        await fsp.copyFile(heroSrc, path.join(assetDir, 'hero.svg'));
+      }
+
+      /**
+       * 机器可读的索引。榜单页给人看，这个给程序看：
+       * 别人想自己做表、做图表、做对比，不必爬 HTML。
+       */
+      await writeJson(path.join(path.dirname(out), 'index.json'), {
+        generated_at: new Date().toISOString(),
+        protocol: PROTOCOL_VERSION,
+        count: entries.length,
+        cards: entries.map(({ card, cardPath }) => {
+          const t1 = card.tier1;
+          const sc = card.tier0.static_cost as { total_tokens?: number; budget?: { largest_skill_tokens?: number } } | undefined;
+          return {
+            repo: card.skill.repo,
+            commit: card.skill.commit,
+            taskset: t1?.taskset ?? null,
+            grader_tier: t1?.grader_tier ?? null,
+            n: t1?.n ?? null,
+            uplift_pp: t1?.metrics.uplift_pp ?? null,
+            headroom_closed: t1?.metrics.headroom_closed ?? null,
+            placebo_effect_pp: t1?.metrics.placebo_effect_pp ?? null,
+            raw_gain_pp: t1?.metrics.raw_gain_pp ?? null,
+            ci95: t1?.metrics.ci95 ?? null,
+            activation: t1?.activation ?? null,
+            grade: card.verdict.grade,
+            total_tokens: sc?.total_tokens ?? card.skill.total_tokens ?? null,
+            largest_skill_tokens: sc?.budget?.largest_skill_tokens ?? null,
+            flags: card.verdict.flags,
+            card_file: path.relative(process.cwd(), cardPath).split(path.sep).join('/')
+          };
+        })
+      });
+
       console.log(`${sym.ok} 榜单页写入 ${path.relative(process.cwd(), out)}（${entries.length} 张卡）`);
       process.exit(0);
     } catch (e) {

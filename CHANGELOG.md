@@ -4,6 +4,33 @@
 
 ---
 
+## 2026-11-13 · v0.2.2（榜单页升级 · 机器可读索引 · 英文读法与社交卡）
+
+### 榜单页
+
+- 顶部放英雄图、一句话说明，底部加 footer：怎么复现、怎么挑战数字、往哪读。
+  页面仍然零 JS、零外链资源（图在生成时从 `docs/assets/` 拷进 `site/assets/`，因为 Pages 只发布 `site/`）。
+- 窄屏隐藏英雄图，省得手机上一屏全是图。
+
+### `site/index.json`
+
+`uplift site` 现在同时写一份机器可读索引：每张卡的 repo / commit / taskset / n / uplift / CI /
+placebo_effect / 激活率 / 级 / token / largest skill / flags。榜单页给人看，这份给程序看，
+想自己做表做图的人不用爬 HTML。
+
+### 文档
+
+- `docs/19-how-to-read.md`（英文）：一列一列讲清楚怎么读卡，以及让数字失效的四种情况
+  （激活率、提示词给答案、评分器等价类、天花板）。这是给外站争论时直接甩链接的那一页。
+- `docs/README.md`：二十篇文档的索引，按「先看什么」排，不按编号。
+
+### 素材
+
+- `docs/assets/social-preview.svg|png`（1280×640，GitHub 推荐尺寸）与生成脚本 `tools/gen-social.mjs`、
+  `pnpm gen:social`。GitHub 的 Social preview 只能手动上传，图先备好。
+
+---
+
 ## 2026-11-13 · v0.2.1（第 7 个探针 skill-shape + 12 个真实包横评）
 
 ### 措辞

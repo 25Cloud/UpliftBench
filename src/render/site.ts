@@ -124,13 +124,16 @@ export function renderSite(entries: SiteCardEntry[], generatedAt = new Date().to
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>UpliftBench · 技能包净增益榜</title>
+<meta name="description" content="Agent Skills measured against a token-matched placebo. uplift = treatment − placebo."/>
 <style>
   :root { color-scheme: light dark; --fg:#1f2328; --muted:#656d76; --line:#d0d7de; --bg:#fff; --accent:#2ea44f; }
   @media (prefers-color-scheme: dark) { :root { --fg:#e6edf3; --muted:#8b949e; --line:#30363d; --bg:#0d1117; } }
   * { box-sizing: border-box; }
-  body { margin:0 auto; max-width: 980px; padding: 48px 20px 80px; font: 15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; color:var(--fg); background:var(--bg); }
+  body { margin:0 auto; max-width: 1000px; padding: 40px 20px 80px; font: 15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans SC",sans-serif; color:var(--fg); background:var(--bg); }
+  .hero { width:100%; height:auto; border:1px solid var(--line); border-radius:10px; margin-bottom:26px; }
   h1 { font-size: 30px; margin: 0 0 6px; letter-spacing: -0.02em; }
-  .tag { color: var(--muted); margin-bottom: 28px; }
+  .tag { color: var(--muted); margin-bottom: 6px; }
+  .lead { color: var(--muted); font-size: 13px; margin-bottom: 26px; }
   h2 { font-size: 17px; margin: 36px 0 10px; font-weight: 600; }
   table { width:100%; border-collapse: collapse; font-size: 14px; }
   th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
@@ -141,23 +144,36 @@ export function renderSite(entries: SiteCardEntry[], generatedAt = new Date().to
   .muted { color: var(--muted); }
   .note { margin-top: 40px; padding: 16px 18px; border:1px solid var(--line); border-radius: 8px; color: var(--muted); font-size: 13px; }
   code { background: color-mix(in srgb, var(--line) 45%, transparent); padding: 1px 5px; border-radius: 4px; font-size: 12px; }
-  .row-accent { color: var(--accent); }
   .cond { display:block; margin-top:4px; font-weight:400; font-size:12px; color:var(--muted); letter-spacing:0; text-transform:none; }
+  footer { margin-top: 44px; padding-top: 16px; border-top:1px solid var(--line); color: var(--muted); font-size: 13px; }
+  footer a { color: inherit; }
+  @media (max-width: 640px) { .hero { display:none; } body { padding-top: 24px; } }
 </style>
 </head>
 <body>
+  <img class="hero" src="./assets/hero.svg" alt="Same skill, same model. The only difference is whether it gets loaded."/>
   <h1>UpliftBench</h1>
-  <div class="tag">技能包的净增益基准，减去安慰剂之后，你的技能包还剩多少。</div>
+  <div class="tag">技能包的净增益基准。减掉安慰剂之后，还剩多少。</div>
+  <div class="lead">Agent Skills, measured against a token-matched placebo. <code>uplift = treatment − placebo</code>. Every row carries N and a 95% CI; the JSON behind this page is <a href="./index.json">index.json</a>.</div>
   ${sections.join('\n')}
   <div class="note">
     <strong>怎么读这张表</strong><br/>
-    <code>uplift</code> = treatment − <em>placebo</em>（不是减 baseline）。<code>headroom</code> 是填掉了多少剩余空间；<code>placebo</code> 列是「上下文变长本身值多少分」。<br/>
-    <code>激活率</code> = placebo + treatment 两臂里技能真的进了上下文的 run 占比。<b>低的激活率会让 uplift 天然趋近 0</b>，技能没进上下文，treatment 就是 baseline。<br/>
-    <b>自动激活</b>与<b>强制注入</b>是两种实验条件，同一个技能包可能各有一行，不许互相比较，也不许只挑好看的那个。<br/>
-    A 级（可执行验证）与 B 级（固定版本 LLM judge）分组显示，不并排排名：用不同尺子量出来的身高不能排在一起。<br/>
-    ⚠️ = 安慰剂效应大于净增益，说明分数主要来自长度。<br/>
+    <code>uplift</code> = treatment − <em>placebo</em>，不是减 baseline。<code>headroom</code> 是填掉了多少剩余空间；<code>placebo</code> 列是「上下文变长本身值多少分」。<br/>
+    <code>激活率</code> = placebo + treatment 两臂里技能真的进了上下文的 run 占比。激活率低，uplift 天然趋近 0，因为没进上下文时 treatment 就是 baseline。<br/>
+    自动激活与强制注入是两种实验条件，同一个技能包可能各有一行。两行不能互相比较，也不能只报好看的那个。<br/>
+    A 级（可执行验证）与 B 级（固定版本 judge）分组显示，不并排排名。<br/>
+    ⚠️ 表示安慰剂效应大于净增益，分数主要来自长度。<br/>
     生成于 ${esc(generatedAt)} · <code>protocol/1.0.0</code>
   </div>
+  <footer>
+    数字可以复现：<code>node dist/cli.js site</code> 读 <code>results/*.json</code> 重新生成这一页，
+    每张卡背后是提交在仓库里的 run 数据库。觉得哪个数不对，
+    <a href="https://github.com/25Cloud/UpliftBench/issues/new?template=challenge-a-number.md">开个 issue 挑战它</a>，
+    或者先读
+    <a href="https://github.com/25Cloud/UpliftBench/blob/main/docs/17-%E6%A8%AA%E5%90%91%E8%AF%84%E6%B5%8B.md">写法层分析</a>
+    与
+    <a href="https://github.com/25Cloud/UpliftBench/blob/main/docs/02-protocol.en.md">协议</a>。
+  </footer>
 </body>
 </html>`;
 }

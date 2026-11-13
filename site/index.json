@@ -1,0 +1,311 @@
+{
+  "generated_at": "2026-11-13T13:00:27.440Z",
+  "protocol": "protocol/1.0.0",
+  "count": 13,
+  "cards": [
+    {
+      "repo": "addyosmani/agent-skills",
+      "commit": "301b02b12bff98e4688e6984af6556802322bbde",
+      "taskset": "web-guidance@1.0.0",
+      "grader_tier": "A",
+      "n": 30,
+      "uplift_pp": 2.22,
+      "headroom_closed": 0.087,
+      "placebo_effect_pp": -4.44,
+      "raw_gain_pp": -2.22,
+      "ci95": [
+        -2.22,
+        6.69
+      ],
+      "activation": {
+        "mode": "auto",
+        "rate": 0.1722,
+        "by_arm": {
+          "placebo": 0,
+          "treatment": 0.3444
+        },
+        "preloaded_tokens_p50": null
+      },
+      "grade": "A",
+      "total_tokens": 102303,
+      "largest_skill_tokens": 10255,
+      "flags": [
+        "static_cost_over_budget",
+        "ci_crosses_zero",
+        "flaky_tasks"
+      ],
+      "card_file": "results/agent-skills.json"
+    },
+    {
+      "repo": "anthropics/skills",
+      "commit": "2c5958ecac7cee2b583967a2c4981d0f4a75c579",
+      "taskset": null,
+      "grader_tier": null,
+      "n": null,
+      "uplift_pp": null,
+      "headroom_closed": null,
+      "placebo_effect_pp": null,
+      "raw_gain_pp": null,
+      "ci95": null,
+      "activation": null,
+      "grade": "unrated",
+      "total_tokens": 849607,
+      "largest_skill_tokens": 526405,
+      "flags": [
+        "static_cost_over_budget",
+        "duplicate_content",
+        "monolith_skill"
+      ],
+      "card_file": "results/anthropics-skills.json"
+    },
+    {
+      "repo": "affaan-m/ECC",
+      "commit": "d2ef2680594f9a17526a6e1a2e18b3d242c5d17b",
+      "taskset": null,
+      "grader_tier": null,
+      "n": null,
+      "uplift_pp": null,
+      "headroom_closed": null,
+      "placebo_effect_pp": null,
+      "raw_gain_pp": null,
+      "ci95": null,
+      "activation": null,
+      "grade": "unrated",
+      "total_tokens": 109921,
+      "largest_skill_tokens": 12192,
+      "flags": [
+        "static_cost_over_budget"
+      ],
+      "card_file": "results/ecc.json"
+    },
+    {
+      "repo": "Nutlope/hallmark",
+      "commit": "04977e15f3dfd6ee4b74c887dac3eb52665d6c92",
+      "taskset": null,
+      "grader_tier": null,
+      "n": null,
+      "uplift_pp": null,
+      "headroom_closed": null,
+      "placebo_effect_pp": null,
+      "raw_gain_pp": null,
+      "ci95": null,
+      "activation": null,
+      "grade": "unrated",
+      "total_tokens": 409006,
+      "largest_skill_tokens": 409006,
+      "flags": [
+        "static_cost_over_budget",
+        "monolith_skill"
+      ],
+      "card_file": "results/hallmark.json"
+    },
+    {
+      "repo": "op7418/Humanizer-zh",
+      "commit": "f4518a8eab97b8bfebc66a89d34320a89bef6930",
+      "taskset": null,
+      "grader_tier": null,
+      "n": null,
+      "uplift_pp": null,
+      "headroom_closed": null,
+      "placebo_effect_pp": null,
+      "raw_gain_pp": null,
+      "ci95": null,
+      "activation": null,
+      "grade": "unrated",
+      "total_tokens": 8042,
+      "largest_skill_tokens": 4204,
+      "flags": [],
+      "card_file": "results/humanizer-zh.json"
+    },
+    {
+      "repo": "multica-ai/andrej-karpathy-skills",
+      "commit": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+      "taskset": null,
+      "grader_tier": null,
+      "n": null,
+      "uplift_pp": null,
+      "headroom_closed": null,
+      "placebo_effect_pp": null,
+      "raw_gain_pp": null,
+      "ci95": null,
+      "activation": null,
+      "grade": "unrated",
+      "total_tokens": 644,
+      "largest_skill_tokens": 644,
+      "flags": [],
+      "card_file": "results/karpathy-skills.json"
+    },
+    {
+      "repo": "KKKKhazix/khazix-skills",
+      "commit": "71cd50ffe1f1f4d400b54be967dc6b59379aff8f",
+      "taskset": null,
+      "grader_tier": null,
+      "n": null,
+      "uplift_pp": null,
+      "headroom_closed": null,
+      "placebo_effect_pp": null,
+      "raw_gain_pp": null,
+      "ci95": null,
+      "activation": null,
+      "grade": "unrated",
+      "total_tokens": 75483,
+      "largest_skill_tokens": 17578,
+      "flags": [
+        "static_cost_over_budget",
+        "thin_descriptions"
+      ],
+      "card_file": "results/khazix-skills.json"
+    },
+    {
+      "repo": "mattpocock/skills",
+      "commit": "5863806dd4e15c63174bee4e7515a4256792ecfa",
+      "taskset": null,
+      "grader_tier": null,
+      "n": null,
+      "uplift_pp": null,
+      "headroom_closed": null,
+      "placebo_effect_pp": null,
+      "raw_gain_pp": null,
+      "ci95": null,
+      "activation": null,
+      "grade": "unrated",
+      "total_tokens": 80583,
+      "largest_skill_tokens": 10808,
+      "flags": [
+        "static_cost_over_budget"
+      ],
+      "card_file": "results/mattpocock-skills.json"
+    },
+    {
+      "repo": "GoogleChrome/modern-web-guidance-src",
+      "commit": "3bb177a6de62b7fd8cd0432c33756e6f3c9ece9d",
+      "taskset": "web-guidance@1.1.0",
+      "grader_tier": "A",
+      "n": 48,
+      "uplift_pp": 5.56,
+      "headroom_closed": 0.1538,
+      "placebo_effect_pp": -7.64,
+      "raw_gain_pp": -2.08,
+      "ci95": [
+        -2.78,
+        13.19
+      ],
+      "activation": {
+        "mode": "forced",
+        "rate": 1,
+        "by_arm": {
+          "placebo": 1,
+          "treatment": 1
+        },
+        "preloaded_tokens_p50": null
+      },
+      "grade": "A",
+      "total_tokens": 1265943,
+      "largest_skill_tokens": 2444,
+      "flags": [
+        "static_cost_over_budget",
+        "retrieval_style_package",
+        "thin_descriptions",
+        "ci_crosses_zero",
+        "flaky_tasks"
+      ],
+      "card_file": "results/modern-web-guidance-src.forced.json"
+    },
+    {
+      "repo": "GoogleChrome/modern-web-guidance-src",
+      "commit": "3bb177a6de62b7fd8cd0432c33756e6f3c9ece9d",
+      "taskset": "web-guidance@1.1.0",
+      "grader_tier": "A",
+      "n": 48,
+      "uplift_pp": -2.5,
+      "headroom_closed": -0.0952,
+      "placebo_effect_pp": 0,
+      "raw_gain_pp": -2.5,
+      "ci95": [
+        -7.92,
+        2.5
+      ],
+      "activation": {
+        "mode": "auto",
+        "rate": 0.2333,
+        "by_arm": {
+          "placebo": 0.175,
+          "treatment": 0.2917
+        },
+        "preloaded_tokens_p50": null
+      },
+      "grade": "A",
+      "total_tokens": 1265943,
+      "largest_skill_tokens": 2444,
+      "flags": [
+        "static_cost_over_budget",
+        "retrieval_style_package",
+        "thin_descriptions",
+        "placebo_dominant",
+        "ci_crosses_zero",
+        "negative_uplift",
+        "flaky_tasks"
+      ],
+      "card_file": "results/modern-web-guidance-src.json"
+    },
+    {
+      "repo": "obsidianmd/obsidian-skills",
+      "commit": "398127736bd4ba42d767b1419fee1a927508370b",
+      "taskset": null,
+      "grader_tier": null,
+      "n": null,
+      "uplift_pp": null,
+      "headroom_closed": null,
+      "placebo_effect_pp": null,
+      "raw_gain_pp": null,
+      "ci95": null,
+      "activation": null,
+      "grade": "unrated",
+      "total_tokens": 16902,
+      "largest_skill_tokens": 6350,
+      "flags": [],
+      "card_file": "results/obsidian-skills.json"
+    },
+    {
+      "repo": "cloudflare/security-audit-skill",
+      "commit": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
+      "taskset": null,
+      "grader_tier": null,
+      "n": null,
+      "uplift_pp": null,
+      "headroom_closed": null,
+      "placebo_effect_pp": null,
+      "raw_gain_pp": null,
+      "ci95": null,
+      "activation": null,
+      "grade": "unrated",
+      "total_tokens": 79967,
+      "largest_skill_tokens": 79967,
+      "flags": [
+        "static_cost_over_budget",
+        "monolith_skill"
+      ],
+      "card_file": "results/security-audit-skill.json"
+    },
+    {
+      "repo": "obra/superpowers",
+      "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
+      "taskset": null,
+      "grader_tier": null,
+      "n": null,
+      "uplift_pp": null,
+      "headroom_closed": null,
+      "placebo_effect_pp": null,
+      "raw_gain_pp": null,
+      "ci95": null,
+      "activation": null,
+      "grade": "unrated",
+      "total_tokens": 100774,
+      "largest_skill_tokens": 25738,
+      "flags": [
+        "static_cost_over_budget"
+      ],
+      "card_file": "results/superpowers.json"
+    }
+  ]
+}

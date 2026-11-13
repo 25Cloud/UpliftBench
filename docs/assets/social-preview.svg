@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" viewBox="0 0 1280 640" role="img" aria-label="UpliftBench: a placebo-corrected benchmark for Agent Skills">
+  <rect width="1280" height="640" fill="#0d1117"/>
+  <rect x="0" y="0" width="1280" height="6" fill="#2ea44f"/>
+  <text x="96" y="150" font-size="30" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">UpliftBench</text>
+  <text x="96" y="232" font-size="52" font-weight="700" fill="#e6edf3" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">Every skill claims it helps.</text>
+  <text x="96" y="300" font-size="52" font-weight="700" fill="#e6edf3" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">We run the placebo arm.</text>
+  <text x="96" y="340" font-size="22" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">uplift = treatment − placebo</text>
+  <text x="96" y="424" font-size="64" font-weight="700" fill="#f85149" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">−2.50pp</text>
+  <text x="96" y="458" font-size="20" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">agent decides when to load it</text>
+  <text x="496" y="424" font-size="64" font-weight="700" fill="#3fb950" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">+5.56pp</text>
+  <text x="496" y="458" font-size="20" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">skill forced into context</text>
+  <text x="896" y="424" font-size="64" font-weight="700" fill="#3fb950" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">+36pp</text>
+  <text x="896" y="458" font-size="20" fill="#8b949e" font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">prompt withholds the API name</text>
+  <line x1="96" y1="506" x2="1184" y2="506" stroke="#30363d"/>
+  <text x="96" y="546" font-size="20" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">1,829 runs · 12 skill packages · every number with N and a 95% CI</text>
+  <text x="96" y="592" font-size="20" fill="#58a6ff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">github.com/25Cloud/UpliftBench</text>
+</svg>

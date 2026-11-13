@@ -1,6 +1,6 @@
 {
   "name": "upliftbench",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "The placebo-corrected benchmark for Agent Skills — measure what your skill actually adds.",
   "license": "Apache-2.0",
   "type": "module",
@@ -41,7 +41,8 @@
     "fetch:skills": "tsx tools/fetch-benchmarks.ts",
     "demo": "node dist/cli.js demo",
     "check:links": "node tools/check-links.mjs",
-    "site": "node dist/cli.js site"
+    "site": "node dist/cli.js site",
+    "gen:social": "node tools/gen-social.mjs"
   },
   "dependencies": {
     "ajv": "^8.17.1",
