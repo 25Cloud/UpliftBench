@@ -284,7 +284,7 @@ gets translated.
 
 ## Status
 
-`protocol/1.0.0`, software `v0.2.1`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
+`protocol/1.0.0`, software `v0.2.2`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
 
 CI runs build, tests, task-set validation, a card schema check, a markdown link check, and the demo.
 Everything in `results/` and `site/` is generated from committed run databases, and every run's cost is

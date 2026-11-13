@@ -12,7 +12,7 @@ authors:
 license: Apache-2.0
 repository-code: "https://github.com/25Cloud/UpliftBench"
 url: "https://github.com/25Cloud/UpliftBench"
-version: "0.2.1"
+version: "0.2.2"
 date-released: "2026-11-13"
 keywords:
   - agent-skills
