@@ -38,7 +38,8 @@ export async function buildTreatmentSkills(pkg: SkillPackage): Promise<Installed
       description: s.description,
       dir: `${SKILL_INSTALL_DIR}/${safeName(s.name)}`,
       body,
-      tokens: countTokens(body),
+      // token 口径 = SKILL.md + 随附参考文件，和安慰剂的对齐基准保持一致
+      tokens: countTokens(body) + resources.reduce((sum, r) => sum + countTokens(r.content), 0),
       resources: resources.map((r) => `${SKILL_INSTALL_DIR}/${safeName(s.name)}/${r.rel}`)
     });
     (out[out.length - 1] as InstalledSkill & { fileMap?: Array<{ rel: string; content: string }> }).fileMap = resources;

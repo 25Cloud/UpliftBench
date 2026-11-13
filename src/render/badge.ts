@@ -23,7 +23,8 @@ export function badgeText(card: SkillCardJson, style: BadgeStyle = 'compact'): {
     return { label: 'uplift', value: `${(tok / 1000).toFixed(1)}k tok` };
   }
   const m = card.tier1.metrics;
-  const pct = `${m.uplift_pp >= 0 ? '+' : ''}${Math.round(m.uplift_pp)}%`;
+  // 文案格式按 AGENTS.md T6 验收：`uplift 41% (base 40 → treat 76, placebo 45) A级`
+  const pct = `${Math.round(m.uplift_pp)}%`;
   if (style === 'compact') return { label: 'uplift', value: pct };
   const grade = card.verdict.grade === 'unrated' ? '?' : card.verdict.grade;
   const value = `${pct} (base ${Math.round(card.tier1.arms.baseline.pass_rate * 100)} → treat ${Math.round(

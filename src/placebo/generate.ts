@@ -56,44 +56,62 @@ export function generatePlaceboDocument(spec: PlaceboSpec): string {
     }
   }
 
-  // 超出目标就回退最后一段，再按需截断
+  // 先补到不少于目标，再用二分把前缀收到最接近目标的位置
   let text = parts.join('\n');
-  while (text && countTokens(text) > target * (1 + PLACEBO_MAX_DELTA / 2)) {
-    const idx = text.lastIndexOf('\n\n');
-    if (idx < 0) break;
-    text = text.slice(0, idx);
-  }
-  // 不足就补中性句子
-  const filler = '这一段只陈述通用的工程常识，不涉及任何具体领域、接口或任务要求。';
   let guard = 0;
-  while (countTokens(text) < target * (1 - PLACEBO_MAX_DELTA / 2) && guard < 200) {
-    text += `\n\n${filler}`;
+  while (countTokens(text) < target && guard < 600) {
+    text += padText(40);
     guard += 1;
   }
-  const fitted = fitToTarget(text, target);
-  return fitted;
+  return fitToTarget(text, target);
 }
 
-/** 逐字符微调，保证落在 ±1% 内（比边加边测更快收敛） */
+/**
+ * 二分收敛到目标 token 数。
+ *
+ * 为什么不按「差值 × 4 字符」线性逼近：中英混排时 chars/token 在 1.7~4 之间浮动，
+ * 线性步长必然震荡。二分只依赖 countTokens 的单调性，跟文本语言无关。
+ */
 function fitToTarget(text: string, target: number): string {
-  const est = estimateTokens(text).tokens;
-  if (est === target) return text;
-  const ratio = target / Math.max(1, est);
-  let next = text;
-  if (ratio < 1) {
-    const keep = Math.max(1, Math.floor(text.length * ratio));
-    next = text.slice(0, keep);
-    const cut = next.lastIndexOf('\n\n');
-    if (cut > 0) next = next.slice(0, cut);
-  } else {
-    const tail = '\n\n以上各条都是与具体任务无关的一般性说明，只用于占位。';
-    let guard = 0;
-    while (countTokens(next) < target && guard < 400) {
-      next += tail;
-      guard += 1;
-    }
+  let lo = 0;
+  let hi = text.length;
+  while (lo < hi) {
+    const mid = Math.ceil((lo + hi) / 2);
+    if (countTokens(text.slice(0, mid)) <= target) lo = mid;
+    else hi = mid - 1;
   }
-  return next;
+  let best = text.slice(0, lo);
+  // 尽量停在词边界，但别为了一个词把偏差拉大
+  const tail = best.match(/\S+$/);
+  if (tail && tail[0].length < 16) best = best.slice(0, best.length - tail[0].length);
+  return best.trimEnd();
+}
+
+/** 只按字符裁尾部（保留给极端情况） */
+function cutTail(text: string, chars: number): string {
+  const head = text.slice(0, Math.max(0, text.length - chars));
+  const m = head.match(/\S*$/);
+  const idx = m ? m.index ?? head.length : head.length;
+  return head.slice(0, idx).replace(/\s+$/, '');
+}
+
+const PAD_SENTENCES = [
+  '这一段只陈述通用工程常识，不与任何具体任务相关。',
+  '以上内容仅用于占位，不含任何领域术语或操作指令。',
+  'This paragraph only states generic engineering commonplaces and nothing task specific. ',
+  'It carries no domain terminology, no instructions, and no formatting requirements. '
+];
+
+function padText(chars: number): string {
+  let out = '\n\n';
+  let i = 0;
+  while (out.length < chars) {
+    out += PAD_SENTENCES[i % PAD_SENTENCES.length];
+    if (i % PAD_SENTENCES.length === PAD_SENTENCES.length - 1) out += ' ';
+    i += 1;
+    if (i > 400) break;
+  }
+  return out.slice(0, Math.max(0, chars));
 }
 
 export interface PlaceboSkillPlan {

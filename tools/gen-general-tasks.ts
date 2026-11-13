@@ -20,15 +20,24 @@ const outDir = path.join(root, 'tasksets', 'general-20');
 
 /** 同 gen-web-guidance：fixture commit 只在已提交且干净时回填 */
 function fixtureCommit(domain: string): string | undefined {
+  const forced =
+    process.argv.find((a) => a.startsWith('--commit='))?.split('=')[1] ?? process.env.UPLIFT_FIXTURE_COMMIT;
+  if (forced && /^[0-9a-f]{7,40}$/.test(forced)) return forced;
   const head = spawnSync('git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' });
-  if (head.status !== 0) return undefined;
+  if (head.status !== 0) {
+    console.log('  note: 仓库还没有提交，env.commit 先留空');
+    return undefined;
+  }
   const sha = head.stdout.trim();
   if (!/^[0-9a-f]{7,40}$/.test(sha)) return undefined;
   const status = spawnSync('git', ['status', '--porcelain', '--', `tasksets/${domain}`], {
     cwd: root,
     encoding: 'utf8'
   });
-  if (status.status !== 0 || status.stdout.trim() !== '') return undefined;
+  if (status.status !== 0 || status.stdout.trim() !== '') {
+    console.log(`  note: tasksets/${domain} 有未提交改动，env.commit 先留空（提交后重跑本命令回填）`);
+    return undefined;
+  }
   return sha;
 }
 

@@ -71,7 +71,8 @@ export async function runBenchmark(cfg: RunnerConfig): Promise<RunnerResult> {
   const treatmentSkills = await buildTreatmentSkills(skills.pkg);
 
   const plans = planPlaceboSkills(treatmentSkills.map((s) => ({ name: s.name, tokens: s.tokens })), cfg.skillPath);
-  const placeboValidation = validatePlacebo(skills.pkg.totalTokens, plans);
+  const treatmentTokens = treatmentSkills.reduce((s, k) => s + k.tokens, 0);
+  const placeboValidation = validatePlacebo(treatmentTokens, plans);
   if (!placeboValidation.ok) {
     for (const m of placeboValidation.messages) cfg.onEvent?.({ type: 'warn', message: m });
   }

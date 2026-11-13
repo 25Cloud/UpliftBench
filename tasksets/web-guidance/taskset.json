@@ -14,7 +14,8 @@
     "timeout_sec": 120
   },
   "env": {
-    "kind": "local"
+    "kind": "local",
+    "commit": "37c797669edc96a34561ad4db551f69992e7e87e"
   },
   "task_count": 30,
   "tasks": [
