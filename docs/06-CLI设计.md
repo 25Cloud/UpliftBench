@@ -16,6 +16,7 @@ uplift <command> [options]
   badge      生成 badge SVG
   taskset    任务集管理（validate / list / fetch）
   compare    两个技能包对比
+  site       从 results/*.json 生成静态榜单页
   doctor     环境自检
 ```
 
@@ -79,6 +80,9 @@ uplift run --taskset <ref> --skill <path> [options]
   --placebo-max-delta <f> 安慰剂 token 偏差上限，默认 0.02
   --jobs <n>             并发数，默认 4
   --timeout <sec>        单任务超时，默认 600
+  --max-steps <n>        agent 单次 run 的最大步数，默认 14
+  --activation <mode>    auto（默认，模型自己决定是否激活技能）
+                         | forced（把技能正文直接注入上下文，等价于 harness 自动做渐进披露）
   --max-cost <usd>       成本上限，超过即停
   --resume               从 .uplift/runs.db 续跑
   --out <file>
@@ -213,8 +217,29 @@ $ uplift probe ./agent-skills --only static-cost
 
 ---
 
-## 十一、错误信息规范
+## 十一、`uplift site`
 
+```bash
+uplift site [options]
+
+选项：
+  --dir <dir>            结果目录，默认 results
+  --out <file>           输出 HTML，默认 site/index.html
+```
+
+读 `--dir` 下所有 `*.json` 的 SkillCard，按 **`任务集 · 评分器等级 · 激活条件`** 三段分组，
+每组一张表。纯 HTML、零 JS、零后端，直接丢静态托管就能看。
+
+分组键为什么要带激活条件（`auto` / `forced`）：同一道题、同一个模型，`--activation auto`
+与 `forced` 会给出符号相反的 uplift（见 `docs/15 §五`）。把两种条件混进一张表排大小，
+等于把两个实验的数字放在一起比名次。表格里也带 **激活率** 列——激活率决定了
+`treatment` 臂里有多少 run 其实还是 `baseline`，不公开它，uplift 的分母就是黑的。
+
+卡片不带 `tier1.activation` 时（早期数据），激活率显示 `—`，不显示 `0%`：不知道不等于零。
+
+---
+
+## 十二、错误信息规范
 **所有错误必须包含：发生了什么、为什么、怎么修。**
 
 ```

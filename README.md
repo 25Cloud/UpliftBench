@@ -8,7 +8,11 @@
 
 **首轮实测（270 次 run，$27.09）**：`addyosmani/agent-skills` 在 30 题 Web 合规任务集上
 **uplift +2.2pp，95%CI [−2.2, +6.7]，不显著**；同一批数据用两臂口径算出来是 **−2.2pp**——
-安慰剂效应 −4.4pp 比技能本身的效应还大，**足以把符号搞反**。详见 [docs/14](docs/14-首轮实测.md)。
+安慰剂臂的抖动就足以把符号搞反。详见 [docs/14-首轮实测.md](docs/14-首轮实测.md)。
+
+**第二轮实测（1,152 次 run，$132.62）**：`GoogleChrome/modern-web-guidance-src` 在 48 题上，
+自动激活模式 **−2.5pp**、强制注入模式 **+5.6pp**——两种条件里技能真正进上下文的比例是 **23%** 与 **100%**。
+**一个技能包有没有用，先取决于它有没有被加载进上下文。** 详见 [docs/15-第二轮实测.md](docs/15-第二轮实测.md)。
 
 ---
 
@@ -70,7 +74,7 @@ headroom_closed = uplift_pp / (1 − pass_rate(placebo))           # 填掉了�
 git clone <this repo> && cd UpliftBench
 pnpm install
 pnpm build
-pnpm test                     # 70 个单测
+pnpm test                     # 85 个单测
 
 # Tier 0：任何技能包，秒级，不调模型
 node dist/cli.js probe ./examples/demo-skill --only static-cost
@@ -138,7 +142,75 @@ uplift +2.22pp   headroom 8.7%   raw_gain −2.22pp   placebo_effect −4.44pp
 ```
 
 同一批 run 换成两臂口径（treatment − baseline）= **−2.22pp**，会得出「技能有害」的结论。
-**符号被安慰剂效应翻转了。** 完整分析见 [docs/14-首轮实测.md](docs/14-首轮实测.md)。
+**符号被安慰剂臂的抖动翻转了**——那 −4.4pp 事后查明是噪声（第一轮 placebo 臂一次都没被激活，
+见 [docs/15 §六](docs/15-第二轮实测.md)），不是「多塞 token」造成的。
+完整分析见 [docs/14-首轮实测.md](docs/14-首轮实测.md)。
+
+---
+
+## 第二轮实测：语义对口的技能包（`modern-web-guidance`）
+
+第一轮的两个 P0 都修了：任务集扩到 **48 题**（多规则/多文件 10 题 + 冷门新 API 8 题），
+技能包换成**语义对口**的 `GoogleChrome/modern-web-guidance-src`（真身技能，会调 `npx modern-web-guidance search/retrieve`），
+`repeats` 提到 **5**。
+
+**auto 模式（模型自己决定要不要激活）**，48 题 × 3 臂 × 5 重复 = 720 run，$60.93：
+
+| 臂 | 通过率 |
+|---|---|
+| baseline | 73.75% |
+| placebo | 73.75% |
+| treatment | 71.25% |
+
+```
+uplift −2.50pp   headroom −10.0%   raw_gain −2.50pp   placebo_effect +0.00pp
+95%CI [−7.92, +2.50]   N=48   A级   → 不显著
+激活率 23%（写了 MANDATORY，模型照样四次里只激活一次）
+```
+
+**forced 模式（技能正文强制注入）**，48 题 × 3 臂 × 3 重复 = 432 run，$71.69：
+
+| 臂 | 通过率 |
+|---|---|
+| baseline | 71.53% |
+| placebo | 63.89% |
+| treatment | 69.44% |
+
+```
+uplift +5.56pp   headroom 15.3%   raw_gain −2.08pp   placebo_effect −7.64pp
+95%CI [−2.78, +13.19]   N=48   A级   → 不显著
+```
+
+### 这一轮真正学到的东西
+
+1. **安慰剂效应只有在注入量可控时才估得出来**：forced 模式每次注入 9.8k → placebo_effect **−7.64pp**；
+   auto 模式下注不注入由模型决定，两轮的 placebo_effect（−4.4pp / 0.0pp）都在噪声里。
+   查数据还纠正了一个早先写错的解释：第一轮 placebo 臂**一次都没被激活**，那 −4.4pp 不是注入造成的。
+2. **同一个技能，两种激活策略符号相反**（−2.50pp vs +5.56pp）。
+   auto 回答「丢给 agent 它会不会自己用」，forced 回答「内容本身值多少分」——两个问题都得报。
+3. **技能只救「本来做不出」的题**：forced 下有空间的 17 题 uplift **+13.7pp**，天花板组 31 题只有 +1.1pp。
+   这就是 uplift modeling 里 *persuadables* 的实测版本。
+4. 一个对外宣称 +27~36pp 的技能包，在另一套任务 + 另一个 harness 上是 **−2.5pp**。
+   这不是「它错了」，而是**技能的效果不是技能包的属性，是「技能包 × harness × 任务分布」的属性**。
+
+完整分析见 [docs/15-第二轮实测.md](docs/15-第二轮实测.md)。
+
+**卡片与榜单现在都带激活率**，因为不公开它，`uplift` 的分母就是黑的：
+
+```
+Tier 1   uplift −2.5pp / headroom −9.5%   95%CI [−7.9, 2.5] · N=48 · placebo +0pp
+激活      自动激活 23%（treatment 29% / placebo 18%）
+         ⚠️ 大半 run 没触发技能，这个 uplift 主要反映「肯不肯调工具」
+```
+
+榜单页把 `auto` 与 `forced` 拆成两张表——同一个包两种条件各一行，不许只挂好看的那个：
+
+```bash
+npx tsx tools/make-cards.ts --runs-db=.uplift/v11/runs.db                     # 默认条件
+npx tsx tools/make-cards.ts --only=modern-web-guidance-src --suffix=forced \
+  --runs-db=.uplift/v11-forced/runs.db                                        # 强制注入那套
+node dist/cli.js site
+```
 
 badge 生成：
 
