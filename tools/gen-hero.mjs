@@ -5,6 +5,11 @@
  * 而不是留一张"看起来专业"的旧图。数字与出处写在 NUMBERS 里，改的时候去 docs/16 对照。
  *
  * 用法：node tools/gen-hero.mjs
+ *
+ * 同时产出 docs/assets/hero.svg（README 用）。docs/assets/hero.png 是同图的位图版本，
+ * 给不渲染 SVG 的地方（npm 页面、博客 OG 图）用，生成方式：
+ *   npx --yes sharp-cli -i docs/assets/hero.svg -o docs/assets/hero.png
+ * PNG 不参与 git 差异对比，改图后记得重新生成一次。
  */
 import fs from 'node:fs';
 import path from 'node:path';
