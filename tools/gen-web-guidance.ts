@@ -623,6 +623,467 @@ export function firstBig(list) {
     },
     forbid: ["await fetchOne\\('users'[\\s\\S]*await fetchOne\\('posts'"],
     require: ['Promise\\.all\\(', 'catch\\s*\\(|try\\s*\\{']
+  },
+
+  /* ---------------------------------------------------------------
+   * v1.1 新增：多规则、多文件任务
+   *
+   * 为什么加这批：1.0 的 30 题实测呈**双峰分布**（22 题 100%、8 题 0%），
+   * 原因是单点替换类任务「知道就一次做对，不知道就完全做不对」。
+   * 这批任务每题含 3–5 条互相独立的规则、跨 2–3 个文件，
+   * 让「做对一部分」成为可能——这样通过率才有中间地带，uplift 才有测量范围。
+   * --------------------------------------------------------------- */
+  {
+    id: 'wmg-031',
+    title: '三文件综合迁移：网络 + DOM + 语法',
+    difficulty: 'hard',
+    tags: ['multi-file', 'refactor', 'v1.1'],
+    prompt:
+      '三个文件各有一处历史包袱：api.js 用 XMLHttpRequest、ui.js 用 innerHTML 拼接、index.html 用 onclick 内联、util.js 用 var 和 substr。' +
+      '全部改掉：网络用 fetch + await，DOM 用 textContent 与 addEventListener，变量用 const/let，截断用 slice。输出结构与导出名保持不变。',
+    files: {
+      'api.js': `export function load(url, apply) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      apply(JSON.parse(xhr.responseText));
+    }
+  };
+  xhr.send();
+}
+`,
+      'ui.js': `export function render(el, items) {
+  var html = '';
+  for (var i = 0; i < items.length; i++) {
+    html += '<li class="item">' + items[i] + '</li>';
+  }
+  el.innerHTML = html;
+}
+`,
+      'index.html': `<ul id="list"></ul>
+<button id="save" onclick="save()">Save</button>
+`,
+      'util.js': `export function cut(s) {
+  return s.substr(0, 5);
+}
+`
+    },
+    forbid: [
+      'new XMLHttpRequest\\(',
+      '\\.innerHTML\\s*=',
+      'onclick=',
+      '(^|[^\\w.])var\\s',
+      '\\.substr\\('
+    ],
+    require: ['fetch\\(', 'await ', 'textContent', 'addEventListener\\(', 'const ', '\\.slice\\(']
+  },
+  {
+    id: 'wmg-032',
+    title: '表单校验：alert + event.returnValue 换成约束校验 API',
+    difficulty: 'medium',
+    tags: ['forms', 'validation', 'v1.1'],
+    prompt:
+      'form.js 用 alert 弹错误、用 event.returnValue 阻止提交（早已废弃）。改成约束校验 API：' +
+      '用 checkValidity() 判断、用 setCustomValidity() 写错误文案、并监听 invalid 事件做统一提示。',
+    files: {
+      'form.js': `export function validate(form) {
+  if (form.elements.email.value === '') {
+    alert('email required');
+    event.returnValue = false;
+    return false;
+  }
+  return true;
+}
+`
+    },
+    forbid: ['[^.\\w]alert\\(', 'event\\.returnValue'],
+    require: ['checkValidity\\(\\)', 'setCustomValidity\\(', "addEventListener\\('invalid'"]
+  },
+  {
+    id: 'wmg-033',
+    title: '图片加载：内联 onload + 手动 setAttribute 换成现代加载属性',
+    difficulty: 'easy',
+    tags: ['images', 'performance', 'v1.1'],
+    prompt:
+      'gallery.js 与 index.html 用内联 onload 和手动 setAttribute 控制图片加载。改成声明式：' +
+      'img 加 loading="lazy" 与 decoding="async"，删掉全部内联 onload。',
+    files: {
+      'gallery.js': `export function loadImages(imgs) {
+  for (var i = 0; i < imgs.length; i++) {
+    imgs[i].setAttribute('src', imgs[i].getAttribute('data-src'));
+    imgs[i].setAttribute('onload', 'fadeIn(this)');
+  }
+}
+`,
+      'index.html': `<div class="grid">
+  <img data-src="a.jpg" onload="fadeIn(this)" alt="a" />
+  <img data-src="b.jpg" onload="fadeIn(this)" alt="b" />
+</div>
+`
+    },
+    forbid: ["setAttribute\\('onload'", 'onload='],
+    require: ['loading="lazy"', 'decoding="async"']
+  },
+  {
+    id: 'wmg-034',
+    title: '时间处理：getYear 与字符串日期解析换成 Intl + Date.parse',
+    difficulty: 'medium',
+    tags: ['date', 'i18n', 'v1.1'],
+    prompt:
+      'time.js 用已废弃的 getYear()，并用 new Date(string) 解析用户输入（实现相关、各浏览器不一致）。' +
+      '改成 Intl.DateTimeFormat 做展示、Date.parse 做解析，非法输入返回 NaN 而不是抛错。',
+    files: {
+      'time.js': `export function formatStamp(ts) {
+  var d = new Date(ts);
+  return d.getYear() + '-' + d.getMonth();
+}
+
+export function parseStamp(s) {
+  var d = new Date(s);
+  return d.getTime();
+}
+`
+    },
+    forbid: ['getYear\\(\\)', 'new Date\\(s\\)'],
+    require: ['Intl\\.DateTimeFormat', 'Date\\.parse\\(', 'Number\\.isNaN\\(']
+  },
+  {
+    id: 'wmg-035',
+    title: '确认对话框：window.confirm 换成原生 dialog',
+    difficulty: 'medium',
+    tags: ['dialog', 'a11y', 'v1.1'],
+    prompt:
+      'modal.js 用 window.confirm 做确认、用 setAttribute 塞 tabindex 与 onclick。改成原生 <dialog>：' +
+      '在 index.html 里加 <dialog> 元素，用 showModal()/close()，把提示区标成 aria-live，删掉内联 tabindex 与 onclick。',
+    files: {
+      'modal.js': `export function confirmAction(msg, onYes) {
+  if (window.confirm(msg)) {
+    onYes();
+  }
+  var box = document.getElementById('box');
+  box.setAttribute('tabindex', '3');
+  box.setAttribute('onclick', 'ok()');
+}
+`,
+      'index.html': `<div id="box">ready</div>
+`
+    },
+    forbid: ['window\\.confirm\\(', "setAttribute\\('tabindex'", "setAttribute\\('onclick'"],
+    require: ['<dialog', 'showModal\\(\\)', 'aria-live']
+  },
+  {
+    id: 'wmg-036',
+    title: '布局：float 与 !important 换成 grid + clamp',
+    difficulty: 'easy',
+    tags: ['css', 'layout', 'v1.1'],
+    prompt:
+      'layout.css 用 float + clear 做栅格，还用 !important 压边距。改成 display: grid + gap，' +
+      '把间距改成 clamp() 自适应，删掉全部 float / clear / !important。',
+    files: {
+      'layout.css': `.row { float: left; width: 33%; }
+.clear { clear: both; }
+.side { margin-left: 12px !important; }
+`
+    },
+    forbid: ['float:\\s*left', 'clear:\\s*both', '!important'],
+    require: ['display:\\s*grid', 'gap:', 'clamp\\(']
+  },
+  {
+    id: 'wmg-037',
+    title: '滚动监听：非 passive 回调 + setInterval 换成 rAF',
+    difficulty: 'medium',
+    tags: ['events', 'performance', 'v1.1'],
+    prompt:
+      'scroll.js 在 scroll 回调里用 setInterval 反复触发（会堆积定时器），而且监听没标 passive。' +
+      '改成 { passive: true } 的监听 + requestAnimationFrame 节流，保证同一帧只回调一次。',
+    files: {
+      'scroll.js': `export function onScroll(el, cb) {
+  el.addEventListener('scroll', function () {
+    setInterval(function () {
+      cb();
+    }, 16);
+  });
+}
+`
+    },
+    forbid: ["addEventListener\\('scroll',\\s*function", 'setInterval\\('],
+    require: ['passive:\\s*true', 'requestAnimationFrame\\(']
+  },
+  {
+    id: 'wmg-038',
+    title: '网络：回调式 Promise 链换成 async + 超时 + allSettled',
+    difficulty: 'hard',
+    tags: ['async', 'network', 'v1.1'],
+    prompt:
+      'client.js 用 .then(function …) / .catch(function …) 写回调链，且没有超时、一个失败就全挂。' +
+      '改成 async 函数：用 AbortSignal.timeout 控制超时，用 Promise.allSettled 收集结果并区分成功与失败项。',
+    files: {
+      'client.js': `export function loadAll(items) {
+  return Promise.resolve(items)
+    .then(function (list) {
+      return list.map(function (i) {
+        return fetchOne(i);
+      });
+    })
+    .catch(function (e) {
+      console.log(e);
+    });
+}
+`
+    },
+    forbid: ['\\.then\\(function', '\\.catch\\(function'],
+    require: ['async function|async \\(', 'AbortSignal\\.timeout\\(', 'Promise\\.allSettled\\(']
+  },
+  {
+    id: 'wmg-039',
+    title: '模块化：CommonJS 换成 ESM',
+    difficulty: 'easy',
+    tags: ['modules', 'v1.1'],
+    prompt: 'legacy.js 用 require / module.exports。改成 ESM：import 引入依赖、export 导出，行为不变。',
+    files: {
+      'legacy.js': `const fs = require('fs');
+
+function helper() {
+  return fs.existsSync('.') ? 1 : 0;
+}
+
+module.exports = { helper };
+`
+    },
+    forbid: ['[^.\\w]require\\(', 'module\\.exports'],
+    require: ['^import ', '^export ']
+  },
+  {
+    id: 'wmg-040',
+    title: '安全渲染：innerHTML + eval + document.write 全清',
+    difficulty: 'hard',
+    tags: ['security', 'dom', 'v1.1'],
+    prompt:
+      'render.js 同时用了 innerHTML 拼 HTML、eval 解析配置、document.write 追加节点——三个都是注入面。' +
+      '改成 createElement + textContent 构建 DOM、JSON.parse 解析配置（失败要兜底）、append 追加节点。',
+    files: {
+      'render.js': `export function show(el, data) {
+  el.innerHTML = '<b>' + data.name + '</b>';
+  var cfg = eval('(' + data.config + ')');
+  document.write('<i>done</i>');
+  return cfg;
+}
+`
+    },
+    forbid: ['innerHTML', '[^.\\w]eval\\(', 'document\\.write\\('],
+    require: ['textContent', 'JSON\\.parse\\(', 'createElement\\(', 'append\\(']
+  },
+
+  /* ---------------------------------------------------------------
+   * v1.1 第二批：**冷门新 API**
+   *
+   * 为什么需要这批：上面两批任务实测仍被 baseline 打穿（模型本来就会换 fetch/const/addeventlistener）。
+   * 一个「现代 Web 指南」技能真正能创造增益的地方，是**模型先验里没有的那些新 API 名字与语义**：
+   * scheduler.postTask、URLPattern、Intl.DurationFormat、moveBefore、popover、scrollend……
+   * 这批任务的 baseline 预期接近 0，正好给技能留出可测量的上升空间。
+   * --------------------------------------------------------------- */
+  {
+    id: 'wmg-041',
+    title: '任务调度：setTimeout(0) 换成 scheduler.postTask / yield',
+    difficulty: 'hard',
+    tags: ['scheduling', 'new-api', 'v1.1'],
+    prompt:
+      'sched.js 用 setTimeout(fn, 0) 把工作推到下一个宏任务，并且用「是否超过 50ms」手工判断要不要让步。' +
+      '改成调度器 API：用 scheduler.postTask 派发任务（带 priority），长循环里用 scheduler.yield() 定期让出主线程。',
+    files: {
+      'sched.js': `export function enqueue(work) {
+  setTimeout(function () {
+    work();
+  }, 0);
+}
+
+export async function runChunked(items, handle) {
+  const start = performance.now();
+  for (const item of items) {
+    if (performance.now() - start > 50) {
+      await new Promise(function (r) { setTimeout(r, 0); });
+    }
+    handle(item);
+  }
+}
+`
+    },
+    forbid: ['setTimeout\\(function', 'setTimeout\\(r, 0\\)', 'setTimeout\\([^,]+, 0\\)'],
+    require: ['scheduler\\.postTask\\(', 'scheduler\\.yield\\(\\)', "priority"]
+  },
+  {
+    id: 'wmg-042',
+    title: 'URL 匹配：手写正则换成 URLPattern',
+    difficulty: 'hard',
+    tags: ['url', 'new-api', 'v1.1'],
+    prompt:
+      'router.js 用一堆手写正则和字符串拼接解析路由（易错、不可读）。改成标准 URLPattern：' +
+      '用 new URLPattern({ pathname }) 定义路由，pattern.exec(url) 取参数，不要再手写正则。',
+    files: {
+      'router.js': `const USER_RE = /^\\/users\\/(\\d+)$/;
+
+export function matchUser(path) {
+  const m = path.match(USER_RE);
+  return m ? { id: Number(m[1]) } : null;
+}
+
+export function matchPost(path) {
+  const parts = path.split('/');
+  if (parts.length === 4 && parts[1] === 'posts') {
+    return { id: Number(parts[2]), slug: parts[3] };
+  }
+  return null;
+}
+`
+    },
+    forbid: ['new RegExp', 'path\\.match\\(', 'const USER_RE', 'path\\.split\\('],
+    require: ['new URLPattern\\(', '\\.exec\\(']
+  },
+  {
+    id: 'wmg-043',
+    title: '时长格式化：手写拼接换成 Intl.DurationFormat',
+    difficulty: 'hard',
+    tags: ['i18n', 'new-api', 'v1.1'],
+    prompt:
+      'duration.js 手写「X 小时 Y 分」的拼接，且写死中文单位，无法本地化。' +
+      '改成 Intl.DurationFormat：传入 { hours, minutes, seconds } 对象，用 style: "long" 输出本地化文案。',
+    files: {
+      'duration.js': `export function formatDuration(totalSeconds) {
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = totalSeconds % 60;
+  let out = '';
+  if (h > 0) out += h + ' 小时 ';
+  if (m > 0) out += m + ' 分 ';
+  out += s + ' 秒';
+  return out.trim();
+}
+`
+    },
+    forbid: ["' 小时 '", "' 分 '", "' 秒'"],
+    require: ['Intl\\.DurationFormat', 'format\\(']
+  },
+  {
+    id: 'wmg-044',
+    title: '保留状态的 DOM 移动：remove + insert 换成 moveBefore',
+    difficulty: 'hard',
+    tags: ['dom', 'new-api', 'v1.1'],
+    prompt:
+      'reorder.js 通过 removeChild + insertBefore 移动节点，导致 iframe/video 重新加载、焦点丢失。' +
+      '改成新 API：用 element.moveBefore(node, ref) 保留节点状态，不要再 removeChild。',
+    files: {
+      'reorder.js': `export function moveToTop(list, item) {
+  list.removeChild(item);
+  list.insertBefore(item, list.firstChild);
+}
+
+export function swapSections(parent, a, b) {
+  const anchor = a.nextSibling;
+  parent.removeChild(a);
+  parent.insertBefore(a, b);
+}
+`
+    },
+    forbid: ['removeChild\\(', 'insertBefore\\('],
+    require: ['moveBefore\\(']
+  },
+  {
+    id: 'wmg-045',
+    title: '自定义下拉：div + class 切换换成 popover',
+    difficulty: 'hard',
+    tags: ['popover', 'a11y', 'new-api', 'v1.1'],
+    prompt:
+      'menu.js 用手写 class 切换和 document 点击监听做下拉菜单（层级、点击穿透、Esc 都要自己处理）。' +
+      '改成原生 API：index.html 用 popover 属性 + popovertarget 按钮，脚本用 showPopover()/hidePopover()，删掉手写的 class 开关。',
+    files: {
+      'menu.js': `export function setupMenu(btn, panel) {
+  let open = false;
+  btn.addEventListener('click', function () {
+    open = !open;
+    panel.classList.toggle('open', open);
+  });
+  document.addEventListener('click', function (e) {
+    if (!panel.contains(e.target) && e.target !== btn) {
+      open = false;
+      panel.classList.remove('open');
+    }
+  });
+}
+`,
+      'index.html': `<button id="trigger">Menu</button>
+<div id="panel" class="panel">…</div>
+`
+    },
+    forbid: ['classList\\.toggle\\(', 'classList\\.remove\\(', "document\\.addEventListener\\('click'"],
+    require: ['popover', 'popovertarget', 'showPopover\\(\\)']
+  },
+  {
+    id: 'wmg-046',
+    title: '进入动画：rAF 双帧 hack 换成 @starting-style',
+    difficulty: 'hard',
+    tags: ['css', 'animation', 'new-api', 'v1.1'],
+    prompt:
+      'reveal.js 用 requestAnimationFrame 跑两帧再加 class 来触发过渡（hack）。' +
+      '改成 CSS 原生能力：用 @starting-style 定义初始状态，用 transition-behavior: allow-discrete 让 display 可过渡，删掉双帧 hack。',
+    files: {
+      'reveal.js': `export function reveal(el) {
+  el.style.opacity = '0';
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      el.classList.add('shown');
+      el.style.opacity = '1';
+    });
+  });
+}
+`,
+      'reveal.css': `.card { display: none; opacity: 0; }
+
+.card.shown { display: block; opacity: 1; transition: opacity 200ms; }
+`
+    },
+    forbid: ['requestAnimationFrame\\(function', 'classList\\.add\\('],
+    require: ['@starting-style', 'transition-behavior:\\s*allow-discrete']
+  },
+  {
+    id: 'wmg-047',
+    title: '滚动结束检测：防抖猜测换成 scrollend 事件',
+    difficulty: 'hard',
+    tags: ['events', 'new-api', 'v1.1'],
+    prompt:
+      'scroller.js 用 scroll + 200ms 防抖去猜「滚动结束了」。改成标准 scrollend 事件，删掉防抖计时器。',
+    files: {
+      'scroller.js': `export function onScrollEnd(el, cb) {
+  let timer = null;
+  el.addEventListener('scroll', function () {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function () {
+      cb();
+    }, 200);
+  });
+}
+`
+    },
+    forbid: ['setTimeout\\(', 'clearTimeout\\('],
+    require: ["addEventListener\\('scrollend'"]
+  },
+  {
+    id: 'wmg-048',
+    title: '长列表渲染：全量渲染换成 content-visibility',
+    difficulty: 'hard',
+    tags: ['css', 'performance', 'new-api', 'v1.1'],
+    prompt:
+      'feed.css 把所有卡片全量渲染，长列表滚动卡顿。改成 content-visibility: auto 配合 contain-intrinsic-size 让浏览器跳过屏外渲染，' +
+      '并保留卡片原有尺寸不跳动。',
+    files: {
+      'feed.css': `.card {
+  min-height: 180px;
+  contain: layout paint;
+}
+`
+    },
+    forbid: ['contain:\\s*layout paint'],
+    require: ['content-visibility:\\s*auto', 'contain-intrinsic-size']
   }
 ];
 
@@ -741,17 +1202,17 @@ async function main(): Promise<void> {
   const taskset = {
     schema_version: '1.0.0',
     domain: 'web-guidance',
-    version: '1.0.0',
+    version: '1.1.0',
     title: 'Modern Web Guidance 合规任务集',
     description:
-      '30 个小型 fixture，每个含一处（或数处）已废弃的 Web API 用法。评分器是 A 级 tests：可执行规则检查，零主观判断。',
+      '40 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~040 是多规则/多文件任务（为了打破双峰难度分布）。评分器是 A 级 tests：可执行规则检查，零主观判断。',
     maintainer: 'upliftbench',
     official: true,
     grader: {
       kind: 'tests',
       tier: 'A',
       entry: 'tasks/wmg-001/verify.mjs',
-      version: '1.0.0',
+      version: '1.1.0',
       timeout_sec: 120
     },
     env: {
@@ -772,7 +1233,7 @@ async function main(): Promise<void> {
     acc[t.difficulty] = (acc[t.difficulty] ?? 0) + 1;
     return acc;
   }, {});
-  console.log(`web-guidance@1.0 生成完成：${tasks.length} 个任务 -> ${path.relative(root, outDir)}`);
+  console.log(`web-guidance@${taskset.version} 生成完成：${tasks.length} 个任务 -> ${path.relative(root, outDir)}`);
   console.log(`  难度分布：${JSON.stringify(byDiff)}`);
   console.log(
     calibration

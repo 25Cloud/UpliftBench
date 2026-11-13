@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "setTimeout\\(",
+    "clearTimeout\\("
+  ],
+  "require": [
+    "addEventListener\\('scrollend'"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "forbid": [
+    "setTimeout\\(function",
+    "setTimeout\\(r, 0\\)",
+    "setTimeout\\([^,]+, 0\\)"
+  ],
+  "require": [
+    "scheduler\\.postTask\\(",
+    "scheduler\\.yield\\(\\)",
+    "priority"
+  ]
+}

@@ -1,0 +1,3 @@
+.card { display: none; opacity: 0; }
+
+.card.shown { display: block; opacity: 1; transition: opacity 200ms; }

@@ -1,0 +1,11 @@
+{
+  "forbid": [
+    "\\.then\\(function",
+    "\\.catch\\(function"
+  ],
+  "require": [
+    "async function|async \\(",
+    "AbortSignal\\.timeout\\(",
+    "Promise\\.allSettled\\("
+  ]
+}

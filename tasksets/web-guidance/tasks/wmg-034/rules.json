@@ -1,0 +1,11 @@
+{
+  "forbid": [
+    "getYear\\(\\)",
+    "new Date\\(s\\)"
+  ],
+  "require": [
+    "Intl\\.DateTimeFormat",
+    "Date\\.parse\\(",
+    "Number\\.isNaN\\("
+  ]
+}

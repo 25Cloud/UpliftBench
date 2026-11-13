@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "contain:\\s*layout paint"
+  ],
+  "require": [
+    "content-visibility:\\s*auto",
+    "contain-intrinsic-size"
+  ]
+}

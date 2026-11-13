@@ -1,0 +1,10 @@
+{
+  "forbid": [
+    "setAttribute\\('onload'",
+    "onload="
+  ],
+  "require": [
+    "loading=\"lazy\"",
+    "decoding=\"async\""
+  ]
+}

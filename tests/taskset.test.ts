@@ -6,14 +6,14 @@ import { admissionCheck, validateTasksetJson } from '../src/taskset/validate.js'
 const CWD = process.cwd();
 
 describe('任务集校验与准入检查（docs/04 §6）', () => {
-  it('web-guidance@1.0 通过 schema 与结构性检查', async () => {
-    const ts = await loadTaskset('web-guidance@1.0', CWD);
+  it('web-guidance@1.1.0 通过 schema 与结构性检查', async () => {
+    const ts = await loadTaskset('web-guidance@1.1.0', CWD);
     const schema = await validateTasksetJson(ts.json);
     expect(schema.errors).toEqual([]);
     const report = await admissionCheck(ts.dir, ts.json);
     expect(report.ok).toBe(true);
-    expect(ts.json.task_count).toBe(30);
-    expect(ts.json.tasks.length).toBe(30);
+    expect(ts.json.task_count).toBe(48);
+    expect(ts.json.tasks.length).toBe(48);
   });
 
   it('general-20@1.0 有 20 个任务且都是 A 级', async () => {
@@ -24,8 +24,17 @@ describe('任务集校验与准入检查（docs/04 §6）', () => {
     expect(report.ok).toBe(true);
   });
 
+  it('v1.1 新增任务都带 v1.1 标签，且每题至少 3 条规则', async () => {
+    const ts = await loadTaskset('web-guidance@1.1.0', CWD);
+    const fresh = ts.json.tasks.filter((t) => t.tags?.includes('v1.1'));
+    expect(fresh.length).toBe(18);
+    for (const t of fresh) {
+      expect(t.verify).toBeTruthy();
+    }
+  });
+
   it('行为性检查如实标 skipped（不假装验过）', async () => {
-    const ts = await loadTaskset('web-guidance@1.0', CWD);
+    const ts = await loadTaskset('web-guidance@1.1.0', CWD);
     const report = await admissionCheck(ts.dir, ts.json);
     const behavior = report.checks.filter((c) => c.ok === 'skipped');
     expect(behavior.length).toBeGreaterThanOrEqual(2);

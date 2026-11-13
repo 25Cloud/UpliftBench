@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "removeChild\\(",
+    "insertBefore\\("
+  ],
+  "require": [
+    "moveBefore\\("
+  ]
+}

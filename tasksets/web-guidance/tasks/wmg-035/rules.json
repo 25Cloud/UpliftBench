@@ -1,0 +1,12 @@
+{
+  "forbid": [
+    "window\\.confirm\\(",
+    "setAttribute\\('tabindex'",
+    "setAttribute\\('onclick'"
+  ],
+  "require": [
+    "<dialog",
+    "showModal\\(\\)",
+    "aria-live"
+  ]
+}

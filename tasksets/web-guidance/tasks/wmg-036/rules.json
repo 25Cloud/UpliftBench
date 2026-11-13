@@ -1,0 +1,12 @@
+{
+  "forbid": [
+    "float:\\s*left",
+    "clear:\\s*both",
+    "!important"
+  ],
+  "require": [
+    "display:\\s*grid",
+    "gap:",
+    "clamp\\("
+  ]
+}

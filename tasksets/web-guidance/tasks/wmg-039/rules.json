@@ -1,0 +1,10 @@
+{
+  "forbid": [
+    "[^.\\w]require\\(",
+    "module\\.exports"
+  ],
+  "require": [
+    "^import ",
+    "^export "
+  ]
+}

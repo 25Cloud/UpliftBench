@@ -1,0 +1,13 @@
+{
+  "forbid": [
+    "innerHTML",
+    "[^.\\w]eval\\(",
+    "document\\.write\\("
+  ],
+  "require": [
+    "textContent",
+    "JSON\\.parse\\(",
+    "createElement\\(",
+    "append\\("
+  ]
+}

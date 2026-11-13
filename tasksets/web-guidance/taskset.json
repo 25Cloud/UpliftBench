@@ -1,23 +1,23 @@
 {
   "schema_version": "1.0.0",
   "domain": "web-guidance",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Modern Web Guidance 合规任务集",
-  "description": "30 个小型 fixture，每个含一处（或数处）已废弃的 Web API 用法。评分器是 A 级 tests：可执行规则检查，零主观判断。",
+  "description": "40 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~040 是多规则/多文件任务（为了打破双峰难度分布）。评分器是 A 级 tests：可执行规则检查，零主观判断。",
   "maintainer": "upliftbench",
   "official": true,
   "grader": {
     "kind": "tests",
     "tier": "A",
     "entry": "tasks/wmg-001/verify.mjs",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "timeout_sec": 120
   },
   "env": {
     "kind": "local",
     "commit": "37c797669edc96a34561ad4db551f69992e7e87e"
   },
-  "task_count": 30,
+  "task_count": 48,
   "tasks": [
     {
       "id": "wmg-001",
@@ -541,6 +541,332 @@
         "async",
         "performance",
         "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-031",
+      "title": "三文件综合迁移：网络 + DOM + 语法",
+      "prompt_file": "tasks/wmg-031/prompt.md",
+      "fixture": "tasks/wmg-031/fixture/",
+      "verify": "tasks/wmg-031/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "multi-file",
+        "refactor",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-032",
+      "title": "表单校验：alert + event.returnValue 换成约束校验 API",
+      "prompt_file": "tasks/wmg-032/prompt.md",
+      "fixture": "tasks/wmg-032/fixture/",
+      "verify": "tasks/wmg-032/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "forms",
+        "validation",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-033",
+      "title": "图片加载：内联 onload + 手动 setAttribute 换成现代加载属性",
+      "prompt_file": "tasks/wmg-033/prompt.md",
+      "fixture": "tasks/wmg-033/fixture/",
+      "verify": "tasks/wmg-033/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "images",
+        "performance",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-034",
+      "title": "时间处理：getYear 与字符串日期解析换成 Intl + Date.parse",
+      "prompt_file": "tasks/wmg-034/prompt.md",
+      "fixture": "tasks/wmg-034/fixture/",
+      "verify": "tasks/wmg-034/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "date",
+        "i18n",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-035",
+      "title": "确认对话框：window.confirm 换成原生 dialog",
+      "prompt_file": "tasks/wmg-035/prompt.md",
+      "fixture": "tasks/wmg-035/fixture/",
+      "verify": "tasks/wmg-035/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "dialog",
+        "a11y",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-036",
+      "title": "布局：float 与 !important 换成 grid + clamp",
+      "prompt_file": "tasks/wmg-036/prompt.md",
+      "fixture": "tasks/wmg-036/fixture/",
+      "verify": "tasks/wmg-036/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "css",
+        "layout",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-037",
+      "title": "滚动监听：非 passive 回调 + setInterval 换成 rAF",
+      "prompt_file": "tasks/wmg-037/prompt.md",
+      "fixture": "tasks/wmg-037/fixture/",
+      "verify": "tasks/wmg-037/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "events",
+        "performance",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-038",
+      "title": "网络：回调式 Promise 链换成 async + 超时 + allSettled",
+      "prompt_file": "tasks/wmg-038/prompt.md",
+      "fixture": "tasks/wmg-038/fixture/",
+      "verify": "tasks/wmg-038/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "async",
+        "network",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-039",
+      "title": "模块化：CommonJS 换成 ESM",
+      "prompt_file": "tasks/wmg-039/prompt.md",
+      "fixture": "tasks/wmg-039/fixture/",
+      "verify": "tasks/wmg-039/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "modules",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-040",
+      "title": "安全渲染：innerHTML + eval + document.write 全清",
+      "prompt_file": "tasks/wmg-040/prompt.md",
+      "fixture": "tasks/wmg-040/fixture/",
+      "verify": "tasks/wmg-040/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "security",
+        "dom",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-041",
+      "title": "任务调度：setTimeout(0) 换成 scheduler.postTask / yield",
+      "prompt_file": "tasks/wmg-041/prompt.md",
+      "fixture": "tasks/wmg-041/fixture/",
+      "verify": "tasks/wmg-041/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "scheduling",
+        "new-api",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-042",
+      "title": "URL 匹配：手写正则换成 URLPattern",
+      "prompt_file": "tasks/wmg-042/prompt.md",
+      "fixture": "tasks/wmg-042/fixture/",
+      "verify": "tasks/wmg-042/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "url",
+        "new-api",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-043",
+      "title": "时长格式化：手写拼接换成 Intl.DurationFormat",
+      "prompt_file": "tasks/wmg-043/prompt.md",
+      "fixture": "tasks/wmg-043/fixture/",
+      "verify": "tasks/wmg-043/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "i18n",
+        "new-api",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-044",
+      "title": "保留状态的 DOM 移动：remove + insert 换成 moveBefore",
+      "prompt_file": "tasks/wmg-044/prompt.md",
+      "fixture": "tasks/wmg-044/fixture/",
+      "verify": "tasks/wmg-044/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "dom",
+        "new-api",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-045",
+      "title": "自定义下拉：div + class 切换换成 popover",
+      "prompt_file": "tasks/wmg-045/prompt.md",
+      "fixture": "tasks/wmg-045/fixture/",
+      "verify": "tasks/wmg-045/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "popover",
+        "a11y",
+        "new-api",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-046",
+      "title": "进入动画：rAF 双帧 hack 换成 @starting-style",
+      "prompt_file": "tasks/wmg-046/prompt.md",
+      "fixture": "tasks/wmg-046/fixture/",
+      "verify": "tasks/wmg-046/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "css",
+        "animation",
+        "new-api",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-047",
+      "title": "滚动结束检测：防抖猜测换成 scrollend 事件",
+      "prompt_file": "tasks/wmg-047/prompt.md",
+      "fixture": "tasks/wmg-047/fixture/",
+      "verify": "tasks/wmg-047/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "events",
+        "new-api",
+        "v1.1"
+      ]
+    },
+    {
+      "id": "wmg-048",
+      "title": "长列表渲染：全量渲染换成 content-visibility",
+      "prompt_file": "tasks/wmg-048/prompt.md",
+      "fixture": "tasks/wmg-048/fixture/",
+      "verify": "tasks/wmg-048/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "css",
+        "performance",
+        "new-api",
+        "v1.1"
       ]
     }
   ]

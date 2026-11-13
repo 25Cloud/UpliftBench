@@ -1,0 +1,10 @@
+{
+  "forbid": [
+    "requestAnimationFrame\\(function",
+    "classList\\.add\\("
+  ],
+  "require": [
+    "@starting-style",
+    "transition-behavior:\\s*allow-discrete"
+  ]
+}

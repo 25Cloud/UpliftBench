@@ -1,0 +1,17 @@
+{
+  "forbid": [
+    "new XMLHttpRequest\\(",
+    "\\.innerHTML\\s*=",
+    "onclick=",
+    "(^|[^\\w.])var\\s",
+    "\\.substr\\("
+  ],
+  "require": [
+    "fetch\\(",
+    "await ",
+    "textContent",
+    "addEventListener\\(",
+    "const ",
+    "\\.slice\\("
+  ]
+}

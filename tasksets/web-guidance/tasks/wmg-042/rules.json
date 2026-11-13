@@ -1,0 +1,12 @@
+{
+  "forbid": [
+    "new RegExp",
+    "path\\.match\\(",
+    "const USER_RE",
+    "path\\.split\\("
+  ],
+  "require": [
+    "new URLPattern\\(",
+    "\\.exec\\("
+  ]
+}

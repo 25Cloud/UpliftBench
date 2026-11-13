@@ -1,0 +1,10 @@
+{
+  "forbid": [
+    "addEventListener\\('scroll',\\s*function",
+    "setInterval\\("
+  ],
+  "require": [
+    "passive:\\s*true",
+    "requestAnimationFrame\\("
+  ]
+}

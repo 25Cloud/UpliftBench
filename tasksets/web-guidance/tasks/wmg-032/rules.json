@@ -1,0 +1,11 @@
+{
+  "forbid": [
+    "[^.\\w]alert\\(",
+    "event\\.returnValue"
+  ],
+  "require": [
+    "checkValidity\\(\\)",
+    "setCustomValidity\\(",
+    "addEventListener\\('invalid'"
+  ]
+}

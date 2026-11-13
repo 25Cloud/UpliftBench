@@ -1,0 +1,11 @@
+{
+  "forbid": [
+    "' 小时 '",
+    "' 分 '",
+    "' 秒'"
+  ],
+  "require": [
+    "Intl\\.DurationFormat",
+    "format\\("
+  ]
+}
