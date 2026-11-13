@@ -19,8 +19,9 @@ import { readJson, writeJson } from './util/json.js';
 import { ensureDir, humanInt, pathExists, writeTextFile } from './util/fsx.js';
 import { c, errLine, heading, kv, setColor, sym, UpliftError, warnLine } from './util/log.js';
 import { computeTier1, decideGrade } from './metrics/uplift.js';
+import { poolRuns } from './metrics/pool.js';
 import { SOFTWARE_VERSION, PROTOCOL_VERSION } from './version.js';
-import type { ArmName, SkillCardJson } from './types.js';
+import type { ArmName, RunRow, SkillCardJson } from './types.js';
 import { runInjectionResistance } from './probes/injection-resistance.js';
 
 loadEnv();
@@ -762,6 +763,90 @@ program
       });
 
       console.log(`${sym.ok} 榜单页写入 ${path.relative(process.cwd(), out)}（${entries.length} 张卡）`);
+      process.exit(0);
+    } catch (e) {
+      fail(e);
+    }
+  });
+
+/* ------------------------------------------------------------------ pool */
+
+program
+  .command('pool')
+  .description('把多轮 run 合并成一份块估计（按题 bootstap 出区间）')
+  .requiredOption('--db <paths>', '逗号分隔的 runs.db 列表，按时间顺序')
+  .option('--format <fmt>', 'text | json', 'text')
+  .option('--out <file>', '把 JSON 写到文件')
+  .option('--iters <n>', 'bootstrap 次数，默认 20000', '20000')
+  .action(async (opts: Record<string, any>) => {
+    try {
+      const dbs = String(opts.db)
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+      if (dbs.length === 0) throw new UpliftError('没有库可合并', '--db 是空的', '例：--db .uplift/a/runs.db,.uplift/b/runs.db');
+
+      const rows: RunRow[] = [];
+      const combos = new Set<string>();
+      for (const p of dbs) {
+        const abs = path.resolve(p);
+        if (!(await pathExists(abs))) throw new UpliftError('库不存在', abs, '检查路径，或用 uplift run --out 生成的目录');
+        const db = openStore(abs);
+        const part = queryRuns(db);
+        db.close();
+        for (const r of part) {
+          rows.push(r);
+          let mode = 'auto';
+          try {
+            mode = JSON.parse(r.meta_json ?? '{}').activation_mode ?? mode;
+          } catch {
+            /* meta 坏了就不算条件差异 */
+          }
+          combos.add(`${r.taskset} · ${r.skill_repo} · ${mode}`);
+        }
+      }
+      if (combos.size > 1) {
+        warnLine(`这些库不是同一组条件，合并结果没有意义：`);
+        for (const c2 of combos) console.log(`  ${c2}`);
+      }
+
+      const pooled = poolRuns(rows, { blocks: dbs.length, iters: Number(opts.iters) });
+      const uplift = `${pooled.uplift_pp >= 0 ? '+' : ''}${pooled.uplift_pp.toFixed(1)}pp`;
+      const ci = `[${pooled.ci95[0].toFixed(1)}, ${pooled.ci95[1].toFixed(1)}]`;
+      const placebo = `${pooled.placebo_effect_pp >= 0 ? '+' : ''}${pooled.placebo_effect_pp.toFixed(1)}pp`;
+      const pct = (x: number) => `${(x * 100).toFixed(0)}%`;
+
+      if (opts.out) await writeJson(path.resolve(opts.out), pooled);
+
+      if (opts.format === 'json') {
+        console.log(JSON.stringify(pooled, null, 2));
+        process.exit(0);
+      }
+
+      console.log(heading(`合并 ${dbs.length} 轮 · ${pooled.task_count} 题 · 每臂 ${pooled.runs.treatment} 次 run`));
+      const w = Math.max(6, ...pooled.tasks.map((t) => t.task_id.length));
+      console.log(
+        `  ${'题'.padEnd(w)}  ${'n'.padStart(5)}  ${'baseline'.padStart(8)}  ${'placebo'.padStart(7)}  ${'treatment'.padStart(9)}  ${'uplift'.padStart(8)}`
+      );
+      for (const t of pooled.tasks) {
+        const u = `${t.uplift >= 0 ? '+' : ''}${(t.uplift * 100).toFixed(0)}pp`;
+        console.log(
+          `  ${t.task_id.padEnd(w)}  ${String(t.n.treatment).padStart(5)}  ${pct(t.rate.baseline).padStart(8)}  ${pct(
+            t.rate.placebo
+          ).padStart(7)}  ${pct(t.rate.treatment).padStart(9)}  ${u.padStart(8)}`
+        );
+      }
+      console.log(`  ${'合计'.padEnd(w)}  ${String(pooled.runs.treatment).padStart(5)}  ${pct(pooled.rate.baseline).padStart(8)}  ${pct(
+        pooled.rate.placebo
+      ).padStart(7)}  ${pct(pooled.rate.treatment).padStart(9)}  ${(uplift).padStart(8)}`);
+      console.log('');
+      console.log(`  块 uplift   ${c.bold(uplift)}   95%CI ${ci}（按题 bootstrap，${opts.iters} 次）`);
+      console.log(`  安慰剂效应  ${placebo}`);
+      if (pooled.dropped.length > 0) {
+        console.log(`  丢弃        ${pooled.dropped.join(', ')}（缺某一臂，不成对）`);
+      }
+      console.log('');
+      console.log(c.dim('  区间按「题」重采样，不是按 run。重复次数压的是 run 抖动，题目之间的差异压不掉。'));
       process.exit(0);
     } catch (e) {
       fail(e);

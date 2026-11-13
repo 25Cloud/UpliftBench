@@ -206,7 +206,7 @@ tests/             114 个单测，其中 21 个是评分器自检
 
 ## 状态
 
-`protocol/1.0.0`，软件 `v0.2.5`，Node ≥ 22，Apache-2.0。没有后端，不用账号，不采集任何东西。
+`protocol/1.0.0`，软件 `v0.2.6`，Node ≥ 22，Apache-2.0。没有后端，不用账号，不采集任何东西。
 
 CI 跑 build、测试、任务集校验、卡片 schema、markdown 链接检查和 demo。`results/` 和 `site/` 里的东西都能从提交的 run 数据库重新生成，每次 run 的成本都记着。
 

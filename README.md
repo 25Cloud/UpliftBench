@@ -277,6 +277,7 @@ probes give you is the price tag.
 node dist/cli.js probe path/to/skill --format markdown   # Tier 0, seconds, free
 node dist/cli.js run --taskset tasksets/web-guidance --skill path/to/skill \
   --arms baseline,placebo,treatment --repeats 5           # Tier 1, needs a model
+node dist/cli.js pool --db .uplift/a/runs.db,.uplift/b/runs.db   # merge repeats of one block
 node dist/cli.js site                                     # static leaderboard
 ```
 
@@ -335,7 +336,7 @@ gets translated.
 
 ## Status
 
-`protocol/1.0.0`, software `v0.2.5`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
+`protocol/1.0.0`, software `v0.2.6`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
 
 CI runs build, tests, task-set validation, a card schema check, a markdown link check, and the demo.
 Everything in `results/` and `site/` is generated from committed run databases, and every run's cost is
