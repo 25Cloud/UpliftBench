@@ -39,7 +39,11 @@ async function main(): Promise<void> {
   await ensureDir(resultsDir);
   const model = process.env.UPLIFT_MODEL ?? 'glm-5.3-flash';
   const harness = createHarness('openai-compat', { model });
-  const runsDb = path.join(root, '.uplift', 'main', 'runs.db');
+  // --runs-db 可指定多份库（逗号分隔），同一个技能包的 Tier 1 取第一份命中
+  const dbArg = process.argv.find((a) => a.startsWith('--runs-db='))?.split('=')[1];
+  const runsDbs = (dbArg ?? '.uplift/main/runs.db')
+    .split(',')
+    .map((p) => (path.isAbsolute(p) ? p : path.join(root, p)));
 
   for (const entry of manifest.skills) {
     const skillPath = path.join(root, 'benchmarks', 'skills', entry.id, entry.path ?? '.');
@@ -69,7 +73,9 @@ async function main(): Promise<void> {
     }
 
     let tier1;
-    if (await pathExists(runsDb)) {
+    for (const runsDb of runsDbs) {
+      if (tier1) break;
+      if (!(await pathExists(runsDb))) continue;
       const db = openStore(runsDb);
       const rows = queryRuns(db, { skill_repo: entry.repo });
       if (rows.length > 0) {
@@ -80,9 +86,14 @@ async function main(): Promise<void> {
           graderTier: 'A',
           repeats,
           seed: 42,
-          protocolNotes: [`harness=openai-compat`, `model=${rows[0].model}`, `repeats=${repeats}`]
+          protocolNotes: [
+            'harness=openai-compat',
+            `model=${rows[0].model}`,
+            `repeats=${repeats}`,
+            `runs_db=${path.relative(root, runsDb)}`
+          ]
         });
-        console.log(`  · tier1: ${rows.length} 行原始记录，N=${tier1.n}`);
+        console.log(`  · tier1: ${path.relative(root, runsDb)} → ${rows.length} 行，N=${tier1.n}`);
       }
       db.close();
     }
