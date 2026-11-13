@@ -33,13 +33,13 @@ describe('任务集校验与准入检查（docs/04 §6）', () => {
     }
   });
 
-  it('行为型任务都带 behavior.mjs，且被 behavioral 标签标出（9 题）', async () => {
+  it('行为型任务都带 behavior.mjs，且被 behavioral 标签标出（10 题）', async () => {
     const ts = await loadTaskset('web-guidance@1.4.0', CWD);
     const fs = await import('node:fs');
     const withBehavior = ts.json.tasks.filter((t) =>
       fs.existsSync(path.join(ts.dir, 'tasks', t.id, 'behavior.mjs'))
     );
-    expect(withBehavior.length).toBe(9);
+    expect(withBehavior.length).toBe(10);
     for (const t of withBehavior) {
       expect(t.tags).toContain('behavioral');
     }

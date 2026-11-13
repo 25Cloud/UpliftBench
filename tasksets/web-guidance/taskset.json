@@ -795,14 +795,15 @@
       "fixture": "tasks/wmg-044/fixture/",
       "verify": "tasks/wmg-044/verify.mjs",
       "weight": 1,
-      "difficulty": "easy",
+      "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.7,
-        "max": 1
+        "min": 0.59,
+        "max": 0.89
       },
       "tags": [
         "dom",
         "new-api",
+        "behavioral",
         "v1.1",
         "calibrated"
       ]
@@ -1069,7 +1070,7 @@
       "difficulty": "hard",
       "expected_baseline": {
         "min": 0,
-        "max": 0.15
+        "max": 0.21
       },
       "tags": [
         "behavioral",
@@ -1130,8 +1131,8 @@
       "weight": 1,
       "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.29,
-        "max": 0.59
+        "min": 0.38,
+        "max": 0.68
       },
       "tags": [
         "css",
@@ -1190,8 +1191,8 @@
       "weight": 1,
       "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.18,
-        "max": 0.48
+        "min": 0.22,
+        "max": 0.52
       },
       "tags": [
         "css",

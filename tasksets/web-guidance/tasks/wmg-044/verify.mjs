@@ -1,10 +1,12 @@
 #!/usr/bin/env node
-// 自动生成：web-guidance A 级评分器
+// 自动生成：web-guidance A 级评分器（行为版）
 // stdin: {"task_id":"...","workspace":"..."}
 // stdout: {"pass":bool,"detail":"...","metrics":{...}}
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 
+const HERE = path.dirname(fileURLToPath(import.meta.url));
 const RULES = JSON.parse(readFileSync(new URL('./rules.json', import.meta.url), 'utf8'));
 const input = JSON.parse(readFileSync(0, 'utf8'));
 const ws = input.workspace;
@@ -40,12 +42,23 @@ for (const pattern of RULES.require) {
   if (!corpus.match(re)) missing.push(pattern);
 }
 
-const pass = remaining.length === 0 && missing.length === 0;
+let behavior = { pass: false, detail: 'behavior.mjs 没跑起来', cases: [] };
+try {
+  const mod = await import(pathToFileURL(path.join(HERE, 'behavior.mjs')).href);
+  behavior = await mod.run(ws);
+} catch (e) {
+  behavior = { pass: false, detail: '行为测试抛异常：' + (e && e.message ? e.message : String(e)), cases: [] };
+}
+
+const rulePass = remaining.length === 0 && missing.length === 0;
+const pass = rulePass && behavior.pass === true;
+const failedCases = (behavior.cases || []).filter((c) => !c.pass);
 const detail = pass
-  ? '废弃用法已清除，现代写法已就位'
+  ? '废弃写法已清除，行为测试全过（' + (behavior.cases || []).length + ' 个用例）'
   : [
-      remaining.length ? '仍存在：' + remaining.map((r) => `${r.pattern} => ${r.hit}`).join(' | ') : '',
-      missing.length ? '缺少：' + missing.join(' | ') : ''
+      remaining.length ? '仍存在：' + remaining.map((r) => r.pattern + ' => ' + r.hit).join(' | ') : '',
+      missing.length ? '缺少：' + missing.join(' | ') : '',
+      failedCases.length ? '行为不符：' + failedCases.map((c) => c.name + (c.detail ? '(' + c.detail + ')' : '')).join(' | ') : ''
     ]
       .filter(Boolean)
       .join('；');
@@ -54,6 +67,12 @@ console.log(
   JSON.stringify({
     pass,
     detail,
-    metrics: { forbidden_total: RULES.forbid.length, forbidden_remaining: remaining.length, missing: missing.length }
+    metrics: {
+      forbidden_total: RULES.forbid.length,
+      forbidden_remaining: remaining.length,
+      missing: missing.length,
+      behavior_cases: (behavior.cases || []).length,
+      behavior_failed: failedCases.length
+    }
   })
 );

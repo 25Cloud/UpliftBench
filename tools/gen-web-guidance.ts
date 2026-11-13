@@ -1498,7 +1498,7 @@ export function matchPost(path) {
     id: 'wmg-044',
     title: '保留状态的 DOM 移动：remove + insert 换成 moveBefore',
     difficulty: 'hard',
-    tags: ['dom', 'new-api', 'v1.1'],
+    tags: ['dom', 'new-api', 'behavioral', 'v1.1'],
     prompt:
       'reorder.js 通过 removeChild + insertBefore 移动节点，导致 iframe/video 重新加载、焦点丢失。' +
       '改成新 API：用 element.moveBefore(node, ref) 保留节点状态，不要再 removeChild。',
@@ -1515,8 +1515,12 @@ export function swapSections(parent, a, b) {
 }
 `
     },
-    forbid: ['removeChild\\(', 'insertBefore\\('],
-    require: ['moveBefore\\(']
+    // 与 058 同一套行为评分：判「首选是不是 moveBefore」，而不是「文件里有没有那个词」。
+    // 这一改让 044 与 058 之间只剩「提示词给不给名字」一个变量，消融对才成立。
+    // 代价：1.1.0 时代 044 的数字来自旧正则规则，与 1.4.x 不可直接比较（CHANGELOG v0.1.5 注明）。
+    forbid: [],
+    require: ['moveBefore\\('],
+    behavior: BEHAVIOR_058
   },
   {
     id: 'wmg-045',

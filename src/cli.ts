@@ -428,6 +428,47 @@ tasksetCmd
       const byDiff = new Map<string, number>();
       for (const t of ts.json.tasks) byDiff.set(t.difficulty ?? 'unset', (byDiff.get(t.difficulty ?? 'unset') ?? 0) + 1);
       console.log(kv('难度分布', [...byDiff.entries()].map(([k, v]) => `${k} ${v}`).join(' · ')));
+
+      /**
+       * 实测标定：难度标签是「设计意图」，这里有「实测通过率」。
+       * 两者经常打架（见 docs/13 §二.1），所以两个都显示，别让人只看到标签就以为知道难度。
+       */
+      const calPath = path.join(ts.dir, 'calibration.json');
+      if (await pathExists(calPath)) {
+        const cal = await readJson<{
+          measured_at?: string;
+          model?: string;
+          arm?: string;
+          tasks?: Record<string, { baseline: number; samples: number }>;
+        }>(calPath);
+        const entries = Object.entries(cal.tasks ?? {});
+        if (entries.length > 0) {
+          let zero = 0;
+          let low = 0;
+          let mid = 0;
+          let full = 0;
+          for (const [, v] of entries) {
+            if (v.baseline <= 0) zero += 1;
+            else if (v.baseline < 0.5) low += 1;
+            else if (v.baseline < 1) mid += 1;
+            else full += 1;
+          }
+          console.log(
+            kv('实测标定', `${entries.length}/${ts.json.task_count} 题 · ${cal.model ?? '?'} · ${cal.arm ?? 'baseline'} 臂`)
+          );
+          console.log(kv('实测通过率', `0% ${zero} · 1–49% ${low} · 50–99% ${mid} · 100% ${full}`));
+          const ceilingPct = Math.round((full / entries.length) * 100);
+          if (ceilingPct >= 40) {
+            console.log(
+              warnLine(
+                `天花板 ${ceilingPct}%：这些题的 baseline 已经满分，treatment 再好也上不去（看 docs/16 §4.2）`
+              )
+            );
+          }
+        }
+      } else {
+        console.log(c.dim('  （还没有 calibration.json：难度标签只有设计意图，没有实测）'));
+      }
       process.exit(0);
     } catch (e) {
       fail(e);
