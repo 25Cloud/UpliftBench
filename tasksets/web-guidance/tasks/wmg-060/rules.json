@@ -1,0 +1,10 @@
+{
+  "forbid": [
+    "role=\"listbox\"",
+    "role=\"option\""
+  ],
+  "require": [
+    "<select",
+    "appearance:\\s*base-select"
+  ]
+}

@@ -1,0 +1,5 @@
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.card { display: grid; grid-template-rows: auto 1fr auto; gap: 8px; }
+.card h3 { margin: 0; min-height: 48px; }
+.card p { margin: 0; }
+.card .cta { margin: 0; }

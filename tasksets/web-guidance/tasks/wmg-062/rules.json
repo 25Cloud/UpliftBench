@@ -1,0 +1,8 @@
+{
+  "forbid": [
+    "min-height:\\s*\\d"
+  ],
+  "require": [
+    "grid-template-rows:\\s*subgrid"
+  ]
+}

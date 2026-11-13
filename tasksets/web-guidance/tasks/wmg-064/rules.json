@@ -1,0 +1,10 @@
+{
+  "forbid": [
+    "getBoundingClientRect",
+    "offsetHeight"
+  ],
+  "require": [
+    "anchor-name:",
+    "(position-anchor:|position-area:|anchor=)"
+  ]
+}

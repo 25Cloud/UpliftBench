@@ -7,3 +7,4 @@ reorder.js 用 removeChild + insertBefore 移动节点，副作用是 iframe/vid
 - 只改 workspace 里的源码，不要新增构建配置。
 - 保持对外导出的函数名与调用方式不变。
 - 改完直接用标准 API，不要引入第三方依赖。
+- 评分器会把你的代码真的 import 进来跑一遍边界用例：写法对了但行为错了，一样不给分。

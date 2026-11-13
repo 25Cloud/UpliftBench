@@ -1,22 +1,22 @@
 {
   "schema_version": "1.0.0",
   "domain": "web-guidance",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "title": "Modern Web Guidance 合规任务集",
-  "description": "58 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~048 是多规则/多文件任务，wmg-049~056 是行为测试题（评分器把候选代码 import 进来真跑一遍边界用例，堵住「写法对、行为错」），wmg-057~058 是消融组（同 fixture、同评分器，只把提示词里的 API 名字拿掉）。评分器都是 A 级 tests：可执行检查，零主观判断。",
+  "description": "64 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~048 是多规则/多文件任务，wmg-049~056 是行为测试题（评分器把候选代码 import 进来真跑边界用例），wmg-057~058 是消融组（同 fixture、同评分器，只把提示词里的 API 名字拿掉），wmg-059~064 是「技能覆盖 + 提示词不给名字」的第三批（field-sizing / base-select / scroll-state / subgrid / light-dark / anchor）。评分器都是 A 级 tests：可执行检查，零主观判断。",
   "maintainer": "upliftbench",
   "official": true,
   "grader": {
     "kind": "tests",
     "tier": "A",
     "entry": "tasks/wmg-001/verify.mjs",
-    "version": "1.3.0",
+    "version": "1.4.0",
     "timeout_sec": 120
   },
   "env": {
     "kind": "local"
   },
-  "task_count": 58,
+  "task_count": 64,
   "tasks": [
     {
       "id": "wmg-001",
@@ -797,7 +797,7 @@
       "weight": 1,
       "difficulty": "easy",
       "expected_baseline": {
-        "min": 0.85,
+        "min": 0.7,
         "max": 1
       },
       "tags": [
@@ -814,10 +814,10 @@
       "fixture": "tasks/wmg-045/fixture/",
       "verify": "tasks/wmg-045/verify.mjs",
       "weight": 1,
-      "difficulty": "easy",
+      "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.73,
-        "max": 1
+        "min": 0.62,
+        "max": 0.92
       },
       "tags": [
         "popover",
@@ -1047,13 +1047,14 @@
       "weight": 1,
       "difficulty": "medium",
       "expected_baseline": {
-        "min": 0.35,
-        "max": 0.65
+        "min": 0.4,
+        "max": 0.7
       },
       "tags": [
         "popover",
         "a11y",
         "new-api",
+        "withheld",
         "ablation",
         "calibrated"
       ]
@@ -1071,9 +1072,132 @@
         "max": 0.15
       },
       "tags": [
+        "behavioral",
         "dom",
         "new-api",
+        "withheld",
         "ablation",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-059",
+      "title": "多行输入框随内容长高（提示词不给属性名）",
+      "prompt_file": "tasks/wmg-059/prompt.md",
+      "fixture": "tasks/wmg-059/fixture/",
+      "verify": "tasks/wmg-059/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "css",
+        "forms",
+        "withheld",
+        "v1.4",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-060",
+      "title": "下拉选项要放图标（提示词不给属性名）",
+      "prompt_file": "tasks/wmg-060/prompt.md",
+      "fixture": "tasks/wmg-060/fixture/",
+      "verify": "tasks/wmg-060/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0,
+        "max": 0.15
+      },
+      "tags": [
+        "css",
+        "forms",
+        "a11y",
+        "withheld",
+        "v1.4",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-061",
+      "title": "吸顶后换样式（提示词不给属性名）",
+      "prompt_file": "tasks/wmg-061/prompt.md",
+      "fixture": "tasks/wmg-061/fixture/",
+      "verify": "tasks/wmg-061/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.29,
+        "max": 0.59
+      },
+      "tags": [
+        "css",
+        "scroll",
+        "withheld",
+        "v1.4",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-062",
+      "title": "多张卡片的行要对齐（提示词不给属性名）",
+      "prompt_file": "tasks/wmg-062/prompt.md",
+      "fixture": "tasks/wmg-062/fixture/",
+      "verify": "tasks/wmg-062/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "css",
+        "layout",
+        "withheld",
+        "v1.4",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-063",
+      "title": "深浅色只写一遍（提示词不给函数名）",
+      "prompt_file": "tasks/wmg-063/prompt.md",
+      "fixture": "tasks/wmg-063/fixture/",
+      "verify": "tasks/wmg-063/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "css",
+        "theme",
+        "withheld",
+        "v1.4",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-064",
+      "title": "提示框跟着按钮定位（提示词不给属性名）",
+      "prompt_file": "tasks/wmg-064/prompt.md",
+      "fixture": "tasks/wmg-064/fixture/",
+      "verify": "tasks/wmg-064/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.18,
+        "max": 0.48
+      },
+      "tags": [
+        "css",
+        "positioning",
+        "withheld",
+        "v1.4",
         "calibrated"
       ]
     }

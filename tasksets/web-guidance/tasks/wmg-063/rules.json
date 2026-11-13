@@ -1,0 +1,8 @@
+{
+  "forbid": [
+    "prefers-color-scheme"
+  ],
+  "require": [
+    "light-dark\\("
+  ]
+}

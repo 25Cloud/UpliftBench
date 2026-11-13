@@ -1,0 +1,11 @@
+{
+  "forbid": [
+    "IntersectionObserver",
+    "addEventListener\\(",
+    "scrollTop"
+  ],
+  "require": [
+    "container-type:\\s*scroll-state",
+    "@container\\s+(?:[\\w-]+\\s+)?scroll-state\\("
+  ]
+}

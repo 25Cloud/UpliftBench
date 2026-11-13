@@ -468,6 +468,121 @@ export async function run(ws) {
 }
 `;
 
+/**
+ * 058 状态保留式移动：用假 DOM 真跑，判「首选是不是 moveBefore」而不是「文件里有没有这个词」。
+ *
+ * 为什么必须行为化：正则分不清下面这两种，而它们的性质完全相反——
+ *   A) 首选 moveBefore，特性检测失败时回退 removeChild+insertBefore   ← 对（渐进增强）
+ *   B) 根本不知道有别的方法，只写 removeChild+insertBefore            ← 错（状态丢失）
+ * 之前用 forbid 把两者一起判错，导致 treatment 臂（唯一读了 guide、唯一写回退的臂）
+ * 成了唯一被判 0 的臂。详见 docs/16 §四.3。
+ */
+const BEHAVIOR_058 = `import path from 'node:path';
+import { pathToFileURL } from 'node:url';
+
+/** 够用就行的假父节点：只实现这道题会碰到的 API，并记录每个 API 被调了几次 */
+function makeParent(name) {
+  const parent = {
+    name,
+    kids: [],
+    stats: { moveBefore: 0, removeChild: 0, insertBefore: 0 },
+    get firstChild() {
+      return this.kids.length ? this.kids[0] : null;
+    },
+    appendChild(child) {
+      child.parent = this;
+      this.kids.push(child);
+      return child;
+    },
+    moveBefore(child, ref) {
+      this.stats.moveBefore += 1;
+      const from = this.kids.indexOf(child);
+      if (from >= 0) this.kids.splice(from, 1);
+      const at = ref ? this.kids.indexOf(ref) : this.kids.length;
+      this.kids.splice(at < 0 ? this.kids.length : at, 0, child);
+      child.parent = this;
+      return child;
+    },
+    removeChild(child) {
+      this.stats.removeChild += 1;
+      const i = this.kids.indexOf(child);
+      if (i >= 0) this.kids.splice(i, 1);
+      child.parent = null;
+      return child;
+    },
+    insertBefore(child, ref) {
+      this.stats.insertBefore += 1;
+      const from = this.kids.indexOf(child);
+      if (from >= 0) this.kids.splice(from, 1);
+      const at = ref ? this.kids.indexOf(ref) : this.kids.length;
+      this.kids.splice(at < 0 ? this.kids.length : at, 0, child);
+      child.parent = this;
+      return child;
+    }
+  };
+  return parent;
+}
+
+function makeNode(name, parent) {
+  return {
+    name,
+    parent: parent ?? null,
+    get nextSibling() {
+      const p = this.parent;
+      if (!p) return null;
+      const i = p.kids.indexOf(this);
+      return i >= 0 && i + 1 < p.kids.length ? p.kids[i + 1] : null;
+    }
+  };
+}
+
+const order = (parent) => parent.kids.map((k) => k.name).join(',');
+const api = (parent) => JSON.stringify(parent.stats);
+
+export async function run(ws) {
+  const mod = await import(pathToFileURL(path.join(ws, 'reorder.js')).href);
+  const cases = [];
+
+  try {
+    const list = makeParent('list');
+    const a = makeNode('a', list);
+    const b = makeNode('b', list);
+    const c = makeNode('c', list);
+    list.appendChild(a);
+    list.appendChild(b);
+    list.appendChild(c);
+    mod.moveToTop(list, c);
+    const okOrder = order(list) === 'c,a,b';
+    const okApi = list.stats.moveBefore === 1 && list.stats.removeChild === 0 && list.stats.insertBefore === 0;
+    cases.push({ name: 'moveToTop 用 moveBefore 把末项移到最前', pass: okOrder && okApi, detail: order(list) + ' api=' + api(list) });
+  } catch (e) {
+    cases.push({ name: 'moveToTop 用 moveBefore 把末项移到最前', pass: false, detail: String(e && e.message) });
+  }
+
+  try {
+    const parent = makeParent('parent');
+    const a = makeNode('a', parent);
+    const x = makeNode('x', parent);
+    const b = makeNode('b', parent);
+    parent.appendChild(a);
+    parent.appendChild(x);
+    parent.appendChild(b);
+    mod.swapSections(parent, a, b);
+    const okOrder = order(parent) === 'x,a,b';
+    const okApi = parent.stats.moveBefore === 1 && parent.stats.removeChild === 0 && parent.stats.insertBefore === 0;
+    cases.push({ name: 'swapSections 用 moveBefore 把 a 移到 b 之前', pass: okOrder && okApi, detail: order(parent) + ' api=' + api(parent) });
+  } catch (e) {
+    cases.push({ name: 'swapSections 用 moveBefore 把 a 移到 b 之前', pass: false, detail: String(e && e.message) });
+  }
+
+  return {
+    pass: cases.every((c) => c.pass),
+    detail: cases.filter((c) => !c.pass).map((c) => c.name).join(' / ') || '全过',
+    cases
+  };
+}
+`;
+
 const TASKS: TaskSpec[] = [
   {
     id: 'wmg-001',
@@ -1755,7 +1870,7 @@ export function fold(s) {
     id: 'wmg-057',
     title: '下拉菜单要原生浮层，不许手写 class 开关（提示词不给 API 名）',
     difficulty: 'hard',
-    tags: ['popover', 'a11y', 'new-api', 'ablation'],
+    tags: ['popover', 'a11y', 'new-api', 'withheld', 'ablation'],
     prompt:
       'menu.js 用手写 class 切换 + document 级点击监听做下拉菜单：层级、点击穿透、Esc 关闭全得自己处理，还常常关不掉。' +
       '请改成浏览器**原生**的浮层机制：触发按钮和面板用原生属性关联，脚本只负责显示与隐藏，' +
@@ -1789,7 +1904,7 @@ export function fold(s) {
     id: 'wmg-058',
     title: '移动 DOM 节点不许重载状态（提示词不给 API 名）',
     difficulty: 'hard',
-    tags: ['dom', 'new-api', 'ablation'],
+    tags: ['behavioral', 'dom', 'new-api', 'withheld', 'ablation'],
     prompt:
       'reorder.js 用 removeChild + insertBefore 移动节点，副作用是 iframe/video 重新加载、焦点丢失、CSS 过渡被打断。' +
       '请改成浏览器原生的移动能力：节点在 DOM 里换位置，但它**不算被重新插入**——状态要保留。不要再 removeChild。',
@@ -1806,8 +1921,150 @@ export function swapSections(parent, a, b) {
 }
 `
     },
-    forbid: ['removeChild\\(', 'insertBefore\\('],
-    require: ['moveBefore\\(']
+    // 不 forbid removeChild/insertBefore：回退分支是合法工程。
+    // 靠 behavior 判「首选是不是 moveBefore」——见 BEHAVIOR_058 的注释。
+    forbid: [],
+    require: ['moveBefore\\('],
+    behavior: BEHAVIOR_058
+  },
+
+  /* --------- 第三批：技能里真的写了、提示词不给名字的平台新特性 ---------
+   *
+   * 选题依据见 docs/16 §七：先在 guides/ 里 grep 候选 API（括号里是命中次数），
+   * 只挑技能覆盖得到、且模型先验大概率没有的：
+   *   field-sizing(24) · appearance:base-select(38) · scroll-state(74)
+   *   subgrid(29) · light-dark(51) · anchor-name(21)
+   * 提示词一律只写症状，不写属性名——这是这一批和 v1.1 那 28 道题的根本区别。
+   */
+
+  {
+    id: 'wmg-059',
+    title: '多行输入框随内容长高（提示词不给属性名）',
+    difficulty: 'medium',
+    tags: ['css', 'forms', 'withheld', 'v1.4'],
+    prompt:
+      'comment-box.html 里的多行输入框要在用户打字时自动长高。现在的做法是每次 input 事件里读一遍内容高度、' +
+      '再把高度写回 style——会抖、会跳、粘贴长文本时先卡一下。请删掉这段脚本，用样式层解决：' +
+      '输入框按内容自动决定高度，不再有行数约束。',
+    files: {
+      'comment-box.html': `<label for="msg">留言</label>
+<textarea id="msg" rows="2"
+  oninput="this.style.height='auto'; this.style.height=this.scrollHeight+'px'"></textarea>
+`
+    },
+    forbid: ['scrollHeight', 'rows="2"'],
+    require: ['field-sizing:\\s*content']
+  },
+  {
+    id: 'wmg-060',
+    title: '下拉选项要放图标（提示词不给属性名）',
+    difficulty: 'medium',
+    tags: ['css', 'forms', 'a11y', 'withheld', 'v1.4'],
+    prompt:
+      'pick.html 为了在选项里放图标和副标题，整个用 div 手搓了个下拉（role=listbox / role=option，' +
+      '键盘导航、展开收起、屏幕阅读器全自己管）。请改回原生 select，但保留富内容：' +
+      '每个选项里能放图标与说明文字，弹出的列表也由浏览器负责。不要再出现 role="listbox" 这类手工模拟。',
+    files: {
+      'pick.html': `<div class="fake-select">
+  <button role="combobox" aria-expanded="false" aria-controls="list">选一种</button>
+  <ul id="list" role="listbox">
+    <li role="option" tabindex="0">🍎 苹果</li>
+    <li role="option" tabindex="0">🍌 香蕉</li>
+  </ul>
+</div>
+`
+    },
+    forbid: ['role="listbox"', 'role="option"'],
+    require: ['<select', 'appearance:\\s*base-select']
+  },
+  {
+    id: 'wmg-061',
+    title: '吸顶后换样式（提示词不给属性名）',
+    difficulty: 'hard',
+    tags: ['css', 'scroll', 'withheld', 'v1.4'],
+    prompt:
+      'page.html 里的标题栏吸顶之后要加一层阴影（表示"已经贴住了"）。现在打算用 JS 监听滚动、' +
+      '比较 scrollTop 与元素位置来判断，还要处理 requestAnimationFrame 节流。请改成纯样式方案：' +
+      '让外层容器能感知子元素的滚动状态，再用容器查询判断它是否处于"吸住"状态。脚本一行都不要。',
+    files: {
+      'page.html': `<div class="scroller">
+  <header class="sticky-header">标题</header>
+  <p>正文……</p>
+</div>
+`,
+      'page.css': `.scroller { height: 320px; overflow-y: auto; }
+.sticky-header { position: sticky; top: 0; background: #fff; }
+`
+    },
+    forbid: ['IntersectionObserver', 'addEventListener\\(', 'scrollTop'],
+    // 具名容器（`@container sticky-header scroll-state(...)`）和不具名写法都是正解，
+    // 只匹配不具名那种会把更常见的具名写法判成缺——这是第五次被自己的正则坑（docs/16 §四.3）
+    require: ['container-type:\\s*scroll-state', '@container\\s+(?:[\\w-]+\\s+)?scroll-state\\(']
+  },
+  {
+    id: 'wmg-062',
+    title: '多张卡片的行要对齐（提示词不给属性名）',
+    difficulty: 'medium',
+    tags: ['css', 'layout', 'withheld', 'v1.4'],
+    prompt:
+      'cards.css 里三张卡片的标题、正文、底部按钮长度都不一样，为了让「按钮在同一水平线」，' +
+      '现在给标题写死 min-height 硬凑。请改成让卡片内部的行轨道直接继承外层栅格的行，' +
+      '这样无论内容多长，标题行、正文行、按钮行都天然对齐。不要再用固定高度。',
+    files: {
+      'cards.css': `.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.card { display: grid; grid-template-rows: auto 1fr auto; gap: 8px; }
+.card h3 { margin: 0; min-height: 48px; }
+.card p { margin: 0; }
+.card .cta { margin: 0; }
+`
+    },
+    forbid: ['min-height:\\s*\\d'],
+    require: ['grid-template-rows:\\s*subgrid']
+  },
+  {
+    id: 'wmg-063',
+    title: '深浅色只写一遍（提示词不给函数名）',
+    difficulty: 'easy',
+    tags: ['css', 'theme', 'withheld', 'v1.4'],
+    prompt:
+      'theme.css 现在靠媒体查询把整套变量复制了一份给深色模式，两边容易改漏、也容易不同步。' +
+      '请改成「一处声明同时给出浅色与深色两个值」的写法：每个颜色只在定义时写一次，' +
+      '浏览器按当前主题自己挑。媒体查询那段删掉。',
+    files: {
+      'theme.css': `:root { --bg: #ffffff; --fg: #111111; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #111111; --fg: #eeeeee; }
+}
+body { background: var(--bg); color: var(--fg); }
+`
+    },
+    forbid: ['prefers-color-scheme'],
+    require: ['light-dark\\(']
+  },
+  {
+    id: 'wmg-064',
+    title: '提示框跟着按钮定位（提示词不给属性名）',
+    difficulty: 'hard',
+    tags: ['css', 'positioning', 'withheld', 'v1.4'],
+    prompt:
+      'position.js 用 getBoundingClientRect 算坐标，把提示框摆到按钮上方，一滚动、一换布局就错位，' +
+      '窗口尺寸变化后还得重算。请把这套坐标计算全部删掉，改成样式层解决：' +
+      '按钮声明一个「锚点」名字，提示框声明自己以哪个锚点为参照、贴在它的哪一侧。脚本不要再参与定位。',
+    files: {
+      'position.js': `export function place(btn, tip) {
+  const rect = btn.getBoundingClientRect();
+  tip.style.left = rect.left + 'px';
+  tip.style.top = rect.top - tip.offsetHeight - 8 + 'px';
+  tip.style.opacity = '1';
+}
+`,
+      'tooltip.css': `.tip { position: absolute; opacity: 0; }
+`
+    },
+    forbid: ['getBoundingClientRect', 'offsetHeight'],
+    // 选中锚点有三种等价写法：position-anchor / position-area / HTML 上的 anchor 属性。
+    // 只认 position-anchor 会把「用 position-area 一次说清上下左右」的更优解判错。
+    require: ['anchor-name:', '(position-anchor:|position-area:|anchor=)']
   }
 ];
 
@@ -2021,17 +2278,17 @@ async function main(): Promise<void> {
   const taskset = {
     schema_version: '1.0.0',
     domain: 'web-guidance',
-    version: '1.3.0',
+    version: '1.4.0',
     title: 'Modern Web Guidance 合规任务集',
     description:
-      '58 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~048 是多规则/多文件任务，wmg-049~056 是行为测试题（评分器把候选代码 import 进来真跑一遍边界用例，堵住「写法对、行为错」），wmg-057~058 是消融组（同 fixture、同评分器，只把提示词里的 API 名字拿掉）。评分器都是 A 级 tests：可执行检查，零主观判断。',
+      '64 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~048 是多规则/多文件任务，wmg-049~056 是行为测试题（评分器把候选代码 import 进来真跑边界用例），wmg-057~058 是消融组（同 fixture、同评分器，只把提示词里的 API 名字拿掉），wmg-059~064 是「技能覆盖 + 提示词不给名字」的第三批（field-sizing / base-select / scroll-state / subgrid / light-dark / anchor）。评分器都是 A 级 tests：可执行检查，零主观判断。',
     maintainer: 'upliftbench',
     official: true,
     grader: {
       kind: 'tests',
       tier: 'A',
       entry: 'tasks/wmg-001/verify.mjs',
-      version: '1.3.0',
+      version: '1.4.0',
       timeout_sec: 120
     },
     env: {

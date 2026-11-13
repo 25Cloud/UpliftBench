@@ -1,0 +1,2 @@
+.scroller { height: 320px; overflow-y: auto; }
+.sticky-header { position: sticky; top: 0; background: #fff; }

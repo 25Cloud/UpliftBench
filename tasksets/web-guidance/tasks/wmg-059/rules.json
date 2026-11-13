@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "scrollHeight",
+    "rows=\"2\""
+  ],
+  "require": [
+    "field-sizing:\\s*content"
+  ]
+}
