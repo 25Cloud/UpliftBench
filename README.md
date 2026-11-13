@@ -171,6 +171,15 @@ to look at anyway, because a 1.27M-token retrieval corpus can cost 2,444 tokens 
 400k-token single skill costs all 400k. Write-up with the patterns behind those numbers:
 [docs/17-横向评测.md](docs/17-横向评测.md).
 
+### About that +27pp number
+
+`GoogleChrome/modern-web-guidance` is the only package in this ecosystem that published a number about
+itself: +27 to +36 percentage points. We measured the same skill and got −2.50pp, then +5.56pp when the
+body was forced into context, then +36pp on the five tasks built to depend on its content. Nobody has
+to be lying for those to coexist; they differ in which arm is subtracted, whether the skill was loaded,
+and which tasks were used. [docs/20-the-27pp-claim.md](docs/20-the-27pp-claim.md) lays the four
+differences side by side and says what would settle it.
+
 ## Things we got wrong
 
 Regex graders encode one valid syntax. Correct answers have equivalence classes. We required

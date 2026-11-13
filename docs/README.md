@@ -1,6 +1,6 @@
 # docs 索引
 
-二十篇文档，按「先看什么」排，不按编号。
+二十一篇文章，按「先看什么」排，不按编号。
 
 规格（改代码前必读）
 
@@ -11,6 +11,13 @@
 | [04-Tier1-任务集与评分器](04-Tier1-任务集与评分器.md) | taskset 格式与准入检查 |
 | [05-数据模型](05-数据模型.md) | SkillCard / TaskSet / SQLite 字段 |
 | [06-CLI设计](06-CLI设计.md) | 命令、选项、错误信息规范 |
+
+对外能直接甩的两页（英文）
+
+| | |
+|---|---|
+| [19-how-to-read](19-how-to-read.md) | 怎么读一张卡，以及让数字失效的四种情况 |
+| [20-the-27pp-claim](20-the-27pp-claim.md) | 上游那个 +27~36pp 和我们这三个数为什么不矛盾 |
 
 实测与数据（数字从这里来）
 
@@ -41,5 +48,6 @@
 | [10-背景调研](10-背景调研.md) | 生态现状 |
 | [18-发布材料](18-发布材料.md) | Show HN 正文、X 串、首评、评论区预案 |
 
-英文资料：[02-protocol.en.md](02-protocol.en.md) 是协议译文，[README.md](../README.md) 是英文主 README。
+英文资料：[02-protocol.en.md](02-protocol.en.md) 是协议译文，[19-how-to-read.md](19-how-to-read.md) 与
+[20-the-27pp-claim.md](20-the-27pp-claim.md) 直接用英文写，[README.md](../README.md) 是英文主 README。
 其余深度分析暂时只有中文，需要哪一节吱一声。
