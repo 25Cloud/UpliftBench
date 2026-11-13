@@ -32,10 +32,27 @@ jobs:
       - name: Validate tasksets
         run: |
           set +e
-          node dist/cli.js taskset validate web-guidance@1.0; a=$?
-          node dist/cli.js taskset validate general-20@1.0; b=$?
-          # 退出码 3 = 有检查项需要真跑模型，本地 CI 允许；1 = 硬失败
+          # 用目录而不是 domain@version：任务集版本会往前滚，写死 ref 的 CI 迟早红
+          node dist/cli.js taskset validate tasksets/web-guidance; a=$?
+          node dist/cli.js taskset validate tasksets/general-20; b=$?
+          # 退出码 3 = 有检查项需要真跑模型，CI 允许；1 = 硬失败
           if [ $a -eq 1 ] || [ $b -eq 1 ]; then exit 1; fi
+
+      - name: Validate published cards
+        run: |
+          node -e '
+            const fs = require("fs");
+            const Ajv2020 = require("ajv/dist/2020.js");
+            const ajv = new Ajv2020({ strict: false, logger: false });
+            const validate = ajv.compile(JSON.parse(fs.readFileSync("schema/skillcard.schema.json", "utf8")));
+            let bad = 0;
+            for (const f of fs.readdirSync("results").filter((x) => x.endsWith(".json"))) {
+              const ok = validate(JSON.parse(fs.readFileSync("results/" + f, "utf8")));
+              console.log((ok ? "✓ " : "✗ ") + f);
+              if (!ok) { bad++; console.error(JSON.stringify(validate.errors)); }
+            }
+            process.exit(bad ? 1 : 0);
+          '
 
       - name: Tier 0 smoke (no model)
         run: |
