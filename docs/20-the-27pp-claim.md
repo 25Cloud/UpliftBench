@@ -1,9 +1,9 @@
-# 20 · The +27pp claim
+# 20 · The +27-36pp claim
 
 `GoogleChrome/modern-web-guidance` is the one skill package in this ecosystem that published a number
 about itself. Its README shows gains in the +27 to +36 percentage point range on its own task set.
 We measured the same skill against our own task set and got −2.50pp, then +5.56pp when the skill body
-was forced into context. On seven tasks built to depend on its content we got +27pp.
+was forced into context. On seven tasks built to depend on its content we got +35pp.
 
 Three numbers, one skill. This page is about why that is not a contradiction, and what would settle it.
 

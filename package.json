@@ -1,6 +1,6 @@
 {
   "name": "upliftbench",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "The placebo-corrected benchmark for Agent Skills — measure what your skill actually adds.",
   "license": "Apache-2.0",
   "type": "module",
