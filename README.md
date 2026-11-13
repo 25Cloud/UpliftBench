@@ -6,6 +6,10 @@
 
 ![uplift](results/agent-skills.badge.svg)
 
+**首轮实测（270 次 run，$27.09）**：`addyosmani/agent-skills` 在 30 题 Web 合规任务集上
+**uplift +2.2pp，95%CI [−2.2, +6.7]，不显著**；同一批数据用两臂口径算出来是 **−2.2pp**——
+安慰剂效应 −4.4pp 比技能本身的效应还大，**足以把符号搞反**。详见 [docs/14](docs/14-首轮实测.md)。
+
 ---
 
 ## 这是什么
@@ -87,16 +91,49 @@ node dist/cli.js run \
 ```
 SkillCard  addyosmani/agent-skills
 ──────────────────────────────────────────────────────
-  静态开销     12,400 tok (包内合计 14,900)   ⚠️ 超预算 24%
-           └ 重复内容 1,800 tok (14.5%)
-  触发精度     P 0.91 / R 0.78 / F1 0.84
-  约束遵循     40 条规则，违规 2 条 (5.0%)
-  注入抗性     12 例，被劫持 1 例（baseline 0）⚠️
-  负迁移       −3.2pp  CI [-7.1, 0.7]  n=20
-  可卸载       干净
+  静态开销     102,303 tok 包内合计   ⚠️ 超预算 2.5%
+           └ 按最大单技能判定（10,255 tok；整包 101,735），预算 10,000
+           └ 重复内容 0 tok (0.0%)
+           ├ constraint-driven-development/SKILL.md   5,541  ⚠️ >5000
+           ├ code-review-and-quality/SKILL.md     5,297  ⚠️ >5000
+           └ (另外 31 个文件)                     86,419
+  可卸载      干净
 ──────────────────────────────────────────────────────
-  Tier 1   uplift +17pp / headroom 30%   95%CI [4, 30] · N=30 · A级 · placebo +5pp
+  Tier 1   uplift +2pp / headroom 9%   95%CI [-2, 7] · N=30 · placebo -4pp
+  标记       static_cost_over_budget  ci_crosses_zero  flaky_tasks
 ```
+
+这是**真实跑出来的卡**（`results/agent-skills.json`），不是示意。
+
+---
+
+## 首轮实测：5 个真实技能包
+
+| 技能包 | 技能 | 包内 token | 最大单技能 | 预算 | 可卸载 |
+|---|---|---|---|---|---|
+| `addyosmani/agent-skills` | 25 | 102,303 | 10,255 | 超 2.5% | 干净 |
+| `GoogleChrome/modern-web-guidance-src` | 13 | 71,238 | 24,393 | 超 143.9% | 干净 |
+| `cloudflare/security-audit-skill` | 1 | 79,967 | 49,910 | 超 399.1% | 干净 |
+| `Nutlope/hallmark` | 1 | 409,006 | 292,316 | 超 2823.2% | 干净 |
+| `obra/superpowers` | 15 | 100,774 | 25,738 | 超 157.4% | 干净 |
+
+**五个包全部超注入预算。** 最夸张的 `hallmark` 把 113k token 的 `photos.json` 直接放在技能目录里。
+
+三臂对照（30 题 × 3 臂 × 3 重复 = 270 run，$27.09，0 个 grader_error）：
+
+| 臂 | 通过率 |
+|---|---|
+| baseline | 78.89% |
+| placebo | 74.44% |
+| treatment | 76.67% |
+
+```
+uplift +2.22pp   headroom 8.7%   raw_gain −2.22pp   placebo_effect −4.44pp
+95%CI [−2.22, +6.69]   N=30   A级   → 不显著
+```
+
+同一批 run 换成两臂口径（treatment − baseline）= **−2.22pp**，会得出「技能有害」的结论。
+**符号被安慰剂效应翻转了。** 完整分析见 [docs/14-首轮实测.md](docs/14-首轮实测.md)。
 
 badge 生成：
 

@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T06:27:06.290Z",
+  "generated_at": "2026-11-13T06:36:06.710Z",
   "skill": {
     "source": "github",
     "repo": "addyosmani/agent-skills",
     "commit": "301b02b12bff98e4688e6984af6556802322bbde",
-    "path": "benchmarks\\skills\\agent-skills\\skills",
+    "path": "benchmarks/skills/agent-skills/skills",
     "skill_count": 25,
     "total_tokens": 102303
   },
@@ -219,11 +219,76 @@
       "declared_hooks": []
     }
   },
+  "tier1": {
+    "taskset": "web-guidance@1.0.0",
+    "grader_tier": "A",
+    "n": 30,
+    "arms": {
+      "baseline": {
+        "pass_rate": 0.7889,
+        "pass_rate_std": 0.0509
+      },
+      "placebo": {
+        "pass_rate": 0.7444,
+        "pass_rate_std": 0.0385
+      },
+      "treatment": {
+        "pass_rate": 0.7667,
+        "pass_rate_std": 0.0333
+      }
+    },
+    "metrics": {
+      "uplift_pp": 2.22,
+      "headroom_closed": 0.087,
+      "raw_gain_pp": -2.22,
+      "placebo_effect_pp": -4.44,
+      "ci95": [
+        -2.22,
+        6.69
+      ]
+    },
+    "cost": {
+      "tokens_in_total": 1850605,
+      "tokens_out_total": 32759,
+      "token_overhead_pct": 445.78,
+      "wall_time_p50_ms": 27913,
+      "wall_time_p95_ms": 69597,
+      "tool_calls_mean": 4.72,
+      "cost_usd_total": 27.09
+    },
+    "stability": {
+      "flaky_tasks": [
+        "wmg-011",
+        "wmg-027",
+        "wmg-030",
+        "wmg-017",
+        "wmg-029"
+      ],
+      "determinism_gain": 0.0176
+    },
+    "failures": {
+      "wrong_answer": 63,
+      "gave_up": 0,
+      "hallucinated": 0,
+      "constraint_violated": 0,
+      "broke_something": 0,
+      "timeout": 0,
+      "tool_error": 0,
+      "grader_error": 0
+    },
+    "protocol_notes": [
+      "harness=openai-compat",
+      "model=glm-5.3-flash",
+      "repeats=3"
+    ]
+  },
   "verdict": {
-    "headline": "Tier 0 · 102,303 tok · 25 个技能",
-    "grade": "unrated",
+    "headline": "uplift +2pp  |  headroom 9%  |  N=30  |  95%CI [-2, 7]  |  A级  |  placebo_effect -4pp",
+    "grade": "A",
     "flags": [
-      "static_cost_over_budget"
+      "static_cost_over_budget",
+      "ci_crosses_zero",
+      "flaky_tasks"
     ]
   }
 }

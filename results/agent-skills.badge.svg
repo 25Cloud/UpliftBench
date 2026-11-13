@@ -1,24 +1,24 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="125" height="20" role="img" aria-label="uplift: 102.3k tok">
-  <title>UpliftBench · addyosmani/agent-skills · Tier 0
-静态开销 102,303 tok（approx:weighted）
-Tier 1 未测（需要任务集）
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="304" height="20" role="img" aria-label="uplift: 2% (base 79 → treat 77, placebo 74) A级">
+  <title>UpliftBench · web-guidance@1.0.0 · A级
+uplift +2pp (headroom 9%), N=30, 95%CI [-2, 7]
+placebo effect -4pp, baseline 79%, treatment 77%
 protocol/1.0.0 · 2026-11-13</title>
-  <linearGradient id="s41240" x2="0" y2="100%">
+  <linearGradient id="s63379" x2="0" y2="100%">
     <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
     <stop offset="1" stop-opacity=".1"/>
   </linearGradient>
-  <clipPath id="rs41240">
-    <rect width="125" height="20" rx="3" fill="#fff"/>
+  <clipPath id="rs63379">
+    <rect width="304" height="20" rx="3" fill="#fff"/>
   </clipPath>
-  <g clip-path="url(#rs41240)">
+  <g clip-path="url(#rs63379)">
     <rect width="50" height="20" fill="#555"/>
-    <rect x="50" width="75" height="20" fill="#9e9e9e"/>
-    <rect width="125" height="20" fill="url(#s41240)"/>
+    <rect x="50" width="254" height="20" fill="#9e9e9e"/>
+    <rect width="304" height="20" fill="url(#s63379)"/>
   </g>
   <g fill="#fff" text-anchor="middle" font-family="Verdana,DejaVu Sans,Geneva,sans-serif" font-size="11">
     <text x="25" y="14" fill="#010101" fill-opacity=".3">uplift</text>
     <text x="25" y="13">uplift</text>
-    <text x="87.5" y="14" fill="#010101" fill-opacity=".3">102.3k tok</text>
-    <text x="87.5" y="13">102.3k tok</text>
+    <text x="177" y="14" fill="#010101" fill-opacity=".3">2% (base 79 → treat 77, placebo 74) A级</text>
+    <text x="177" y="13">2% (base 79 → treat 77, placebo 74) A级</text>
   </g>
 </svg>

@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T06:26:04.818Z",
+  "generated_at": "2026-11-13T06:36:07.118Z",
   "skill": {
     "source": "github",
     "repo": "cloudflare/security-audit-skill",
     "commit": "c1c8a8c1471069fb0e188eeaff69b8e8db6564a8",
-    "path": "benchmarks\\skills\\security-audit-skill\\skills",
+    "path": "benchmarks/skills/security-audit-skill/skills",
     "skill_count": 1,
     "total_tokens": 79967
   },
@@ -123,8 +123,12 @@
       ],
       "budget": {
         "limit": 10000,
+        "basis": "package",
+        "subject_tokens": 49910,
         "over_by": 39910,
-        "over_pct": 399.1
+        "over_pct": 399.1,
+        "package_over_by": 39910,
+        "largest_skill_tokens": 79967
       },
       "duplicates": [],
       "structure": {
@@ -146,20 +150,18 @@
     "uninstall_clean": {
       "probe": "uninstall-clean",
       "supported": true,
-      "clean": false,
+      "clean": true,
       "residual_delta_pp": null,
-      "leaked_paths": [
-        ".claude/settings.json"
-      ],
-      "note": "1 处残留：卸载后仍存在的注册表项 / hooks / 全局技能目录"
+      "leaked_paths": [],
+      "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
+      "declared_hooks": []
     }
   },
   "verdict": {
     "headline": "Tier 0 · 79,967 tok · 1 个技能",
     "grade": "unrated",
     "flags": [
-      "static_cost_over_budget",
-      "uninstall_residue"
+      "static_cost_over_budget"
     ]
   }
 }

@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T06:26:04.598Z",
+  "generated_at": "2026-11-13T06:36:06.940Z",
   "skill": {
     "source": "github",
     "repo": "GoogleChrome/modern-web-guidance-src",
     "commit": "3bb177a6de62b7fd8cd0432c33756e6f3c9ece9d",
-    "path": "benchmarks\\skills\\modern-web-guidance-src\\.agents\\skills",
+    "path": "benchmarks/skills/modern-web-guidance-src/.agents/skills",
     "skill_count": 13,
     "total_tokens": 71238
   },
@@ -143,8 +143,12 @@
       ],
       "budget": {
         "limit": 10000,
-        "over_by": 45399,
-        "over_pct": 454
+        "basis": "largest_skill",
+        "subject_tokens": 24393,
+        "over_by": 14393,
+        "over_pct": 143.9,
+        "package_over_by": 45399,
+        "largest_skill_tokens": 24393
       },
       "duplicates": [],
       "structure": {
@@ -157,27 +161,25 @@
         "project-guides/SKILL.md 超过 5000 token（6541），多数 harness 会截断",
         "project-discipline-guides/mirrors/javascript/claude_mirror.md 超过 5000 token（5494），多数 harness 会截断",
         "nightly-eval-investigation/scripts/investigate.ts 超过 5000 token（5200），多数 harness 会截断",
-        "注入上下文 55399 token，超出预算 10000（+45399）",
+        "最大的单个技能 24393 token，超出注入预算 10000（+14393）",
         "13 个技能模块，SkillsBench 结论是 ≤3 个模块更优"
       ]
     },
     "uninstall_clean": {
       "probe": "uninstall-clean",
       "supported": true,
-      "clean": false,
+      "clean": true,
       "residual_delta_pp": null,
-      "leaked_paths": [
-        ".claude/settings.json"
-      ],
-      "note": "1 处残留：卸载后仍存在的注册表项 / hooks / 全局技能目录"
+      "leaked_paths": [],
+      "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
+      "declared_hooks": []
     }
   },
   "verdict": {
     "headline": "Tier 0 · 71,238 tok · 13 个技能",
     "grade": "unrated",
     "flags": [
-      "static_cost_over_budget",
-      "uninstall_residue"
+      "static_cost_over_budget"
     ]
   }
 }

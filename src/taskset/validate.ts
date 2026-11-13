@@ -27,7 +27,13 @@ export interface ValidationReport {
 }
 
 function makeValidator() {
-  return new Ajv2020({ allErrors: true, strict: false });
+  const ajv = new Ajv2020({ allErrors: true, strict: false, logger: false });
+  // 不引 ajv-formats（多一个依赖），只补这一个 schema 里真正用到的格式
+  (ajv as unknown as { addFormat: (name: string, def: unknown) => void }).addFormat('date-time', {
+    type: 'string',
+    validate: (s: string) => !Number.isNaN(Date.parse(s))
+  });
+  return ajv;
 }
 
 export async function validateTasksetJson(json: unknown): Promise<{ ok: boolean; errors: string[] }> {

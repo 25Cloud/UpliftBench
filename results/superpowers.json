@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T06:27:06.613Z",
+  "generated_at": "2026-11-13T06:36:15.702Z",
   "skill": {
     "source": "github",
     "repo": "obra/superpowers",
     "commit": "22f0b463e7a5e579904dd6211a520321035526f7",
-    "path": "benchmarks\\skills\\superpowers\\skills",
+    "path": "benchmarks/skills/superpowers/skills",
     "skill_count": 15,
     "total_tokens": 100774
   },
