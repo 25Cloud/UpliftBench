@@ -8,7 +8,12 @@
 
 Every skill package ships a claim. Almost none of them survive a length-matched placebo.
 
-[60-second demo](#60-second-demo) · [Results](#what-we-measured) · [Protocol](docs/02-protocol.en.md) · [Roadmap](docs/07-路线图.md) · [中文说明](README.zh-CN.md)
+[![ci](https://github.com/25Cloud/UpliftBench/actions/workflows/ci.yml/badge.svg)](https://github.com/25Cloud/UpliftBench/actions/workflows/ci.yml)
+[![pages](https://github.com/25Cloud/UpliftBench/actions/workflows/pages.yml/badge.svg)](https://25cloud.github.io/UpliftBench/)
+[![protocol](https://img.shields.io/badge/protocol-1.0.0-blue)](docs/02-protocol.en.md)
+[![license](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
+
+**[Leaderboard](https://25cloud.github.io/UpliftBench/)** · [60-second demo](#60-second-demo) · [Results](#what-we-measured) · [Protocol](docs/02-protocol.en.md) · [Roadmap](docs/07-路线图.md) · [中文说明](README.zh-CN.md)
 
 </div>
 
