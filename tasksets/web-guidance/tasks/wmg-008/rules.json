@@ -1,0 +1,8 @@
+{
+  "forbid": [
+    "document\\.all"
+  ],
+  "require": [
+    "querySelector\\(|getElementById\\("
+  ]
+}

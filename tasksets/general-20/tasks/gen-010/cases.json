@@ -1,0 +1,23 @@
+[
+  {
+    "args": [
+      "abc",
+      1
+    ],
+    "expected": "bcd"
+  },
+  {
+    "args": [
+      "xyz",
+      3
+    ],
+    "expected": "abc"
+  },
+  {
+    "args": [
+      "Ab-C",
+      -1
+    ],
+    "expected": "Za-B"
+  }
+]

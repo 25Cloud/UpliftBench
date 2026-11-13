@@ -1,0 +1,10 @@
+{
+  "forbid": [
+    "[^A-Za-z]escape\\(",
+    "unescape\\("
+  ],
+  "require": [
+    "encodeURIComponent\\(",
+    "decodeURIComponent\\("
+  ]
+}

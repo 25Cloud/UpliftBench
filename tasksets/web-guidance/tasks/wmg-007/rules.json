@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "setTimeout\\(step"
+  ],
+  "require": [
+    "requestAnimationFrame\\(",
+    "translateX"
+  ]
+}

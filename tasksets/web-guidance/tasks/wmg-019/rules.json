@@ -1,0 +1,10 @@
+{
+  "forbid": [
+    "onreadystatechange",
+    "new XMLHttpRequest\\("
+  ],
+  "require": [
+    "fetch\\(",
+    "while\\s*\\("
+  ]
+}

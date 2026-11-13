@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "showModalDialog"
+  ],
+  "require": [
+    "showModal\\(\\)",
+    "new Promise\\("
+  ]
+}

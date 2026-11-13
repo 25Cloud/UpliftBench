@@ -1,0 +1,8 @@
+{
+  "forbid": [
+    "new Array\\("
+  ],
+  "require": [
+    "Array\\.from\\(|=\\s*\\[\\]"
+  ]
+}

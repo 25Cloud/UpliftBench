@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "new XMLHttpRequest\\("
+  ],
+  "require": [
+    "fetch\\(",
+    "await "
+  ]
+}

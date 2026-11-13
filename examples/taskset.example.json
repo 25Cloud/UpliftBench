@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0.0",
+  "domain": "web-guidance",
+  "version": "1.0.0",
+  "title": "Modern Web Guidance 合规任务集",
+  "description": "30 个 fixture 仓库，每个含若干已废弃 / 不推荐的 Web API 用法。评分依据 lint 规则算废弃用法清除率。",
+  "maintainer": "upliftbench",
+  "official": true,
+
+  "grader": {
+    "kind": "tests",
+    "tier": "A",
+    "entry": "grade.sh",
+    "timeout_sec": 120
+  },
+
+  "env": {
+    "kind": "docker",
+    "image": "ghcr.io/upliftbench/web-guidance",
+    "image_digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+    "commit": "0000000"
+  },
+
+  "task_count": 3,
+
+  "tasks": [
+    {
+      "id": "wmg-001",
+      "title": "用 fetch 替代 XMLHttpRequest",
+      "prompt_file": "tasks/wmg-001/prompt.md",
+      "fixture": "tasks/wmg-001/fixture/",
+      "verify": "tasks/wmg-001/verify.sh",
+      "weight": 1.0,
+      "difficulty": "easy",
+      "expected_baseline": { "min": 0.70, "max": 0.95 },
+      "tags": ["api-modernization", "fetch"]
+    },
+    {
+      "id": "wmg-002",
+      "title": "用 CSS 容器查询替代 JS 尺寸监听",
+      "prompt_file": "tasks/wmg-002/prompt.md",
+      "fixture": "tasks/wmg-002/fixture/",
+      "verify": "tasks/wmg-002/verify.sh",
+      "weight": 1.0,
+      "difficulty": "medium",
+      "expected_baseline": { "min": 0.30, "max": 0.60 },
+      "tags": ["api-modernization", "css"]
+    },
+    {
+      "id": "wmg-003",
+      "title": "用 Popover API 替代手写定位弹层",
+      "prompt_file": "tasks/wmg-003/prompt.md",
+      "fixture": "tasks/wmg-003/fixture/",
+      "verify": "tasks/wmg-003/verify.sh",
+      "weight": 1.0,
+      "difficulty": "hard",
+      "expected_baseline": { "min": 0.05, "max": 0.25 },
+      "tags": ["api-modernization", "popover"]
+    }
+  ]
+}

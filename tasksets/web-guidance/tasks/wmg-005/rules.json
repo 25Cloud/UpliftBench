@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "innerHTML"
+  ],
+  "require": [
+    "textContent",
+    "createElement\\("
+  ]
+}

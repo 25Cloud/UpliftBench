@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "onclick="
+  ],
+  "require": [
+    "addEventListener\\(",
+    "getElementById\\("
+  ]
+}

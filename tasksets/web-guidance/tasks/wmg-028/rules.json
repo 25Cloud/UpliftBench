@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "'unload'"
+  ],
+  "require": [
+    "'pagehide'",
+    "'visibilitychange'"
+  ]
+}

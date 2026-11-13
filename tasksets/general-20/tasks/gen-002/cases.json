@@ -1,0 +1,26 @@
+[
+  {
+    "args": [
+      "a b a"
+    ],
+    "expected": {
+      "a": 2,
+      "b": 1
+    }
+  },
+  {
+    "args": [
+      "Hello hello World"
+    ],
+    "expected": {
+      "hello": 2,
+      "world": 1
+    }
+  },
+  {
+    "args": [
+      ""
+    ],
+    "expected": {}
+  }
+]

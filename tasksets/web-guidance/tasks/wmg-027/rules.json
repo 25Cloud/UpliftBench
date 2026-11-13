@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "navigator\\.userAgent"
+  ],
+  "require": [
+    "in\\s+\\w+|typeof\\s+\\w+",
+    "return\\s+(true|false)"
+  ]
+}

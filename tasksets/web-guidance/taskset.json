@@ -1,0 +1,516 @@
+{
+  "schema_version": "1.0.0",
+  "domain": "web-guidance",
+  "version": "1.0.0",
+  "title": "Modern Web Guidance 合规任务集",
+  "description": "30 个小型 fixture，每个含一处（或数处）已废弃的 Web API 用法。评分器是 A 级 tests：可执行规则检查，零主观判断。",
+  "maintainer": "upliftbench",
+  "official": true,
+  "grader": {
+    "kind": "tests",
+    "tier": "A",
+    "entry": "tasks/wmg-001/verify.mjs",
+    "version": "1.0.0",
+    "timeout_sec": 120
+  },
+  "env": {
+    "kind": "local"
+  },
+  "task_count": 30,
+  "tasks": [
+    {
+      "id": "wmg-001",
+      "title": "用 fetch 替代 XMLHttpRequest",
+      "prompt_file": "tasks/wmg-001/prompt.md",
+      "fixture": "tasks/wmg-001/fixture/",
+      "verify": "tasks/wmg-001/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "api-modernization",
+        "network"
+      ]
+    },
+    {
+      "id": "wmg-002",
+      "title": "用 DOM API 替代 document.write",
+      "prompt_file": "tasks/wmg-002/prompt.md",
+      "fixture": "tasks/wmg-002/fixture/",
+      "verify": "tasks/wmg-002/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "dom"
+      ]
+    },
+    {
+      "id": "wmg-003",
+      "title": "var 换成 const / let",
+      "prompt_file": "tasks/wmg-003/prompt.md",
+      "fixture": "tasks/wmg-003/fixture/",
+      "verify": "tasks/wmg-003/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "syntax"
+      ]
+    },
+    {
+      "id": "wmg-004",
+      "title": "松散相等换成严格相等",
+      "prompt_file": "tasks/wmg-004/prompt.md",
+      "fixture": "tasks/wmg-004/fixture/",
+      "verify": "tasks/wmg-004/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "syntax",
+        "correctness"
+      ]
+    },
+    {
+      "id": "wmg-005",
+      "title": "innerHTML 拼字符串换成 textContent",
+      "prompt_file": "tasks/wmg-005/prompt.md",
+      "fixture": "tasks/wmg-005/fixture/",
+      "verify": "tasks/wmg-005/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "dom",
+        "xss"
+      ]
+    },
+    {
+      "id": "wmg-006",
+      "title": "onclick 属性换成 addEventListener",
+      "prompt_file": "tasks/wmg-006/prompt.md",
+      "fixture": "tasks/wmg-006/fixture/",
+      "verify": "tasks/wmg-006/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "dom",
+        "events"
+      ]
+    },
+    {
+      "id": "wmg-007",
+      "title": "用 requestAnimationFrame 替代 setTimeout 动画",
+      "prompt_file": "tasks/wmg-007/prompt.md",
+      "fixture": "tasks/wmg-007/fixture/",
+      "verify": "tasks/wmg-007/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "animation",
+        "performance"
+      ]
+    },
+    {
+      "id": "wmg-008",
+      "title": "document.all 换成标准查询",
+      "prompt_file": "tasks/wmg-008/prompt.md",
+      "fixture": "tasks/wmg-008/fixture/",
+      "verify": "tasks/wmg-008/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "dom"
+      ]
+    },
+    {
+      "id": "wmg-009",
+      "title": "escape / unescape 换成 encodeURIComponent",
+      "prompt_file": "tasks/wmg-009/prompt.md",
+      "fixture": "tasks/wmg-009/fixture/",
+      "verify": "tasks/wmg-009/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "encoding"
+      ]
+    },
+    {
+      "id": "wmg-010",
+      "title": "attachEvent 换成 addEventListener",
+      "prompt_file": "tasks/wmg-010/prompt.md",
+      "fixture": "tasks/wmg-010/fixture/",
+      "verify": "tasks/wmg-010/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "events",
+        "legacy"
+      ]
+    },
+    {
+      "id": "wmg-011",
+      "title": "同步 XHR 改成异步 fetch",
+      "prompt_file": "tasks/wmg-011/prompt.md",
+      "fixture": "tasks/wmg-011/fixture/",
+      "verify": "tasks/wmg-011/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "network",
+        "blocking"
+      ]
+    },
+    {
+      "id": "wmg-012",
+      "title": "keyCode 换成 key",
+      "prompt_file": "tasks/wmg-012/prompt.md",
+      "fixture": "tasks/wmg-012/fixture/",
+      "verify": "tasks/wmg-012/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "events"
+      ]
+    },
+    {
+      "id": "wmg-013",
+      "title": "getElementsByClassName 换成 querySelectorAll",
+      "prompt_file": "tasks/wmg-013/prompt.md",
+      "fixture": "tasks/wmg-013/fixture/",
+      "verify": "tasks/wmg-013/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "dom"
+      ]
+    },
+    {
+      "id": "wmg-014",
+      "title": "用 transform 替代 style.left 动画",
+      "prompt_file": "tasks/wmg-014/prompt.md",
+      "fixture": "tasks/wmg-014/fixture/",
+      "verify": "tasks/wmg-014/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "animation",
+        "performance"
+      ]
+    },
+    {
+      "id": "wmg-015",
+      "title": "substr 换成 slice",
+      "prompt_file": "tasks/wmg-015/prompt.md",
+      "fixture": "tasks/wmg-015/fixture/",
+      "verify": "tasks/wmg-015/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "syntax"
+      ]
+    },
+    {
+      "id": "wmg-016",
+      "title": "getYear 换成 getFullYear",
+      "prompt_file": "tasks/wmg-016/prompt.md",
+      "fixture": "tasks/wmg-016/fixture/",
+      "verify": "tasks/wmg-016/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "date"
+      ]
+    },
+    {
+      "id": "wmg-017",
+      "title": "execCommand 换成 Clipboard API",
+      "prompt_file": "tasks/wmg-017/prompt.md",
+      "fixture": "tasks/wmg-017/fixture/",
+      "verify": "tasks/wmg-017/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "clipboard",
+        "permissions"
+      ]
+    },
+    {
+      "id": "wmg-018",
+      "title": "window.event 换成事件参数",
+      "prompt_file": "tasks/wmg-018/prompt.md",
+      "fixture": "tasks/wmg-018/fixture/",
+      "verify": "tasks/wmg-018/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "events"
+      ]
+    },
+    {
+      "id": "wmg-019",
+      "title": "onreadystatechange 改成 fetch",
+      "prompt_file": "tasks/wmg-019/prompt.md",
+      "fixture": "tasks/wmg-019/fixture/",
+      "verify": "tasks/wmg-019/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "network"
+      ]
+    },
+    {
+      "id": "wmg-020",
+      "title": "outerHTML 替换子节点换成 replaceChildren",
+      "prompt_file": "tasks/wmg-020/prompt.md",
+      "fixture": "tasks/wmg-020/fixture/",
+      "verify": "tasks/wmg-020/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "dom"
+      ]
+    },
+    {
+      "id": "wmg-021",
+      "title": "alert 换成可控的提示",
+      "prompt_file": "tasks/wmg-021/prompt.md",
+      "fixture": "tasks/wmg-021/fixture/",
+      "verify": "tasks/wmg-021/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "ux"
+      ]
+    },
+    {
+      "id": "wmg-022",
+      "title": "eval 换成 JSON.parse",
+      "prompt_file": "tasks/wmg-022/prompt.md",
+      "fixture": "tasks/wmg-022/fixture/",
+      "verify": "tasks/wmg-022/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "security"
+      ]
+    },
+    {
+      "id": "wmg-023",
+      "title": "indexOf 循环换成 includes / find",
+      "prompt_file": "tasks/wmg-023/prompt.md",
+      "fixture": "tasks/wmg-023/fixture/",
+      "verify": "tasks/wmg-023/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "collections"
+      ]
+    },
+    {
+      "id": "wmg-024",
+      "title": "new Array 换成数组字面量",
+      "prompt_file": "tasks/wmg-024/prompt.md",
+      "fixture": "tasks/wmg-024/fixture/",
+      "verify": "tasks/wmg-024/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.7,
+        "max": 0.9
+      },
+      "tags": [
+        "syntax"
+      ]
+    },
+    {
+      "id": "wmg-025",
+      "title": "for...in 遍历数组换成 for...of",
+      "prompt_file": "tasks/wmg-025/prompt.md",
+      "fixture": "tasks/wmg-025/fixture/",
+      "verify": "tasks/wmg-025/verify.mjs",
+      "weight": 1,
+      "difficulty": "medium",
+      "expected_baseline": {
+        "min": 0.3,
+        "max": 0.6
+      },
+      "tags": [
+        "collections",
+        "iteration"
+      ]
+    },
+    {
+      "id": "wmg-026",
+      "title": "回调地狱改成 async/await",
+      "prompt_file": "tasks/wmg-026/prompt.md",
+      "fixture": "tasks/wmg-026/fixture/",
+      "verify": "tasks/wmg-026/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "async",
+        "refactor"
+      ]
+    },
+    {
+      "id": "wmg-027",
+      "title": "UA 嗅探换成特性检测",
+      "prompt_file": "tasks/wmg-027/prompt.md",
+      "fixture": "tasks/wmg-027/fixture/",
+      "verify": "tasks/wmg-027/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "feature-detection"
+      ]
+    },
+    {
+      "id": "wmg-028",
+      "title": "unload 事件换成 pagehide",
+      "prompt_file": "tasks/wmg-028/prompt.md",
+      "fixture": "tasks/wmg-028/fixture/",
+      "verify": "tasks/wmg-028/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "events",
+        "lifecycle"
+      ]
+    },
+    {
+      "id": "wmg-029",
+      "title": "showModalDialog 换成 dialog.showModal",
+      "prompt_file": "tasks/wmg-029/prompt.md",
+      "fixture": "tasks/wmg-029/fixture/",
+      "verify": "tasks/wmg-029/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "dialog",
+        "legacy"
+      ]
+    },
+    {
+      "id": "wmg-030",
+      "title": "串联 Promise 改成并行 + await",
+      "prompt_file": "tasks/wmg-030/prompt.md",
+      "fixture": "tasks/wmg-030/fixture/",
+      "verify": "tasks/wmg-030/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0.05,
+        "max": 0.2
+      },
+      "tags": [
+        "async",
+        "performance"
+      ]
+    }
+  ]
+}

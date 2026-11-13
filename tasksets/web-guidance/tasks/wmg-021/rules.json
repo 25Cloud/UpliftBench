@@ -1,0 +1,8 @@
+{
+  "forbid": [
+    "[^.\\w]alert\\("
+  ],
+  "require": [
+    "console\\.log|notify\\s*=|export function notify"
+  ]
+}

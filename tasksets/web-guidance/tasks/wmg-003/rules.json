@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "(^|[^\\w.])var\\s"
+  ],
+  "require": [
+    "const ",
+    "export function"
+  ]
+}

@@ -1,0 +1,21 @@
+# build
+node_modules/
+dist/
+*.tsbuildinfo
+
+# runtime artifacts (docs/05 §6)
+.uplift/
+.worktrees/
+
+# secrets
+.env
+.env.local
+
+# cloned real skill packages (large binaries checked out on demand)
+benchmarks/skills/
+
+# misc
+.DS_Store
+Thumbs.db
+coverage/
+*.log

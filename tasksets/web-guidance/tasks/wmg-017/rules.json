@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "execCommand\\("
+  ],
+  "require": [
+    "navigator\\.clipboard\\.writeText",
+    "await "
+  ]
+}

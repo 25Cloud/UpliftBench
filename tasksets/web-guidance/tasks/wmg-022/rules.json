@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "[^.\\w]eval\\("
+  ],
+  "require": [
+    "JSON\\.parse\\(",
+    "try\\s*\\{|catch\\s*\\("
+  ]
+}

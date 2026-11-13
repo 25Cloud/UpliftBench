@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "await fetchOne\\('users'[\\s\\S]*await fetchOne\\('posts'"
+  ],
+  "require": [
+    "Promise\\.all\\(",
+    "catch\\s*\\(|try\\s*\\{"
+  ]
+}

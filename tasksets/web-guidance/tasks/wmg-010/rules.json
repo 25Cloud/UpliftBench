@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "attachEvent\\("
+  ],
+  "require": [
+    "addEventListener\\(",
+    "click"
+  ]
+}

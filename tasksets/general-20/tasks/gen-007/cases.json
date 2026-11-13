@@ -1,0 +1,20 @@
+[
+  {
+    "args": [
+      4
+    ],
+    "expected": "IV"
+  },
+  {
+    "args": [
+      1994
+    ],
+    "expected": "MCMXCIV"
+  },
+  {
+    "args": [
+      3999
+    ],
+    "expected": "MMMCMXCIX"
+  }
+]

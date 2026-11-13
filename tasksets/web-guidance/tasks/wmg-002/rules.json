@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "document\\.write\\("
+  ],
+  "require": [
+    "createElement\\(",
+    "appendChild\\("
+  ]
+}

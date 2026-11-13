@@ -1,0 +1,8 @@
+{
+  "forbid": [
+    "for\\s*\\(\\s*var\\s+\\w+\\s+in\\s"
+  ],
+  "require": [
+    "for\\s*\\(\\s*const\\s+\\w+\\s+of\\s"
+  ]
+}

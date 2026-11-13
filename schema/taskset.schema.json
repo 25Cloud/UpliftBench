@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://upliftbench.dev/schema/taskset.schema.json",
+  "title": "UpliftBench TaskSet",
+  "type": "object",
+  "required": ["schema_version", "domain", "version", "title", "grader", "env", "task_count", "tasks"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "domain": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+    "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "title": { "type": "string", "minLength": 3 },
+    "description": { "type": "string" },
+    "maintainer": { "type": "string" },
+    "official": { "type": "boolean", "default": false },
+
+    "grader": {
+      "type": "object",
+      "required": ["kind", "tier"],
+      "properties": {
+        "kind": { "enum": ["tests", "exact", "rubric", "visual-diff", "human"] },
+        "tier": { "enum": ["A", "B", "C"] },
+        "entry": { "type": "string" },
+        "timeout_sec": { "type": "integer", "minimum": 1, "default": 120 },
+
+        "normalize": { "type": "array", "items": { "enum": ["trim", "collapse_whitespace", "lowercase"] } },
+        "numeric_tolerance": { "type": "number" },
+
+        "judge_model": { "type": "string" },
+        "judge_temperature": { "type": "number", "default": 0 },
+        "judge_prompt_file": { "type": "string" },
+        "rubric_file": { "type": "string" },
+        "kappa": { "type": "number", "minimum": 0, "maximum": 1 },
+        "kappa_samples": { "type": "integer", "minimum": 1 },
+
+        "engine": { "type": "string" },
+        "threshold": { "type": "number" },
+        "viewport": {
+          "type": "object",
+          "properties": {
+            "width": { "type": "integer" },
+            "height": { "type": "integer" }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "tier": { "const": "A" } } },
+          "then": { "required": ["entry"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "rubric" } } },
+          "then": { "required": ["judge_model", "judge_prompt_file", "rubric_file", "kappa"] }
+        }
+      ]
+    },
+
+    "env": {
+      "type": "object",
+      "required": ["kind"],
+      "properties": {
+        "kind": { "enum": ["docker", "local"] },
+        "image": { "type": "string" },
+        "image_digest": { "type": "string", "pattern": "^sha256:[0-9a-f]{64}$" },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "docker" } } },
+          "then": { "required": ["image", "image_digest"] }
+        }
+      ]
+    },
+
+    "task_count": { "type": "integer", "minimum": 1 },
+
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "prompt_file"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+-\\d{3}$" },
+          "title": { "type": "string" },
+          "prompt_file": { "type": "string" },
+          "fixture": { "type": "string" },
+          "verify": { "type": "string" },
+          "weight": { "type": "number", "minimum": 0, "default": 1.0 },
+          "difficulty": { "enum": ["easy", "medium", "hard"] },
+          "expected_baseline": {
+            "type": "object",
+            "properties": {
+              "min": { "type": "number", "minimum": 0, "maximum": 1 },
+              "max": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          },
+          "tags": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    }
+  }
+}

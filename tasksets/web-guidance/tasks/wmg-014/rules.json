@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "style\\.left"
+  ],
+  "require": [
+    "translateX",
+    "requestAnimationFrame\\("
+  ]
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "args": [
+      "hello world"
+    ],
+    "expected": "Hello World"
+  },
+  {
+    "args": [
+      "HELLO there"
+    ],
+    "expected": "Hello There"
+  },
+  {
+    "args": [
+      ""
+    ],
+    "expected": ""
+  }
+]

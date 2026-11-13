@@ -1,0 +1,8 @@
+{
+  "forbid": [
+    "getYear\\(\\)"
+  ],
+  "require": [
+    "getFullYear\\(\\)"
+  ]
+}

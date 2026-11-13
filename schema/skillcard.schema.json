@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://upliftbench.dev/schema/skillcard.schema.json",
+  "title": "UpliftBench SkillCard",
+  "type": "object",
+  "required": ["schema_version", "protocol_version", "generated_at", "skill", "tier0", "verdict"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": "1.0.0" },
+    "protocol_version": { "type": "string", "pattern": "^protocol/\\d+\\.\\d+\\.\\d+$" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "skill": {
+      "type": "object",
+      "required": ["source", "repo", "commit"],
+      "properties": {
+        "source": { "enum": ["github", "local", "npm", "skills-cli"] },
+        "repo": { "type": "string" },
+        "commit": { "type": "string", "pattern": "^[0-9a-f]{7,40}$" },
+        "path": { "type": "string" },
+        "skill_count": { "type": "integer", "minimum": 1 },
+        "license": { "type": "string" }
+      }
+    },
+    "tier0": {
+      "type": "object",
+      "properties": {
+        "static_cost": { "$ref": "#/$defs/probe" },
+        "trigger_precision": { "$ref": "#/$defs/probe" },
+        "constraint_following": { "$ref": "#/$defs/probe" },
+        "injection_resistance": { "$ref": "#/$defs/probe" },
+        "negative_transfer": { "$ref": "#/$defs/probe" },
+        "uninstall_clean": { "$ref": "#/$defs/probe" }
+      }
+    },
+    "tier1": {
+      "type": "object",
+      "required": ["taskset", "grader_tier", "n", "arms", "metrics"],
+      "properties": {
+        "taskset": { "type": "string" },
+        "grader_tier": { "enum": ["A", "B", "C"] },
+        "n": { "type": "integer", "minimum": 1 },
+        "arms": {
+          "type": "object",
+          "required": ["baseline", "placebo", "treatment"],
+          "properties": {
+            "baseline": { "$ref": "#/$defs/arm" },
+            "placebo": { "$ref": "#/$defs/arm" },
+            "treatment": { "$ref": "#/$defs/arm" }
+          }
+        },
+        "metrics": {
+          "type": "object",
+          "required": ["uplift_pp", "headroom_closed", "placebo_effect_pp", "ci95"],
+          "properties": {
+            "uplift_pp": { "type": "number", "description": "treatment - placebo，单位百分点" },
+            "headroom_closed": { "type": "number", "description": "(treatment - placebo) / (1 - placebo)" },
+            "raw_gain_pp": { "type": "number", "description": "treatment - baseline，未校正" },
+            "placebo_effect_pp": { "type": "number", "description": "placebo - baseline" },
+            "ci95": {
+              "type": "array",
+              "items": { "type": "number" },
+              "minItems": 2,
+              "maxItems": 2
+            }
+          }
+        },
+        "cost": {
+          "type": "object",
+          "properties": {
+            "tokens_in_total": { "type": "integer" },
+            "tokens_out_total": { "type": "integer" },
+            "token_overhead_pct": { "type": "number" },
+            "wall_time_p50_ms": { "type": "integer" },
+            "wall_time_p95_ms": { "type": "integer" },
+            "tool_calls_mean": { "type": "number" },
+            "cost_usd_total": { "type": "number" }
+          }
+        },
+        "stability": {
+          "type": "object",
+          "properties": {
+            "flaky_tasks": { "type": "array", "items": { "type": "string" } },
+            "determinism_gain": { "type": "number" }
+          }
+        },
+        "failures": {
+          "type": "object",
+          "properties": {
+            "wrong_answer": { "type": "integer" },
+            "gave_up": { "type": "integer" },
+            "hallucinated": { "type": "integer" },
+            "constraint_violated": { "type": "integer" },
+            "broke_something": { "type": "integer" },
+            "timeout": { "type": "integer" },
+            "tool_error": { "type": "integer" },
+            "grader_error": { "type": "integer" }
+          }
+        }
+      }
+    },
+    "verdict": {
+      "type": "object",
+      "required": ["headline", "grade"],
+      "properties": {
+        "headline": { "type": "string" },
+        "grade": { "enum": ["A", "B", "C", "unrated"] },
+        "flags": { "type": "array", "items": { "type": "string" } }
+      }
+    }
+  },
+  "$defs": {
+    "probe": {
+      "type": "object",
+      "required": ["probe", "supported"],
+      "properties": {
+        "probe": { "type": "string" },
+        "supported": { "type": "boolean" },
+        "reason": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "arm": {
+      "type": "object",
+      "required": ["pass_rate"],
+      "properties": {
+        "pass_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+        "pass_rate_std": { "type": "number", "minimum": 0 }
+      }
+    }
+  }
+}

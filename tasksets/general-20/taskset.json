@@ -1,0 +1,362 @@
+{
+  "schema_version": "1.0.0",
+  "domain": "general-20",
+  "version": "1.0.0",
+  "title": "通用小任务集（负迁移 / 行为指纹专用）",
+  "description": "20 个基础算法小任务（10 Python + 10 JavaScript），与任何具体技能包的领域正交，评分器是 A 级可执行测试。用于探针 5（负迁移）与探针 6（卸载后行为指纹）。",
+  "maintainer": "upliftbench",
+  "official": true,
+  "grader": {
+    "kind": "tests",
+    "tier": "A",
+    "entry": "tasks/gen-001/verify.py",
+    "version": "1.0.0",
+    "timeout_sec": 60
+  },
+  "env": {
+    "kind": "local"
+  },
+  "task_count": 20,
+  "tasks": [
+    {
+      "id": "gen-001",
+      "title": "FizzBuzz",
+      "prompt_file": "tasks/gen-001/prompt.md",
+      "fixture": "tasks/gen-001/fixture/",
+      "verify": "tasks/gen-001/verify.py",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "py",
+        "strings"
+      ]
+    },
+    {
+      "id": "gen-002",
+      "title": "词频统计",
+      "prompt_file": "tasks/gen-002/prompt.md",
+      "fixture": "tasks/gen-002/fixture/",
+      "verify": "tasks/gen-002/verify.py",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "py",
+        "dict"
+      ]
+    },
+    {
+      "id": "gen-003",
+      "title": "扁平化嵌套列表",
+      "prompt_file": "tasks/gen-003/prompt.md",
+      "fixture": "tasks/gen-003/fixture/",
+      "verify": "tasks/gen-003/verify.py",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "py",
+        "recursion"
+      ]
+    },
+    {
+      "id": "gen-004",
+      "title": "保序去重",
+      "prompt_file": "tasks/gen-004/prompt.md",
+      "fixture": "tasks/gen-004/fixture/",
+      "verify": "tasks/gen-004/verify.py",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "py",
+        "dedupe"
+      ]
+    },
+    {
+      "id": "gen-005",
+      "title": "中位数",
+      "prompt_file": "tasks/gen-005/prompt.md",
+      "fixture": "tasks/gen-005/fixture/",
+      "verify": "tasks/gen-005/verify.py",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "py",
+        "math"
+      ]
+    },
+    {
+      "id": "gen-006",
+      "title": "分块",
+      "prompt_file": "tasks/gen-006/prompt.md",
+      "fixture": "tasks/gen-006/fixture/",
+      "verify": "tasks/gen-006/verify.py",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "py",
+        "slice"
+      ]
+    },
+    {
+      "id": "gen-007",
+      "title": "罗马数字",
+      "prompt_file": "tasks/gen-007/prompt.md",
+      "fixture": "tasks/gen-007/fixture/",
+      "verify": "tasks/gen-007/verify.py",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "py",
+        "greedy"
+      ]
+    },
+    {
+      "id": "gen-008",
+      "title": "回文判断",
+      "prompt_file": "tasks/gen-008/prompt.md",
+      "fixture": "tasks/gen-008/fixture/",
+      "verify": "tasks/gen-008/verify.py",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "py",
+        "strings"
+      ]
+    },
+    {
+      "id": "gen-009",
+      "title": "CSV 转字典列表",
+      "prompt_file": "tasks/gen-009/prompt.md",
+      "fixture": "tasks/gen-009/fixture/",
+      "verify": "tasks/gen-009/verify.py",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "py",
+        "parsing"
+      ]
+    },
+    {
+      "id": "gen-010",
+      "title": "凯撒移位",
+      "prompt_file": "tasks/gen-010/prompt.md",
+      "fixture": "tasks/gen-010/fixture/",
+      "verify": "tasks/gen-010/verify.py",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "py",
+        "cipher"
+      ]
+    },
+    {
+      "id": "gen-011",
+      "title": "平方和",
+      "prompt_file": "tasks/gen-011/prompt.md",
+      "fixture": "tasks/gen-011/fixture/",
+      "verify": "tasks/gen-011/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "js",
+        "arrays"
+      ]
+    },
+    {
+      "id": "gen-012",
+      "title": "按字段分组",
+      "prompt_file": "tasks/gen-012/prompt.md",
+      "fixture": "tasks/gen-012/fixture/",
+      "verify": "tasks/gen-012/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "js",
+        "group"
+      ]
+    },
+    {
+      "id": "gen-013",
+      "title": "范围数组",
+      "prompt_file": "tasks/gen-013/prompt.md",
+      "fixture": "tasks/gen-013/fixture/",
+      "verify": "tasks/gen-013/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "js",
+        "loops"
+      ]
+    },
+    {
+      "id": "gen-014",
+      "title": "标题化",
+      "prompt_file": "tasks/gen-014/prompt.md",
+      "fixture": "tasks/gen-014/fixture/",
+      "verify": "tasks/gen-014/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "js",
+        "strings"
+      ]
+    },
+    {
+      "id": "gen-015",
+      "title": "二分查找",
+      "prompt_file": "tasks/gen-015/prompt.md",
+      "fixture": "tasks/gen-015/fixture/",
+      "verify": "tasks/gen-015/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "js",
+        "search"
+      ]
+    },
+    {
+      "id": "gen-016",
+      "title": "对象扁平化",
+      "prompt_file": "tasks/gen-016/prompt.md",
+      "fixture": "tasks/gen-016/fixture/",
+      "verify": "tasks/gen-016/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "js",
+        "objects"
+      ]
+    },
+    {
+      "id": "gen-017",
+      "title": "数组分块",
+      "prompt_file": "tasks/gen-017/prompt.md",
+      "fixture": "tasks/gen-017/fixture/",
+      "verify": "tasks/gen-017/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "js",
+        "arrays"
+      ]
+    },
+    {
+      "id": "gen-018",
+      "title": "按键去重",
+      "prompt_file": "tasks/gen-018/prompt.md",
+      "fixture": "tasks/gen-018/fixture/",
+      "verify": "tasks/gen-018/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "js",
+        "dedupe"
+      ]
+    },
+    {
+      "id": "gen-019",
+      "title": "slug 化",
+      "prompt_file": "tasks/gen-019/prompt.md",
+      "fixture": "tasks/gen-019/fixture/",
+      "verify": "tasks/gen-019/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "js",
+        "strings"
+      ]
+    },
+    {
+      "id": "gen-020",
+      "title": "深比较",
+      "prompt_file": "tasks/gen-020/prompt.md",
+      "fixture": "tasks/gen-020/fixture/",
+      "verify": "tasks/gen-020/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.6,
+        "max": 0.95
+      },
+      "tags": [
+        "js",
+        "equality"
+      ]
+    }
+  ]
+}

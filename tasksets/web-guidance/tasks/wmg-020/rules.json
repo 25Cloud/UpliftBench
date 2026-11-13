@@ -1,0 +1,8 @@
+{
+  "forbid": [
+    "outerHTML\\s*="
+  ],
+  "require": [
+    "replaceChildren\\(|replaceWith\\(|appendChild\\("
+  ]
+}

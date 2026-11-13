@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "window\\.event"
+  ],
+  "require": [
+    "function\\s*handler\\s*\\(\\s*\\w+",
+    "ev\\.target|event\\.target"
+  ]
+}

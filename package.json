@@ -1,0 +1,55 @@
+{
+  "name": "upliftbench",
+  "version": "0.1.0",
+  "description": "The placebo-corrected benchmark for Agent Skills — measure what your skill actually adds.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "bin": {
+    "uplift": "dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "schema",
+    "examples",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/upliftbench/upliftbench.git"
+  },
+  "keywords": [
+    "agent-skills",
+    "benchmark",
+    "uplift",
+    "placebo",
+    "evaluation",
+    "cli"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "gen:web": "tsx tools/gen-web-guidance.ts",
+    "gen:general": "tsx tools/gen-general-tasks.ts",
+    "gen:placebo": "tsx tools/gen-placebo-corpus.ts",
+    "site": "tsx tools/build-site.ts"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "better-sqlite3": "^11.10.0",
+    "commander": "^12.1.0"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

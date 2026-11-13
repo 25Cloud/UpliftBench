@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "keyCode"
+  ],
+  "require": [
+    "key === 'Enter'",
+    "addEventListener\\("
+  ]
+}

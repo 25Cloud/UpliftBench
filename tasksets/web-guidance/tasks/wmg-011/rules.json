@@ -1,0 +1,11 @@
+{
+  "forbid": [
+    "new XMLHttpRequest\\(",
+    "false\\);"
+  ],
+  "require": [
+    "fetch\\(",
+    "await ",
+    "try\\s*\\{|catch\\s*\\("
+  ]
+}

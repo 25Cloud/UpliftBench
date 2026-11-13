@@ -1,0 +1,12 @@
+{
+  "forbid": [
+    "function\\s*\\(\\s*err",
+    "done\\(err"
+  ],
+  "require": [
+    "async function|async \\(",
+    "await ",
+    "AbortController",
+    "try\\s*\\{"
+  ]
+}

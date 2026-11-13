@@ -1,0 +1,20 @@
+[
+  {
+    "args": [
+      "a,b\\n1,2\\n3,4"
+    ],
+    "expected": []
+  },
+  {
+    "args": [
+      ""
+    ],
+    "expected": []
+  },
+  {
+    "args": [
+      "x\\n9"
+    ],
+    "expected": []
+  }
+]

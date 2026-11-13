@@ -1,0 +1,20 @@
+[
+  {
+    "args": [
+      "A man, a plan, a canal: Panama"
+    ],
+    "expected": true
+  },
+  {
+    "args": [
+      "race a car"
+    ],
+    "expected": false
+  },
+  {
+    "args": [
+      ""
+    ],
+    "expected": true
+  }
+]

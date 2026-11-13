@@ -1,0 +1,20 @@
+[
+  {
+    "args": [
+      "Hello World!"
+    ],
+    "expected": "hello-world"
+  },
+  {
+    "args": [
+      "--a__b--"
+    ],
+    "expected": "a-b"
+  },
+  {
+    "args": [
+      "!!!"
+    ],
+    "expected": ""
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "indexOf\\("
+  ],
+  "require": [
+    "\\.includes\\(",
+    "\\.find\\("
+  ]
+}

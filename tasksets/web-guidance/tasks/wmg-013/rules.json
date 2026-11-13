@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "getElementsByClassName\\("
+  ],
+  "require": [
+    "querySelectorAll\\(",
+    "forEach\\("
+  ]
+}
