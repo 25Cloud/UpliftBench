@@ -279,7 +279,16 @@ maintainers who run the experiments). If you need a specific section in English,
 
 ## Status
 
-- `protocol/1.0.0` · software `v0.1.5` · Node ≥ 22 · Apache-2.0 · no services, no accounts, no telemetry
-- 109 tests, CI runs build + tests + task-set validation + card schema + a Tier 0 smoke test
+- `protocol/1.0.0` · software `v0.2.0` · Node ≥ 22 · Apache-2.0 · no services, no accounts, no telemetry
+- 109 tests, CI runs build + tests + task-set validation + card schema + docs link check + a Tier 0 demo smoke
 - Everything in `results/` and `docs/` is generated from committed run databases; costs are recorded per run
 - Name collision note: this has nothing to do with Criteo's *uplift modeling* in marketing. Same word, different target.
+
+## Contributing
+
+The most useful contribution is **[challenging a published number](.github/ISSUE_TEMPLATE/challenge-a-number.md)** —
+we have published five corrections of our own graders, and a benchmark that cannot be corrected is a marketing site.
+Task sets are federated; see [`CONTRIBUTING.md`](CONTRIBUTING.md) for the admission criteria and the two rules
+that matter most (graders must accept equivalent answers; prompts must not name the solution).
+
+Cite it with [`CITATION.cff`](CITATION.cff).

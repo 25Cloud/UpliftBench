@@ -25,7 +25,12 @@
   翻译只覆盖人读的标签，JSON 字段名一律不动——那是数据契约。
 - **`action.yml`（复合 GitHub Action）**：PR 里跑 Tier 0，把卡片写进 job summary，
   卡 JSON 作为 artifact 上传。输出 `total_tokens` 与 `card` 两个 output。
-- `pnpm demo` / `pnpm gen:hero` 两个脚本。
+- **`CONTRIBUTING.md`**：六条不让步的规矩、怎么交任务集（含标定与准入）、怎么加 harness 适配器，
+  以及两条最容易犯的错：**评分器必须接受等价正解**、**提示词不许给答案**。
+- **`CITATION.cff`**：引用时必须带上 protocol 与软件版本——没有版本的数字不可复现。
+- **issue 模板两枚**：「挑战一个已发布的数字」（带 run database 要求）与普通 bug。
+  前者是这类项目最该有的入口，因为我们已经公开纠正过自己五次。
+- `pnpm demo` / `pnpm gen:hero` / `pnpm check:links` 三个脚本。
 
 ### 顺手修掉
 

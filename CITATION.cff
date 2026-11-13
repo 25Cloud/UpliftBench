@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this protocol or the numbers it produces, cite it. Include the exact protocol and software versions — a number without them is not reproducible."
+title: "UpliftBench: a placebo-corrected benchmark for Agent Skills"
+abstract: >-
+  A three-arm measurement protocol (no skill / token-matched placebo / real skill) for agent skill
+  packages, plus a CLI that produces SkillCards, badges and a static leaderboard. The placebo arm
+  separates "a longer context helps" from "this skill's knowledge helps"; uplift is defined as
+  treatment minus placebo, never treatment minus baseline.
+type: software
+authors:
+  - name: "UpliftBench contributors"
+license: Apache-2.0
+repository-code: "https://github.com/upliftbench/upliftbench"
+url: "https://github.com/upliftbench/upliftbench"
+version: "0.2.0"
+date-released: "2026-11-13"
+keywords:
+  - agent-skills
+  - benchmark
+  - evaluation
+  - placebo
+  - llm-agents
+  - reproducibility
+references:
+  - type: generic
+    title: "Protocol specification (protocol/1.0.0)"
+    notes: "Normative text is docs/02-协议规范.md; English translation is docs/02-protocol.en.md"
+  - type: generic
+    title: "Ablation: what actually moves a skill's number"
+    notes: "docs/16-消融实验.md — five grader false negatives, prompt naming, n=10 block result +36pp"
