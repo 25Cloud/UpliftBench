@@ -187,7 +187,22 @@ export class OpenAICompatHarness implements Harness {
     const push = (type: TranscriptEvent['type'], data: Record<string, unknown> = {}) =>
       events.push({ ts: new Date().toISOString(), type, ...data });
 
-    const systemPrompt = buildSystemPrompt(ctx);
+    // forced activation：把指定技能的正文直接注入系统提示，并记成 activation 事件
+    const preloaded = (req.preloadSkillNames ?? [])
+      .map((name) => ctx.skills.find((s) => s.name === name))
+      .filter((s): s is InstalledSkill => Boolean(s));
+
+    let systemPrompt = buildSystemPrompt(ctx);
+    if (preloaded.length > 0) {
+      const blocks = preloaded.map((s) => `### ${s.name}\n\n${s.body}`).join('\n\n---\n\n');
+      systemPrompt +=
+        `\n\n## Preloaded skill instructions\n\n` +
+        `The following skill(s) have already been activated for this task. Follow them.\n\n${blocks}`;
+      for (const s of preloaded) {
+        activated.push(s.name);
+        push('activation', { name: s.name, forced: true });
+      }
+    }
     push('system', { content: systemPrompt });
 
     const userContent = req.injectedToolOutput

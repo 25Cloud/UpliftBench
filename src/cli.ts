@@ -160,6 +160,8 @@ program
   .option('--jobs <n>', '并发数，默认 4', '4')
   .option('--timeout <sec>', '单任务超时，默认 600', '600')
   .option('--max-steps <n>', '单次 run 的 agent 最大步数，默认 14', '14')
+  .option('--activation <mode>', 'auto = 模型自己决定是否激活技能；forced = 直接把技能正文注入上下文', 'auto')
+  .option('--preload-budget <n>', 'forced 模式下最多预加载多少 token 的技能正文，默认 12000', '12000')
   .option('--max-cost <usd>', '成本上限，超过即停')
   .option('--tasks <ids>', '只跑指定任务 id（逗号分隔）')
   .option('--label <repo>', '展示名，默认取技能目录名')
@@ -210,6 +212,8 @@ program
         transcriptDir: path.join(outDir, 'transcripts'),
         workRoot: path.join(outDir, 'ws'),
         maxSteps: Number(opts.maxSteps ?? 14),
+        activation: opts.activation === 'forced' ? 'forced' : 'auto',
+        preloadBudgetTokens: Number(opts.preloadBudget ?? 12000),
         taskIds: parseList(opts.tasks),
         onEvent: (e) => {
           if (opts.quiet) return;

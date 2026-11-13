@@ -78,6 +78,40 @@ describe('三臂 runner 端到端（mock harness）', () => {
     db.close();
   }, 120_000);
 
+  it('forced activation：三臂各自预加载对称的技能', async () => {
+    const cfg = {
+      cwd: process.cwd(),
+      skillPath: skillDir,
+      skillLabel: 'demo/forced',
+      tasksetRef: 'general-20@1.0',
+      harness: new MockHarness({ seed: 11 }),
+      arms: ['baseline', 'placebo', 'treatment'] as const,
+      repeats: 1,
+      model: 'mock-model',
+      temperature: 0,
+      seed: 42,
+      jobs: 3,
+      timeoutSec: 60,
+      maxCostUsd: 0,
+      resume: false,
+      taskIds: ['gen-001'],
+      dbPath: path.join(tmp, 'runs-forced.db'),
+      transcriptDir: path.join(tmp, 'transcripts-forced'),
+      workRoot: path.join(tmp, 'ws-forced'),
+      activation: 'forced' as const
+    };
+    const result = await runBenchmark({ ...cfg, arms: [...cfg.arms] });
+    expect(result.rows.length).toBe(3);
+    const meta = (arm: string) => {
+      const row = result.rows.find((r) => r.arm === arm);
+      return JSON.parse(row!.meta_json ?? '{}') as { preloaded?: string[]; activation_mode?: string };
+    };
+    expect(meta('baseline').preloaded).toEqual([]);
+    expect(meta('treatment').preloaded?.length).toBe(1);
+    expect(meta('placebo').preloaded?.length).toBe(meta('treatment').preloaded?.length);
+    expect(meta('treatment').activation_mode).toBe('forced');
+  }, 120_000);
+
   it('mock 结果必须带 synthetic_data 标记（不许被当成真数字发榜）', async () => {
     expect(MOCK_FLAG).toBe('synthetic_data');
   });

@@ -34,6 +34,10 @@ export interface RunnerConfig {
   transcriptDir: string;
   workRoot: string;
   maxSteps?: number;
+  /** auto = 激活与否由模型决定；forced = 直接把技能正文注入上下文 */
+  activation?: 'auto' | 'forced';
+  /** forced 模式下最多预加载多少 token 的技能正文，默认 12000 */
+  preloadBudgetTokens?: number;
   onEvent?: (e: RunnerEvent) => void;
 }
 
@@ -117,6 +121,30 @@ export async function runBenchmark(cfg: RunnerConfig): Promise<RunnerResult> {
 
   const taskRepoCache = new Map<string, Promise<string>>();
 
+  /**
+   * forced activation 的预加载集合。
+   *
+   * 三臂对称是硬要求：treatment 按 token 预算贪心取真技能，placebo 用同样的贪心规则取等量中性文本。
+   * 因为安慰剂是**逐技能**对齐的，两边贪心出来的技能数一致。
+   */
+  const preloadBudget = cfg.preloadBudgetTokens ?? 12_000;
+  const preloadCache = new Map<ArmName, string[]>();
+  const preloadFor = (arm: ArmName): string[] => {
+    if (cfg.activation !== 'forced' || arm === 'baseline') return [];
+    const cached = preloadCache.get(arm);
+    if (cached) return cached;
+    const pool = arm === 'treatment' ? treatmentSkills : placeboWithFiles;
+    const picked: string[] = [];
+    let sum = 0;
+    for (const s of pool) {
+      if (picked.length > 0 && sum + s.tokens > preloadBudget) break;
+      picked.push(s.name);
+      sum += s.tokens;
+    }
+    preloadCache.set(arm, picked);
+    return picked;
+  };
+
   const runUnit = async (workerId: number, unit: RunUnit): Promise<void> => {
     const taskRepo = await getTaskRepo(unit.taskId);
     const wtBase = path.join(path.resolve(cfg.cwd, cfg.workRoot), `w${workerId}`);
@@ -152,7 +180,8 @@ export async function runBenchmark(cfg: RunnerConfig): Promise<RunnerResult> {
           timeoutMs: cfg.timeoutSec * 1000,
           temperature: cfg.temperature,
           seed: cfg.seed + unit.repeatIdx,
-          maxSteps: cfg.maxSteps
+          maxSteps: cfg.maxSteps,
+          preloadSkillNames: preloadFor(unit.arm)
         }
       );
       tokensIn = run.usage.prompt_tokens;
@@ -226,7 +255,12 @@ export async function runBenchmark(cfg: RunnerConfig): Promise<RunnerResult> {
       wall_ms: wallMs,
       cost_usd: cost,
       transcript_path: transcriptPath,
-      meta_json: JSON.stringify({ detail, activated })
+      meta_json: JSON.stringify({
+        detail,
+        activated,
+        activation_mode: cfg.activation ?? 'auto',
+        preloaded: preloadFor(unit.arm)
+      })
     };
     insertRun(db, row);
     cfg.onEvent?.({
@@ -296,7 +330,8 @@ export async function runBenchmark(cfg: RunnerConfig): Promise<RunnerResult> {
       `temperature=${cfg.temperature}`,
       `seed=${cfg.seed}`,
       `repeats=${cfg.repeats}`,
-      `placebo_delta_pct=${(placeboValidation.deltaPct * 100).toFixed(2)}`,
+      'placebo_delta_pct=' + (placeboValidation.deltaPct * 100).toFixed(2),
+      'activation=' + (cfg.activation ?? 'auto'),
       'uplift_pp = treatment − placebo（协议/1.0.0 §1.1）'
     ]
   });

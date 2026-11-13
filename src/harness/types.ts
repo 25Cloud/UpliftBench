@@ -42,7 +42,18 @@ export interface RunRequest {
   allowShell?: boolean;
   /** 附加到用户消息末尾的内容（注入探针的「工具输出」用） */
   injectedToolOutput?: string;
+  /**
+   * 强制预加载的技能名（forced activation 模式）。
+   *
+   * 为什么需要：在「激活不激活由模型自己决定」的模式下，实测激活率只有 8%~17%，
+   * 于是 uplift 测到的主要是「模型愿不愿意用技能」，而不是「技能内容有没有用」。
+   * forced 模式直接把技能正文注入上下文（等价于 harness 自动做渐进披露），
+   * 三臂仍然对称：treatment 注入真技能，placebo 注入等量中性文本。
+   */
+  preloadSkillNames?: string[];
 }
+
+export type ActivationMode = 'auto' | 'forced';
 
 export interface Usage {
   prompt_tokens: number;
