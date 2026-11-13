@@ -8,7 +8,7 @@
 
 Every skill package ships a claim. Almost none of them survive a length-matched placebo.
 
-[60-second demo](#60-second-demo) · [Results](#what-we-measured) · [Protocol](docs/02-协议规范.md) · [Roadmap](docs/07-路线图.md) · [中文说明](README.zh-CN.md)
+[60-second demo](#60-second-demo) · [Results](#what-we-measured) · [Protocol](docs/02-protocol.en.md) · [Roadmap](docs/07-路线图.md) · [中文说明](README.zh-CN.md)
 
 </div>
 
@@ -266,14 +266,14 @@ we measure skills, we do not ship them.
 
 | | |
 |---|---|
+| [`docs/02-protocol.en.md`](docs/02-protocol.en.md) | **The protocol (English)** — three-arm semantics, metric definitions, grader tiers, versioning |
 | [docs/16](docs/16-消融实验.md) | What actually moves a skill's number: the ablation, the five grader bugs, the +36pp block |
 | [docs/15](docs/15-第二轮实测.md) | 1,152 runs of the same skill under `auto` vs `forced` |
 | [docs/13](docs/13-任务集标定.md) | Why task difficulty is bimodal and 58% of tasks are saturated |
-| [docs/02](docs/02-协议规范.md) | The protocol: metric definitions, three-arm semantics, versioning |
 | [docs/12](docs/12-实现说明.md) | Every default we chose where the spec was silent |
 
-These are written in Chinese. The protocol (`docs/02`) is the normative one; if you need an English
-translation of a specific section, open an issue — it is on the list.
+The protocol is translated; the deeper analysis docs are Chinese-only for now (they are written for the
+maintainers who run the experiments). If you need a specific section in English, open an issue.
 
 ---
 
