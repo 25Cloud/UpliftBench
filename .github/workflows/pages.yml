@@ -1,0 +1,46 @@
+name: pages
+
+# 发布榜单页。用的是「GitHub Actions」这个 Pages 源，而不是 branch 源：
+# branch 源只允许 / 或 /docs，我们的站点在 site/（由 `uplift site` 生成）。
+# 这份 workflow 只上传仓库里已提交的 site/，不在 CI 里重新生成——
+# 部署出来的东西必须和 git 里那一份逐字节一致，否则「线上数字和仓库对不上」。
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sanity check the committed page
+        run: |
+          test -f site/index.html
+          grep -q "UpliftBench" site/index.html
+          echo "site/index.html $(wc -c < site/index.html) bytes"
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
