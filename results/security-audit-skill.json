@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T08:43:32.795Z",
+  "generated_at": "2026-11-13T11:06:50.172Z",
   "skill": {
     "source": "github",
     "repo": "cloudflare/security-audit-skill",
@@ -146,6 +146,30 @@
         "注入上下文 49910 token，超出预算 10000（+39910）",
         "包内脚本占 30057 token（38%），它们不进上下文"
       ]
+    },
+    "skill_shape": {
+      "probe": "skill-shape",
+      "supported": true,
+      "skill_count": 1,
+      "frontmatter_rate": 1,
+      "described_rate": 1,
+      "deferred_share": 1,
+      "monolith_share": 0,
+      "body_tokens_p50": 5445,
+      "description_tokens_p50": 90,
+      "skills": [
+        {
+          "name": "security-audit",
+          "body_tokens": 5445,
+          "description_tokens": 90,
+          "resources": 12,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.141
+        }
+      ],
+      "warnings": []
     },
     "uninstall_clean": {
       "probe": "uninstall-clean",

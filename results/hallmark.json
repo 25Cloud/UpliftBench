@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T08:43:33.415Z",
+  "generated_at": "2026-11-13T11:06:50.869Z",
   "skill": {
     "source": "github",
     "repo": "Nutlope/hallmark",
@@ -640,6 +640,30 @@
         "另有 2 个文件超单文件预算",
         "注入上下文 292316 token，超出预算 10000（+282316）"
       ]
+    },
+    "skill_shape": {
+      "probe": "skill-shape",
+      "supported": true,
+      "skill_count": 1,
+      "frontmatter_rate": 1,
+      "described_rate": 1,
+      "deferred_share": 1,
+      "monolith_share": 0,
+      "body_tokens_p50": 4443,
+      "description_tokens_p50": 63,
+      "skills": [
+        {
+          "name": "hallmark",
+          "body_tokens": 4443,
+          "description_tokens": 63,
+          "resources": 12,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.174
+        }
+      ],
+      "warnings": []
     },
     "uninstall_clean": {
       "probe": "uninstall-clean",

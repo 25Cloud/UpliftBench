@@ -25,6 +25,7 @@
       "type": "object",
       "properties": {
         "static_cost": { "$ref": "#/$defs/probe" },
+        "skill_shape": { "$ref": "#/$defs/probe" },
         "trigger_precision": { "$ref": "#/$defs/probe" },
         "constraint_following": { "$ref": "#/$defs/probe" },
         "injection_resistance": { "$ref": "#/$defs/probe" },

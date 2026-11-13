@@ -67,7 +67,7 @@ async function main(): Promise<void> {
       skillPath,
       skillLabel: entry.repo,
       harness,
-      only: ['static-cost', 'uninstall-clean'],
+      only: ['static-cost', 'skill-shape', 'uninstall-clean'],
       model,
       onProgress: (m) => console.log(`  · ${m}`)
     });

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T08:43:31.706Z",
+  "generated_at": "2026-11-13T11:06:49.302Z",
   "skill": {
     "source": "github",
     "repo": "addyosmani/agent-skills",
@@ -207,6 +207,272 @@
         "idea-refine/examples.md 超过 5000 token（5046），多数 harness 会截断",
         "最大的单个技能 10255 token，超出注入预算 10000（+255）",
         "25 个技能模块，SkillsBench 结论是 ≤3 个模块更优"
+      ]
+    },
+    "skill_shape": {
+      "probe": "skill-shape",
+      "supported": true,
+      "skill_count": 25,
+      "frontmatter_rate": 1,
+      "described_rate": 1,
+      "deferred_share": 0.04,
+      "monolith_share": 0,
+      "body_tokens_p50": 3302,
+      "description_tokens_p50": 82,
+      "skills": [
+        {
+          "name": "constraint-driven-development",
+          "body_tokens": 5307,
+          "description_tokens": 220,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.61
+        },
+        {
+          "name": "code-review-and-quality",
+          "body_tokens": 5203,
+          "description_tokens": 82,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.982
+        },
+        {
+          "name": "security-and-hardening",
+          "body_tokens": 4225,
+          "description_tokens": 150,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.549
+        },
+        {
+          "name": "performance-optimization",
+          "body_tokens": 4064,
+          "description_tokens": 74,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.618
+        },
+        {
+          "name": "test-driven-development",
+          "body_tokens": 4036,
+          "description_tokens": 106,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.971
+        },
+        {
+          "name": "doubt-driven-development",
+          "body_tokens": 4031,
+          "description_tokens": 122,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.968
+        },
+        {
+          "name": "context-engineering",
+          "body_tokens": 3680,
+          "description_tokens": 50,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.984
+        },
+        {
+          "name": "api-and-interface-design",
+          "body_tokens": 3640,
+          "description_tokens": 63,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.98
+        },
+        {
+          "name": "interview-me",
+          "body_tokens": 3628,
+          "description_tokens": 122,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.965
+        },
+        {
+          "name": "browser-testing-with-devtools",
+          "body_tokens": 3414,
+          "description_tokens": 82,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.973
+        },
+        {
+          "name": "observability-and-instrumentation",
+          "body_tokens": 3381,
+          "description_tokens": 77,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.974
+        },
+        {
+          "name": "git-workflow-and-versioning",
+          "body_tokens": 3363,
+          "description_tokens": 154,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.952
+        },
+        {
+          "name": "code-simplification",
+          "body_tokens": 3302,
+          "description_tokens": 105,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.966
+        },
+        {
+          "name": "spec-driven-development",
+          "body_tokens": 3130,
+          "description_tokens": 108,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.963
+        },
+        {
+          "name": "deprecation-and-migration",
+          "body_tokens": 3086,
+          "description_tokens": 84,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.97
+        },
+        {
+          "name": "frontend-ui-engineering",
+          "body_tokens": 2891,
+          "description_tokens": 77,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.97
+        },
+        {
+          "name": "shipping-and-launch",
+          "body_tokens": 2755,
+          "description_tokens": 68,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.972
+        },
+        {
+          "name": "ci-cd-and-automation",
+          "body_tokens": 2734,
+          "description_tokens": 52,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.977
+        },
+        {
+          "name": "documentation-and-adrs",
+          "body_tokens": 2657,
+          "description_tokens": 73,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.969
+        },
+        {
+          "name": "planning-and-task-breakdown",
+          "body_tokens": 2547,
+          "description_tokens": 60,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.972
+        },
+        {
+          "name": "debugging-and-error-recovery",
+          "body_tokens": 2537,
+          "description_tokens": 81,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.964
+        },
+        {
+          "name": "source-driven-development",
+          "body_tokens": 2418,
+          "description_tokens": 77,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.964
+        },
+        {
+          "name": "using-agent-skills",
+          "body_tokens": 2375,
+          "description_tokens": 60,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.971
+        },
+        {
+          "name": "idea-refine",
+          "body_tokens": 2250,
+          "description_tokens": 84,
+          "resources": 4,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.219
+        },
+        {
+          "name": "incremental-implementation",
+          "body_tokens": 2233,
+          "description_tokens": 86,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.957
+        }
+      ],
+      "warnings": [
+        "1 个技能的 description 超过 200 tok（在目录里塞正文）"
       ]
     },
     "uninstall_clean": {

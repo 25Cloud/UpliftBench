@@ -8,6 +8,7 @@ import type {
   NegativeTransferProbe,
   ProbeResult,
   SkillCardJson,
+  SkillShapeProbe,
   StaticCostProbe,
   TriggerPrecisionProbe,
   UninstallCleanProbe
@@ -50,6 +51,10 @@ const zh = {
   tokenizer: (id: string) => `tokenizer ${id}（近似，非精确分词）`,
   trigger: '触发精度',
   triggerUnsupported: 'harness 不暴露技能激活事件',
+  shape: '技能形状',
+  shapeLine: (n: number, fm: number, desc: number, defer: number) =>
+    `${n} 个技能 · frontmatter ${fm}% · 有 description ${desc}% · 按需加载 ${defer}%`,
+  shapeDetail: (body: string, desc: string) => `正文中位 ${body} tok · description 中位 ${desc} tok`,
   constraint: '约束遵循',
   constraintLine: (total: number, testable: number, rate: string) => `抽出 ${total} 条（可测 ${testable}），违规率 ${rate}`,
   injection: '注入抗性',
@@ -100,6 +105,10 @@ const en = {
   tokenizer: (id: string) => `tokenizer ${id} (approximation, not an exact tokenizer)`,
   trigger: 'trigger precision',
   triggerUnsupported: 'harness does not expose skill activation events',
+  shape: 'skill shape',
+  shapeLine: (n: number, fm: number, desc: number, defer: number) =>
+    `${n} skills · frontmatter ${fm}% · has description ${desc}% · defer-loaded ${defer}%`,
+  shapeDetail: (body: string, desc: string) => `body p50 ${body} tok · description p50 ${desc} tok`,
   constraint: 'constraint following',
   constraintLine: (total: number, testable: number, rate: string) =>
     `${total} constraints (${testable} testable), violation rate ${rate}`,
@@ -205,6 +214,22 @@ export function renderTriggerText(p: TriggerPrecisionProbe): string[] {
   ];
 }
 
+export function renderSkillShapeText(p: SkillShapeProbe): string[] {
+  const t = T();
+  if (!p.supported) {
+    return [`  ${pad(t.shape)} ${c.dim(`unsupported · ${p.reason ?? ''}`)}`];
+  }
+  const pct = (v: number) => Math.round(v * 100);
+  const out = [
+    `  ${pad(t.shape)} ${t.shapeLine(p.skill_count, pct(p.frontmatter_rate), pct(p.described_rate), pct(p.deferred_share))}`
+  ];
+  out.push(`  ${pad('')} ${c.dim(`└ ${t.shapeDetail(humanInt(p.body_tokens_p50), humanInt(p.description_tokens_p50))}`)}`);
+  for (const w of p.warnings.slice(0, 3)) {
+    out.push(`  ${pad('')} ${c.yellow(`${sym.warn} ${w}`)}`);
+  }
+  return out;
+}
+
 export function renderConstraintText(p: ConstraintFollowingProbe): string[] {
   const t = T();
   if (!p.supported) return [`  ${pad(t.constraint)} ${c.dim(`unsupported · ${p.reason ?? ''}`)}`];
@@ -248,6 +273,8 @@ export function renderProbeText(p: ProbeResult): string[] {
   switch (p.probe) {
     case 'static-cost':
       return renderStaticCostText(p as StaticCostProbe);
+    case 'skill-shape':
+      return renderSkillShapeText(p as SkillShapeProbe);
     case 'trigger-precision':
       return renderTriggerText(p as TriggerPrecisionProbe);
     case 'constraint-following':
@@ -272,6 +299,7 @@ export function renderCardText(card: SkillCardJson): string {
   lines.push(c.gray(rule));
   const order = [
     'static_cost',
+    'skill_shape',
     'trigger_precision',
     'constraint_following',
     'injection_resistance',
@@ -331,6 +359,14 @@ export function renderCardMarkdown(card: SkillCardJson): string {
       `| ${t.mdCost} | ${humanInt(sc.total_tokens)} tok ${t.packageTotal}${basis} ${
         sc.budget.over_by > 0 ? `⚠️ ${t.overBudget(sc.budget.over_pct)}` : '✅'
       } |`
+    );
+  }
+  // 形状：说法层面的两行，放在成本之后、模型相关探针之前（它也是零模型调用的事实）
+  const ss = card.tier0.skill_shape as SkillShapeProbe | undefined;
+  if (ss?.supported) {
+    const pct = (v: number) => Math.round(v * 100);
+    out.push(
+      `| ${t.shape} | ${t.shapeLine(ss.skill_count, pct(ss.frontmatter_rate), pct(ss.described_rate), pct(ss.deferred_share))} · ${t.shapeDetail(humanInt(ss.body_tokens_p50), humanInt(ss.description_tokens_p50))} |`
     );
   }
   const tp = card.tier0.trigger_precision as TriggerPrecisionProbe | undefined;

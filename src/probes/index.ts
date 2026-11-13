@@ -13,6 +13,7 @@ import type {
   UninstallCleanProbe
 } from '../types.js';
 import { runStaticCost } from './static-cost.js';
+import { runSkillShape } from './skill-shape.js';
 import { runTriggerPrecision } from './trigger-precision.js';
 import { runConstraintFollowing } from './constraint-following.js';
 import { runInjectionResistance } from './injection-resistance.js';
@@ -24,6 +25,7 @@ import { readTextFile } from '../util/fsx.js';
 
 export const ALL_PROBES = [
   'static-cost',
+  'skill-shape',
   'trigger-precision',
   'constraint-following',
   'injection-resistance',
@@ -73,6 +75,12 @@ export async function runProbes(opts: ProbeOptions): Promise<ProbeBundle> {
   if (only.has('static-cost')) {
     log('static-cost');
     tier0.static_cost = await runStaticCost(opts.skillPath, { budget: opts.budget });
+  }
+
+  // skill-shape 只用已经加载好的 skills，不读盘、不调模型，所以放在最前面最省
+  if (only.has('skill-shape')) {
+    log('skill-shape');
+    tier0.skill_shape = runSkillShape({ skills });
   }
 
   if (only.has('uninstall-clean')) {

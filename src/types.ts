@@ -108,13 +108,51 @@ export interface UninstallCleanProbe extends ProbeBase {
   note?: string;
 }
 
+/** 单个技能的「形状」：写法层面的事实，不涉及模型 */
+export interface SkillShapeSkill {
+  name: string;
+  body_tokens: number;
+  description_tokens: number;
+  resources: number;
+  has_frontmatter: boolean;
+  has_name: boolean;
+  has_description: boolean;
+  /** 正文 / 技能总 token，越低越「按需加载」 */
+  defer_ratio: number;
+}
+
+/**
+ * 探针 7：技能形状。
+ *
+ * 一个包能不能被用起来，一半取决于内容，一半取决于写法：
+ * 没有 description 的技能在目录里等于不存在，正文 3 万 token 的技能进不了上下文。
+ * 这些都不需要模型就能测。
+ */
+export interface SkillShapeProbe extends ProbeBase {
+  probe: 'skill-shape';
+  skill_count: number;
+  /** 有 YAML frontmatter 的技能占比 */
+  frontmatter_rate: number;
+  /** 有 description 的技能占比 */
+  described_rate: number;
+  /** 「短正文 + references/ 按需读」的技能占比 */
+  deferred_share: number;
+  /** 「正文超阈值且没有任何按需资源」的技能占比 */
+  monolith_share: number;
+  body_tokens_p50: number;
+  description_tokens_p50: number;
+  skills: SkillShapeSkill[];
+  warnings: string[];
+}
+
 export type ProbeResult =
   | StaticCostProbe
   | TriggerPrecisionProbe
   | ConstraintFollowingProbe
   | InjectionResistanceProbe
   | NegativeTransferProbe
-  | UninstallCleanProbe;
+  | UninstallCleanProbe
+  | SkillShapeProbe;
 
 export interface ArmStats {
   pass_rate: number;
@@ -189,7 +227,7 @@ export interface SkillCardJson {
     total_tokens?: number;
     tokenizer?: TokenEstimate['tokenizer'];
   };
-  tier0: Partial<Record<'static_cost' | 'trigger_precision' | 'constraint_following' | 'injection_resistance' | 'negative_transfer' | 'uninstall_clean', ProbeResult>>;
+  tier0: Partial<Record<'static_cost' | 'trigger_precision' | 'constraint_following' | 'injection_resistance' | 'negative_transfer' | 'uninstall_clean' | 'skill_shape', ProbeResult>>;
   tier1?: Tier1Block;
   verdict: {
     headline: string;
