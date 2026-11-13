@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="304" height="20" role="img" aria-label="uplift: 2% (base 79 → treat 77, placebo 74) A级">
   <title>UpliftBench · web-guidance@1.0.0 · A级
-uplift +2pp (headroom 9%), N=30, 95%CI [-2, 7]
-placebo effect -4pp, baseline 79%, treatment 77%
+uplift +2.2pp (headroom 8.7%), N=30, 95%CI [-2.2, 6.7]
+placebo effect -4.4pp, baseline 79%, treatment 77%
 protocol/1.0.0 · 2026-11-13</title>
   <linearGradient id="s63379" x2="0" y2="100%">
     <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="304" height="20" role="img" aria-label="uplift: 6% (base 72 → treat 69, placebo 64) A级">
+  <title>UpliftBench · web-guidance@1.1.0 · A级
+uplift +5.6pp (headroom 15.4%), N=48, 95%CI [-2.8, 13.2]
+placebo effect -7.6pp, baseline 72%, treatment 69%
+protocol/1.0.0 · 2026-11-13</title>
+  <linearGradient id="s562" x2="0" y2="100%">
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <clipPath id="rs562">
+    <rect width="304" height="20" rx="3" fill="#fff"/>
+  </clipPath>
+  <g clip-path="url(#rs562)">
+    <rect width="50" height="20" fill="#555"/>
+    <rect x="50" width="254" height="20" fill="#4c9a2a"/>
+    <rect width="304" height="20" fill="url(#s562)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="Verdana,DejaVu Sans,Geneva,sans-serif" font-size="11">
+    <text x="25" y="14" fill="#010101" fill-opacity=".3">uplift</text>
+    <text x="25" y="13">uplift</text>
+    <text x="177" y="14" fill="#010101" fill-opacity=".3">6% (base 72 → treat 69, placebo 64) A级</text>
+    <text x="177" y="13">6% (base 72 → treat 69, placebo 64) A级</text>
+  </g>
+</svg>

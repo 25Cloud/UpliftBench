@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T06:52:13.052Z",
+  "generated_at": "2026-11-13T08:43:32.126Z",
   "skill": {
     "source": "github",
     "repo": "GoogleChrome/modern-web-guidance-src",
@@ -175,11 +175,104 @@
       "declared_hooks": []
     }
   },
+  "tier1": {
+    "taskset": "web-guidance@1.1.0",
+    "grader_tier": "A",
+    "n": 48,
+    "arms": {
+      "baseline": {
+        "pass_rate": 0.7375,
+        "pass_rate_std": 0.0378
+      },
+      "placebo": {
+        "pass_rate": 0.7375,
+        "pass_rate_std": 0.0618
+      },
+      "treatment": {
+        "pass_rate": 0.7125,
+        "pass_rate_std": 0.0272
+      }
+    },
+    "metrics": {
+      "uplift_pp": -2.5,
+      "headroom_closed": -0.0952,
+      "raw_gain_pp": -2.5,
+      "placebo_effect_pp": 0,
+      "ci95": [
+        -7.92,
+        2.5
+      ]
+    },
+    "cost": {
+      "tokens_in_total": 2566169,
+      "tokens_out_total": 91059,
+      "token_overhead_pct": 174.82,
+      "wall_time_p50_ms": 33513,
+      "wall_time_p95_ms": 77882,
+      "tool_calls_mean": 5.14,
+      "cost_usd_total": 60.93
+    },
+    "stability": {
+      "flaky_tasks": [
+        "wmg-041",
+        "wmg-043",
+        "wmg-038",
+        "wmg-042",
+        "wmg-037",
+        "wmg-005",
+        "wmg-034",
+        "wmg-030",
+        "wmg-014",
+        "wmg-017",
+        "wmg-011",
+        "wmg-027",
+        "wmg-040",
+        "wmg-029",
+        "wmg-032",
+        "wmg-036",
+        "wmg-045",
+        "wmg-048",
+        "wmg-044",
+        "wmg-035"
+      ],
+      "determinism_gain": 0.0107
+    },
+    "failures": {
+      "wrong_answer": 182,
+      "gave_up": 0,
+      "hallucinated": 0,
+      "constraint_violated": 0,
+      "broke_something": 0,
+      "timeout": 13,
+      "tool_error": 0,
+      "grader_error": 0
+    },
+    "activation": {
+      "mode": "auto",
+      "rate": 0.2333,
+      "by_arm": {
+        "placebo": 0.175,
+        "treatment": 0.2917
+      },
+      "preloaded_tokens_p50": null
+    },
+    "protocol_notes": [
+      "harness=openai-compat",
+      "model=glm-5.3-flash",
+      "repeats=5",
+      "activation=auto",
+      "runs_db=.uplift\\v11\\runs.db"
+    ]
+  },
   "verdict": {
-    "headline": "Tier 0 · 71,238 tok · 13 个技能",
-    "grade": "unrated",
+    "headline": "uplift -2.5pp  |  headroom -9.5%  |  N=48  |  95%CI [-7.9, 2.5]  |  A级  |  placebo_effect 0pp",
+    "grade": "A",
     "flags": [
-      "static_cost_over_budget"
+      "static_cost_over_budget",
+      "placebo_dominant",
+      "ci_crosses_zero",
+      "negative_uplift",
+      "flaky_tasks"
     ]
   }
 }

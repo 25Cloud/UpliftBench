@@ -1,0 +1,275 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T08:43:35.834Z",
+  "skill": {
+    "source": "github",
+    "repo": "GoogleChrome/modern-web-guidance-src",
+    "commit": "3bb177a6de62b7fd8cd0432c33756e6f3c9ece9d",
+    "path": "benchmarks/skills/modern-web-guidance-src/.agents/skills",
+    "skill_count": 13,
+    "total_tokens": 71238
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 71238,
+      "context_tokens": 55399,
+      "tokenizer": "approx:weighted",
+      "file_count": 24,
+      "skill_count": 13,
+      "per_file": [
+        {
+          "path": "project-discipline-guides/mirrors/javascript/codex_mirror.md",
+          "tokens": 10187,
+          "bytes": 40753
+        },
+        {
+          "path": "project-guides/SKILL.md",
+          "tokens": 6541,
+          "bytes": 26210
+        },
+        {
+          "path": "project-discipline-guides/mirrors/javascript/claude_mirror.md",
+          "tokens": 5494,
+          "bytes": 22007
+        },
+        {
+          "path": "nightly-eval-investigation/scripts/investigate.ts",
+          "tokens": 5200,
+          "bytes": 20839
+        },
+        {
+          "path": "grader-replay/scripts/replay.ts",
+          "tokens": 4964,
+          "bytes": 19853
+        },
+        {
+          "path": "project-evals/SKILL.md",
+          "tokens": 4662,
+          "bytes": 18658
+        },
+        {
+          "path": "project-features/SKILL.md",
+          "tokens": 4229,
+          "bytes": 16922
+        },
+        {
+          "path": "nightly-eval-investigation/SKILL.md",
+          "tokens": 4065,
+          "bytes": 16258
+        },
+        {
+          "path": "project-discipline-guides/mirrors/javascript/mirror.md",
+          "tokens": 3874,
+          "bytes": 15496
+        },
+        {
+          "path": "project-guide-validation/SKILL.md",
+          "tokens": 3539,
+          "bytes": 14162
+        },
+        {
+          "path": "project-use-cases/SKILL.md",
+          "tokens": 3224,
+          "bytes": 12896
+        },
+        {
+          "path": "nightly-eval-investigation/scripts/publish_report.ts",
+          "tokens": 3204,
+          "bytes": 12872
+        },
+        {
+          "path": "project-coding-standards/SKILL.md",
+          "tokens": 1949,
+          "bytes": 7793
+        },
+        {
+          "path": "project-discipline-guides/mirrors/javascript/gemini_mirror.md",
+          "tokens": 1482,
+          "bytes": 5927
+        },
+        {
+          "path": "dev-prompt-canary/SKILL.md",
+          "tokens": 1441,
+          "bytes": 5781
+        },
+        {
+          "path": "project-discipline-guides/scripts/generate_mirrors.ts",
+          "tokens": 1378,
+          "bytes": 5533
+        },
+        {
+          "path": "grader-replay/SKILL.md",
+          "tokens": 1328,
+          "bytes": 5321
+        },
+        {
+          "path": "project-discipline-guides/SKILL.md",
+          "tokens": 1322,
+          "bytes": 5288
+        },
+        {
+          "path": "coherence-auditor/scripts/coherence-audit.ts",
+          "tokens": 1093,
+          "bytes": 4457
+        },
+        {
+          "path": "coherence-auditor/SKILL.md",
+          "tokens": 864,
+          "bytes": 3454
+        },
+        {
+          "path": "project-discipline-guides/intersection_prompt.md",
+          "tokens": 348,
+          "bytes": 1392
+        },
+        {
+          "path": "project-maintenance/SKILL.md",
+          "tokens": 317,
+          "bytes": 1267
+        },
+        {
+          "path": "project-discipline-guides/mirror_prompt.md",
+          "tokens": 308,
+          "bytes": 1232
+        },
+        {
+          "path": "web-baseline/SKILL.md",
+          "tokens": 225,
+          "bytes": 899
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "basis": "largest_skill",
+        "subject_tokens": 24393,
+        "over_by": 14393,
+        "over_pct": 143.9,
+        "package_over_by": 45399,
+        "largest_skill_tokens": 24393
+      },
+      "duplicates": [],
+      "structure": {
+        "headings": 317,
+        "lists": 849,
+        "code_blocks": 252
+      },
+      "warnings": [
+        "project-discipline-guides/mirrors/javascript/codex_mirror.md 超过 5000 token（10187），多数 harness 会截断",
+        "project-guides/SKILL.md 超过 5000 token（6541），多数 harness 会截断",
+        "project-discipline-guides/mirrors/javascript/claude_mirror.md 超过 5000 token（5494），多数 harness 会截断",
+        "nightly-eval-investigation/scripts/investigate.ts 超过 5000 token（5200），多数 harness 会截断",
+        "最大的单个技能 24393 token，超出注入预算 10000（+14393）",
+        "13 个技能模块，SkillsBench 结论是 ≤3 个模块更优"
+      ]
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": true,
+      "residual_delta_pp": null,
+      "leaked_paths": [],
+      "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
+      "declared_hooks": []
+    }
+  },
+  "tier1": {
+    "taskset": "web-guidance@1.1.0",
+    "grader_tier": "A",
+    "n": 48,
+    "arms": {
+      "baseline": {
+        "pass_rate": 0.7153,
+        "pass_rate_std": 0.0241
+      },
+      "placebo": {
+        "pass_rate": 0.6389,
+        "pass_rate_std": 0.0636
+      },
+      "treatment": {
+        "pass_rate": 0.6944,
+        "pass_rate_std": 0.0434
+      }
+    },
+    "metrics": {
+      "uplift_pp": 5.56,
+      "headroom_closed": 0.1538,
+      "raw_gain_pp": -2.08,
+      "placebo_effect_pp": -7.64,
+      "ci95": [
+        -2.78,
+        13.19
+      ]
+    },
+    "cost": {
+      "tokens_in_total": 3162413,
+      "tokens_out_total": 69412,
+      "token_overhead_pct": 456.8,
+      "wall_time_p50_ms": 36072,
+      "wall_time_p95_ms": 74024,
+      "tool_calls_mean": 5.29,
+      "cost_usd_total": 71.69
+    },
+    "stability": {
+      "flaky_tasks": [
+        "wmg-041",
+        "wmg-043",
+        "wmg-042",
+        "wmg-045",
+        "wmg-024",
+        "wmg-029",
+        "wmg-032",
+        "wmg-014",
+        "wmg-036",
+        "wmg-031",
+        "wmg-011",
+        "wmg-030",
+        "wmg-040",
+        "wmg-044",
+        "wmg-026",
+        "wmg-017",
+        "wmg-047",
+        "wmg-034",
+        "wmg-027"
+      ],
+      "determinism_gain": -0.0193
+    },
+    "failures": {
+      "wrong_answer": 127,
+      "gave_up": 0,
+      "hallucinated": 0,
+      "constraint_violated": 0,
+      "broke_something": 0,
+      "timeout": 10,
+      "tool_error": 0,
+      "grader_error": 0
+    },
+    "activation": {
+      "mode": "forced",
+      "rate": 1,
+      "by_arm": {
+        "placebo": 1,
+        "treatment": 1
+      },
+      "preloaded_tokens_p50": null
+    },
+    "protocol_notes": [
+      "harness=openai-compat",
+      "model=glm-5.3-flash",
+      "repeats=3",
+      "activation=forced",
+      "runs_db=.uplift\\v11-forced\\runs.db"
+    ]
+  },
+  "verdict": {
+    "headline": "uplift +5.6pp  |  headroom 15.4%  |  N=48  |  95%CI [-2.8, 13.2]  |  A级  |  placebo_effect -7.6pp",
+    "grade": "A",
+    "flags": [
+      "static_cost_over_budget",
+      "ci_crosses_zero",
+      "flaky_tasks"
+    ]
+  }
+}

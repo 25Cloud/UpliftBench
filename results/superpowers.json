@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T06:52:14.120Z",
+  "generated_at": "2026-11-13T08:43:33.953Z",
   "skill": {
     "source": "github",
     "repo": "obra/superpowers",

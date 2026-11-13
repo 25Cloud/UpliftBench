@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T06:52:12.782Z",
+  "generated_at": "2026-11-13T08:43:31.706Z",
   "skill": {
     "source": "github",
     "repo": "addyosmani/agent-skills",
@@ -314,14 +314,25 @@
       "tool_error": 0,
       "grader_error": 0
     },
+    "activation": {
+      "mode": "auto",
+      "rate": 0.1722,
+      "by_arm": {
+        "placebo": 0,
+        "treatment": 0.3444
+      },
+      "preloaded_tokens_p50": null
+    },
     "protocol_notes": [
       "harness=openai-compat",
       "model=glm-5.3-flash",
-      "repeats=3"
+      "repeats=3",
+      "activation=auto",
+      "runs_db=.uplift\\main\\runs.db"
     ]
   },
   "verdict": {
-    "headline": "uplift +2pp  |  headroom 9%  |  N=30  |  95%CI [-2, 7]  |  A级  |  placebo_effect -4pp",
+    "headline": "uplift +2.2pp  |  headroom 8.7%  |  N=30  |  95%CI [-2.2, 6.7]  |  A级  |  placebo_effect -4.4pp",
     "grade": "A",
     "flags": [
       "static_cost_over_budget",
