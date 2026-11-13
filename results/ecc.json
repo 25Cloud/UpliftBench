@@ -1,0 +1,1109 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T11:44:41.180Z",
+  "skill": {
+    "source": "github",
+    "repo": "affaan-m/ECC",
+    "commit": "d2ef2680594f9a17526a6e1a2e18b3d242c5d17b",
+    "path": "benchmarks/skills/ecc/.agents/skills",
+    "skill_count": 47,
+    "total_tokens": 109921
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 109921,
+      "context_tokens": 100443,
+      "tokenizer": "approx:weighted",
+      "file_count": 112,
+      "skill_count": 47,
+      "per_file": [
+        {
+          "path": "docs-governance/scripts/audit-docs.py",
+          "tokens": 6916,
+          "bytes": 27677
+        },
+        {
+          "path": "mle-workflow/SKILL.md",
+          "tokens": 5620,
+          "bytes": 22477
+        },
+        {
+          "path": "frontend-patterns/SKILL.md",
+          "tokens": 4015,
+          "bytes": 16059
+        },
+        {
+          "path": "backend-patterns/SKILL.md",
+          "tokens": 3483,
+          "bytes": 13932
+        },
+        {
+          "path": "api-design/SKILL.md",
+          "tokens": 3297,
+          "bytes": 13216
+        },
+        {
+          "path": "tdd-workflow/SKILL.md",
+          "tokens": 3267,
+          "bytes": 13202
+        },
+        {
+          "path": "coding-standards/SKILL.md",
+          "tokens": 3187,
+          "bytes": 12855
+        },
+        {
+          "path": "security-review/SKILL.md",
+          "tokens": 3059,
+          "bytes": 12235
+        },
+        {
+          "path": "competitive-platform-analysis/SKILL.md",
+          "tokens": 2966,
+          "bytes": 12004
+        },
+        {
+          "path": "ecc-conventions/SKILL.md",
+          "tokens": 2811,
+          "bytes": 11247
+        },
+        {
+          "path": "test-collaboration/SKILL.md",
+          "tokens": 2778,
+          "bytes": 11127
+        },
+        {
+          "path": "mcp-dependency-review/SKILL.md",
+          "tokens": 2557,
+          "bytes": 10234
+        },
+        {
+          "path": "benchmark-methodology/SKILL.md",
+          "tokens": 2424,
+          "bytes": 9811
+        },
+        {
+          "path": "video-editing/SKILL.md",
+          "tokens": 2419,
+          "bytes": 9692
+        },
+        {
+          "path": "frontend-slides/STYLE_PRESETS.md",
+          "tokens": 2287,
+          "bytes": 9145
+        },
+        {
+          "path": "plan-canvas/SKILL.md",
+          "tokens": 2135,
+          "bytes": 8580
+        },
+        {
+          "path": "competitive-report-structure/SKILL.md",
+          "tokens": 2103,
+          "bytes": 8477
+        },
+        {
+          "path": "context-and-decisions/SKILL.md",
+          "tokens": 2076,
+          "bytes": 8318
+        },
+        {
+          "path": "module-regression/SKILL.md",
+          "tokens": 2026,
+          "bytes": 8124
+        },
+        {
+          "path": "e2e-testing/SKILL.md",
+          "tokens": 2008,
+          "bytes": 8159
+        },
+        {
+          "path": "unified-memory/SKILL.md",
+          "tokens": 1965,
+          "bytes": 7860
+        },
+        {
+          "path": "brand-discovery/SKILL.md",
+          "tokens": 1875,
+          "bytes": 7527
+        },
+        {
+          "path": "fal-ai-media/SKILL.md",
+          "tokens": 1708,
+          "bytes": 6857
+        },
+        {
+          "path": "module-governance/SKILL.md",
+          "tokens": 1661,
+          "bytes": 6659
+        },
+        {
+          "path": "frontend-slides/SKILL.md",
+          "tokens": 1640,
+          "bytes": 6559
+        },
+        {
+          "path": "docs-governance/scripts/markdown_links.py",
+          "tokens": 1632,
+          "bytes": 6527
+        },
+        {
+          "path": "strategic-compact/SKILL.md",
+          "tokens": 1630,
+          "bytes": 6583
+        },
+        {
+          "path": "x-api/SKILL.md",
+          "tokens": 1612,
+          "bytes": 6459
+        },
+        {
+          "path": "change-impact/SKILL.md",
+          "tokens": 1554,
+          "bytes": 6216
+        },
+        {
+          "path": "docs-governance/SKILL.md",
+          "tokens": 1500,
+          "bytes": 6016
+        },
+        {
+          "path": "agent-sort/SKILL.md",
+          "tokens": 1478,
+          "bytes": 5911
+        },
+        {
+          "path": "bun-runtime/SKILL.md",
+          "tokens": 1435,
+          "bytes": 5744
+        },
+        {
+          "path": "eval-harness/SKILL.md",
+          "tokens": 1403,
+          "bytes": 5610
+        },
+        {
+          "path": "agent-introspection-debugging/SKILL.md",
+          "tokens": 1400,
+          "bytes": 5616
+        },
+        {
+          "path": "test-collaboration/templates/TESTS.example.md",
+          "tokens": 1285,
+          "bytes": 5149
+        },
+        {
+          "path": "documentation-lookup/SKILL.md",
+          "tokens": 1226,
+          "bytes": 4901
+        },
+        {
+          "path": "exa-search/SKILL.md",
+          "tokens": 1203,
+          "bytes": 4816
+        },
+        {
+          "path": "dmux-workflows/SKILL.md",
+          "tokens": 1180,
+          "bytes": 4719
+        },
+        {
+          "path": "deep-research/SKILL.md",
+          "tokens": 1144,
+          "bytes": 4583
+        },
+        {
+          "path": "docs-governance/references/artifact-role-contract.md",
+          "tokens": 1142,
+          "bytes": 4567
+        },
+        {
+          "path": "product-capability/SKILL.md",
+          "tokens": 1107,
+          "bytes": 4425
+        },
+        {
+          "path": "content-engine/SKILL.md",
+          "tokens": 1090,
+          "bytes": 4359
+        },
+        {
+          "path": "mcp-server-patterns/SKILL.md",
+          "tokens": 992,
+          "bytes": 3977
+        },
+        {
+          "path": "skill-host-compat/SKILL.md",
+          "tokens": 943,
+          "bytes": 3777
+        },
+        {
+          "path": "docs-governance/scripts/module_audit.py",
+          "tokens": 930,
+          "bytes": 3719
+        },
+        {
+          "path": "brand-voice/SKILL.md",
+          "tokens": 910,
+          "bytes": 3637
+        },
+        {
+          "path": "verification-loop/SKILL.md",
+          "tokens": 870,
+          "bytes": 3480
+        },
+        {
+          "path": "crosspost/SKILL.md",
+          "tokens": 859,
+          "bytes": 3436
+        },
+        {
+          "path": "brand-discovery/references/90_SYNTHESIS.md",
+          "tokens": 763,
+          "bytes": 3063
+        },
+        {
+          "path": "article-writing/SKILL.md",
+          "tokens": 729,
+          "bytes": 2915
+        },
+        {
+          "path": "investor-materials/SKILL.md",
+          "tokens": 681,
+          "bytes": 2724
+        },
+        {
+          "path": "investor-outreach/SKILL.md",
+          "tokens": 661,
+          "bytes": 2644
+        },
+        {
+          "path": "market-research/SKILL.md",
+          "tokens": 557,
+          "bytes": 2227
+        },
+        {
+          "path": "nextjs-turbopack/SKILL.md",
+          "tokens": 540,
+          "bytes": 2163
+        },
+        {
+          "path": "brand-discovery/references/40_personality-archetype.md",
+          "tokens": 477,
+          "bytes": 1925
+        },
+        {
+          "path": "brand-discovery/references/50_voice-tone.md",
+          "tokens": 434,
+          "bytes": 1767
+        },
+        {
+          "path": "module-regression/templates/REGRESSION.example.md",
+          "tokens": 411,
+          "bytes": 1665
+        },
+        {
+          "path": "brand-discovery/references/60_narrative-story.md",
+          "tokens": 386,
+          "bytes": 1560
+        },
+        {
+          "path": "brand-discovery/references/70_founder-tension.md",
+          "tokens": 373,
+          "bytes": 1517
+        },
+        {
+          "path": "brand-discovery/references/30_audience-niche.md",
+          "tokens": 372,
+          "bytes": 1496
+        },
+        {
+          "path": "brand-discovery/references/20_positioning.md",
+          "tokens": 369,
+          "bytes": 1481
+        },
+        {
+          "path": "context-and-decisions/templates/context.example.md",
+          "tokens": 350,
+          "bytes": 1402
+        },
+        {
+          "path": "brand-discovery/references/10_purpose-why.md",
+          "tokens": 293,
+          "bytes": 1179
+        },
+        {
+          "path": "brand-voice/references/voice-profile-schema.md",
+          "tokens": 266,
+          "bytes": 1063
+        },
+        {
+          "path": "context-and-decisions/references/source.md",
+          "tokens": 193,
+          "bytes": 770
+        },
+        {
+          "path": "test-collaboration/agents/openai.yaml",
+          "tokens": 86,
+          "bytes": 341
+        },
+        {
+          "path": "module-regression/agents/openai.yaml",
+          "tokens": 82,
+          "bytes": 325
+        },
+        {
+          "path": "mcp-dependency-review/agents/openai.yaml",
+          "tokens": 81,
+          "bytes": 321
+        },
+        {
+          "path": "skill-host-compat/agents/openai.yaml",
+          "tokens": 80,
+          "bytes": 317
+        },
+        {
+          "path": "change-impact/agents/openai.yaml",
+          "tokens": 79,
+          "bytes": 313
+        },
+        {
+          "path": "context-and-decisions/agents/openai.yaml",
+          "tokens": 79,
+          "bytes": 313
+        },
+        {
+          "path": "competitive-report-structure/agents/openai.yaml",
+          "tokens": 78,
+          "bytes": 312
+        },
+        {
+          "path": "agent-introspection-debugging/agents/openai.yaml",
+          "tokens": 76,
+          "bytes": 302
+        },
+        {
+          "path": "competitive-platform-analysis/agents/openai.yaml",
+          "tokens": 75,
+          "bytes": 298
+        },
+        {
+          "path": "docs-governance/agents/openai.yaml",
+          "tokens": 72,
+          "bytes": 286
+        },
+        {
+          "path": "investor-materials/agents/openai.yaml",
+          "tokens": 72,
+          "bytes": 285
+        },
+        {
+          "path": "module-governance/agents/openai.yaml",
+          "tokens": 72,
+          "bytes": 287
+        },
+        {
+          "path": "plan-canvas/agents/openai.yaml",
+          "tokens": 72,
+          "bytes": 286
+        },
+        {
+          "path": "unified-memory/agents/openai.yaml",
+          "tokens": 71,
+          "bytes": 281
+        },
+        {
+          "path": "product-capability/agents/openai.yaml",
+          "tokens": 70,
+          "bytes": 280
+        },
+        {
+          "path": "verification-loop/agents/openai.yaml",
+          "tokens": 70,
+          "bytes": 280
+        },
+        {
+          "path": "article-writing/agents/openai.yaml",
+          "tokens": 69,
+          "bytes": 273
+        },
+        {
+          "path": "content-engine/agents/openai.yaml",
+          "tokens": 69,
+          "bytes": 274
+        },
+        {
+          "path": "documentation-lookup/agents/openai.yaml",
+          "tokens": 69,
+          "bytes": 273
+        },
+        {
+          "path": "investor-outreach/agents/openai.yaml",
+          "tokens": 69,
+          "bytes": 275
+        },
+        {
+          "path": "security-review/agents/openai.yaml",
+          "tokens": 69,
+          "bytes": 274
+        },
+        {
+          "path": "benchmark-methodology/agents/openai.yaml",
+          "tokens": 68,
+          "bytes": 272
+        },
+        {
+          "path": "brand-discovery/agents/openai.yaml",
+          "tokens": 68,
+          "bytes": 271
+        },
+        {
+          "path": "coding-standards/agents/openai.yaml",
+          "tokens": 68,
+          "bytes": 270
+        },
+        {
+          "path": "mcp-server-patterns/agents/openai.yaml",
+          "tokens": 68,
+          "bytes": 269
+        },
+        {
+          "path": "strategic-compact/agents/openai.yaml",
+          "tokens": 68,
+          "bytes": 272
+        },
+        {
+          "path": "api-design/agents/openai.yaml",
+          "tokens": 67,
+          "bytes": 265
+        },
+        {
+          "path": "backend-patterns/agents/openai.yaml",
+          "tokens": 67,
+          "bytes": 266
+        },
+        {
+          "path": "frontend-slides/agents/openai.yaml",
+          "tokens": 67,
+          "bytes": 267
+        },
+        {
+          "path": "nextjs-turbopack/agents/openai.yaml",
+          "tokens": 67,
+          "bytes": 268
+        },
+        {
+          "path": "tdd-workflow/agents/openai.yaml",
+          "tokens": 67,
+          "bytes": 268
+        },
+        {
+          "path": "frontend-patterns/agents/openai.yaml",
+          "tokens": 66,
+          "bytes": 262
+        },
+        {
+          "path": "market-research/agents/openai.yaml",
+          "tokens": 66,
+          "bytes": 263
+        },
+        {
+          "path": "brand-voice/agents/openai.yaml",
+          "tokens": 65,
+          "bytes": 259
+        },
+        {
+          "path": "bun-runtime/agents/openai.yaml",
+          "tokens": 65,
+          "bytes": 257
+        },
+        {
+          "path": "deep-research/agents/openai.yaml",
+          "tokens": 65,
+          "bytes": 257
+        },
+        {
+          "path": "dmux-workflows/agents/openai.yaml",
+          "tokens": 65,
+          "bytes": 260
+        },
+        {
+          "path": "ecc-conventions/agents/openai.yaml",
+          "tokens": 65,
+          "bytes": 258
+        },
+        {
+          "path": "fal-ai-media/agents/openai.yaml",
+          "tokens": 64,
+          "bytes": 256
+        },
+        {
+          "path": "mle-workflow/agents/openai.yaml",
+          "tokens": 64,
+          "bytes": 254
+        },
+        {
+          "path": "video-editing/agents/openai.yaml",
+          "tokens": 64,
+          "bytes": 255
+        },
+        {
+          "path": "x-api/agents/openai.yaml",
+          "tokens": 64,
+          "bytes": 254
+        },
+        {
+          "path": "agent-sort/agents/openai.yaml",
+          "tokens": 63,
+          "bytes": 249
+        },
+        {
+          "path": "crosspost/agents/openai.yaml",
+          "tokens": 62,
+          "bytes": 247
+        },
+        {
+          "path": "e2e-testing/agents/openai.yaml",
+          "tokens": 62,
+          "bytes": 247
+        },
+        {
+          "path": "eval-harness/agents/openai.yaml",
+          "tokens": 62,
+          "bytes": 246
+        },
+        {
+          "path": "exa-search/agents/openai.yaml",
+          "tokens": 61,
+          "bytes": 242
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "basis": "largest_skill",
+        "subject_tokens": 12192,
+        "over_by": 2192,
+        "over_pct": 21.9,
+        "package_over_by": 90443,
+        "largest_skill_tokens": 12192
+      },
+      "duplicates": [],
+      "structure": {
+        "headings": 1113,
+        "lists": 1941,
+        "code_blocks": 313
+      },
+      "warnings": [
+        "docs-governance/scripts/audit-docs.py 超过 5000 token（6916），多数 harness 会截断",
+        "mle-workflow/SKILL.md 超过 5000 token（5620），多数 harness 会截断",
+        "最大的单个技能 12192 token，超出注入预算 10000（+2192）",
+        "47 个技能模块，SkillsBench 结论是 ≤3 个模块更优"
+      ]
+    },
+    "skill_shape": {
+      "probe": "skill-shape",
+      "supported": true,
+      "skill_count": 47,
+      "frontmatter_rate": 1,
+      "described_rate": 1,
+      "deferred_share": 0.064,
+      "monolith_share": 0,
+      "body_tokens_p50": 1548,
+      "description_tokens_p50": 58,
+      "skills": [
+        {
+          "name": "mle-workflow",
+          "body_tokens": 5537,
+          "description_tokens": 57,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.974
+        },
+        {
+          "name": "frontend-patterns",
+          "body_tokens": 3949,
+          "description_tokens": 52,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.968
+        },
+        {
+          "name": "backend-patterns",
+          "body_tokens": 3410,
+          "description_tokens": 59,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.961
+        },
+        {
+          "name": "api-design",
+          "body_tokens": 3219,
+          "description_tokens": 66,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.957
+        },
+        {
+          "name": "tdd-workflow",
+          "body_tokens": 3211,
+          "description_tokens": 43,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.963
+        },
+        {
+          "name": "coding-standards",
+          "body_tokens": 3106,
+          "description_tokens": 67,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.954
+        },
+        {
+          "name": "security-review",
+          "body_tokens": 2993,
+          "description_tokens": 53,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.957
+        },
+        {
+          "name": "competitive-platform-analysis",
+          "body_tokens": 2868,
+          "description_tokens": 1,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.943
+        },
+        {
+          "name": "ecc-conventions",
+          "body_tokens": 2774,
+          "description_tokens": 23,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.965
+        },
+        {
+          "name": "test-collaboration",
+          "body_tokens": 2654,
+          "description_tokens": 112,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.64
+        },
+        {
+          "name": "mcp-dependency-review",
+          "body_tokens": 2485,
+          "description_tokens": 58,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.942
+        },
+        {
+          "name": "video-editing",
+          "body_tokens": 2329,
+          "description_tokens": 77,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.938
+        },
+        {
+          "name": "benchmark-methodology",
+          "body_tokens": 2316,
+          "description_tokens": 1,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.929
+        },
+        {
+          "name": "plan-canvas",
+          "body_tokens": 2047,
+          "description_tokens": 69,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.928
+        },
+        {
+          "name": "competitive-report-structure",
+          "body_tokens": 2002,
+          "description_tokens": 1,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.918
+        },
+        {
+          "name": "context-and-decisions",
+          "body_tokens": 1970,
+          "description_tokens": 1,
+          "resources": 3,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.73
+        },
+        {
+          "name": "e2e-testing",
+          "body_tokens": 1939,
+          "description_tokens": 57,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.937
+        },
+        {
+          "name": "module-regression",
+          "body_tokens": 1893,
+          "description_tokens": 1,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.751
+        },
+        {
+          "name": "unified-memory",
+          "body_tokens": 1884,
+          "description_tokens": 68,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.925
+        },
+        {
+          "name": "brand-discovery",
+          "body_tokens": 1765,
+          "description_tokens": 1,
+          "resources": 9,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.326
+        },
+        {
+          "name": "fal-ai-media",
+          "body_tokens": 1625,
+          "description_tokens": 69,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.917
+        },
+        {
+          "name": "module-governance",
+          "body_tokens": 1559,
+          "description_tokens": 1,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.9
+        },
+        {
+          "name": "strategic-compact",
+          "body_tokens": 1558,
+          "description_tokens": 58,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.918
+        },
+        {
+          "name": "frontend-slides",
+          "body_tokens": 1548,
+          "description_tokens": 78,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.388
+        },
+        {
+          "name": "x-api",
+          "body_tokens": 1542,
+          "description_tokens": 59,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.92
+        },
+        {
+          "name": "change-impact",
+          "body_tokens": 1425,
+          "description_tokens": 1,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.873
+        },
+        {
+          "name": "docs-governance",
+          "body_tokens": 1396,
+          "description_tokens": 88,
+          "resources": 4,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.265
+        },
+        {
+          "name": "agent-sort",
+          "body_tokens": 1394,
+          "description_tokens": 72,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.905
+        },
+        {
+          "name": "bun-runtime",
+          "body_tokens": 1391,
+          "description_tokens": 31,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.927
+        },
+        {
+          "name": "agent-introspection-debugging",
+          "body_tokens": 1329,
+          "description_tokens": 54,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.9
+        },
+        {
+          "name": "eval-harness",
+          "body_tokens": 1329,
+          "description_tokens": 48,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.907
+        },
+        {
+          "name": "documentation-lookup",
+          "body_tokens": 1157,
+          "description_tokens": 53,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.893
+        },
+        {
+          "name": "exa-search",
+          "body_tokens": 1140,
+          "description_tokens": 51,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.902
+        },
+        {
+          "name": "dmux-workflows",
+          "body_tokens": 1098,
+          "description_tokens": 68,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.882
+        },
+        {
+          "name": "deep-research",
+          "body_tokens": 1072,
+          "description_tokens": 58,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.887
+        },
+        {
+          "name": "product-capability",
+          "body_tokens": 1017,
+          "description_tokens": 75,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.864
+        },
+        {
+          "name": "content-engine",
+          "body_tokens": 1013,
+          "description_tokens": 64,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.874
+        },
+        {
+          "name": "mcp-server-patterns",
+          "body_tokens": 910,
+          "description_tokens": 68,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.858
+        },
+        {
+          "name": "skill-host-compat",
+          "body_tokens": 907,
+          "description_tokens": 25,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.887
+        },
+        {
+          "name": "brand-voice",
+          "body_tokens": 834,
+          "description_tokens": 63,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.672
+        },
+        {
+          "name": "verification-loop",
+          "body_tokens": 820,
+          "description_tokens": 36,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.872
+        },
+        {
+          "name": "crosspost",
+          "body_tokens": 784,
+          "description_tokens": 64,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.851
+        },
+        {
+          "name": "article-writing",
+          "body_tokens": 638,
+          "description_tokens": 78,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.799
+        },
+        {
+          "name": "investor-materials",
+          "body_tokens": 587,
+          "description_tokens": 80,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.78
+        },
+        {
+          "name": "investor-outreach",
+          "body_tokens": 583,
+          "description_tokens": 64,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.799
+        },
+        {
+          "name": "nextjs-turbopack",
+          "body_tokens": 498,
+          "description_tokens": 28,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.82
+        },
+        {
+          "name": "market-research",
+          "body_tokens": 470,
+          "description_tokens": 74,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.754
+        }
+      ],
+      "warnings": [
+        "8 个技能的 description 短于 20 tok（说不清什么时候该用）"
+      ]
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": true,
+      "residual_delta_pp": null,
+      "leaked_paths": [],
+      "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
+      "declared_hooks": []
+    }
+  },
+  "verdict": {
+    "headline": "Tier 0 · 109,921 tok · 47 个技能",
+    "grade": "unrated",
+    "flags": [
+      "static_cost_over_budget"
+    ]
+  }
+}

@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T11:06:50.172Z",
+  "generated_at": "2026-11-13T11:44:37.002Z",
   "skill": {
     "source": "github",
     "repo": "cloudflare/security-audit-skill",
@@ -210,7 +210,8 @@
     "headline": "Tier 0 · 79,967 tok · 1 个技能",
     "grade": "unrated",
     "flags": [
-      "static_cost_over_budget"
+      "static_cost_over_budget",
+      "monolith_skill"
     ]
   }
 }

@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T11:44:41.532Z",
+  "skill": {
+    "source": "github",
+    "repo": "multica-ai/andrej-karpathy-skills",
+    "commit": "2c606141936f1eeef17fa3043a72095b4765b9c2",
+    "path": "benchmarks/skills/karpathy-skills/skills",
+    "skill_count": 1,
+    "total_tokens": 644
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 644,
+      "context_tokens": 644,
+      "tokenizer": "approx:weighted",
+      "file_count": 1,
+      "skill_count": 1,
+      "per_file": [
+        {
+          "path": "karpathy-guidelines/SKILL.md",
+          "tokens": 644,
+          "bytes": 2585
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "basis": "package",
+        "subject_tokens": 644,
+        "over_by": 0,
+        "over_pct": 0,
+        "package_over_by": 0,
+        "largest_skill_tokens": 644
+      },
+      "duplicates": [],
+      "structure": {
+        "headings": 5,
+        "lists": 21,
+        "code_blocks": 1
+      },
+      "warnings": []
+    },
+    "skill_shape": {
+      "probe": "skill-shape",
+      "supported": true,
+      "skill_count": 1,
+      "frontmatter_rate": 1,
+      "described_rate": 1,
+      "deferred_share": 0,
+      "monolith_share": 0,
+      "body_tokens_p50": 573,
+      "description_tokens_p50": 55,
+      "skills": [
+        {
+          "name": "karpathy-guidelines",
+          "body_tokens": 573,
+          "description_tokens": 55,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.89
+        }
+      ],
+      "warnings": []
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": true,
+      "residual_delta_pp": null,
+      "leaked_paths": [],
+      "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
+      "declared_hooks": []
+    }
+  },
+  "verdict": {
+    "headline": "Tier 0 · 644 tok · 1 个技能",
+    "grade": "unrated",
+    "flags": []
+  }
+}

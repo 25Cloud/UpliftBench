@@ -1,0 +1,204 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T11:44:41.945Z",
+  "skill": {
+    "source": "github",
+    "repo": "obsidianmd/obsidian-skills",
+    "commit": "398127736bd4ba42d767b1419fee1a927508370b",
+    "path": "benchmarks/skills/obsidian-skills/plugins/obsidian/skills",
+    "skill_count": 7,
+    "total_tokens": 16902
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 16902,
+      "context_tokens": 16902,
+      "tokenizer": "approx:weighted",
+      "file_count": 12,
+      "skill_count": 7,
+      "per_file": [
+        {
+          "path": "obsidian-bases/SKILL.md",
+          "tokens": 4422,
+          "bytes": 17722
+        },
+        {
+          "path": "json-canvas/SKILL.md",
+          "tokens": 2249,
+          "bytes": 9001
+        },
+        {
+          "path": "obsidian-bases/references/FUNCTIONS_REFERENCE.md",
+          "tokens": 1928,
+          "bytes": 7711
+        },
+        {
+          "path": "json-canvas/references/EXAMPLES.md",
+          "tokens": 1702,
+          "bytes": 6805
+        },
+        {
+          "path": "obsidian-cli/SKILL.md",
+          "tokens": 1635,
+          "bytes": 6553
+        },
+        {
+          "path": "obsidian-markdown/SKILL.md",
+          "tokens": 1576,
+          "bytes": 6322
+        },
+        {
+          "path": "obsidian-headless/SKILL.md",
+          "tokens": 1148,
+          "bytes": 4591
+        },
+        {
+          "path": "knap/SKILL.md",
+          "tokens": 1053,
+          "bytes": 4210
+        },
+        {
+          "path": "obsidian-markdown/references/PROPERTIES.md",
+          "tokens": 381,
+          "bytes": 1524
+        },
+        {
+          "path": "obsidian-markdown/references/CALLOUTS.md",
+          "tokens": 324,
+          "bytes": 1296
+        },
+        {
+          "path": "defuddle/SKILL.md",
+          "tokens": 251,
+          "bytes": 1002
+        },
+        {
+          "path": "obsidian-markdown/references/EMBEDS.md",
+          "tokens": 233,
+          "bytes": 931
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "basis": "largest_skill",
+        "subject_tokens": 6350,
+        "over_by": 0,
+        "over_pct": 0,
+        "package_over_by": 6902,
+        "largest_skill_tokens": 6350
+      },
+      "duplicates": [],
+      "structure": {
+        "headings": 172,
+        "lists": 196,
+        "code_blocks": 92
+      },
+      "warnings": [
+        "7 个技能模块，SkillsBench 结论是 ≤3 个模块更优"
+      ]
+    },
+    "skill_shape": {
+      "probe": "skill-shape",
+      "supported": true,
+      "skill_count": 7,
+      "frontmatter_rate": 1,
+      "described_rate": 1,
+      "deferred_share": 0,
+      "monolith_share": 0,
+      "body_tokens_p50": 1498,
+      "description_tokens_p50": 66,
+      "skills": [
+        {
+          "name": "obsidian-bases",
+          "body_tokens": 4343,
+          "description_tokens": 68,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.684
+        },
+        {
+          "name": "json-canvas",
+          "body_tokens": 2182,
+          "description_tokens": 57,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.552
+        },
+        {
+          "name": "obsidian-cli",
+          "body_tokens": 1508,
+          "description_tokens": 117,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.922
+        },
+        {
+          "name": "obsidian-markdown",
+          "body_tokens": 1498,
+          "description_tokens": 66,
+          "resources": 3,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.596
+        },
+        {
+          "name": "obsidian-headless",
+          "body_tokens": 1068,
+          "description_tokens": 68,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.93
+        },
+        {
+          "name": "knap",
+          "body_tokens": 989,
+          "description_tokens": 55,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.939
+        },
+        {
+          "name": "defuddle",
+          "body_tokens": 227,
+          "description_tokens": 15,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.904
+        }
+      ],
+      "warnings": [
+        "1 个技能的 description 短于 20 tok（说不清什么时候该用）"
+      ]
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": true,
+      "residual_delta_pp": null,
+      "leaked_paths": [],
+      "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
+      "declared_hooks": []
+    }
+  },
+  "verdict": {
+    "headline": "Tier 0 · 16,902 tok · 7 个技能",
+    "grade": "unrated",
+    "flags": []
+  }
+}

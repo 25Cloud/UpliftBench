@@ -224,6 +224,9 @@ Three things this table says out loud:
 Full write-up with the three good patterns and the three unworkable ones:
 [docs/17-横向评测.md](docs/17-横向评测.md). Repro: `node tools/review-table.mjs --md`.
 
+All 12 packages are on the leaderboard as Tier 0 facts (no ranking, no task set):
+[`site/index.html`](site/index.html).
+
 ---
 
 ## The seven Tier 0 probes

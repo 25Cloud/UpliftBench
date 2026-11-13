@@ -1,0 +1,1037 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T11:44:40.268Z",
+  "skill": {
+    "source": "github",
+    "repo": "mattpocock/skills",
+    "commit": "5863806dd4e15c63174bee4e7515a4256792ecfa",
+    "path": "benchmarks/skills/mattpocock-skills/skills",
+    "skill_count": 39,
+    "total_tokens": 80583
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 80583,
+      "context_tokens": 76934,
+      "tokenizer": "approx:weighted",
+      "file_count": 114,
+      "skill_count": 39,
+      "per_file": [
+        {
+          "path": "engineering/ask-matt/SKILL.md",
+          "tokens": 3170,
+          "bytes": 12691
+        },
+        {
+          "path": "engineering/wayfinder/SKILL.md",
+          "tokens": 3134,
+          "bytes": 12536
+        },
+        {
+          "path": "productivity/writing-for-agents/SKILL.md",
+          "tokens": 2741,
+          "bytes": 10967
+        },
+        {
+          "path": "productivity/teach/SKILL.md",
+          "tokens": 2469,
+          "bytes": 9873
+        },
+        {
+          "path": "engineering/wizard/template.sh",
+          "tokens": 2226,
+          "bytes": 9721
+        },
+        {
+          "path": "in-progress/software-factory/RUNNERS.md",
+          "tokens": 2208,
+          "bytes": 8832
+        },
+        {
+          "path": "engineering/diagnosing-bugs/SKILL.md",
+          "tokens": 2200,
+          "bytes": 8802
+        },
+        {
+          "path": "in-progress/software-factory/TICKET-TRACKERS.md",
+          "tokens": 2138,
+          "bytes": 8550
+        },
+        {
+          "path": "engineering/triage/AGENT-BRIEF.md",
+          "tokens": 2038,
+          "bytes": 8149
+        },
+        {
+          "path": "in-progress/software-factory/OBSERVABILITY-PLATFORMS.md",
+          "tokens": 1981,
+          "bytes": 7924
+        },
+        {
+          "path": "in-progress/software-factory/GIT-HOSTS.md",
+          "tokens": 1948,
+          "bytes": 7790
+        },
+        {
+          "path": "engineering/setup-matt-pocock-skills/SKILL.md",
+          "tokens": 1912,
+          "bytes": 7646
+        },
+        {
+          "path": "in-progress/setup-ts-deep-modules/SKILL.md",
+          "tokens": 1909,
+          "bytes": 7648
+        },
+        {
+          "path": "engineering/prototype/UI.md",
+          "tokens": 1756,
+          "bytes": 7025
+        },
+        {
+          "path": "engineering/code-review/SKILL.md",
+          "tokens": 1695,
+          "bytes": 6810
+        },
+        {
+          "path": "engineering/improve-codebase-architecture/HTML-REPORT.md",
+          "tokens": 1690,
+          "bytes": 6764
+        },
+        {
+          "path": "engineering/triage/SKILL.md",
+          "tokens": 1668,
+          "bytes": 6670
+        },
+        {
+          "path": "in-progress/software-factory/SKILL.md",
+          "tokens": 1552,
+          "bytes": 6206
+        },
+        {
+          "path": "engineering/codebase-design/SKILL.md",
+          "tokens": 1545,
+          "bytes": 6560
+        },
+        {
+          "path": "engineering/prototype/LOGIC.md",
+          "tokens": 1526,
+          "bytes": 6103
+        },
+        {
+          "path": "engineering/improve-codebase-architecture/SKILL.md",
+          "tokens": 1525,
+          "bytes": 6099
+        },
+        {
+          "path": "in-progress/writing-shape/SKILL.md",
+          "tokens": 1499,
+          "bytes": 6001
+        },
+        {
+          "path": "engineering/to-tickets/SKILL.md",
+          "tokens": 1478,
+          "bytes": 5917
+        },
+        {
+          "path": "engineering/setup-matt-pocock-skills/issue-tracker-github.md",
+          "tokens": 1283,
+          "bytes": 5132
+        },
+        {
+          "path": "in-progress/writing-beats/SKILL.md",
+          "tokens": 1229,
+          "bytes": 4922
+        },
+        {
+          "path": "in-progress/chief-of-staff/SKILL.md",
+          "tokens": 1201,
+          "bytes": 4804
+        },
+        {
+          "path": "engineering/triage/OUT-OF-SCOPE.md",
+          "tokens": 1189,
+          "bytes": 4772
+        },
+        {
+          "path": "engineering/retro/SKILL.md",
+          "tokens": 1104,
+          "bytes": 4413
+        },
+        {
+          "path": "engineering/README.md",
+          "tokens": 1078,
+          "bytes": 4321
+        },
+        {
+          "path": "engineering/ask-matt/PHASE-BOUNDARIES.md",
+          "tokens": 1075,
+          "bytes": 4304
+        },
+        {
+          "path": "engineering/pr/SKILL.md",
+          "tokens": 1070,
+          "bytes": 4339
+        },
+        {
+          "path": "engineering/wizard/SKILL.md",
+          "tokens": 1040,
+          "bytes": 4167
+        },
+        {
+          "path": "engineering/setup-matt-pocock-skills/issue-tracker-gitlab.md",
+          "tokens": 1007,
+          "bytes": 4025
+        },
+        {
+          "path": "in-progress/software-factory/EXAMPLE-TASKS.md",
+          "tokens": 981,
+          "bytes": 3924
+        },
+        {
+          "path": "in-progress/setup-ts-deep-modules/dependency-cruiser.config.cjs",
+          "tokens": 951,
+          "bytes": 3807
+        },
+        {
+          "path": "misc/scaffold-exercises/SKILL.md",
+          "tokens": 924,
+          "bytes": 3695
+        },
+        {
+          "path": "engineering/tdd/SKILL.md",
+          "tokens": 915,
+          "bytes": 3667
+        },
+        {
+          "path": "in-progress/writing-fragments/SKILL.md",
+          "tokens": 910,
+          "bytes": 3637
+        },
+        {
+          "path": "engineering/domain-modeling/SKILL.md",
+          "tokens": 824,
+          "bytes": 3420
+        },
+        {
+          "path": "engineering/to-spec/SKILL.md",
+          "tokens": 780,
+          "bytes": 3118
+        },
+        {
+          "path": "productivity/to-questionnaire/SKILL.md",
+          "tokens": 739,
+          "bytes": 2958
+        },
+        {
+          "path": "engineering/prototype/SKILL.md",
+          "tokens": 738,
+          "bytes": 2957
+        },
+        {
+          "path": "misc/migrate-to-shoehorn/SKILL.md",
+          "tokens": 728,
+          "bytes": 2913
+        },
+        {
+          "path": "engineering/implement-spec/SKILL.md",
+          "tokens": 720,
+          "bytes": 2877
+        },
+        {
+          "path": "productivity/teach/LEARNING-RECORD-FORMAT.md",
+          "tokens": 699,
+          "bytes": 2793
+        },
+        {
+          "path": "engineering/domain-modeling/ADR-FORMAT.md",
+          "tokens": 695,
+          "bytes": 2780
+        },
+        {
+          "path": "engineering/codebase-design/DESIGN-IT-TWICE.md",
+          "tokens": 686,
+          "bytes": 2743
+        },
+        {
+          "path": "productivity/writing-for-agents/SKILL-MECHANICS.md",
+          "tokens": 663,
+          "bytes": 2651
+        },
+        {
+          "path": "engineering/codebase-design/DEEPENING.md",
+          "tokens": 648,
+          "bytes": 2590
+        },
+        {
+          "path": "in-progress/loop-me/SKILL.md",
+          "tokens": 639,
+          "bytes": 2554
+        },
+        {
+          "path": "misc/git-guardrails-claude-code/SKILL.md",
+          "tokens": 602,
+          "bytes": 2408
+        },
+        {
+          "path": "engineering/domain-modeling/GLOSSARY-FORMAT.md",
+          "tokens": 589,
+          "bytes": 2360
+        },
+        {
+          "path": "misc/setup-pre-commit/SKILL.md",
+          "tokens": 588,
+          "bytes": 2349
+        },
+        {
+          "path": "engineering/tdd/tests.md",
+          "tokens": 573,
+          "bytes": 2291
+        },
+        {
+          "path": "productivity/teach/GLOSSARY-FORMAT.md",
+          "tokens": 539,
+          "bytes": 2157
+        },
+        {
+          "path": "productivity/grilling/SKILL.md",
+          "tokens": 524,
+          "bytes": 2107
+        },
+        {
+          "path": "engineering/setup-matt-pocock-skills/domain.md",
+          "tokens": 499,
+          "bytes": 2093
+        },
+        {
+          "path": "productivity/teach/RESOURCES-FORMAT.md",
+          "tokens": 489,
+          "bytes": 1956
+        },
+        {
+          "path": "in-progress/README.md",
+          "tokens": 475,
+          "bytes": 1900
+        },
+        {
+          "path": "engineering/setup-matt-pocock-skills/issue-tracker-local.md",
+          "tokens": 460,
+          "bytes": 1840
+        },
+        {
+          "path": "productivity/teach/MISSION-FORMAT.md",
+          "tokens": 393,
+          "bytes": 1571
+        },
+        {
+          "path": "engineering/tdd/mocking.md",
+          "tokens": 385,
+          "bytes": 1540
+        },
+        {
+          "path": "productivity/README.md",
+          "tokens": 376,
+          "bytes": 1501
+        },
+        {
+          "path": "in-progress/claude-handoff/SKILL.md",
+          "tokens": 361,
+          "bytes": 1442
+        },
+        {
+          "path": "engineering/diagnosing-bugs/scripts/hitl-loop.template.sh",
+          "tokens": 339,
+          "bytes": 1360
+        },
+        {
+          "path": "engineering/setup-matt-pocock-skills/triage-labels.md",
+          "tokens": 268,
+          "bytes": 1072
+        },
+        {
+          "path": "productivity/handoff/SKILL.md",
+          "tokens": 239,
+          "bytes": 956
+        },
+        {
+          "path": "engineering/research/SKILL.md",
+          "tokens": 211,
+          "bytes": 844
+        },
+        {
+          "path": "misc/README.md",
+          "tokens": 173,
+          "bytes": 692
+        },
+        {
+          "path": "engineering/implement/SKILL.md",
+          "tokens": 160,
+          "bytes": 639
+        },
+        {
+          "path": "engineering/pr/CREDITS.md",
+          "tokens": 152,
+          "bytes": 607
+        },
+        {
+          "path": "misc/git-guardrails-claude-code/scripts/block-dangerous-git.sh",
+          "tokens": 133,
+          "bytes": 532
+        },
+        {
+          "path": "productivity/wait-what/SKILL.md",
+          "tokens": 101,
+          "bytes": 403
+        },
+        {
+          "path": "engineering/grill-with-docs/SKILL.md",
+          "tokens": 64,
+          "bytes": 254
+        },
+        {
+          "path": "in-progress/chief-of-staff/agents/openai.yaml",
+          "tokens": 48,
+          "bytes": 189
+        },
+        {
+          "path": "engineering/implement-spec/agents/openai.yaml",
+          "tokens": 44,
+          "bytes": 173
+        },
+        {
+          "path": "engineering/improve-codebase-architecture/agents/openai.yaml",
+          "tokens": 43,
+          "bytes": 171
+        },
+        {
+          "path": "productivity/to-questionnaire/agents/openai.yaml",
+          "tokens": 43,
+          "bytes": 171
+        },
+        {
+          "path": "deprecated/README.md",
+          "tokens": 41,
+          "bytes": 163
+        },
+        {
+          "path": "productivity/grill-me/SKILL.md",
+          "tokens": 41,
+          "bytes": 164
+        },
+        {
+          "path": "productivity/wait-what/agents/openai.yaml",
+          "tokens": 41,
+          "bytes": 163
+        },
+        {
+          "path": "engineering/setup-matt-pocock-skills/agents/openai.yaml",
+          "tokens": 40,
+          "bytes": 157
+        },
+        {
+          "path": "in-progress/setup-ts-deep-modules/agents/openai.yaml",
+          "tokens": 39,
+          "bytes": 154
+        },
+        {
+          "path": "engineering/grill-with-docs/agents/openai.yaml",
+          "tokens": 38,
+          "bytes": 150
+        },
+        {
+          "path": "engineering/retro/agents/openai.yaml",
+          "tokens": 38,
+          "bytes": 151
+        },
+        {
+          "path": "engineering/to-tickets/agents/openai.yaml",
+          "tokens": 38,
+          "bytes": 151
+        },
+        {
+          "path": "engineering/wayfinder/agents/openai.yaml",
+          "tokens": 38,
+          "bytes": 149
+        },
+        {
+          "path": "in-progress/writing-shape/agents/openai.yaml",
+          "tokens": 38,
+          "bytes": 149
+        },
+        {
+          "path": "in-progress/claude-handoff/agents/openai.yaml",
+          "tokens": 37,
+          "bytes": 146
+        },
+        {
+          "path": "in-progress/loop-me/agents/openai.yaml",
+          "tokens": 37,
+          "bytes": 145
+        },
+        {
+          "path": "in-progress/writing-beats/agents/openai.yaml",
+          "tokens": 37,
+          "bytes": 147
+        },
+        {
+          "path": "in-progress/writing-fragments/agents/openai.yaml",
+          "tokens": 37,
+          "bytes": 145
+        },
+        {
+          "path": "productivity/handoff/agents/openai.yaml",
+          "tokens": 37,
+          "bytes": 146
+        },
+        {
+          "path": "engineering/ask-matt/agents/openai.yaml",
+          "tokens": 36,
+          "bytes": 142
+        },
+        {
+          "path": "engineering/implement/agents/openai.yaml",
+          "tokens": 36,
+          "bytes": 144
+        },
+        {
+          "path": "productivity/grill-me/agents/openai.yaml",
+          "tokens": 36,
+          "bytes": 142
+        },
+        {
+          "path": "productivity/teach/agents/openai.yaml",
+          "tokens": 36,
+          "bytes": 144
+        },
+        {
+          "path": "engineering/to-spec/agents/openai.yaml",
+          "tokens": 35,
+          "bytes": 140
+        },
+        {
+          "path": "engineering/triage/agents/openai.yaml",
+          "tokens": 35,
+          "bytes": 140
+        },
+        {
+          "path": "misc/git-guardrails-claude-code/agents/openai.yaml",
+          "tokens": 29,
+          "bytes": 115
+        },
+        {
+          "path": "misc/migrate-to-shoehorn/agents/openai.yaml",
+          "tokens": 29,
+          "bytes": 113
+        },
+        {
+          "path": "productivity/grilling/agents/openai.yaml",
+          "tokens": 29,
+          "bytes": 116
+        },
+        {
+          "path": "misc/scaffold-exercises/agents/openai.yaml",
+          "tokens": 28,
+          "bytes": 111
+        },
+        {
+          "path": "engineering/codebase-design/agents/openai.yaml",
+          "tokens": 27,
+          "bytes": 105
+        },
+        {
+          "path": "engineering/diagnosing-bugs/agents/openai.yaml",
+          "tokens": 27,
+          "bytes": 106
+        },
+        {
+          "path": "productivity/writing-for-agents/agents/openai.yaml",
+          "tokens": 27,
+          "bytes": 105
+        },
+        {
+          "path": "engineering/code-review/agents/openai.yaml",
+          "tokens": 26,
+          "bytes": 103
+        },
+        {
+          "path": "engineering/domain-modeling/agents/openai.yaml",
+          "tokens": 26,
+          "bytes": 104
+        },
+        {
+          "path": "engineering/prototype/agents/openai.yaml",
+          "tokens": 26,
+          "bytes": 103
+        },
+        {
+          "path": "misc/setup-pre-commit/agents/openai.yaml",
+          "tokens": 26,
+          "bytes": 102
+        },
+        {
+          "path": "engineering/research/agents/openai.yaml",
+          "tokens": 25,
+          "bytes": 97
+        },
+        {
+          "path": "engineering/wizard/agents/openai.yaml",
+          "tokens": 25,
+          "bytes": 99
+        },
+        {
+          "path": "engineering/pr/agents/openai.yaml",
+          "tokens": 24,
+          "bytes": 96
+        },
+        {
+          "path": "engineering/tdd/agents/openai.yaml",
+          "tokens": 23,
+          "bytes": 90
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "basis": "largest_skill",
+        "subject_tokens": 10808,
+        "over_by": 808,
+        "over_pct": 8.1,
+        "package_over_by": 66934,
+        "largest_skill_tokens": 10808
+      },
+      "duplicates": [],
+      "structure": {
+        "headings": 459,
+        "lists": 965,
+        "code_blocks": 72
+      },
+      "warnings": [
+        "最大的单个技能 10808 token，超出注入预算 10000（+808）",
+        "39 个技能模块，SkillsBench 结论是 ≤3 个模块更优"
+      ]
+    },
+    "skill_shape": {
+      "probe": "skill-shape",
+      "supported": true,
+      "skill_count": 39,
+      "frontmatter_rate": 1,
+      "described_rate": 1,
+      "deferred_share": 0.282,
+      "monolith_share": 0,
+      "body_tokens_p50": 875,
+      "description_tokens_p50": 32,
+      "skills": [
+        {
+          "name": "ask-matt",
+          "body_tokens": 3131,
+          "description_tokens": 21,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.731
+        },
+        {
+          "name": "wayfinder",
+          "body_tokens": 3067,
+          "description_tokens": 50,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.967
+        },
+        {
+          "name": "writing-for-agents",
+          "body_tokens": 2703,
+          "description_tokens": 26,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.788
+        },
+        {
+          "name": "teach",
+          "body_tokens": 2423,
+          "description_tokens": 16,
+          "resources": 5,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.524
+        },
+        {
+          "name": "diagnosing-bugs",
+          "body_tokens": 2150,
+          "description_tokens": 39,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.838
+        },
+        {
+          "name": "setup-matt-pocock-skills",
+          "body_tokens": 1845,
+          "description_tokens": 45,
+          "resources": 6,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.337
+        },
+        {
+          "name": "setup-ts-deep-modules",
+          "body_tokens": 1842,
+          "description_tokens": 47,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.635
+        },
+        {
+          "name": "triage",
+          "body_tokens": 1617,
+          "description_tokens": 34,
+          "resources": 3,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.328
+        },
+        {
+          "name": "code-review",
+          "body_tokens": 1580,
+          "description_tokens": 105,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.918
+        },
+        {
+          "name": "software-factory",
+          "body_tokens": 1507,
+          "description_tokens": 25,
+          "resources": 5,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.139
+        },
+        {
+          "name": "improve-codebase-architecture",
+          "body_tokens": 1470,
+          "description_tokens": 32,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.451
+        },
+        {
+          "name": "codebase-design",
+          "body_tokens": 1468,
+          "description_tokens": 67,
+          "resources": 3,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.505
+        },
+        {
+          "name": "writing-shape",
+          "body_tokens": 1460,
+          "description_tokens": 20,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.95
+        },
+        {
+          "name": "to-tickets",
+          "body_tokens": 1398,
+          "description_tokens": 62,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.922
+        },
+        {
+          "name": "writing-beats",
+          "body_tokens": 1183,
+          "description_tokens": 28,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.934
+        },
+        {
+          "name": "chief-of-staff",
+          "body_tokens": 1164,
+          "description_tokens": 19,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.932
+        },
+        {
+          "name": "retro",
+          "body_tokens": 1075,
+          "description_tokens": 11,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.941
+        },
+        {
+          "name": "pr",
+          "body_tokens": 1005,
+          "description_tokens": 7,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.807
+        },
+        {
+          "name": "wizard",
+          "body_tokens": 953,
+          "description_tokens": 79,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.29
+        },
+        {
+          "name": "writing-fragments",
+          "body_tokens": 875,
+          "description_tokens": 14,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.924
+        },
+        {
+          "name": "tdd",
+          "body_tokens": 869,
+          "description_tokens": 38,
+          "resources": 3,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.458
+        },
+        {
+          "name": "scaffold-exercises",
+          "body_tokens": 861,
+          "description_tokens": 51,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.904
+        },
+        {
+          "name": "domain-modeling",
+          "body_tokens": 775,
+          "description_tokens": 38,
+          "resources": 3,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.363
+        },
+        {
+          "name": "to-spec",
+          "body_tokens": 725,
+          "description_tokens": 38,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.89
+        },
+        {
+          "name": "to-questionnaire",
+          "body_tokens": 698,
+          "description_tokens": 22,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.893
+        },
+        {
+          "name": "implement-spec",
+          "body_tokens": 686,
+          "description_tokens": 15,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.898
+        },
+        {
+          "name": "prototype",
+          "body_tokens": 683,
+          "description_tokens": 45,
+          "resources": 3,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.169
+        },
+        {
+          "name": "migrate-to-shoehorn",
+          "body_tokens": 673,
+          "description_tokens": 42,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.889
+        },
+        {
+          "name": "loop-me",
+          "body_tokens": 585,
+          "description_tokens": 20,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.865
+        },
+        {
+          "name": "git-guardrails-claude-code",
+          "body_tokens": 527,
+          "description_tokens": 61,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.69
+        },
+        {
+          "name": "setup-pre-commit",
+          "body_tokens": 516,
+          "description_tokens": 60,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.84
+        },
+        {
+          "name": "grilling",
+          "body_tokens": 476,
+          "description_tokens": 38,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.861
+        },
+        {
+          "name": "claude-handoff",
+          "body_tokens": 303,
+          "description_tokens": 25,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.761
+        },
+        {
+          "name": "handoff",
+          "body_tokens": 186,
+          "description_tokens": 22,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.674
+        },
+        {
+          "name": "research",
+          "body_tokens": 142,
+          "description_tokens": 60,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.602
+        },
+        {
+          "name": "implement",
+          "body_tokens": 127,
+          "description_tokens": 15,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.648
+        },
+        {
+          "name": "wait-what",
+          "body_tokens": 70,
+          "description_tokens": 13,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.493
+        },
+        {
+          "name": "grill-with-docs",
+          "body_tokens": 18,
+          "description_tokens": 27,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.176
+        },
+        {
+          "name": "grill-me",
+          "body_tokens": 11,
+          "description_tokens": 13,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.143
+        }
+      ],
+      "warnings": [
+        "9 个技能的 description 短于 20 tok（说不清什么时候该用）"
+      ]
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": true,
+      "residual_delta_pp": null,
+      "leaked_paths": [],
+      "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
+      "declared_hooks": []
+    }
+  },
+  "verdict": {
+    "headline": "Tier 0 · 80,583 tok · 39 个技能",
+    "grade": "unrated",
+    "flags": [
+      "static_cost_over_budget"
+    ]
+  }
+}

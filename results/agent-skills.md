@@ -9,4 +9,4 @@
 | Tier 1 | uplift +2.2pp · headroom 8.7% · N=30 · 95%CI [-2.2, 6.7] · A 级 · placebo -4.4pp |
 | 技能激活 | 自动激活 17% |
 
-> uplift +2.2pp  |  headroom 8.7%  |  N=30  |  95%CI [-2.2, 6.7]  |  A级  |  placebo_effect -4.4pp · protocol/1.0.0 · 生成于 2026-11-13T11:06:49.302Z
+> uplift +2.2pp  |  headroom 8.7%  |  N=30  |  95%CI [-2.2, 6.7]  |  A级  |  placebo_effect -4.4pp · protocol/1.0.0 · 生成于 2026-11-13T11:44:34.799Z

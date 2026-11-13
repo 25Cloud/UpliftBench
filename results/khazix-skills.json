@@ -1,0 +1,721 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T11:44:44.781Z",
+  "skill": {
+    "source": "github",
+    "repo": "KKKKhazix/khazix-skills",
+    "commit": "71cd50ffe1f1f4d400b54be967dc6b59379aff8f",
+    "path": "benchmarks/skills/khazix-skills",
+    "skill_count": 6,
+    "total_tokens": 75483
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 75483,
+      "context_tokens": 52010,
+      "tokenizer": "approx:weighted",
+      "file_count": 114,
+      "skill_count": 6,
+      "per_file": [
+        {
+          "path": "README.en.md",
+          "tokens": 4947,
+          "bytes": 20050
+        },
+        {
+          "path": "storage-analyzer/scripts/scan.py",
+          "tokens": 4716,
+          "bytes": 18892
+        },
+        {
+          "path": "khazix-writer/SKILL.md",
+          "tokens": 4498,
+          "bytes": 22538
+        },
+        {
+          "path": "aihot/install.sh",
+          "tokens": 4456,
+          "bytes": 17950
+        },
+        {
+          "path": "hv-analysis/SKILL.md",
+          "tokens": 4346,
+          "bytes": 21351
+        },
+        {
+          "path": "README.md",
+          "tokens": 4049,
+          "bytes": 19184
+        },
+        {
+          "path": "storage-analyzer/scripts/server.py",
+          "tokens": 3902,
+          "bytes": 15885
+        },
+        {
+          "path": "khazix-writer/references/style_examples.md",
+          "tokens": 3382,
+          "bytes": 16790
+        },
+        {
+          "path": "storage-analyzer/SKILL.md",
+          "tokens": 3271,
+          "bytes": 15650
+        },
+        {
+          "path": "neat-freak/SKILL.md",
+          "tokens": 3154,
+          "bytes": 15304
+        },
+        {
+          "path": "neat-freak/evals/evals.json",
+          "tokens": 2368,
+          "bytes": 10870
+        },
+        {
+          "path": "tests/test_storage.py",
+          "tokens": 2308,
+          "bytes": 9230
+        },
+        {
+          "path": "hv-analysis/scripts/md_to_pdf.py",
+          "tokens": 1815,
+          "bytes": 7429
+        },
+        {
+          "path": "hv-analysis/references/schema.json",
+          "tokens": 1663,
+          "bytes": 7848
+        },
+        {
+          "path": "aihot/README.md",
+          "tokens": 1579,
+          "bytes": 7348
+        },
+        {
+          "path": "neat-freak/evals/validate.py",
+          "tokens": 1571,
+          "bytes": 6317
+        },
+        {
+          "path": "leader/SKILL.md",
+          "tokens": 1496,
+          "bytes": 7480
+        },
+        {
+          "path": "khazix-writer/references/quality-check.md",
+          "tokens": 1461,
+          "bytes": 7280
+        },
+        {
+          "path": "neat-freak/references/agent-paths.md",
+          "tokens": 1412,
+          "bytes": 6520
+        },
+        {
+          "path": "AGENTS.md",
+          "tokens": 1315,
+          "bytes": 6320
+        },
+        {
+          "path": "khazix-writer/references/content_methodology.md",
+          "tokens": 1243,
+          "bytes": 6171
+        },
+        {
+          "path": "storage-analyzer/references/linux.md",
+          "tokens": 1045,
+          "bytes": 4856
+        },
+        {
+          "path": "neat-freak/references/sync-matrix.md",
+          "tokens": 998,
+          "bytes": 4850
+        },
+        {
+          "path": "leader/references/anatomy.md",
+          "tokens": 990,
+          "bytes": 4979
+        },
+        {
+          "path": "neat-freak/scripts/audit-inventory.sh",
+          "tokens": 927,
+          "bytes": 3706
+        },
+        {
+          "path": "neat-freak/references/governance.md",
+          "tokens": 873,
+          "bytes": 4305
+        },
+        {
+          "path": "neat-freak/references/verification.md",
+          "tokens": 792,
+          "bytes": 3682
+        },
+        {
+          "path": "aihot/SKILL.md",
+          "tokens": 719,
+          "bytes": 3367
+        },
+        {
+          "path": "leader/references/style.md",
+          "tokens": 691,
+          "bytes": 3446
+        },
+        {
+          "path": "tests/test_storage_actions.py",
+          "tokens": 686,
+          "bytes": 2741
+        },
+        {
+          "path": "STATES.md",
+          "tokens": 669,
+          "bytes": 3252
+        },
+        {
+          "path": "storage-analyzer/references/windows.md",
+          "tokens": 546,
+          "bytes": 2541
+        },
+        {
+          "path": "neat-freak/evals/trigger-eval.json",
+          "tokens": 542,
+          "bytes": 2414
+        },
+        {
+          "path": "storage-analyzer/scripts/build_report.py",
+          "tokens": 486,
+          "bytes": 1963
+        },
+        {
+          "path": "tests/test_installer.py",
+          "tokens": 462,
+          "bytes": 1846
+        },
+        {
+          "path": "scripts/validate-package.py",
+          "tokens": 387,
+          "bytes": 1548
+        },
+        {
+          "path": "storage-analyzer/references/macos.md",
+          "tokens": 368,
+          "bytes": 1692
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/workspace/auth-center/src/routes/device.ts",
+          "tokens": 324,
+          "bytes": 1324
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-10-vibe-project/project/server.js",
+          "tokens": 283,
+          "bytes": 1130
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-1-routine-dev-sync/workspace/taskflow/src/router.ts",
+          "tokens": 222,
+          "bytes": 888
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-5-governance/workspace/CLAUDE.md",
+          "tokens": 209,
+          "bytes": 957
+        },
+        {
+          "path": ".github/workflows/validate.yml",
+          "tokens": 206,
+          "bytes": 821
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/workspace/skills-hub/setup.sh",
+          "tokens": 203,
+          "bytes": 831
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-11-unknown-platform/project/main.py",
+          "tokens": 190,
+          "bytes": 771
+        },
+        {
+          "path": ".claude-plugin/marketplace.json",
+          "tokens": 156,
+          "bytes": 633
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/workspace/auth-center/docs/integration-guide.md",
+          "tokens": 140,
+          "bytes": 606
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/workspace/auth-center/CLAUDE.md",
+          "tokens": 120,
+          "bytes": 525
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-5-governance/workspace/pdf-tools/src/app.py",
+          "tokens": 120,
+          "bytes": 479
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-1-routine-dev-sync/workspace/taskflow/src/server.ts",
+          "tokens": 119,
+          "bytes": 474
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-1-routine-dev-sync/workspace/taskflow/CLAUDE.md",
+          "tokens": 108,
+          "bytes": 479
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-3-cold-start/workspace/CLAUDE.md",
+          "tokens": 105,
+          "bytes": 490
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-5-governance/workspace/Link_Shortener/src/server.js",
+          "tokens": 104,
+          "bytes": 415
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-11-unknown-platform/project/.agentx/memory.json",
+          "tokens": 99,
+          "bytes": 394
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-1-routine-dev-sync/workspace/taskflow/docs/architecture.md",
+          "tokens": 89,
+          "bytes": 374
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-3-cold-start/workspace/analytics_dashboard/package.json",
+          "tokens": 84,
+          "bytes": 333
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/workspace/skills-hub/CLAUDE.md",
+          "tokens": 84,
+          "bytes": 376
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-7-release-terminal/project/release-state.json",
+          "tokens": 83,
+          "bytes": 332
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-2-memory-conflict/agent-memory/notesapp/memory/MEMORY.md",
+          "tokens": 82,
+          "bytes": 353
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/workspace/CLAUDE.md",
+          "tokens": 81,
+          "bytes": 380
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-11-unknown-platform/project/AGENTS.md",
+          "tokens": 80,
+          "bytes": 352
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-1-routine-dev-sync/workspace/CLAUDE.md",
+          "tokens": 78,
+          "bytes": 355
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-1-routine-dev-sync/workspace/taskflow/package.json",
+          "tokens": 78,
+          "bytes": 311
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/workspace/skills-hub/docs/auth-integration.md",
+          "tokens": 78,
+          "bytes": 340
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-2-memory-conflict/workspace/notesapp/CLAUDE.md",
+          "tokens": 77,
+          "bytes": 343
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-10-vibe-project/project/server_old.js",
+          "tokens": 72,
+          "bytes": 298
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-10-vibe-project/project/README.md",
+          "tokens": 69,
+          "bytes": 314
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-2-memory-conflict/workspace/notesapp/src/auth.ts",
+          "tokens": 64,
+          "bytes": 255
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-2-memory-conflict/workspace/CLAUDE.md",
+          "tokens": 63,
+          "bytes": 289
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/workspace/auth-center/docs/architecture.md",
+          "tokens": 61,
+          "bytes": 264
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-1-routine-dev-sync/agent-memory/taskflow/memory/project_deploy.md",
+          "tokens": 60,
+          "bytes": 274
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-2-memory-conflict/agent-memory/notesapp/memory/project_db-migration.md",
+          "tokens": 57,
+          "bytes": 256
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-6-scope-boundary/workspace/CLAUDE.md",
+          "tokens": 55,
+          "bytes": 217
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-1-routine-dev-sync/agent-memory/taskflow/memory/project_api-design.md",
+          "tokens": 53,
+          "bytes": 243
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-1-routine-dev-sync/workspace/taskflow/README.md",
+          "tokens": 53,
+          "bytes": 231
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/workspace/auth-center/docs/operator-runbook.md",
+          "tokens": 53,
+          "bytes": 221
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-10-vibe-project/project/PLAN.md",
+          "tokens": 52,
+          "bytes": 229
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-10-vibe-project/project/TODO-fix-bug.md",
+          "tokens": 52,
+          "bytes": 245
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/agent-memory/auth-center/memory/project_device-flow.md",
+          "tokens": 52,
+          "bytes": 232
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-5-governance/workspace/pdf-tools/AGENTS.md",
+          "tokens": 52,
+          "bytes": 229
+        },
+        {
+          "path": "aihot/agents/openai.yaml",
+          "tokens": 47,
+          "bytes": 209
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-2-memory-conflict/agent-memory/notesapp/memory/feedback_auth-clerk.md",
+          "tokens": 47,
+          "bytes": 212
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-5-governance/workspace/Link_Shortener/package.json",
+          "tokens": 47,
+          "bytes": 185
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-2-memory-conflict/agent-memory/notesapp/memory/feedback_auth-nextauth.md",
+          "tokens": 45,
+          "bytes": 189
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-7-release-terminal/project/CLAUDE.md",
+          "tokens": 45,
+          "bytes": 180
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-3-cold-start/workspace/analytics_dashboard/src/lib/supabase.js",
+          "tokens": 44,
+          "bytes": 174
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-5-governance/agent-memory/pdf-tools/memory/feedback_streaming.md",
+          "tokens": 43,
+          "bytes": 197
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-1-routine-dev-sync/agent-memory/taskflow/memory/MEMORY.md",
+          "tokens": 42,
+          "bytes": 183
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-10-vibe-project/project/package.json",
+          "tokens": 42,
+          "bytes": 167
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-5-governance/workspace/pdf-tools/CLAUDE.md",
+          "tokens": 42,
+          "bytes": 180
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-10-vibe-project/project/notes/debug-notes.md",
+          "tokens": 40,
+          "bytes": 176
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-5-governance/agent-memory/pdf-tools/memory/MEMORY.md",
+          "tokens": 40,
+          "bytes": 173
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-2-memory-conflict/agent-memory/notesapp/memory/feedback_performance.md",
+          "tokens": 39,
+          "bytes": 178
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-10-vibe-project/project/data.json",
+          "tokens": 27,
+          "bytes": 105
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/agent-memory/auth-center/memory/MEMORY.md",
+          "tokens": 25,
+          "bytes": 105
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-5-governance/workspace/deploy-notes.md",
+          "tokens": 24,
+          "bytes": 107
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-6-scope-boundary/workspace/Legacy_App/README.md",
+          "tokens": 24,
+          "bytes": 94
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-7-release-terminal/project/.cleanup-candidate/UNIQUE.md",
+          "tokens": 23,
+          "bytes": 89
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-8-generated-memory/codex-memories/MEMORY.md",
+          "tokens": 23,
+          "bytes": 90
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-8-generated-memory/project/README.md",
+          "tokens": 23,
+          "bytes": 92
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-6-scope-boundary/workspace/current-app/package.json",
+          "tokens": 20,
+          "bytes": 79
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-8-generated-memory/project/docs/ARCHITECTURE.md",
+          "tokens": 19,
+          "bytes": 76
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-2-memory-conflict/workspace/notesapp/README.md",
+          "tokens": 17,
+          "bytes": 74
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-6-scope-boundary/workspace/current-app/README.md",
+          "tokens": 16,
+          "bytes": 64
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-8-generated-memory/codex-memories/memory_summary.md",
+          "tokens": 16,
+          "bytes": 63
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-6-scope-boundary/workspace/current-app/CLAUDE.md",
+          "tokens": 14,
+          "bytes": 56
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-6-scope-boundary/workspace/current-app/src/server.ts",
+          "tokens": 12,
+          "bytes": 47
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/agent-memory/skills-hub/memory/MEMORY.md",
+          "tokens": 10,
+          "bytes": 46
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-8-generated-memory/project/runtime.txt",
+          "tokens": 5,
+          "bytes": 19
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-11-unknown-platform/project/requirements.txt",
+          "tokens": 4,
+          "bytes": 13
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-1-routine-dev-sync/workspace/taskflow/AGENTS.md",
+          "tokens": 3,
+          "bytes": 9
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-2-memory-conflict/workspace/notesapp/AGENTS.md",
+          "tokens": 3,
+          "bytes": 9
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/workspace/auth-center/AGENTS.md",
+          "tokens": 3,
+          "bytes": 9
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-4-cross-project/workspace/skills-hub/AGENTS.md",
+          "tokens": 3,
+          "bytes": 9
+        },
+        {
+          "path": "neat-freak/evals/fixtures/eval-6-scope-boundary/workspace/current-app/AGENTS.md",
+          "tokens": 3,
+          "bytes": 9
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "basis": "largest_skill",
+        "subject_tokens": 17578,
+        "over_by": 7578,
+        "over_pct": 75.8,
+        "package_over_by": 42010,
+        "largest_skill_tokens": 17578
+      },
+      "duplicates": [
+        {
+          "hash": "6ebdb6",
+          "files": [
+            "neat-freak/evals/fixtures/eval-1-routine-dev-sync/workspace/taskflow/AGENTS.md",
+            "neat-freak/evals/fixtures/eval-2-memory-conflict/workspace/notesapp/AGENTS.md",
+            "neat-freak/evals/fixtures/eval-4-cross-project/workspace/auth-center/AGENTS.md",
+            "neat-freak/evals/fixtures/eval-4-cross-project/workspace/skills-hub/AGENTS.md",
+            "neat-freak/evals/fixtures/eval-6-scope-boundary/workspace/current-app/AGENTS.md"
+          ],
+          "wasted_tokens": 12
+        }
+      ],
+      "structure": {
+        "headings": 325,
+        "lists": 663,
+        "code_blocks": 45
+      },
+      "warnings": [
+        "最大的单个技能 17578 token，超出注入预算 10000（+7578）",
+        "包内脚本占 23473 token（31%），它们不进上下文",
+        "6 个技能模块，SkillsBench 结论是 ≤3 个模块更优"
+      ]
+    },
+    "skill_shape": {
+      "probe": "skill-shape",
+      "supported": true,
+      "skill_count": 6,
+      "frontmatter_rate": 1,
+      "described_rate": 1,
+      "deferred_share": 0.833,
+      "monolith_share": 0,
+      "body_tokens_p50": 2986,
+      "description_tokens_p50": 1,
+      "skills": [
+        {
+          "name": "khazix-writer",
+          "body_tokens": 4344,
+          "description_tokens": 1,
+          "resources": 3,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.41
+        },
+        {
+          "name": "hv-analysis",
+          "body_tokens": 4052,
+          "description_tokens": 1,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.518
+        },
+        {
+          "name": "storage-analyzer",
+          "body_tokens": 3035,
+          "description_tokens": 1,
+          "resources": 6,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.212
+        },
+        {
+          "name": "neat-freak",
+          "body_tokens": 2936,
+          "description_tokens": 1,
+          "resources": 12,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.457
+        },
+        {
+          "name": "leader",
+          "body_tokens": 1384,
+          "description_tokens": 104,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.436
+        },
+        {
+          "name": "aihot",
+          "body_tokens": 601,
+          "description_tokens": 92,
+          "resources": 3,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.088
+        }
+      ],
+      "warnings": [
+        "4 个技能的 description 短于 20 tok（说不清什么时候该用）"
+      ]
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": true,
+      "residual_delta_pp": null,
+      "leaked_paths": [],
+      "note": "跑了安装脚本：aihot/install.sh (exit 1) / neat-freak/evals/fixtures/eval-4-cross-project/workspace/skills-hub/setup.sh (exit 1)",
+      "declared_hooks": []
+    }
+  },
+  "verdict": {
+    "headline": "Tier 0 · 75,483 tok · 6 个技能",
+    "grade": "unrated",
+    "flags": [
+      "static_cost_over_budget",
+      "thin_descriptions"
+    ]
+  }
+}

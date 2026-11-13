@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T11:06:49.302Z",
+  "generated_at": "2026-11-13T11:44:34.799Z",
   "skill": {
     "source": "github",
     "repo": "addyosmani/agent-skills",

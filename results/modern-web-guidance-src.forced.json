@@ -1,315 +1,4700 @@
 {
   "schema_version": "1.0.0",
   "protocol_version": "protocol/1.0.0",
-  "generated_at": "2026-11-13T11:06:53.834Z",
+  "generated_at": "2026-11-13T11:45:02.114Z",
   "skill": {
     "source": "github",
     "repo": "GoogleChrome/modern-web-guidance-src",
     "commit": "3bb177a6de62b7fd8cd0432c33756e6f3c9ece9d",
-    "path": "benchmarks/skills/modern-web-guidance-src/.agents/skills",
-    "skill_count": 13,
-    "total_tokens": 71238
+    "path": "benchmarks/skills/modern-web-guidance-src/guides",
+    "skill_count": 1,
+    "total_tokens": 1265943
   },
   "tier0": {
     "static_cost": {
       "probe": "static-cost",
       "supported": true,
-      "total_tokens": 71238,
-      "context_tokens": 55399,
+      "total_tokens": 1265943,
+      "context_tokens": 560414,
       "tokenizer": "approx:weighted",
-      "file_count": 24,
-      "skill_count": 13,
+      "file_count": 923,
+      "skill_count": 1,
       "per_file": [
         {
-          "path": "project-discipline-guides/mirrors/javascript/codex_mirror.md",
-          "tokens": 10187,
-          "bytes": 40753
+          "path": "ui-components/tabs/targets/daily-grind/grader.ts",
+          "tokens": 15982,
+          "bytes": 63926
         },
         {
-          "path": "project-guides/SKILL.md",
-          "tokens": 6541,
-          "bytes": 26210
+          "path": "ui-components/menu/targets/daily-grind/grader.ts",
+          "tokens": 14037,
+          "bytes": 56148
         },
         {
-          "path": "project-discipline-guides/mirrors/javascript/claude_mirror.md",
-          "tokens": 5494,
-          "bytes": 22007
+          "path": "accessibility/accessibility/guide.md",
+          "tokens": 12934,
+          "bytes": 51784
         },
         {
-          "path": "nightly-eval-investigation/scripts/investigate.ts",
-          "tokens": 5200,
-          "bytes": 20839
+          "path": "ui-components/stack-drill-down/grader.ts",
+          "tokens": 10007,
+          "bytes": 40027
         },
         {
-          "path": "grader-replay/scripts/replay.ts",
-          "tokens": 4964,
-          "bytes": 19853
+          "path": "ui-components/stack-drill-down/guide.md",
+          "tokens": 9205,
+          "bytes": 36898
         },
         {
-          "path": "project-evals/SKILL.md",
-          "tokens": 4662,
-          "bytes": 18658
+          "path": "ui-behaviors/swipe-to-remove/guide.md",
+          "tokens": 8457,
+          "bytes": 33846
         },
         {
-          "path": "project-features/SKILL.md",
+          "path": "security/passkeys/targets/devtools-times/grader.ts",
+          "tokens": 7945,
+          "bytes": 31779
+        },
+        {
+          "path": "ui-components/card/targets/daily-grind/grader.ts",
+          "tokens": 7818,
+          "bytes": 31272
+        },
+        {
+          "path": "ui-components/navbar/targets/daily-grind/grader.ts",
+          "tokens": 7798,
+          "bytes": 31192
+        },
+        {
+          "path": "ui-components/breadcrumbs/targets/daily-grind/grader.ts",
+          "tokens": 7726,
+          "bytes": 30914
+        },
+        {
+          "path": "ui-components/menu/guide.md",
+          "tokens": 7628,
+          "bytes": 30514
+        },
+        {
+          "path": "user-experience/natural-interactions/targets/daily-grind/grader.ts",
+          "tokens": 7515,
+          "bytes": 30058
+        },
+        {
+          "path": "security/security/guide.md",
+          "tokens": 7496,
+          "bytes": 30039
+        },
+        {
+          "path": "ui-behaviors/drag/targets/daily-grind/grader.ts",
+          "tokens": 7383,
+          "bytes": 29529
+        },
+        {
+          "path": "visual-design/visual-effects/targets/daily-grind/grader.ts",
+          "tokens": 6960,
+          "bytes": 27838
+        },
+        {
+          "path": "html/custom-elements/targets/daily-grind/grader.ts",
+          "tokens": 6690,
+          "bytes": 26757
+        },
+        {
+          "path": "user-experience/form-factor-adaptation/targets/daily-grind/grader.ts",
+          "tokens": 6678,
+          "bytes": 26711
+        },
+        {
+          "path": "js/support-global-calendar-systems/grader.ts",
+          "tokens": 6605,
+          "bytes": 26444
+        },
+        {
+          "path": "ui-atoms/icons/targets/daily-grind/grader.ts",
+          "tokens": 6397,
+          "bytes": 25586
+        },
+        {
+          "path": "ui-atoms/scrollability-affordance-hints/grader.ts",
+          "tokens": 6361,
+          "bytes": 25444
+        },
+        {
+          "path": "ui-behaviors/scroll-snap-state-sync/grader.ts",
+          "tokens": 6315,
+          "bytes": 25257
+        },
+        {
+          "path": "ui-behaviors/2d-panning/targets/daily-grind/grader.ts",
+          "tokens": 6215,
+          "bytes": 24860
+        },
+        {
+          "path": "forms/sms-otp-form/targets/devtools-times/grader.ts",
+          "tokens": 6081,
+          "bytes": 24323
+        },
+        {
+          "path": "ui-components/carousel/targets/daily-grind/grader.ts",
+          "tokens": 6075,
+          "bytes": 24297
+        },
+        {
+          "path": "ui-components/app-menus/targets/daily-grind/grader.ts",
+          "tokens": 6048,
+          "bytes": 24190
+        },
+        {
+          "path": "visual-design/custom-text-decorations/targets/daily-grind/grader.ts",
+          "tokens": 5887,
+          "bytes": 23546
+        },
+        {
+          "path": "pwa/install-web-app/targets/daily-grind/grader.ts",
+          "tokens": 5725,
+          "bytes": 22898
+        },
+        {
+          "path": "ui-behaviors/swipe-to-remove/grader.ts",
+          "tokens": 5721,
+          "bytes": 22881
+        },
+        {
+          "path": "webmcp/agentic-javascript-tools/guide.md",
+          "tokens": 5712,
+          "bytes": 22859
+        },
+        {
+          "path": "html/styling-web-components/targets/daily-grind/grader.ts",
+          "tokens": 5685,
+          "bytes": 22740
+        },
+        {
+          "path": "forms/brand-consistent-forms/grader.ts",
+          "tokens": 5616,
+          "bytes": 22461
+        },
+        {
+          "path": "built-in-ai/language-model/grader.ts",
+          "tokens": 5598,
+          "bytes": 22389
+        },
+        {
+          "path": "html/html/guide.md",
+          "tokens": 5378,
+          "bytes": 21522
+        },
+        {
+          "path": "performance/performance/guide.md",
+          "tokens": 5340,
+          "bytes": 21359
+        },
+        {
+          "path": "ui-behaviors/directional-navigation-transitions/targets/daily-grind/grader.ts",
+          "tokens": 5291,
+          "bytes": 21163
+        },
+        {
+          "path": "security/trusted-types/targets/daily-grind/grader.ts",
+          "tokens": 5269,
+          "bytes": 21075
+        },
+        {
+          "path": "ui-behaviors/group-element-transitions/grader.ts",
+          "tokens": 5080,
+          "bytes": 20318
+        },
+        {
+          "path": "visual-design/expose-canvas-content-to-browser-features/guide.md",
+          "tokens": 5052,
+          "bytes": 20205
+        },
+        {
+          "path": "ui-components/navigation-drawer/guide.md",
+          "tokens": 5030,
+          "bytes": 20143
+        },
+        {
+          "path": "css/css-layout/guide.md",
+          "tokens": 5029,
+          "bytes": 20205
+        },
+        {
+          "path": "ui-behaviors/directional-navigation-transitions/targets/devtools-times/grader.ts",
+          "tokens": 4984,
+          "bytes": 19936
+        },
+        {
+          "path": "forms/sms-otp-form/targets/daily-grind/grader.ts",
+          "tokens": 4951,
+          "bytes": 19804
+        },
+        {
+          "path": "ui-behaviors/drag-and-drop/targets/daily-grind/grader.ts",
+          "tokens": 4944,
+          "bytes": 19778
+        },
+        {
+          "path": "ui-atoms/single-line-overflow/targets/daily-grind/grader.ts",
+          "tokens": 4928,
+          "bytes": 19710
+        },
+        {
+          "path": "ui-components/accordion/targets/daily-grind/grader.ts",
+          "tokens": 4927,
+          "bytes": 19707
+        },
+        {
+          "path": "ui-components/carousel/guide.md",
+          "tokens": 4914,
+          "bytes": 19656
+        },
+        {
+          "path": "visual-design/interactive-content-in-3d-scenes/guide.md",
+          "tokens": 4907,
+          "bytes": 19628
+        },
+        {
+          "path": "html/shadow-dom/targets/daily-grind/grader.ts",
+          "tokens": 4887,
+          "bytes": 19545
+        },
+        {
+          "path": "built-in-ai/language-model/guide.md",
+          "tokens": 4877,
+          "bytes": 19518
+        },
+        {
+          "path": "forms/forms/guide.md",
+          "tokens": 4866,
+          "bytes": 19467
+        },
+        {
+          "path": "ui-behaviors/anchor-positioning-tab-underline/targets/daily-grind/grader.ts",
+          "tokens": 4811,
+          "bytes": 19244
+        },
+        {
+          "path": "ui-behaviors/motion/targets/daily-grind/grader.ts",
+          "tokens": 4809,
+          "bytes": 19234
+        },
+        {
+          "path": "forms/forms/grader.ts",
+          "tokens": 4739,
+          "bytes": 18956
+        },
+        {
+          "path": "performance/out-of-order-html-streaming/targets/daily-grind/grader.ts",
+          "tokens": 4674,
+          "bytes": 18695
+        },
+        {
+          "path": "ui-behaviors/scoped-component-transitions/targets/daily-grind/grader.ts",
+          "tokens": 4605,
+          "bytes": 18418
+        },
+        {
+          "path": "html/accessible-web-components/targets/daily-grind/grader.ts",
+          "tokens": 4604,
+          "bytes": 18416
+        },
+        {
+          "path": "ui-atoms/icons/guide.md",
+          "tokens": 4559,
+          "bytes": 18237
+        },
+        {
+          "path": "ui-atoms/responsive-table/targets/daily-grind/grader.ts",
+          "tokens": 4514,
+          "bytes": 18054
+        },
+        {
+          "path": "webmcp/webmcp/targets/daily-grind/grader.ts",
+          "tokens": 4424,
+          "bytes": 17693
+        },
+        {
+          "path": "visual-design/export-html-media-from-canvas/guide.md",
+          "tokens": 4410,
+          "bytes": 17642
+        },
+        {
+          "path": "security/passkey-management/guide.md",
+          "tokens": 4404,
+          "bytes": 17618
+        },
+        {
+          "path": "ui-behaviors/scroll-snap-realtime-feedback/grader.ts",
+          "tokens": 4391,
+          "bytes": 17561
+        },
+        {
+          "path": "security/quick-sign-ins/guide.md",
+          "tokens": 4366,
+          "bytes": 17469
+        },
+        {
+          "path": "privacy/privacy/targets/devtools-times/grader.ts",
+          "tokens": 4361,
+          "bytes": 17443
+        },
+        {
+          "path": "visual-design/custom-text-decorations/guide.md",
+          "tokens": 4340,
+          "bytes": 17357
+        },
+        {
+          "path": "ui-behaviors/scroll-completion-effects/targets/daily-grind/grader.ts",
+          "tokens": 4331,
+          "bytes": 17322
+        },
+        {
+          "path": "security/verify-email-ownership/targets/daily-grind/grader.ts",
+          "tokens": 4296,
+          "bytes": 17182
+        },
+        {
+          "path": "ui-behaviors/drag-and-drop/guide.md",
+          "tokens": 4266,
+          "bytes": 17079
+        },
+        {
+          "path": "security/local-network-access/targets/daily-grind/grader.ts",
+          "tokens": 4250,
+          "bytes": 16998
+        },
+        {
+          "path": "html/web-components/targets/daily-grind/grader.ts",
+          "tokens": 4243,
+          "bytes": 16972
+        },
+        {
+          "path": "ui-components/dark-mode-toggle/targets/daily-grind/grader.ts",
           "tokens": 4229,
-          "bytes": 16922
+          "bytes": 16916
         },
         {
-          "path": "nightly-eval-investigation/SKILL.md",
-          "tokens": 4065,
-          "bytes": 16258
+          "path": "ui-components/progress-ring/targets/daily-grind/grader.ts",
+          "tokens": 4210,
+          "bytes": 16838
         },
         {
-          "path": "project-discipline-guides/mirrors/javascript/mirror.md",
-          "tokens": 3874,
-          "bytes": 15496
+          "path": "visual-design/contrast-color/targets/daily-grind/grader.ts",
+          "tokens": 4128,
+          "bytes": 16512
         },
         {
-          "path": "project-guide-validation/SKILL.md",
-          "tokens": 3539,
-          "bytes": 14162
+          "path": "performance/faster-spa-view-transitions/targets/daily-grind/grader.ts",
+          "tokens": 4124,
+          "bytes": 16496
         },
         {
-          "path": "project-use-cases/SKILL.md",
-          "tokens": 3224,
-          "bytes": 12896
+          "path": "ui-atoms/component-specific-light-dark-theme/grader.ts",
+          "tokens": 4055,
+          "bytes": 16219
         },
         {
-          "path": "nightly-eval-investigation/scripts/publish_report.ts",
-          "tokens": 3204,
-          "bytes": 12872
+          "path": "css/reduce-style-repetition/grader.ts",
+          "tokens": 4051,
+          "bytes": 16204
         },
         {
-          "path": "project-coding-standards/SKILL.md",
+          "path": "ui-atoms/single-line-overflow/guide.md",
+          "tokens": 4040,
+          "bytes": 16160
+        },
+        {
+          "path": "ui-atoms/state-aware-sticky-headers/grader.ts",
+          "tokens": 4033,
+          "bytes": 16131
+        },
+        {
+          "path": "security/local-network-access/targets/devtools-times/grader.ts",
+          "tokens": 4024,
+          "bytes": 16094
+        },
+        {
+          "path": "visual-design/equal-width-text-lines/targets/daily-grind/grader.ts",
+          "tokens": 3963,
+          "bytes": 15849
+        },
+        {
+          "path": "visual-design/color/targets/daily-grind/grader.ts",
+          "tokens": 3887,
+          "bytes": 15547
+        },
+        {
+          "path": "ui-components/tabs/guide.md",
+          "tokens": 3884,
+          "bytes": 15573
+        },
+        {
+          "path": "performance/interaction-paint-timing/targets/daily-grind/grader.ts",
+          "tokens": 3878,
+          "bytes": 15511
+        },
+        {
+          "path": "ui-components/navbar/guide.md",
+          "tokens": 3865,
+          "bytes": 15458
+        },
+        {
+          "path": "pwa/install-web-app/guide.md",
+          "tokens": 3854,
+          "bytes": 15415
+        },
+        {
+          "path": "forms/slider/targets/daily-grind/grader.ts",
+          "tokens": 3833,
+          "bytes": 15331
+        },
+        {
+          "path": "ui-components/copy-button/targets/daily-grind/grader.ts",
+          "tokens": 3826,
+          "bytes": 15303
+        },
+        {
+          "path": "visual-design/dark-mode/grader.ts",
+          "tokens": 3810,
+          "bytes": 15237
+        },
+        {
+          "path": "security/client-side-encryption/guide.md",
+          "tokens": 3791,
+          "bytes": 15173
+        },
+        {
+          "path": "security/verify-email-ownership/guide.md",
+          "tokens": 3776,
+          "bytes": 15113
+        },
+        {
+          "path": "css/calculate-with-intrinsic-sizes/grader.ts",
+          "tokens": 3764,
+          "bytes": 15054
+        },
+        {
+          "path": "ui-components/accordion/guide.md",
+          "tokens": 3689,
+          "bytes": 14768
+        },
+        {
+          "path": "security/secure-external-subresources/guide.md",
+          "tokens": 3675,
+          "bytes": 14706
+        },
+        {
+          "path": "ui-behaviors/consistent-cross-document-transitions/guide.md",
+          "tokens": 3649,
+          "bytes": 14611
+        },
+        {
+          "path": "security/secure-external-subresources/targets/daily-grind/grader.ts",
+          "tokens": 3599,
+          "bytes": 14393
+        },
+        {
+          "path": "ui-components/navigation-drawer/grader.ts",
+          "tokens": 3594,
+          "bytes": 14373
+        },
+        {
+          "path": "ui-behaviors/swipe-to-reveal/guide.md",
+          "tokens": 3521,
+          "bytes": 14093
+        },
+        {
+          "path": "ui-components/scrollspy/targets/daily-grind/grader.ts",
+          "tokens": 3513,
+          "bytes": 14050
+        },
+        {
+          "path": "visual-design/export-html-media-from-canvas/grader.ts",
+          "tokens": 3504,
+          "bytes": 14014
+        },
+        {
+          "path": "ui-components/toolbar/guide.md",
+          "tokens": 3500,
+          "bytes": 14011
+        },
+        {
+          "path": "html/html/targets/devtools-times/grader.ts",
+          "tokens": 3464,
+          "bytes": 13853
+        },
+        {
+          "path": "ui-behaviors/declarative-dialog-popover-control/grader.ts",
+          "tokens": 3457,
+          "bytes": 13826
+        },
+        {
+          "path": "ui-behaviors/same-document-transitions/grader.ts",
+          "tokens": 3448,
+          "bytes": 13789
+        },
+        {
+          "path": "webmcp/agentic-forms/targets/daily-grind/grader.ts",
+          "tokens": 3437,
+          "bytes": 13745
+        },
+        {
+          "path": "css/design-token-reactivity/grader.ts",
+          "tokens": 3435,
+          "bytes": 13740
+        },
+        {
+          "path": "security/restrict-outbound-connections/guide.md",
+          "tokens": 3424,
+          "bytes": 13701
+        },
+        {
+          "path": "forms/branded-select-styling/grader.ts",
+          "tokens": 3402,
+          "bytes": 13608
+        },
+        {
+          "path": "accessibility/respect-os-text-scale/targets/daily-grind/grader.ts",
+          "tokens": 3395,
+          "bytes": 13579
+        },
+        {
+          "path": "forms/switch/targets/daily-grind/grader.ts",
+          "tokens": 3379,
+          "bytes": 13516
+        },
+        {
+          "path": "security/passkey-management/targets/devtools-times/grader.ts",
+          "tokens": 3375,
+          "bytes": 13498
+        },
+        {
+          "path": "ui-components/copy-button/guide.md",
+          "tokens": 3369,
+          "bytes": 13479
+        },
+        {
+          "path": "ui-behaviors/consistent-cross-document-transitions/targets/devtools-times/grader.ts",
+          "tokens": 3366,
+          "bytes": 13463
+        },
+        {
+          "path": "visual-design/apply-webgl-shaders/guide.md",
+          "tokens": 3366,
+          "bytes": 13461
+        },
+        {
+          "path": "ui-components/toolbar/targets/daily-grind/grader.ts",
+          "tokens": 3365,
+          "bytes": 13459
+        },
+        {
+          "path": "html/form-associated-custom-elements/targets/daily-grind/grader.ts",
+          "tokens": 3356,
+          "bytes": 13424
+        },
+        {
+          "path": "security/security/targets/daily-grind/grader.ts",
+          "tokens": 3350,
+          "bytes": 13397
+        },
+        {
+          "path": "ui-atoms/position-aware-tooltips/grader.ts",
+          "tokens": 3308,
+          "bytes": 13230
+        },
+        {
+          "path": "security/validate-origins/guide.md",
+          "tokens": 3269,
+          "bytes": 13088
+        },
+        {
+          "path": "webmcp/webmcp/targets/devtools-times/grader.ts",
+          "tokens": 3256,
+          "bytes": 13024
+        },
+        {
+          "path": "security/passkey-conditional-create/grader.ts",
+          "tokens": 3227,
+          "bytes": 12907
+        },
+        {
+          "path": "html/prerendering-custom-elements/targets/daily-grind/grader.ts",
+          "tokens": 3214,
+          "bytes": 12854
+        },
+        {
+          "path": "security/validate-origins/targets/daily-grind/grader.ts",
+          "tokens": 3189,
+          "bytes": 12756
+        },
+        {
+          "path": "ui-components/breadcrumbs/guide.md",
+          "tokens": 3182,
+          "bytes": 12733
+        },
+        {
+          "path": "security/local-network-access/guide.md",
+          "tokens": 3170,
+          "bytes": 12690
+        },
+        {
+          "path": "html/custom-elements/guide.md",
+          "tokens": 3160,
+          "bytes": 12673
+        },
+        {
+          "path": "performance/improve-next-page-load-performance/grader.ts",
+          "tokens": 3117,
+          "bytes": 12466
+        },
+        {
+          "path": "performance/out-of-order-html-streaming/guide.md",
+          "tokens": 3107,
+          "bytes": 12425
+        },
+        {
+          "path": "css/css/guide.md",
+          "tokens": 3101,
+          "bytes": 12412
+        },
+        {
+          "path": "security/quick-sign-ins/targets/daily-grind/grader.ts",
+          "tokens": 3098,
+          "bytes": 12391
+        },
+        {
+          "path": "forms/sms-otp-form/guide.md",
+          "tokens": 3094,
+          "bytes": 12373
+        },
+        {
+          "path": "ui-behaviors/interactive-content-reveal/grader.ts",
+          "tokens": 3078,
+          "bytes": 12312
+        },
+        {
+          "path": "performance/faster-spa-view-transitions/targets/devtools-times/grader.ts",
+          "tokens": 3065,
+          "bytes": 12260
+        },
+        {
+          "path": "ui-behaviors/highlight-text-ranges/grader.ts",
+          "tokens": 3058,
+          "bytes": 12230
+        },
+        {
+          "path": "performance/efficient-background-processing/grader.ts",
+          "tokens": 3057,
+          "bytes": 12227
+        },
+        {
+          "path": "ui-atoms/scrollability-affordance-hints/guide.md",
+          "tokens": 3053,
+          "bytes": 12212
+        },
+        {
+          "path": "ui-atoms/scroll-position-aware-elements/grader.ts",
+          "tokens": 3042,
+          "bytes": 12166
+        },
+        {
+          "path": "css/size-aware-styling/targets/daily-grind/grader.ts",
+          "tokens": 3037,
+          "bytes": 12148
+        },
+        {
+          "path": "ui-behaviors/scoped-component-transitions/guide.md",
+          "tokens": 3012,
+          "bytes": 12057
+        },
+        {
+          "path": "ui-behaviors/consistent-cross-document-transitions/targets/daily-grind/grader.ts",
+          "tokens": 3000,
+          "bytes": 11999
+        },
+        {
+          "path": "visual-design/expose-canvas-content-to-browser-features/grader.ts",
+          "tokens": 2990,
+          "bytes": 11959
+        },
+        {
+          "path": "ui-behaviors/dynamic-sort/targets/daily-grind/grader.ts",
+          "tokens": 2944,
+          "bytes": 11775
+        },
+        {
+          "path": "security/passkeys/targets/daily-grind/grader.ts",
+          "tokens": 2936,
+          "bytes": 11742
+        },
+        {
+          "path": "security/digital-signatures/targets/daily-grind/grader.ts",
+          "tokens": 2927,
+          "bytes": 11705
+        },
+        {
+          "path": "ui-components/spinner/targets/daily-grind/grader.ts",
+          "tokens": 2927,
+          "bytes": 11705
+        },
+        {
+          "path": "forms/rich-media-picker/grader.ts",
+          "tokens": 2919,
+          "bytes": 11675
+        },
+        {
+          "path": "privacy/privacy/guide.md",
+          "tokens": 2904,
+          "bytes": 11617
+        },
+        {
+          "path": "css/size-aware-styling/targets/devtools-times/grader.ts",
+          "tokens": 2880,
+          "bytes": 11518
+        },
+        {
+          "path": "performance/interaction-paint-timing/guide.md",
+          "tokens": 2871,
+          "bytes": 11483
+        },
+        {
+          "path": "forms/autofill-sign-up-form/guide.md",
+          "tokens": 2868,
+          "bytes": 11488
+        },
+        {
+          "path": "security/passkey-authentication/guide.md",
+          "tokens": 2868,
+          "bytes": 11472
+        },
+        {
+          "path": "webmcp/agentic-forms/targets/devtools-times/grader.ts",
+          "tokens": 2855,
+          "bytes": 11417
+        },
+        {
+          "path": "ui-components/checkbox/targets/daily-grind/grader.ts",
+          "tokens": 2841,
+          "bytes": 11363
+        },
+        {
+          "path": "security/client-side-encryption/targets/daily-grind/grader.ts",
+          "tokens": 2827,
+          "bytes": 11305
+        },
+        {
+          "path": "ui-behaviors/sortable-table/targets/daily-grind/grader.ts",
+          "tokens": 2814,
+          "bytes": 11254
+        },
+        {
+          "path": "privacy/privacy/targets/daily-grind/grader.ts",
+          "tokens": 2809,
+          "bytes": 11236
+        },
+        {
+          "path": "performance/break-up-long-tasks/grader.ts",
+          "tokens": 2802,
+          "bytes": 11206
+        },
+        {
+          "path": "webmcp/agentic-javascript-tools/grader.ts",
+          "tokens": 2802,
+          "bytes": 11205
+        },
+        {
+          "path": "ui-behaviors/scroll-snap-realtime-feedback/guide.md",
+          "tokens": 2781,
+          "bytes": 11123
+        },
+        {
+          "path": "ui-components/dialog/targets/daily-grind/grader.ts",
+          "tokens": 2776,
+          "bytes": 11104
+        },
+        {
+          "path": "user-experience/content-first-noise-reduction/targets/daily-grind/grader.ts",
+          "tokens": 2768,
+          "bytes": 11072
+        },
+        {
+          "path": "performance/detect-initial-visibility-state/grader.ts",
+          "tokens": 2759,
+          "bytes": 11034
+        },
+        {
+          "path": "ui-behaviors/carousel-snap-highlights/grader.ts",
+          "tokens": 2758,
+          "bytes": 11032
+        },
+        {
+          "path": "visual-design/interactive-content-in-3d-scenes/grader.ts",
+          "tokens": 2752,
+          "bytes": 11008
+        },
+        {
+          "path": "security/restrict-outbound-connections/targets/daily-grind/grader.ts",
+          "tokens": 2745,
+          "bytes": 10977
+        },
+        {
+          "path": "wasm/cpp-on-the-web/targets/devtools-times/grader.ts",
+          "tokens": 2710,
+          "bytes": 10840
+        },
+        {
+          "path": "ui-components/progress/targets/daily-grind/grader.ts",
+          "tokens": 2685,
+          "bytes": 10737
+        },
+        {
+          "path": "css/calculate-with-intrinsic-sizes/guide.md",
+          "tokens": 2666,
+          "bytes": 10667
+        },
+        {
+          "path": "css/css-layout/targets/daily-grind/grader.ts",
+          "tokens": 2662,
+          "bytes": 10647
+        },
+        {
+          "path": "ui-behaviors/dynamic-sibling-animations/grader.ts",
+          "tokens": 2652,
+          "bytes": 10607
+        },
+        {
+          "path": "security/passkey-authentication/grader.ts",
+          "tokens": 2643,
+          "bytes": 10570
+        },
+        {
+          "path": "ui-components/progress/guide.md",
+          "tokens": 2641,
+          "bytes": 10567
+        },
+        {
+          "path": "ui-atoms/carousel-slide-effects/guide.md",
+          "tokens": 2631,
+          "bytes": 10529
+        },
+        {
+          "path": "css/animate-to-intrinsic-sizes/grader.ts",
+          "tokens": 2625,
+          "bytes": 10498
+        },
+        {
+          "path": "security/passkey-registration/guide.md",
+          "tokens": 2607,
+          "bytes": 10425
+        },
+        {
+          "path": "forms/autofill-sign-in-form/guide.md",
+          "tokens": 2594,
+          "bytes": 10390
+        },
+        {
+          "path": "performance/performance/grader.ts",
+          "tokens": 2590,
+          "bytes": 10360
+        },
+        {
+          "path": "css/atrule-support-conditionals/targets/daily-grind/grader.ts",
+          "tokens": 2576,
+          "bytes": 10304
+        },
+        {
+          "path": "js/coordinate-global-events/grader.ts",
+          "tokens": 2561,
+          "bytes": 10242
+        },
+        {
+          "path": "ui-behaviors/interest-triggered-tooltips/grader.ts",
+          "tokens": 2552,
+          "bytes": 10208
+        },
+        {
+          "path": "ui-behaviors/scroll-entry-exit-effects/guide.md",
+          "tokens": 2538,
+          "bytes": 10155
+        },
+        {
+          "path": "ui-components/dialog/guide.md",
+          "tokens": 2538,
+          "bytes": 10151
+        },
+        {
+          "path": "security/digital-signatures/guide.md",
+          "tokens": 2537,
+          "bytes": 10150
+        },
+        {
+          "path": "visual-design/apply-webgl-shaders/grader.ts",
+          "tokens": 2512,
+          "bytes": 10045
+        },
+        {
+          "path": "performance/lazy-load-video-and-audio/guide.md",
+          "tokens": 2511,
+          "bytes": 10047
+        },
+        {
+          "path": "wasm/cpp-on-the-web/targets/daily-grind/grader.ts",
+          "tokens": 2503,
+          "bytes": 10011
+        },
+        {
+          "path": "performance/defer-work-until-scroll-ends/grader.ts",
+          "tokens": 2492,
+          "bytes": 9966
+        },
+        {
+          "path": "ui-behaviors/parallax-scroll-effects/guide.md",
+          "tokens": 2462,
+          "bytes": 9851
+        },
+        {
+          "path": "forms/validate-input-after-interaction/grader.ts",
+          "tokens": 2448,
+          "bytes": 9792
+        },
+        {
+          "path": "security/passkey-management/targets/daily-grind/grader.ts",
+          "tokens": 2446,
+          "bytes": 9781
+        },
+        {
+          "path": "modern-web-guidance/SKILL.md",
+          "tokens": 2444,
+          "bytes": 9795
+        },
+        {
+          "path": "ui-behaviors/2d-panning/guide.md",
+          "tokens": 2425,
+          "bytes": 9710
+        },
+        {
+          "path": "ui-components/dark-mode-toggle/guide.md",
+          "tokens": 2423,
+          "bytes": 9704
+        },
+        {
+          "path": "ui-behaviors/physics-based-easing/grader.ts",
+          "tokens": 2415,
+          "bytes": 9658
+        },
+        {
+          "path": "forms/autofill-payment-form/guide.md",
+          "tokens": 2405,
+          "bytes": 9623
+        },
+        {
+          "path": "ui-behaviors/animate-to-from-top-layer/grader.ts",
+          "tokens": 2403,
+          "bytes": 9610
+        },
+        {
+          "path": "forms/rich-media-picker/guide.md",
+          "tokens": 2345,
+          "bytes": 9382
+        },
+        {
+          "path": "visual-design/complex-shapes/grader.ts",
+          "tokens": 2327,
+          "bytes": 9305
+        },
+        {
+          "path": "js/capture-location-agnostic-data/guide.md",
+          "tokens": 2317,
+          "bytes": 9275
+        },
+        {
+          "path": "wasm/cpp-on-the-web/guide.md",
+          "tokens": 2313,
+          "bytes": 9251
+        },
+        {
+          "path": "visual-design/soft-edge-content-fade/grader.ts",
+          "tokens": 2303,
+          "bytes": 9212
+        },
+        {
+          "path": "ui-behaviors/scrollytelling/guide.md",
+          "tokens": 2292,
+          "bytes": 9172
+        },
+        {
+          "path": "css/individual-transform-properties/grader.ts",
+          "tokens": 2286,
+          "bytes": 9141
+        },
+        {
+          "path": "ui-components/app-menus/guide.md",
+          "tokens": 2282,
+          "bytes": 9129
+        },
+        {
+          "path": "ui-behaviors/platform-controls-dismiss-dialog/grader.ts",
+          "tokens": 2276,
+          "bytes": 9104
+        },
+        {
+          "path": "forms/required-field-feedback/grader.ts",
+          "tokens": 2270,
+          "bytes": 9077
+        },
+        {
+          "path": "js/calculate-event-differentials/grader.ts",
+          "tokens": 2249,
+          "bytes": 8994
+        },
+        {
+          "path": "ui-behaviors/parallax-scroll-effects/grader.ts",
+          "tokens": 2240,
+          "bytes": 8958
+        },
+        {
+          "path": "ui-atoms/scroll-progress-indicator/grader.ts",
+          "tokens": 2234,
+          "bytes": 8935
+        },
+        {
+          "path": "performance/identify-inp-causes/guide.md",
+          "tokens": 2232,
+          "bytes": 8928
+        },
+        {
+          "path": "performance/flicker-free-client-side-ab-testing/guide.md",
+          "tokens": 2222,
+          "bytes": 8892
+        },
+        {
+          "path": "visual-design/visually-texture-content/grader.ts",
+          "tokens": 2207,
+          "bytes": 8825
+        },
+        {
+          "path": "css/usage-aware-component-variations/targets/devtools-times/grader.ts",
+          "tokens": 2186,
+          "bytes": 8743
+        },
+        {
+          "path": "ui-behaviors/scroll-target-on-load/grader.ts",
+          "tokens": 2171,
+          "bytes": 8684
+        },
+        {
+          "path": "ui-behaviors/same-document-transitions/guide.md",
+          "tokens": 2169,
+          "bytes": 8673
+        },
+        {
+          "path": "forms/brand-consistent-forms/guide.md",
+          "tokens": 2164,
+          "bytes": 8658
+        },
+        {
+          "path": "html/styling-web-components/guide.md",
+          "tokens": 2131,
+          "bytes": 8538
+        },
+        {
+          "path": "ui-components/card/guide.md",
+          "tokens": 2130,
+          "bytes": 8519
+        },
+        {
+          "path": "ui-behaviors/custom-button-actions/guide.md",
+          "tokens": 2126,
+          "bytes": 8503
+        },
+        {
+          "path": "css/overflow-clipping-control/guide.md",
+          "tokens": 2080,
+          "bytes": 8322
+        },
+        {
+          "path": "performance/identify-inp-causes/grader.ts",
+          "tokens": 2078,
+          "bytes": 8311
+        },
+        {
+          "path": "security/passkey-registration/grader.ts",
+          "tokens": 2073,
+          "bytes": 8292
+        },
+        {
+          "path": "forms/autofill-highlight-inputs/grader.ts",
+          "tokens": 2068,
+          "bytes": 8269
+        },
+        {
+          "path": "visual-design/browser-ui-theming/targets/daily-grind/grader.ts",
+          "tokens": 2066,
+          "bytes": 8262
+        },
+        {
+          "path": "js/sort-high-precision-timestamps/grader.ts",
+          "tokens": 2041,
+          "bytes": 8161
+        },
+        {
+          "path": "ui-behaviors/motion/guide.md",
+          "tokens": 2035,
+          "bytes": 8139
+        },
+        {
+          "path": "visual-design/customize-scrollbar-color-and-thickness/grader.ts",
+          "tokens": 2010,
+          "bytes": 8040
+        },
+        {
+          "path": "css/fluid-scaling/grader.ts",
+          "tokens": 2008,
+          "bytes": 8029
+        },
+        {
+          "path": "js/capture-location-agnostic-data/grader.ts",
+          "tokens": 1979,
+          "bytes": 7913
+        },
+        {
+          "path": "ui-components/hovercard/guide.md",
+          "tokens": 1970,
+          "bytes": 7880
+        },
+        {
+          "path": "ui-behaviors/carousel-snap-highlights/guide.md",
+          "tokens": 1969,
+          "bytes": 7876
+        },
+        {
+          "path": "ui-behaviors/spatial-navigation/targets/daily-grind/grader.ts",
+          "tokens": 1969,
+          "bytes": 7874
+        },
+        {
+          "path": "forms/validate-input-after-interaction/guide.md",
+          "tokens": 1958,
+          "bytes": 7834
+        },
+        {
+          "path": "performance/deliver-optimized-decorative-images/grader.ts",
+          "tokens": 1952,
+          "bytes": 7805
+        },
+        {
+          "path": "ui-behaviors/scroll-completion-effects/guide.md",
+          "tokens": 1952,
+          "bytes": 7814
+        },
+        {
+          "path": "ui-behaviors/swipe-to-reveal/targets/daily-grind/grader.ts",
+          "tokens": 1950,
+          "bytes": 7797
+        },
+        {
+          "path": "built-in-ai/translator/targets/daily-grind/grader.ts",
           "tokens": 1949,
           "bytes": 7793
         },
         {
-          "path": "project-discipline-guides/mirrors/javascript/gemini_mirror.md",
-          "tokens": 1482,
-          "bytes": 5927
+          "path": "performance/lazy-load-video-and-audio/targets/daily-grind/grader.ts",
+          "tokens": 1949,
+          "bytes": 7795
         },
         {
-          "path": "dev-prompt-canary/SKILL.md",
-          "tokens": 1441,
-          "bytes": 5781
+          "path": "ui-atoms/viewport-aware-dropdowns/grader.ts",
+          "tokens": 1946,
+          "bytes": 7783
         },
         {
-          "path": "project-discipline-guides/scripts/generate_mirrors.ts",
-          "tokens": 1378,
-          "bytes": 5533
+          "path": "ui-behaviors/cross-document-transitions/grader.ts",
+          "tokens": 1946,
+          "bytes": 7782
         },
         {
-          "path": "grader-replay/SKILL.md",
+          "path": "security/passkey-conditional-create/guide.md",
+          "tokens": 1940,
+          "bytes": 7760
+        },
+        {
+          "path": "ui-components/persistent-toast-notifications/guide.md",
+          "tokens": 1932,
+          "bytes": 7734
+        },
+        {
+          "path": "js/calculate-event-differentials/guide.md",
+          "tokens": 1924,
+          "bytes": 7699
+        },
+        {
+          "path": "ui-behaviors/scroll-entry-exit-effects/grader.ts",
+          "tokens": 1907,
+          "bytes": 7625
+        },
+        {
+          "path": "ui-behaviors/persistent-top-layer-ui/grader.ts",
+          "tokens": 1902,
+          "bytes": 7607
+        },
+        {
+          "path": "forms/autofill-sign-in-form/grader.ts",
+          "tokens": 1891,
+          "bytes": 7563
+        },
+        {
+          "path": "ui-behaviors/sortable-table/guide.md",
+          "tokens": 1889,
+          "bytes": 7556
+        },
+        {
+          "path": "performance/interactions-in-complex-layouts/grader.ts",
+          "tokens": 1887,
+          "bytes": 7546
+        },
+        {
+          "path": "ui-behaviors/interest-triggered-tooltips/guide.md",
+          "tokens": 1887,
+          "bytes": 7548
+        },
+        {
+          "path": "visual-design/dark-mode/guide.md",
+          "tokens": 1886,
+          "bytes": 7548
+        },
+        {
+          "path": "performance/avoid-redundant-large-asset-downloads/guide.md",
+          "tokens": 1874,
+          "bytes": 7495
+        },
+        {
+          "path": "performance/schedule-tasks-by-priority/grader.ts",
+          "tokens": 1869,
+          "bytes": 7476
+        },
+        {
+          "path": "security/trusted-types/guide.md",
+          "tokens": 1861,
+          "bytes": 7447
+        },
+        {
+          "path": "built-in-ai/translator/guide.md",
+          "tokens": 1857,
+          "bytes": 7429
+        },
+        {
+          "path": "performance/improve-next-page-load-performance/guide.md",
+          "tokens": 1857,
+          "bytes": 7430
+        },
+        {
+          "path": "forms/animated-select-picker/guide.md",
+          "tokens": 1847,
+          "bytes": 7395
+        },
+        {
+          "path": "ui-behaviors/dynamic-sort/guide.md",
+          "tokens": 1841,
+          "bytes": 7363
+        },
+        {
+          "path": "user-experience/natural-interactions/guide.md",
+          "tokens": 1839,
+          "bytes": 7356
+        },
+        {
+          "path": "visual-design/shaped-cutouts/guide.md",
+          "tokens": 1836,
+          "bytes": 7344
+        },
+        {
+          "path": "accessibility/accessible-error-announcement/grader.ts",
+          "tokens": 1824,
+          "bytes": 7294
+        },
+        {
+          "path": "accessibility/respect-os-text-scale/guide.md",
+          "tokens": 1822,
+          "bytes": 7293
+        },
+        {
+          "path": "ui-atoms/shrinking-header-on-scroll/guide.md",
+          "tokens": 1820,
+          "bytes": 7292
+        },
+        {
+          "path": "ui-atoms/pull-to-reveal/grader.ts",
+          "tokens": 1816,
+          "bytes": 7264
+        },
+        {
+          "path": "ui-components/scrollspy/guide.md",
+          "tokens": 1784,
+          "bytes": 7135
+        },
+        {
+          "path": "ui-behaviors/animate-to-from-top-layer/guide.md",
+          "tokens": 1783,
+          "bytes": 7134
+        },
+        {
+          "path": "ui-atoms/state-aware-sticky-headers/guide.md",
+          "tokens": 1777,
+          "bytes": 7107
+        },
+        {
+          "path": "ui-behaviors/spatial-navigation/guide.md",
+          "tokens": 1773,
+          "bytes": 7096
+        },
+        {
+          "path": "ui-behaviors/search-hidden-content/guide.md",
+          "tokens": 1769,
+          "bytes": 7073
+        },
+        {
+          "path": "ui-behaviors/swipe-to-remove/expectations.md",
+          "tokens": 1760,
+          "bytes": 7045
+        },
+        {
+          "path": "visual-design/visually-stable-font-fallbacks/grader.ts",
+          "tokens": 1755,
+          "bytes": 7018
+        },
+        {
+          "path": "performance/calculate-total-foreground-time/grader.ts",
+          "tokens": 1745,
+          "bytes": 6978
+        },
+        {
+          "path": "performance/conditional-async-dependencies/grader.ts",
+          "tokens": 1743,
+          "bytes": 6970
+        },
+        {
+          "path": "forms/slider/guide.md",
+          "tokens": 1737,
+          "bytes": 6948
+        },
+        {
+          "path": "ui-behaviors/drag/guide.md",
+          "tokens": 1733,
+          "bytes": 6935
+        },
+        {
+          "path": "ui-components/progress-ring/guide.md",
+          "tokens": 1731,
+          "bytes": 6923
+        },
+        {
+          "path": "ui-atoms/scroll-progress-indicator/guide.md",
+          "tokens": 1717,
+          "bytes": 6872
+        },
+        {
+          "path": "forms/ime-safe-enter-submit/guide.md",
+          "tokens": 1714,
+          "bytes": 6853
+        },
+        {
+          "path": "ui-behaviors/interest-triggered-action-previews/grader.ts",
+          "tokens": 1711,
+          "bytes": 6842
+        },
+        {
+          "path": "pwa/migrate-web-app-origin/targets/daily-grind/grader.ts",
+          "tokens": 1710,
+          "bytes": 6840
+        },
+        {
+          "path": "html/web-components/guide.md",
+          "tokens": 1706,
+          "bytes": 6843
+        },
+        {
+          "path": "security/sanitize-untrusted-html/targets/daily-grind/grader.ts",
+          "tokens": 1703,
+          "bytes": 6812
+        },
+        {
+          "path": "ui-components/hovercard/targets/daily-grind/grader.ts",
+          "tokens": 1703,
+          "bytes": 6810
+        },
+        {
+          "path": "performance/batch-analytics-events/guide.md",
+          "tokens": 1695,
+          "bytes": 6777
+        },
+        {
+          "path": "forms/forms/expectations.md",
+          "tokens": 1682,
+          "bytes": 6728
+        },
+        {
+          "path": "visual-design/contrast-color/guide.md",
+          "tokens": 1679,
+          "bytes": 6715
+        },
+        {
+          "path": "accessibility/accessible-generated-content/targets/daily-grind/grader.ts",
+          "tokens": 1671,
+          "bytes": 6682
+        },
+        {
+          "path": "ui-atoms/position-aware-tooltips/guide.md",
+          "tokens": 1666,
+          "bytes": 6670
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "tokens": 1663,
+          "bytes": 6656
+        },
+        {
+          "path": "forms/custom-select-picker-layouts/guide.md",
+          "tokens": 1662,
+          "bytes": 6647
+        },
+        {
+          "path": "security/passkey-reauthentication/grader.ts",
+          "tokens": 1662,
+          "bytes": 6646
+        },
+        {
+          "path": "css/css-layout/expectations.md",
+          "tokens": 1650,
+          "bytes": 6598
+        },
+        {
+          "path": "ui-behaviors/custom-button-actions/grader.ts",
+          "tokens": 1644,
+          "bytes": 6575
+        },
+        {
+          "path": "ui-behaviors/highlight-text-ranges/guide.md",
+          "tokens": 1639,
+          "bytes": 6555
+        },
+        {
+          "path": "visual-design/shaped-cutouts/grader.ts",
+          "tokens": 1634,
+          "bytes": 6535
+        },
+        {
+          "path": "webmcp/agentic-forms/guide.md",
+          "tokens": 1634,
+          "bytes": 6535
+        },
+        {
+          "path": "performance/batch-analytics-events/grader.ts",
+          "tokens": 1631,
+          "bytes": 6521
+        },
+        {
+          "path": "performance/defer-rendering-heavy-content/guide.md",
+          "tokens": 1612,
+          "bytes": 6447
+        },
+        {
+          "path": "ui-behaviors/declarative-dialog-popover-control/guide.md",
+          "tokens": 1611,
+          "bytes": 6445
+        },
+        {
+          "path": "performance/full-session-analytics/grader.ts",
+          "tokens": 1610,
+          "bytes": 6439
+        },
+        {
+          "path": "built-in-ai/summarizer/guide.md",
+          "tokens": 1594,
+          "bytes": 6375
+        },
+        {
+          "path": "ui-behaviors/group-element-transitions/guide.md",
+          "tokens": 1593,
+          "bytes": 6371
+        },
+        {
+          "path": "user-experience/content-first-noise-reduction/guide.md",
+          "tokens": 1592,
+          "bytes": 6367
+        },
+        {
+          "path": "forms/autofill-payment-form/grader.ts",
+          "tokens": 1588,
+          "bytes": 6353
+        },
+        {
+          "path": "visual-design/equal-width-text-lines/guide.md",
+          "tokens": 1588,
+          "bytes": 6351
+        },
+        {
+          "path": "visual-design/adapt-scrollbar-to-contrast-preferences/grader.ts",
+          "tokens": 1566,
+          "bytes": 6264
+        },
+        {
+          "path": "security/passkey-reauthentication/guide.md",
+          "tokens": 1559,
+          "bytes": 6238
+        },
+        {
+          "path": "performance/flicker-free-client-side-ab-testing/grader.ts",
+          "tokens": 1557,
+          "bytes": 6226
+        },
+        {
+          "path": "forms/form-fields-automatically-fit-contents/guide.md",
+          "tokens": 1554,
+          "bytes": 6215
+        },
+        {
+          "path": "ui-atoms/component-specific-light-dark-theme/guide.md",
+          "tokens": 1533,
+          "bytes": 6134
+        },
+        {
+          "path": "visual-design/precise-text-alignment/grader.ts",
+          "tokens": 1520,
+          "bytes": 6080
+        },
+        {
+          "path": "forms/button-group/guide.md",
+          "tokens": 1515,
+          "bytes": 6060
+        },
+        {
+          "path": "css/design-token-reactivity/guide.md",
+          "tokens": 1512,
+          "bytes": 6050
+        },
+        {
+          "path": "js/sort-high-precision-timestamps/guide.md",
+          "tokens": 1511,
+          "bytes": 6049
+        },
+        {
+          "path": "ui-behaviors/physics-based-easing/guide.md",
+          "tokens": 1508,
+          "bytes": 6030
+        },
+        {
+          "path": "ui-behaviors/animate-element-entry-exit/guide.md",
+          "tokens": 1502,
+          "bytes": 6007
+        },
+        {
+          "path": "performance/full-session-analytics/guide.md",
+          "tokens": 1497,
+          "bytes": 5992
+        },
+        {
+          "path": "forms/ime-safe-enter-submit/grader.ts",
+          "tokens": 1495,
+          "bytes": 5980
+        },
+        {
+          "path": "ui-behaviors/animate-element-entry-exit/grader.ts",
+          "tokens": 1495,
+          "bytes": 5980
+        },
+        {
+          "path": "ui-behaviors/scrollytelling/grader.ts",
+          "tokens": 1495,
+          "bytes": 5980
+        },
+        {
+          "path": "css/selector-atrule-combinations/targets/daily-grind/grader.ts",
+          "tokens": 1494,
+          "bytes": 5976
+        },
+        {
+          "path": "css/usage-aware-component-variations/targets/daily-grind/grader.ts",
+          "tokens": 1491,
+          "bytes": 5962
+        },
+        {
+          "path": "ui-components/spinner/guide.md",
+          "tokens": 1483,
+          "bytes": 5930
+        },
+        {
+          "path": "performance/identify-heavy-scripts/grader.ts",
+          "tokens": 1481,
+          "bytes": 5923
+        },
+        {
+          "path": "css/atrule-support-conditionals/guide.md",
+          "tokens": 1478,
+          "bytes": 5914
+        },
+        {
+          "path": "css/animate-to-intrinsic-sizes/guide.md",
+          "tokens": 1451,
+          "bytes": 5807
+        },
+        {
+          "path": "security/sanitize-untrusted-html/guide.md",
+          "tokens": 1451,
+          "bytes": 5804
+        },
+        {
+          "path": "ui-behaviors/interactive-content-reveal/guide.md",
+          "tokens": 1445,
+          "bytes": 5780
+        },
+        {
+          "path": "ui-components/persistent-app-tours/guide.md",
+          "tokens": 1435,
+          "bytes": 5740
+        },
+        {
+          "path": "user-experience/form-factor-adaptation/guide.md",
+          "tokens": 1435,
+          "bytes": 5740
+        },
+        {
+          "path": "html/html/targets/daily-grind/grader.ts",
+          "tokens": 1421,
+          "bytes": 5684
+        },
+        {
+          "path": "ui-behaviors/scroll-snap-state-sync/guide.md",
+          "tokens": 1419,
+          "bytes": 5677
+        },
+        {
+          "path": "forms/select-menu-interaction/grader.ts",
+          "tokens": 1414,
+          "bytes": 5654
+        },
+        {
+          "path": "built-in-ai/translator/targets/devtools-times/grader.ts",
+          "tokens": 1405,
+          "bytes": 5618
+        },
+        {
+          "path": "accessibility/accessibility/expectations.md",
+          "tokens": 1401,
+          "bytes": 5605
+        },
+        {
+          "path": "ui-atoms/carousel-slide-effects/grader.ts",
+          "tokens": 1398,
+          "bytes": 5590
+        },
+        {
+          "path": "visual-design/improve-text-layout-and-legibility/grader.ts",
+          "tokens": 1398,
+          "bytes": 5589
+        },
+        {
+          "path": "ui-components/stack-drill-down/expectations.md",
+          "tokens": 1396,
+          "bytes": 5592
+        },
+        {
+          "path": "performance/conditional-async-dependencies/guide.md",
+          "tokens": 1385,
+          "bytes": 5550
+        },
+        {
+          "path": "css/content-based-styling/guide.md",
+          "tokens": 1372,
+          "bytes": 5486
+        },
+        {
+          "path": "built-in-ai/summarizer/grader.ts",
+          "tokens": 1370,
+          "bytes": 5480
+        },
+        {
+          "path": "css/usage-aware-component-variations/guide.md",
+          "tokens": 1352,
+          "bytes": 5435
+        },
+        {
+          "path": "forms/form-fields-automatically-fit-contents/grader.ts",
+          "tokens": 1350,
+          "bytes": 5398
+        },
+        {
+          "path": "performance/efficient-background-processing/guide.md",
+          "tokens": 1340,
+          "bytes": 5360
+        },
+        {
+          "path": "forms/custom-select-picker-layouts/grader.ts",
+          "tokens": 1333,
+          "bytes": 5332
+        },
+        {
+          "path": "js/support-global-calendar-systems/guide.md",
           "tokens": 1328,
-          "bytes": 5321
+          "bytes": 5312
         },
         {
-          "path": "project-discipline-guides/SKILL.md",
-          "tokens": 1322,
-          "bytes": 5288
+          "path": "forms/autofill-address-form/grader.ts",
+          "tokens": 1324,
+          "bytes": 5297
         },
         {
-          "path": "coherence-auditor/scripts/coherence-audit.ts",
-          "tokens": 1093,
-          "bytes": 4457
+          "path": "visual-design/color/guide.md",
+          "tokens": 1321,
+          "bytes": 5283
         },
         {
-          "path": "coherence-auditor/SKILL.md",
-          "tokens": 864,
-          "bytes": 3454
+          "path": "html/accessible-web-components/guide.md",
+          "tokens": 1313,
+          "bytes": 5254
         },
         {
-          "path": "project-discipline-guides/intersection_prompt.md",
+          "path": "ui-atoms/pull-to-reveal/guide.md",
+          "tokens": 1313,
+          "bytes": 5252
+        },
+        {
+          "path": "ui-behaviors/directional-navigation-transitions/guide.md",
+          "tokens": 1311,
+          "bytes": 5242
+        },
+        {
+          "path": "ui-behaviors/move-dom-element-without-losing-state/grader.ts",
+          "tokens": 1310,
+          "bytes": 5238
+        },
+        {
+          "path": "visual-design/improve-text-layout-and-legibility/guide.md",
+          "tokens": 1309,
+          "bytes": 5236
+        },
+        {
+          "path": "ui-behaviors/prevent-page-scroll-under-modal-dialog/guide.md",
+          "tokens": 1294,
+          "bytes": 5176
+        },
+        {
+          "path": "html/form-associated-custom-elements/guide.md",
+          "tokens": 1293,
+          "bytes": 5178
+        },
+        {
+          "path": "css/child-state-based-styling/guide.md",
+          "tokens": 1274,
+          "bytes": 5097
+        },
+        {
+          "path": "performance/resolution-optimized-pseudo-elements/grader.ts",
+          "tokens": 1269,
+          "bytes": 5075
+        },
+        {
+          "path": "ui-behaviors/prevent-page-scroll-under-modal-dialog/targets/daily-grind/grader.ts",
+          "tokens": 1261,
+          "bytes": 5042
+        },
+        {
+          "path": "visual-design/precise-text-alignment/guide.md",
+          "tokens": 1253,
+          "bytes": 5010
+        },
+        {
+          "path": "forms/autofill-address-form/guide.md",
+          "tokens": 1252,
+          "bytes": 5007
+        },
+        {
+          "path": "css/dynamic-sibling-styling/grader.ts",
+          "tokens": 1246,
+          "bytes": 4984
+        },
+        {
+          "path": "ui-components/checkbox/guide.md",
+          "tokens": 1236,
+          "bytes": 4949
+        },
+        {
+          "path": "performance/load-shared-resources-declaratively/guide.md",
+          "tokens": 1228,
+          "bytes": 4912
+        },
+        {
+          "path": "security/passkeys/guide.md",
+          "tokens": 1224,
+          "bytes": 4909
+        },
+        {
+          "path": "visual-design/visually-stable-mixed-fonts/grader.ts",
+          "tokens": 1224,
+          "bytes": 4894
+        },
+        {
+          "path": "performance/detect-initial-visibility-state/guide.md",
+          "tokens": 1208,
+          "bytes": 4831
+        },
+        {
+          "path": "ui-atoms/responsive-table/guide.md",
+          "tokens": 1200,
+          "bytes": 4800
+        },
+        {
+          "path": "ui-behaviors/light-dismiss-a-dialog/grader.ts",
+          "tokens": 1198,
+          "bytes": 4791
+        },
+        {
+          "path": "ui-behaviors/dynamic-sibling-animations/guide.md",
+          "tokens": 1196,
+          "bytes": 4785
+        },
+        {
+          "path": "forms/animated-select-picker/grader.ts",
+          "tokens": 1183,
+          "bytes": 4731
+        },
+        {
+          "path": "visual-design/visual-effects/guide.md",
+          "tokens": 1180,
+          "bytes": 4724
+        },
+        {
+          "path": "ui-behaviors/search-hidden-content/grader.ts",
+          "tokens": 1179,
+          "bytes": 4714
+        },
+        {
+          "path": "performance/optimize-image-priority/guide.md",
+          "tokens": 1175,
+          "bytes": 4700
+        },
+        {
+          "path": "ui-components/menu/expectations.md",
+          "tokens": 1166,
+          "bytes": 4663
+        },
+        {
+          "path": "visual-design/browser-ui-theming/guide.md",
+          "tokens": 1158,
+          "bytes": 4642
+        },
+        {
+          "path": "webmcp/webmcp/guide.md",
+          "tokens": 1156,
+          "bytes": 4623
+        },
+        {
+          "path": "css/style-parent-with-has/guide.md",
+          "tokens": 1137,
+          "bytes": 4552
+        },
+        {
+          "path": "ui-atoms/scroll-position-aware-elements/guide.md",
+          "tokens": 1127,
+          "bytes": 4506
+        },
+        {
+          "path": "forms/autofill-sign-up-form/grader.ts",
+          "tokens": 1124,
+          "bytes": 4495
+        },
+        {
+          "path": "css/child-state-based-styling/grader.ts",
+          "tokens": 1122,
+          "bytes": 4485
+        },
+        {
+          "path": "performance/defer-rendering-heavy-content/grader.ts",
+          "tokens": 1122,
+          "bytes": 4487
+        },
+        {
+          "path": "forms/branded-select-styling/guide.md",
+          "tokens": 1117,
+          "bytes": 4465
+        },
+        {
+          "path": "ui-components/carousel/expectations.md",
+          "tokens": 1113,
+          "bytes": 4452
+        },
+        {
+          "path": "forms/required-field-feedback/guide.md",
+          "tokens": 1111,
+          "bytes": 4444
+        },
+        {
+          "path": "ui-behaviors/cross-document-transitions/guide.md",
+          "tokens": 1103,
+          "bytes": 4409
+        },
+        {
+          "path": "css/responsive-design/targets/daily-grind/grader.ts",
+          "tokens": 1095,
+          "bytes": 4377
+        },
+        {
+          "path": "performance/identify-heavy-scripts/guide.md",
+          "tokens": 1089,
+          "bytes": 4356
+        },
+        {
+          "path": "css/content-based-styling/grader.ts",
+          "tokens": 1083,
+          "bytes": 4332
+        },
+        {
+          "path": "ui-atoms/viewport-aware-dropdowns/guide.md",
+          "tokens": 1078,
+          "bytes": 4316
+        },
+        {
+          "path": "ui-behaviors/light-dismiss-a-dialog/guide.md",
+          "tokens": 1078,
+          "bytes": 4310
+        },
+        {
+          "path": "performance/performance/expectations.md",
+          "tokens": 1077,
+          "bytes": 4307
+        },
+        {
+          "path": "accessibility/accessible-error-announcement/guide.md",
+          "tokens": 1076,
+          "bytes": 4304
+        },
+        {
+          "path": "ui-atoms/shrinking-header-on-scroll/grader.ts",
+          "tokens": 1070,
+          "bytes": 4277
+        },
+        {
+          "path": "ui-components/persistent-app-tours/grader.ts",
+          "tokens": 1069,
+          "bytes": 4274
+        },
+        {
+          "path": "css/style-parent-with-has/grader.ts",
+          "tokens": 1065,
+          "bytes": 4260
+        },
+        {
+          "path": "visual-design/typography/guide.md",
+          "tokens": 1063,
+          "bytes": 4254
+        },
+        {
+          "path": "css/css/targets/daily-grind/grader.ts",
+          "tokens": 1055,
+          "bytes": 4219
+        },
+        {
+          "path": "css/reduce-style-repetition/guide.md",
+          "tokens": 1042,
+          "bytes": 4167
+        },
+        {
+          "path": "html/shadow-dom/guide.md",
+          "tokens": 1026,
+          "bytes": 4102
+        },
+        {
+          "path": "ui-behaviors/move-dom-element-without-losing-state/guide.md",
+          "tokens": 999,
+          "bytes": 3995
+        },
+        {
+          "path": "built-in-ai/language-detection/grader.ts",
+          "tokens": 995,
+          "bytes": 3979
+        },
+        {
+          "path": "html/html/expectations.md",
+          "tokens": 993,
+          "bytes": 3969
+        },
+        {
+          "path": "performance/optimize-image-priority/targets/daily-grind/grader.ts",
+          "tokens": 985,
+          "bytes": 3939
+        },
+        {
+          "path": "performance/schedule-tasks-by-priority/guide.md",
+          "tokens": 971,
+          "bytes": 3887
+        },
+        {
+          "path": "performance/faster-spa-view-transitions/guide.md",
+          "tokens": 967,
+          "bytes": 3869
+        },
+        {
+          "path": "visual-design/visually-texture-content/guide.md",
+          "tokens": 965,
+          "bytes": 3858
+        },
+        {
+          "path": "pwa/migrate-web-app-origin/guide.md",
+          "tokens": 942,
+          "bytes": 3766
+        },
+        {
+          "path": "forms/autofill-highlight-inputs/guide.md",
+          "tokens": 939,
+          "bytes": 3755
+        },
+        {
+          "path": "css/individual-transform-properties/guide.md",
+          "tokens": 938,
+          "bytes": 3751
+        },
+        {
+          "path": "css/dynamic-sibling-styling/guide.md",
+          "tokens": 933,
+          "bytes": 3731
+        },
+        {
+          "path": "html/prerendering-custom-elements/guide.md",
+          "tokens": 931,
+          "bytes": 3729
+        },
+        {
+          "path": "built-in-ai/language-detection/guide.md",
+          "tokens": 929,
+          "bytes": 3713
+        },
+        {
+          "path": "css/selector-atrule-combinations/guide.md",
+          "tokens": 928,
+          "bytes": 3711
+        },
+        {
+          "path": "visual-design/complex-shapes/guide.md",
+          "tokens": 911,
+          "bytes": 3643
+        },
+        {
+          "path": "ui-behaviors/scroll-target-on-load/guide.md",
+          "tokens": 906,
+          "bytes": 3622
+        },
+        {
+          "path": "security/security/expectations.md",
+          "tokens": 901,
+          "bytes": 3604
+        },
+        {
+          "path": "performance/interactions-in-complex-layouts/guide.md",
+          "tokens": 895,
+          "bytes": 3584
+        },
+        {
+          "path": "js/coordinate-global-events/guide.md",
+          "tokens": 867,
+          "bytes": 3465
+        },
+        {
+          "path": "performance/defer-work-until-scroll-ends/guide.md",
+          "tokens": 866,
+          "bytes": 3470
+        },
+        {
+          "path": "ui-behaviors/interest-triggered-action-previews/guide.md",
+          "tokens": 860,
+          "bytes": 3440
+        },
+        {
+          "path": "performance/optimize-preload-priority/guide.md",
+          "tokens": 852,
+          "bytes": 3405
+        },
+        {
+          "path": "css/fluid-scaling/guide.md",
+          "tokens": 842,
+          "bytes": 3367
+        },
+        {
+          "path": "ui-behaviors/anchor-positioning-tab-underline/guide.md",
+          "tokens": 837,
+          "bytes": 3345
+        },
+        {
+          "path": "ui-components/tabs/expectations.md",
+          "tokens": 831,
+          "bytes": 3324
+        },
+        {
+          "path": "performance/break-up-long-tasks/guide.md",
+          "tokens": 821,
+          "bytes": 3288
+        },
+        {
+          "path": "forms/select-menu-interaction/guide.md",
+          "tokens": 820,
+          "bytes": 3282
+        },
+        {
+          "path": "css/size-aware-styling/guide.md",
+          "tokens": 808,
+          "bytes": 3229
+        },
+        {
+          "path": "ui-components/persistent-toast-notifications/grader.ts",
+          "tokens": 802,
+          "bytes": 3208
+        },
+        {
+          "path": "performance/deliver-optimized-decorative-images/guide.md",
+          "tokens": 800,
+          "bytes": 3200
+        },
+        {
+          "path": "performance/deprioritize-background-fetches/grader.ts",
+          "tokens": 783,
+          "bytes": 3132
+        },
+        {
+          "path": "visual-design/visually-stable-font-fallbacks/guide.md",
+          "tokens": 774,
+          "bytes": 3094
+        },
+        {
+          "path": "performance/calculate-total-foreground-time/guide.md",
+          "tokens": 767,
+          "bytes": 3065
+        },
+        {
+          "path": "visual-design/typography/targets/daily-grind/grader.ts",
+          "tokens": 765,
+          "bytes": 3059
+        },
+        {
+          "path": "visual-design/visually-stable-mixed-fonts/guide.md",
+          "tokens": 751,
+          "bytes": 3003
+        },
+        {
+          "path": "css/overflow-clipping-control/grader.ts",
+          "tokens": 742,
+          "bytes": 2967
+        },
+        {
+          "path": "privacy/privacy/expectations.md",
+          "tokens": 739,
+          "bytes": 2957
+        },
+        {
+          "path": "performance/share-web-fonts-across-origins/guide.md",
+          "tokens": 731,
+          "bytes": 2923
+        },
+        {
+          "path": "ui-behaviors/platform-controls-dismiss-dialog/guide.md",
+          "tokens": 709,
+          "bytes": 2840
+        },
+        {
+          "path": "performance/optimize-script-priority/guide.md",
+          "tokens": 690,
+          "bytes": 2759
+        },
+        {
+          "path": "visual-design/soft-edge-content-fade/guide.md",
+          "tokens": 674,
+          "bytes": 2696
+        },
+        {
+          "path": "ui-behaviors/drag-and-drop/expectations.md",
+          "tokens": 671,
+          "bytes": 2681
+        },
+        {
+          "path": "ui-atoms/icons/expectations.md",
+          "tokens": 669,
+          "bytes": 2675
+        },
+        {
+          "path": "visual-design/dark-mode/expectations.md",
+          "tokens": 667,
+          "bytes": 2668
+        },
+        {
+          "path": "accessibility/accessibility/targets/daily-grind/grader.ts",
+          "tokens": 660,
+          "bytes": 2637
+        },
+        {
+          "path": "built-in-ai/language-model/expectations.md",
+          "tokens": 644,
+          "bytes": 2577
+        },
+        {
+          "path": "performance/optimize-preload-priority/grader.ts",
+          "tokens": 634,
+          "bytes": 2534
+        },
+        {
+          "path": "ui-components/app-menus/expectations.md",
+          "tokens": 619,
+          "bytes": 2475
+        },
+        {
+          "path": "ui-behaviors/persistent-top-layer-ui/guide.md",
+          "tokens": 615,
+          "bytes": 2459
+        },
+        {
+          "path": "performance/resolution-optimized-pseudo-elements/guide.md",
+          "tokens": 610,
+          "bytes": 2440
+        },
+        {
+          "path": "ui-behaviors/swipe-to-reveal/expectations.md",
+          "tokens": 601,
+          "bytes": 2404
+        },
+        {
+          "path": "ui-atoms/component-specific-light-dark-theme/expectations.md",
+          "tokens": 595,
+          "bytes": 2378
+        },
+        {
+          "path": "js/calculate-event-differentials/expectations.md",
+          "tokens": 577,
+          "bytes": 2306
+        },
+        {
+          "path": "accessibility/accessible-generated-content/guide.md",
+          "tokens": 572,
+          "bytes": 2300
+        },
+        {
+          "path": "forms/switch/guide.md",
+          "tokens": 556,
+          "bytes": 2221
+        },
+        {
+          "path": "ui-behaviors/interest-triggered-tooltips/expectations.md",
+          "tokens": 556,
+          "bytes": 2224
+        },
+        {
+          "path": "ui-components/navigation-drawer/expectations.md",
+          "tokens": 547,
+          "bytes": 2186
+        },
+        {
+          "path": "performance/optimize-script-priority/grader.ts",
+          "tokens": 530,
+          "bytes": 2118
+        },
+        {
+          "path": "performance/avoid-redundant-large-asset-downloads/expectations.md",
+          "tokens": 522,
+          "bytes": 2087
+        },
+        {
+          "path": "js/support-global-calendar-systems/expectations.md",
+          "tokens": 506,
+          "bytes": 2023
+        },
+        {
+          "path": "security/verify-email-ownership/expectations.md",
+          "tokens": 502,
+          "bytes": 2009
+        },
+        {
+          "path": "ui-components/card/expectations.md",
+          "tokens": 502,
+          "bytes": 2005
+        },
+        {
+          "path": "ui-components/dark-mode-toggle/expectations.md",
+          "tokens": 498,
+          "bytes": 1991
+        },
+        {
+          "path": "accessibility/respect-os-text-scale/expectations.md",
+          "tokens": 493,
+          "bytes": 1971
+        },
+        {
+          "path": "ui-behaviors/drag/expectations.md",
+          "tokens": 491,
+          "bytes": 1962
+        },
+        {
+          "path": "forms/slider/expectations.md",
+          "tokens": 490,
+          "bytes": 1965
+        },
+        {
+          "path": "performance/deprioritize-background-fetches/guide.md",
+          "tokens": 486,
+          "bytes": 1941
+        },
+        {
+          "path": "user-experience/form-factor-adaptation/expectations.md",
+          "tokens": 484,
+          "bytes": 1940
+        },
+        {
+          "path": "security/quick-sign-ins/expectations.md",
+          "tokens": 467,
+          "bytes": 1867
+        },
+        {
+          "path": "visual-design/interactive-content-in-3d-scenes/expectations.md",
+          "tokens": 463,
+          "bytes": 1850
+        },
+        {
+          "path": "forms/rich-media-picker/expectations.md",
+          "tokens": 458,
+          "bytes": 1831
+        },
+        {
+          "path": "ui-behaviors/interactive-content-reveal/expectations.md",
+          "tokens": 454,
+          "bytes": 1814
+        },
+        {
+          "path": "ui-behaviors/highlight-text-ranges/expectations.md",
+          "tokens": 451,
+          "bytes": 1804
+        },
+        {
+          "path": "security/passkeys/expectations.md",
+          "tokens": 447,
+          "bytes": 1787
+        },
+        {
+          "path": "js/coordinate-global-events/expectations.md",
+          "tokens": 441,
+          "bytes": 1762
+        },
+        {
+          "path": "css/calculate-with-intrinsic-sizes/tasks/task.md",
+          "tokens": 438,
+          "bytes": 1755
+        },
+        {
+          "path": "visual-design/adapt-scrollbar-to-contrast-preferences/guide.md",
+          "tokens": 433,
+          "bytes": 1729
+        },
+        {
+          "path": "html/form-associated-custom-elements/expectations.md",
+          "tokens": 423,
+          "bytes": 1692
+        },
+        {
+          "path": "ui-atoms/single-line-overflow/expectations.md",
+          "tokens": 423,
+          "bytes": 1690
+        },
+        {
+          "path": "html/accessible-web-components/expectations.md",
+          "tokens": 422,
+          "bytes": 1688
+        },
+        {
+          "path": "user-experience/natural-interactions/expectations.md",
+          "tokens": 422,
+          "bytes": 1688
+        },
+        {
+          "path": "forms/brand-consistent-forms/expectations.md",
+          "tokens": 419,
+          "bytes": 1675
+        },
+        {
+          "path": "ui-components/navbar/expectations.md",
+          "tokens": 419,
+          "bytes": 1675
+        },
+        {
+          "path": "forms/autofill-payment-form/expectations.md",
+          "tokens": 417,
+          "bytes": 1666
+        },
+        {
+          "path": "pwa/install-web-app/expectations.md",
+          "tokens": 413,
+          "bytes": 1652
+        },
+        {
+          "path": "ui-atoms/pull-to-reveal/expectations.md",
+          "tokens": 412,
+          "bytes": 1647
+        },
+        {
+          "path": "ui-behaviors/group-element-transitions/expectations.md",
+          "tokens": 398,
+          "bytes": 1595
+        },
+        {
+          "path": "css/atrule-support-conditionals/expectations.md",
+          "tokens": 395,
+          "bytes": 1577
+        },
+        {
+          "path": "forms/button-group/expectations.md",
+          "tokens": 394,
+          "bytes": 1574
+        },
+        {
+          "path": "js/capture-location-agnostic-data/expectations.md",
+          "tokens": 389,
+          "bytes": 1554
+        },
+        {
+          "path": "performance/interaction-paint-timing/expectations.md",
+          "tokens": 389,
+          "bytes": 1553
+        },
+        {
+          "path": "ui-components/checkbox/expectations.md",
+          "tokens": 389,
+          "bytes": 1553
+        },
+        {
+          "path": "html/custom-elements/expectations.md",
+          "tokens": 388,
+          "bytes": 1551
+        },
+        {
+          "path": "visual-design/apply-webgl-shaders/expectations.md",
+          "tokens": 388,
+          "bytes": 1551
+        },
+        {
+          "path": "forms/animated-select-picker/expectations.md",
+          "tokens": 386,
+          "bytes": 1543
+        },
+        {
+          "path": "js/sort-high-precision-timestamps/expectations.md",
+          "tokens": 385,
+          "bytes": 1539
+        },
+        {
+          "path": "visual-design/color/expectations.md",
+          "tokens": 385,
+          "bytes": 1540
+        },
+        {
+          "path": "ui-behaviors/scroll-snap-realtime-feedback/expectations.md",
+          "tokens": 378,
+          "bytes": 1512
+        },
+        {
+          "path": "ui-components/toolbar/expectations.md",
+          "tokens": 377,
+          "bytes": 1507
+        },
+        {
+          "path": "user-experience/content-first-noise-reduction/expectations.md",
+          "tokens": 377,
+          "bytes": 1508
+        },
+        {
+          "path": "ui-behaviors/declarative-dialog-popover-control/expectations.md",
+          "tokens": 376,
+          "bytes": 1502
+        },
+        {
+          "path": "ui-components/accordion/expectations.md",
+          "tokens": 373,
+          "bytes": 1489
+        },
+        {
+          "path": "forms/sms-otp-form/expectations.md",
+          "tokens": 370,
+          "bytes": 1478
+        },
+        {
+          "path": "js/support-global-calendar-systems/tasks/task.md",
+          "tokens": 369,
+          "bytes": 1474
+        },
+        {
+          "path": "ui-components/persistent-app-tours/tasks/task.md",
+          "tokens": 367,
+          "bytes": 1466
+        },
+        {
+          "path": "ui-behaviors/spatial-navigation/expectations.md",
+          "tokens": 365,
+          "bytes": 1457
+        },
+        {
+          "path": "forms/validate-input-after-interaction/expectations.md",
+          "tokens": 359,
+          "bytes": 1433
+        },
+        {
+          "path": "forms/custom-select-picker-layouts/expectations.md",
+          "tokens": 357,
+          "bytes": 1427
+        },
+        {
+          "path": "ui-behaviors/scoped-component-transitions/expectations.md",
+          "tokens": 353,
+          "bytes": 1409
+        },
+        {
+          "path": "ui-components/breadcrumbs/expectations.md",
+          "tokens": 353,
+          "bytes": 1411
+        },
+        {
+          "path": "forms/branded-select-styling/expectations.md",
+          "tokens": 352,
+          "bytes": 1406
+        },
+        {
+          "path": "accessibility/accessible-error-announcement/expectations.md",
           "tokens": 348,
-          "bytes": 1392
+          "bytes": 1391
         },
         {
-          "path": "project-maintenance/SKILL.md",
+          "path": "ui-behaviors/scroll-snap-state-sync/expectations.md",
+          "tokens": 347,
+          "bytes": 1387
+        },
+        {
+          "path": "ui-components/spinner/expectations.md",
+          "tokens": 347,
+          "bytes": 1386
+        },
+        {
+          "path": "visual-design/equal-width-text-lines/expectations.md",
+          "tokens": 347,
+          "bytes": 1388
+        },
+        {
+          "path": "built-in-ai/language-model/tasks/task.md",
+          "tokens": 345,
+          "bytes": 1377
+        },
+        {
+          "path": "ui-behaviors/animate-element-entry-exit/expectations.md",
+          "tokens": 345,
+          "bytes": 1378
+        },
+        {
+          "path": "visual-design/typography/expectations.md",
+          "tokens": 345,
+          "bytes": 1382
+        },
+        {
+          "path": "css/css/expectations.md",
+          "tokens": 341,
+          "bytes": 1362
+        },
+        {
+          "path": "ui-atoms/scrollability-affordance-hints/expectations.md",
+          "tokens": 339,
+          "bytes": 1353
+        },
+        {
+          "path": "ui-behaviors/motion/expectations.md",
+          "tokens": 338,
+          "bytes": 1351
+        },
+        {
+          "path": "css/responsive-design/guide.md",
+          "tokens": 337,
+          "bytes": 1347
+        },
+        {
+          "path": "performance/load-shared-resources-declaratively/expectations.md",
+          "tokens": 337,
+          "bytes": 1346
+        },
+        {
+          "path": "visual-design/expose-canvas-content-to-browser-features/expectations.md",
+          "tokens": 337,
+          "bytes": 1347
+        },
+        {
+          "path": "html/web-components/expectations.md",
+          "tokens": 335,
+          "bytes": 1340
+        },
+        {
+          "path": "ui-behaviors/directional-navigation-transitions/expectations.md",
+          "tokens": 334,
+          "bytes": 1336
+        },
+        {
+          "path": "visual-design/fit-text-to-container/guide.md",
+          "tokens": 334,
+          "bytes": 1334
+        },
+        {
+          "path": "ui-components/scrollspy/expectations.md",
+          "tokens": 333,
+          "bytes": 1329
+        },
+        {
+          "path": "performance/improve-next-page-load-performance/expectations.md",
+          "tokens": 329,
+          "bytes": 1315
+        },
+        {
+          "path": "security/validate-origins/expectations.md",
+          "tokens": 324,
+          "bytes": 1296
+        },
+        {
+          "path": "ui-components/copy-button/expectations.md",
+          "tokens": 323,
+          "bytes": 1290
+        },
+        {
+          "path": "css/calculate-with-intrinsic-sizes/expectations.md",
+          "tokens": 322,
+          "bytes": 1286
+        },
+        {
+          "path": "security/secure-external-subresources/expectations.md",
+          "tokens": 322,
+          "bytes": 1288
+        },
+        {
+          "path": "ui-behaviors/scroll-target-on-load/expectations.md",
+          "tokens": 320,
+          "bytes": 1277
+        },
+        {
+          "path": "css/animate-to-intrinsic-sizes/expectations.md",
+          "tokens": 319,
+          "bytes": 1273
+        },
+        {
+          "path": "forms/required-field-feedback/expectations.md",
+          "tokens": 319,
+          "bytes": 1276
+        },
+        {
+          "path": "ui-atoms/position-aware-tooltips/expectations.md",
           "tokens": 317,
-          "bytes": 1267
+          "bytes": 1265
         },
         {
-          "path": "project-discipline-guides/mirror_prompt.md",
-          "tokens": 308,
-          "bytes": 1232
+          "path": "ui-behaviors/interest-triggered-action-previews/tasks/task.md",
+          "tokens": 317,
+          "bytes": 1268
         },
         {
-          "path": "web-baseline/SKILL.md",
+          "path": "ui-components/progress-ring/expectations.md",
+          "tokens": 314,
+          "bytes": 1254
+        },
+        {
+          "path": "forms/validate-input-after-interaction/tasks/task.md",
+          "tokens": 313,
+          "bytes": 1251
+        },
+        {
+          "path": "ui-atoms/custom-list-markers/guide.md",
+          "tokens": 312,
+          "bytes": 1246
+        },
+        {
+          "path": "ui-behaviors/sortable-table/expectations.md",
+          "tokens": 311,
+          "bytes": 1244
+        },
+        {
+          "path": "visual-design/customize-scrollbar-color-and-thickness/guide.md",
+          "tokens": 310,
+          "bytes": 1240
+        },
+        {
+          "path": "visual-design/export-html-media-from-canvas/expectations.md",
+          "tokens": 309,
+          "bytes": 1235
+        },
+        {
+          "path": "visual-design/custom-text-decorations/expectations.md",
+          "tokens": 307,
+          "bytes": 1227
+        },
+        {
+          "path": "ui-behaviors/same-document-transitions/expectations.md",
+          "tokens": 306,
+          "bytes": 1223
+        },
+        {
+          "path": "ui-behaviors/2d-panning/expectations.md",
+          "tokens": 305,
+          "bytes": 1218
+        },
+        {
+          "path": "security/client-side-encryption/expectations.md",
+          "tokens": 302,
+          "bytes": 1206
+        },
+        {
+          "path": "webmcp/webmcp/expectations.md",
+          "tokens": 301,
+          "bytes": 1203
+        },
+        {
+          "path": "ui-behaviors/search-hidden-content/expectations.md",
+          "tokens": 298,
+          "bytes": 1192
+        },
+        {
+          "path": "forms/autofill-highlight-inputs/expectations.md",
+          "tokens": 295,
+          "bytes": 1177
+        },
+        {
+          "path": "security/restrict-outbound-connections/expectations.md",
+          "tokens": 295,
+          "bytes": 1179
+        },
+        {
+          "path": "visual-design/browser-ui-theming/expectations.md",
+          "tokens": 295,
+          "bytes": 1180
+        },
+        {
+          "path": "css/child-state-based-styling/expectations.md",
+          "tokens": 293,
+          "bytes": 1170
+        },
+        {
+          "path": "forms/select-menu-interaction/tasks/task.md",
+          "tokens": 288,
+          "bytes": 1151
+        },
+        {
+          "path": "html/shadow-dom/expectations.md",
+          "tokens": 280,
+          "bytes": 1119
+        },
+        {
+          "path": "css/content-based-styling/expectations.md",
+          "tokens": 278,
+          "bytes": 1110
+        },
+        {
+          "path": "ui-atoms/state-aware-sticky-headers/tasks/task.md",
+          "tokens": 277,
+          "bytes": 1106
+        },
+        {
+          "path": "security/trusted-types/expectations.md",
+          "tokens": 275,
+          "bytes": 1100
+        },
+        {
+          "path": "ui-behaviors/prevent-page-scroll-under-modal-dialog/expectations.md",
+          "tokens": 275,
+          "bytes": 1099
+        },
+        {
+          "path": "ui-components/persistent-toast-notifications/expectations.md",
+          "tokens": 274,
+          "bytes": 1094
+        },
+        {
+          "path": "visual-design/interactive-content-in-3d-scenes/prompts.md",
+          "tokens": 272,
+          "bytes": 1087
+        },
+        {
+          "path": "visual-design/shaped-cutouts/tasks/task.md",
+          "tokens": 270,
+          "bytes": 1077
+        },
+        {
+          "path": "css/individual-transform-properties/expectations.md",
+          "tokens": 267,
+          "bytes": 1066
+        },
+        {
+          "path": "ui-behaviors/carousel-snap-highlights/expectations.md",
+          "tokens": 264,
+          "bytes": 1055
+        },
+        {
+          "path": "visual-design/export-html-media-from-canvas/tasks/task.md",
+          "tokens": 259,
+          "bytes": 1034
+        },
+        {
+          "path": "webmcp/agentic-javascript-tools/tasks/task.md",
+          "tokens": 258,
+          "bytes": 1031
+        },
+        {
+          "path": "forms/switch/expectations.md",
+          "tokens": 257,
+          "bytes": 1025
+        },
+        {
+          "path": "security/digital-signatures/expectations.md",
+          "tokens": 257,
+          "bytes": 1027
+        },
+        {
+          "path": "html/prerendering-custom-elements/expectations.md",
+          "tokens": 256,
+          "bytes": 1024
+        },
+        {
+          "path": "security/passkey-authentication/expectations.md",
+          "tokens": 256,
+          "bytes": 1023
+        },
+        {
+          "path": "css/individual-transform-properties/tasks/task.md",
+          "tokens": 251,
+          "bytes": 1004
+        },
+        {
+          "path": "html/styling-web-components/expectations.md",
+          "tokens": 251,
+          "bytes": 1001
+        },
+        {
+          "path": "performance/share-web-fonts-across-origins/expectations.md",
+          "tokens": 251,
+          "bytes": 1003
+        },
+        {
+          "path": "ui-atoms/responsive-table/expectations.md",
+          "tokens": 251,
+          "bytes": 1003
+        },
+        {
+          "path": "ui-atoms/scroll-position-aware-elements/expectations.md",
+          "tokens": 251,
+          "bytes": 1001
+        },
+        {
+          "path": "ui-behaviors/scroll-entry-exit-effects/expectations.md",
+          "tokens": 251,
+          "bytes": 1006
+        },
+        {
+          "path": "visual-design/contrast-color/expectations.md",
+          "tokens": 251,
+          "bytes": 1001
+        },
+        {
+          "path": "ui-behaviors/animate-to-from-top-layer/expectations.md",
+          "tokens": 250,
+          "bytes": 998
+        },
+        {
+          "path": "css/dynamic-sibling-styling/expectations.md",
+          "tokens": 247,
+          "bytes": 988
+        },
+        {
+          "path": "forms/autofill-sign-up-form/expectations.md",
+          "tokens": 247,
+          "bytes": 988
+        },
+        {
+          "path": "performance/lazy-load-video-and-audio/expectations.md",
+          "tokens": 247,
+          "bytes": 988
+        },
+        {
+          "path": "ui-behaviors/scroll-completion-effects/expectations.md",
+          "tokens": 247,
+          "bytes": 985
+        },
+        {
+          "path": "visual-design/customize-scrollbar-color-and-thickness/expectations.md",
+          "tokens": 247,
+          "bytes": 987
+        },
+        {
+          "path": "forms/autofill-address-form/expectations.md",
+          "tokens": 246,
+          "bytes": 981
+        },
+        {
+          "path": "performance/flicker-free-client-side-ab-testing/expectations.md",
+          "tokens": 244,
+          "bytes": 974
+        },
+        {
+          "path": "ui-atoms/viewport-aware-dropdowns/expectations.md",
+          "tokens": 244,
+          "bytes": 976
+        },
+        {
+          "path": "css/fluid-scaling/tasks/task.md",
+          "tokens": 242,
+          "bytes": 968
+        },
+        {
+          "path": "ui-behaviors/custom-button-actions/expectations.md",
+          "tokens": 239,
+          "bytes": 955
+        },
+        {
+          "path": "performance/batch-analytics-events/expectations.md",
+          "tokens": 238,
+          "bytes": 952
+        },
+        {
+          "path": "ui-components/progress/expectations.md",
+          "tokens": 237,
+          "bytes": 948
+        },
+        {
+          "path": "performance/out-of-order-html-streaming/expectations.md",
+          "tokens": 235,
+          "bytes": 937
+        },
+        {
+          "path": "security/local-network-access/expectations.md",
+          "tokens": 235,
+          "bytes": 938
+        },
+        {
+          "path": "ui-atoms/scroll-progress-indicator/expectations.md",
+          "tokens": 233,
+          "bytes": 930
+        },
+        {
+          "path": "README.md",
+          "tokens": 232,
+          "bytes": 940
+        },
+        {
+          "path": "visual-design/shaped-cutouts/expectations.md",
+          "tokens": 232,
+          "bytes": 928
+        },
+        {
+          "path": "ui-behaviors/physics-based-easing/expectations.md",
+          "tokens": 231,
+          "bytes": 923
+        },
+        {
+          "path": "visual-design/expose-canvas-content-to-browser-features/prompts.md",
+          "tokens": 231,
+          "bytes": 922
+        },
+        {
+          "path": "forms/autofill-sign-in-form/expectations.md",
+          "tokens": 230,
+          "bytes": 917
+        },
+        {
+          "path": "security/passkey-management/expectations.md",
+          "tokens": 230,
+          "bytes": 918
+        },
+        {
+          "path": "performance/flicker-free-client-side-ab-testing/tasks/task.md",
+          "tokens": 229,
+          "bytes": 914
+        },
+        {
+          "path": "visual-design/visual-effects/expectations.md",
+          "tokens": 229,
+          "bytes": 913
+        },
+        {
+          "path": "ui-atoms/state-aware-sticky-headers/expectations.md",
+          "tokens": 228,
+          "bytes": 910
+        },
+        {
+          "path": "ui-atoms/component-specific-light-dark-theme/tasks/task.md",
+          "tokens": 225,
+          "bytes": 900
+        },
+        {
+          "path": "ui-components/dialog/expectations.md",
           "tokens": 225,
           "bytes": 899
+        },
+        {
+          "path": "performance/break-up-long-tasks/tasks/task.md",
+          "tokens": 221,
+          "bytes": 883
+        },
+        {
+          "path": "performance/optimize-image-priority/expectations.md",
+          "tokens": 221,
+          "bytes": 882
+        },
+        {
+          "path": "wasm/cpp-on-the-web/expectations.md",
+          "tokens": 217,
+          "bytes": 867
+        },
+        {
+          "path": "ui-behaviors/swipe-to-remove/tasks/task.md",
+          "tokens": 216,
+          "bytes": 863
+        },
+        {
+          "path": "ui-behaviors/consistent-cross-document-transitions/expectations.md",
+          "tokens": 215,
+          "bytes": 860
+        },
+        {
+          "path": "ui-behaviors/dynamic-sort/expectations.md",
+          "tokens": 215,
+          "bytes": 857
+        },
+        {
+          "path": "visual-design/precise-text-alignment/expectations.md",
+          "tokens": 213,
+          "bytes": 852
+        },
+        {
+          "path": "visual-design/gradient-borders/guide.md",
+          "tokens": 212,
+          "bytes": 845
+        },
+        {
+          "path": "forms/brand-consistent-forms/tasks/task.md",
+          "tokens": 210,
+          "bytes": 840
+        },
+        {
+          "path": "ui-behaviors/anchor-positioning-tab-underline/expectations.md",
+          "tokens": 208,
+          "bytes": 829
+        },
+        {
+          "path": "css/usage-aware-component-variations/expectations.md",
+          "tokens": 207,
+          "bytes": 826
+        },
+        {
+          "path": "performance/defer-work-until-scroll-ends/expectations.md",
+          "tokens": 207,
+          "bytes": 828
+        },
+        {
+          "path": "css/masonry-layout/guide.md",
+          "tokens": 206,
+          "bytes": 823
+        },
+        {
+          "path": "ui-behaviors/parallax-scroll-effects/expectations.md",
+          "tokens": 204,
+          "bytes": 815
+        },
+        {
+          "path": "ui-atoms/carousel-slide-effects/expectations.md",
+          "tokens": 202,
+          "bytes": 807
+        },
+        {
+          "path": "css/overflow-clipping-control/expectations.md",
+          "tokens": 201,
+          "bytes": 802
+        },
+        {
+          "path": "forms/form-fields-automatically-fit-contents/expectations.md",
+          "tokens": 201,
+          "bytes": 801
+        },
+        {
+          "path": "security/passkey-reauthentication/expectations.md",
+          "tokens": 198,
+          "bytes": 789
+        },
+        {
+          "path": "performance/efficient-background-processing/expectations.md",
+          "tokens": 196,
+          "bytes": 782
+        },
+        {
+          "path": "accessibility/accessible-generated-content/expectations.md",
+          "tokens": 194,
+          "bytes": 775
+        },
+        {
+          "path": "performance/faster-spa-view-transitions/expectations.md",
+          "tokens": 194,
+          "bytes": 776
+        },
+        {
+          "path": "security/sanitize-untrusted-html/expectations.md",
+          "tokens": 194,
+          "bytes": 775
+        },
+        {
+          "path": "ui-atoms/scrollability-affordance-hints/tasks/task.md",
+          "tokens": 194,
+          "bytes": 775
+        },
+        {
+          "path": "ui-atoms/shrinking-header-on-scroll/expectations.md",
+          "tokens": 194,
+          "bytes": 773
+        },
+        {
+          "path": "css/fluid-scaling/expectations.md",
+          "tokens": 191,
+          "bytes": 762
+        },
+        {
+          "path": "css/selector-atrule-combinations/expectations.md",
+          "tokens": 187,
+          "bytes": 746
+        },
+        {
+          "path": "ui-components/persistent-app-tours/expectations.md",
+          "tokens": 187,
+          "bytes": 746
+        },
+        {
+          "path": "accessibility/accessible-error-announcement/tasks/task.md",
+          "tokens": 185,
+          "bytes": 740
+        },
+        {
+          "path": "security/passkey-registration/expectations.md",
+          "tokens": 183,
+          "bytes": 731
+        },
+        {
+          "path": "forms/select-menu-interaction/expectations.md",
+          "tokens": 182,
+          "bytes": 728
+        },
+        {
+          "path": "ui-atoms/scroll-progress-indicator/tasks/task.md",
+          "tokens": 179,
+          "bytes": 713
+        },
+        {
+          "path": "ui-behaviors/light-dismiss-a-dialog/expectations.md",
+          "tokens": 179,
+          "bytes": 716
+        },
+        {
+          "path": "built-in-ai/translator/expectations.md",
+          "tokens": 177,
+          "bytes": 708
+        },
+        {
+          "path": "ui-behaviors/motion/targets/daily-grind/task.md",
+          "tokens": 175,
+          "bytes": 700
+        },
+        {
+          "path": "css/design-token-reactivity/expectations.md",
+          "tokens": 172,
+          "bytes": 686
+        },
+        {
+          "path": "ui-behaviors/scrollytelling/expectations.md",
+          "tokens": 171,
+          "bytes": 683
+        },
+        {
+          "path": "ui-behaviors/cross-document-transitions/expectations.md",
+          "tokens": 169,
+          "bytes": 674
+        },
+        {
+          "path": "ui-behaviors/interest-triggered-action-previews/expectations.md",
+          "tokens": 167,
+          "bytes": 667
+        },
+        {
+          "path": "ui-behaviors/platform-controls-dismiss-dialog/expectations.md",
+          "tokens": 165,
+          "bytes": 658
+        },
+        {
+          "path": "performance/interactions-in-complex-layouts/expectations.md",
+          "tokens": 163,
+          "bytes": 651
+        },
+        {
+          "path": "ui-behaviors/dynamic-sibling-animations/expectations.md",
+          "tokens": 163,
+          "bytes": 650
+        },
+        {
+          "path": "ui-behaviors/dynamic-sibling-animations/tasks/task.md",
+          "tokens": 161,
+          "bytes": 644
+        },
+        {
+          "path": "performance/defer-rendering-heavy-content/expectations.md",
+          "tokens": 159,
+          "bytes": 635
+        },
+        {
+          "path": "performance/full-session-analytics/expectations.md",
+          "tokens": 159,
+          "bytes": 633
+        },
+        {
+          "path": "ui-components/hovercard/expectations.md",
+          "tokens": 158,
+          "bytes": 629
+        },
+        {
+          "path": "built-in-ai/summarizer/tasks/task.md",
+          "tokens": 155,
+          "bytes": 618
+        },
+        {
+          "path": "forms/ime-safe-enter-submit/expectations.md",
+          "tokens": 155,
+          "bytes": 617
+        },
+        {
+          "path": "ui-atoms/viewport-aware-dropdowns/tasks/task.md",
+          "tokens": 154,
+          "bytes": 616
+        },
+        {
+          "path": "css/reduce-style-repetition/expectations.md",
+          "tokens": 152,
+          "bytes": 608
+        },
+        {
+          "path": "visual-design/element-shape/guide.md",
+          "tokens": 150,
+          "bytes": 599
+        },
+        {
+          "path": "performance/efficient-background-processing/tasks/task.md",
+          "tokens": 149,
+          "bytes": 595
+        },
+        {
+          "path": "visual-design/export-html-media-from-canvas/prompts.md",
+          "tokens": 149,
+          "bytes": 595
+        },
+        {
+          "path": "performance/optimize-preload-priority/expectations.md",
+          "tokens": 147,
+          "bytes": 587
+        },
+        {
+          "path": "visual-design/soft-edge-content-fade/expectations.md",
+          "tokens": 147,
+          "bytes": 586
+        },
+        {
+          "path": "performance/break-up-long-tasks/expectations.md",
+          "tokens": 145,
+          "bytes": 577
+        },
+        {
+          "path": "security/passkey-conditional-create/expectations.md",
+          "tokens": 145,
+          "bytes": 578
+        },
+        {
+          "path": "ui-behaviors/scroll-entry-exit-effects/tasks/task.md",
+          "tokens": 141,
+          "bytes": 563
+        },
+        {
+          "path": "visual-design/visually-stable-mixed-fonts/expectations.md",
+          "tokens": 141,
+          "bytes": 561
+        },
+        {
+          "path": "visual-design/apply-webgl-shaders/prompts.md",
+          "tokens": 140,
+          "bytes": 557
+        },
+        {
+          "path": "visual-design/adapt-scrollbar-to-contrast-preferences/expectations.md",
+          "tokens": 139,
+          "bytes": 555
+        },
+        {
+          "path": "performance/schedule-tasks-by-priority/expectations.md",
+          "tokens": 137,
+          "bytes": 547
+        },
+        {
+          "path": "built-in-ai/summarizer/expectations.md",
+          "tokens": 134,
+          "bytes": 535
+        },
+        {
+          "path": "performance/detect-initial-visibility-state/expectations.md",
+          "tokens": 134,
+          "bytes": 535
+        },
+        {
+          "path": "webmcp/agentic-forms/expectations.md",
+          "tokens": 133,
+          "bytes": 532
+        },
+        {
+          "path": "ui-behaviors/highlight-text-ranges/tasks/task.md",
+          "tokens": 130,
+          "bytes": 517
+        },
+        {
+          "path": "css/dynamic-sibling-styling/tasks/task.md",
+          "tokens": 129,
+          "bytes": 513
+        },
+        {
+          "path": "performance/full-session-analytics/tasks/task.md",
+          "tokens": 128,
+          "bytes": 512
+        },
+        {
+          "path": "security/passkey-conditional-create/tasks/task.md",
+          "tokens": 128,
+          "bytes": 512
+        },
+        {
+          "path": "performance/identify-inp-causes/expectations.md",
+          "tokens": 127,
+          "bytes": 505
+        },
+        {
+          "path": "visual-design/visually-stable-font-fallbacks/expectations.md",
+          "tokens": 127,
+          "bytes": 506
+        },
+        {
+          "path": "security/passkey-reauthentication/tasks/task.md",
+          "tokens": 123,
+          "bytes": 490
+        },
+        {
+          "path": "forms/autofill-payment-form/tasks/task.md",
+          "tokens": 121,
+          "bytes": 482
+        },
+        {
+          "path": "visual-design/complex-shapes/expectations.md",
+          "tokens": 121,
+          "bytes": 481
+        },
+        {
+          "path": "webmcp/agentic-javascript-tools/expectations.md",
+          "tokens": 120,
+          "bytes": 478
+        },
+        {
+          "path": "css/responsive-design/expectations.md",
+          "tokens": 118,
+          "bytes": 469
+        },
+        {
+          "path": "forms/autofill-address-form/tasks/task.md",
+          "tokens": 118,
+          "bytes": 472
+        },
+        {
+          "path": "pwa/pwa/guide.md",
+          "tokens": 118,
+          "bytes": 472
+        },
+        {
+          "path": "css/style-parent-with-has/expectations.md",
+          "tokens": 117,
+          "bytes": 468
+        },
+        {
+          "path": "ui-behaviors/light-dismiss-a-dialog/tasks/task.md",
+          "tokens": 117,
+          "bytes": 467
+        },
+        {
+          "path": "visual-design/visually-texture-content/expectations.md",
+          "tokens": 117,
+          "bytes": 466
+        },
+        {
+          "path": "css/design-token-reactivity/tasks/task.md",
+          "tokens": 115,
+          "bytes": 460
+        },
+        {
+          "path": "ui-components/dialog/targets/daily-grind/task.md",
+          "tokens": 115,
+          "bytes": 459
+        },
+        {
+          "path": "performance/conditional-async-dependencies/expectations.md",
+          "tokens": 114,
+          "bytes": 453
+        },
+        {
+          "path": "css/size-aware-styling/expectations.md",
+          "tokens": 113,
+          "bytes": 449
+        },
+        {
+          "path": "performance/out-of-order-html-streaming/targets/daily-grind/task.md",
+          "tokens": 113,
+          "bytes": 452
+        },
+        {
+          "path": "security/passkey-authentication/tasks/task.md",
+          "tokens": 113,
+          "bytes": 449
+        },
+        {
+          "path": "ui-behaviors/interactive-content-reveal/tasks/task.md",
+          "tokens": 112,
+          "bytes": 446
+        },
+        {
+          "path": "performance/deliver-optimized-decorative-images/serve-alternative-image-formats/guide.md",
+          "tokens": 111,
+          "bytes": 441
+        },
+        {
+          "path": "visual-design/dark-mode/tasks/task.md",
+          "tokens": 111,
+          "bytes": 444
+        },
+        {
+          "path": "visual-design/visually-stable-mixed-fonts/tasks/task.md",
+          "tokens": 111,
+          "bytes": 441
+        },
+        {
+          "path": "forms/slider-range/guide.md",
+          "tokens": 110,
+          "bytes": 439
+        },
+        {
+          "path": "html/styling-web-components/targets/daily-grind/task.md",
+          "tokens": 109,
+          "bytes": 434
+        },
+        {
+          "path": "ui-behaviors/move-dom-element-without-losing-state/expectations.md",
+          "tokens": 109,
+          "bytes": 434
+        },
+        {
+          "path": "performance/calculate-total-foreground-time/expectations.md",
+          "tokens": 108,
+          "bytes": 430
+        },
+        {
+          "path": "visual-design/customize-scrollbar-color-and-thickness/tasks/task.md",
+          "tokens": 108,
+          "bytes": 429
+        },
+        {
+          "path": "ui-behaviors/scroll-snap-state-sync/tasks/task.md",
+          "tokens": 107,
+          "bytes": 428
+        },
+        {
+          "path": "performance/optimize-script-priority/expectations.md",
+          "tokens": 106,
+          "bytes": 424
+        },
+        {
+          "path": "ui-behaviors/same-document-transitions/tasks/task.md",
+          "tokens": 106,
+          "bytes": 421
+        },
+        {
+          "path": "built-in-ai/language-detection/expectations.md",
+          "tokens": 105,
+          "bytes": 418
+        },
+        {
+          "path": "ui-behaviors/persistent-top-layer-ui/expectations.md",
+          "tokens": 105,
+          "bytes": 417
+        },
+        {
+          "path": "performance/resolution-optimized-pseudo-elements/expectations.md",
+          "tokens": 104,
+          "bytes": 413
+        },
+        {
+          "path": "css/usage-aware-component-variations/targets/devtools-times/task.md",
+          "tokens": 103,
+          "bytes": 412
+        },
+        {
+          "path": "security/passkey-registration/tasks/task.md",
+          "tokens": 103,
+          "bytes": 412
+        },
+        {
+          "path": "css/overflow-clipping-control/tasks/task.md",
+          "tokens": 102,
+          "bytes": 405
+        },
+        {
+          "path": "forms/form-fields-automatically-fit-contents/tasks/task.md",
+          "tokens": 101,
+          "bytes": 403
+        },
+        {
+          "path": "ui-behaviors/animate-element-entry-exit/tasks/task.md",
+          "tokens": 101,
+          "bytes": 401
+        },
+        {
+          "path": "js/calculate-event-differentials/tasks/task.md",
+          "tokens": 99,
+          "bytes": 393
+        },
+        {
+          "path": "ui-behaviors/carousel-snap-highlights/tasks/task.md",
+          "tokens": 99,
+          "bytes": 393
+        },
+        {
+          "path": "performance/calculate-total-foreground-time/tasks/task.md",
+          "tokens": 98,
+          "bytes": 389
+        },
+        {
+          "path": "security/restrict-outbound-connections/targets/daily-grind/task.md",
+          "tokens": 98,
+          "bytes": 391
+        },
+        {
+          "path": "ui-atoms/scroll-position-aware-elements/tasks/task.md",
+          "tokens": 98,
+          "bytes": 389
+        },
+        {
+          "path": "user-experience/natural-interactions/targets/daily-grind/task.md",
+          "tokens": 98,
+          "bytes": 389
+        },
+        {
+          "path": "ui-components/accordion/targets/daily-grind/task.md",
+          "tokens": 97,
+          "bytes": 386
+        },
+        {
+          "path": "visual-design/expose-canvas-content-to-browser-features/tasks/task.md",
+          "tokens": 97,
+          "bytes": 387
+        },
+        {
+          "path": "forms/filterable-select/guide.md",
+          "tokens": 96,
+          "bytes": 382
+        },
+        {
+          "path": "pwa/migrate-web-app-origin/expectations.md",
+          "tokens": 96,
+          "bytes": 384
+        },
+        {
+          "path": "security/validate-origins/targets/daily-grind/task.md",
+          "tokens": 96,
+          "bytes": 381
+        },
+        {
+          "path": "forms/autofill-highlight-inputs/tasks/task.md",
+          "tokens": 95,
+          "bytes": 379
+        },
+        {
+          "path": "ui-components/media-player-controls/guide.md",
+          "tokens": 94,
+          "bytes": 380
+        },
+        {
+          "path": "ui-components/progress-ring/targets/daily-grind/task.md",
+          "tokens": 94,
+          "bytes": 374
+        },
+        {
+          "path": "visual-design/improve-text-layout-and-legibility/expectations.md",
+          "tokens": 94,
+          "bytes": 373
+        },
+        {
+          "path": "user-experience/content-first-noise-reduction/targets/daily-grind/task.md",
+          "tokens": 92,
+          "bytes": 368
+        },
+        {
+          "path": "html/shadow-dom/targets/daily-grind/task.md",
+          "tokens": 91,
+          "bytes": 361
+        },
+        {
+          "path": "ui-behaviors/custom-button-actions/prompts.md",
+          "tokens": 91,
+          "bytes": 364
+        },
+        {
+          "path": "html/camera-and-microphone-capture/guide.md",
+          "tokens": 90,
+          "bytes": 363
+        },
+        {
+          "path": "performance/optimize-script-priority/tasks/task.md",
+          "tokens": 90,
+          "bytes": 358
+        },
+        {
+          "path": "security/sanitize-untrusted-html/targets/daily-grind/task.md",
+          "tokens": 90,
+          "bytes": 360
+        },
+        {
+          "path": "visual-design/browser-ui-theming/targets/daily-grind/task.md",
+          "tokens": 90,
+          "bytes": 361
+        },
+        {
+          "path": "performance/optimize-preload-priority/tasks/task.md",
+          "tokens": 89,
+          "bytes": 353
+        },
+        {
+          "path": "security/security/targets/daily-grind/task.md",
+          "tokens": 89,
+          "bytes": 355
+        },
+        {
+          "path": "ui-behaviors/scoped-component-transitions/targets/daily-grind/task.md",
+          "tokens": 89,
+          "bytes": 355
+        },
+        {
+          "path": "js/coordinate-global-events/tasks/task.md",
+          "tokens": 88,
+          "bytes": 351
+        },
+        {
+          "path": "js/sort-high-precision-timestamps/tasks/task.md",
+          "tokens": 87,
+          "bytes": 345
+        },
+        {
+          "path": "performance/faster-spa-view-transitions/targets/devtools-times/task.md",
+          "tokens": 87,
+          "bytes": 346
+        },
+        {
+          "path": "ui-atoms/pull-to-reveal/tasks/task.md",
+          "tokens": 87,
+          "bytes": 346
+        },
+        {
+          "path": "visual-design/typography/targets/daily-grind/task.md",
+          "tokens": 87,
+          "bytes": 348
+        },
+        {
+          "path": "css/css-conditionals/guide.md",
+          "tokens": 86,
+          "bytes": 344
+        },
+        {
+          "path": "performance/defer-rendering-heavy-content/tasks/task.md",
+          "tokens": 86,
+          "bytes": 343
+        },
+        {
+          "path": "security/quick-sign-ins/targets/daily-grind/task.md",
+          "tokens": 86,
+          "bytes": 342
+        },
+        {
+          "path": "ui-behaviors/declarative-dialog-popover-control/tasks/task.md",
+          "tokens": 86,
+          "bytes": 342
+        },
+        {
+          "path": "user-experience/preference-aware-ui/guide.md",
+          "tokens": 86,
+          "bytes": 343
+        },
+        {
+          "path": "visual-design/visual-effects/targets/daily-grind/task.md",
+          "tokens": 86,
+          "bytes": 341
+        },
+        {
+          "path": "ui-behaviors/responsive-disclosure/guide.md",
+          "tokens": 85,
+          "bytes": 339
+        },
+        {
+          "path": "ui-components/breadcrumbs/targets/daily-grind/task.md",
+          "tokens": 85,
+          "bytes": 337
+        },
+        {
+          "path": "ui-components/menu/targets/daily-grind/task.md",
+          "tokens": 85,
+          "bytes": 339
+        },
+        {
+          "path": "ui-components/navbar/targets/daily-grind/task.md",
+          "tokens": 85,
+          "bytes": 339
+        },
+        {
+          "path": "visual-design/custom-text-decorations/targets/daily-grind/task.md",
+          "tokens": 85,
+          "bytes": 338
+        },
+        {
+          "path": "pwa/installable-web-app-metadata/guide.md",
+          "tokens": 84,
+          "bytes": 333
+        },
+        {
+          "path": "test-fixture.ts",
+          "tokens": 84,
+          "bytes": 334
+        },
+        {
+          "path": "ui-behaviors/2d-panning/targets/daily-grind/task.md",
+          "tokens": 84,
+          "bytes": 333
+        },
+        {
+          "path": "ui-components/card/targets/daily-grind/task.md",
+          "tokens": 83,
+          "bytes": 332
+        },
+        {
+          "path": "css/css-layout/targets/daily-grind/task.md",
+          "tokens": 82,
+          "bytes": 329
+        },
+        {
+          "path": "performance/deprioritize-background-fetches/tasks/task.md",
+          "tokens": 82,
+          "bytes": 327
+        },
+        {
+          "path": "ui-behaviors/directional-navigation-transitions/targets/daily-grind/task.md",
+          "tokens": 82,
+          "bytes": 326
+        },
+        {
+          "path": "performance/detect-initial-visibility-state/tasks/task.md",
+          "tokens": 81,
+          "bytes": 321
+        },
+        {
+          "path": "pwa/background-sync-and-transfers/guide.md",
+          "tokens": 81,
+          "bytes": 322
+        },
+        {
+          "path": "ui-atoms/shrinking-header-on-scroll/tasks/task.md",
+          "tokens": 81,
+          "bytes": 324
+        },
+        {
+          "path": "ui-behaviors/consistent-cross-document-transitions/targets/daily-grind/task.md",
+          "tokens": 81,
+          "bytes": 324
+        },
+        {
+          "path": "ui-components/skeleton/guide.md",
+          "tokens": 81,
+          "bytes": 324
+        },
+        {
+          "path": "ui-components/tabs/targets/daily-grind/task.md",
+          "tokens": 81,
+          "bytes": 322
+        },
+        {
+          "path": "html/user-location/guide.md",
+          "tokens": 80,
+          "bytes": 321
+        },
+        {
+          "path": "ui-components/hovercard/targets/daily-grind/task.md",
+          "tokens": 80,
+          "bytes": 320
+        },
+        {
+          "path": "ui-behaviors/scrollytelling/tasks/task.md",
+          "tokens": 79,
+          "bytes": 316
+        },
+        {
+          "path": "ui-components/checkbox-group/guide.md",
+          "tokens": 79,
+          "bytes": 313
+        },
+        {
+          "path": "ui-behaviors/client-side-routing/guide.md",
+          "tokens": 78,
+          "bytes": 310
+        },
+        {
+          "path": "user-experience/form-factor-adaptation/targets/daily-grind/task.md",
+          "tokens": 78,
+          "bytes": 312
+        },
+        {
+          "path": "forms/autofill-sign-up-form/tasks/task.md",
+          "tokens": 77,
+          "bytes": 308
+        },
+        {
+          "path": "html/prerendering-custom-elements/targets/daily-grind/task.md",
+          "tokens": 77,
+          "bytes": 305
+        },
+        {
+          "path": "performance/interactions-in-complex-layouts/tasks/task.md",
+          "tokens": 77,
+          "bytes": 307
+        },
+        {
+          "path": "pwa/os-launch-and-file-handling/guide.md",
+          "tokens": 77,
+          "bytes": 307
+        },
+        {
+          "path": "ui-behaviors/search-hidden-content/tasks/task.md",
+          "tokens": 77,
+          "bytes": 308
+        },
+        {
+          "path": "css/reduce-style-repetition/tasks/task.md",
+          "tokens": 76,
+          "bytes": 304
+        },
+        {
+          "path": "forms/tree-view/guide.md",
+          "tokens": 76,
+          "bytes": 303
+        },
+        {
+          "path": "performance/batch-analytics-events/tasks/task.md",
+          "tokens": 76,
+          "bytes": 303
+        },
+        {
+          "path": "performance/optimize-image-priority/targets/daily-grind/task.md",
+          "tokens": 76,
+          "bytes": 302
+        },
+        {
+          "path": "performance/schedule-tasks-by-priority/tasks/task.md",
+          "tokens": 76,
+          "bytes": 303
+        },
+        {
+          "path": "ui-components/toolbar/targets/daily-grind/task.md",
+          "tokens": 76,
+          "bytes": 303
+        },
+        {
+          "path": "html/html-markers/guide.md",
+          "tokens": 75,
+          "bytes": 298
+        },
+        {
+          "path": "performance/conditional-async-dependencies/tasks/task.md",
+          "tokens": 75,
+          "bytes": 299
+        },
+        {
+          "path": "ui-atoms/carousel-slide-effects/tasks/task.md",
+          "tokens": 75,
+          "bytes": 299
+        },
+        {
+          "path": "ui-components/content-table/guide.md",
+          "tokens": 75,
+          "bytes": 298
+        },
+        {
+          "path": "ui-components/navigation-drawer/tasks/task.md",
+          "tokens": 75,
+          "bytes": 297
+        },
+        {
+          "path": "accessibility/accessible-generated-content/targets/daily-grind/task.md",
+          "tokens": 74,
+          "bytes": 295
+        },
+        {
+          "path": "css/css/targets/daily-grind/task.md",
+          "tokens": 74,
+          "bytes": 293
+        },
+        {
+          "path": "css/style-parent-with-has/tasks/task.md",
+          "tokens": 74,
+          "bytes": 293
+        },
+        {
+          "path": "forms/custom-select-picker-layouts/tasks/task.md",
+          "tokens": 74,
+          "bytes": 294
+        },
+        {
+          "path": "performance/faster-spa-view-transitions/targets/daily-grind/task.md",
+          "tokens": 74,
+          "bytes": 293
+        },
+        {
+          "path": "security/local-network-access/targets/daily-grind/task.md",
+          "tokens": 74,
+          "bytes": 294
+        },
+        {
+          "path": "ui-behaviors/directional-navigation-transitions/targets/devtools-times/task.md",
+          "tokens": 74,
+          "bytes": 294
+        },
+        {
+          "path": "ui-behaviors/physics-based-easing/tasks/task.md",
+          "tokens": 74,
+          "bytes": 293
+        },
+        {
+          "path": "ui-atoms/responsive-table/targets/daily-grind/task.md",
+          "tokens": 73,
+          "bytes": 289
+        },
+        {
+          "path": "ui-components/checkbox/targets/daily-grind/task.md",
+          "tokens": 73,
+          "bytes": 289
+        },
+        {
+          "path": "forms/combobox/guide.md",
+          "tokens": 72,
+          "bytes": 286
+        },
+        {
+          "path": "forms/forms/tasks/task.md",
+          "tokens": 72,
+          "bytes": 288
+        },
+        {
+          "path": "performance/defer-work-until-scroll-ends/tasks/task.md",
+          "tokens": 72,
+          "bytes": 288
+        },
+        {
+          "path": "performance/deliver-optimized-decorative-images/expectations.md",
+          "tokens": 72,
+          "bytes": 287
+        },
+        {
+          "path": "pwa/offline-loading-and-updates/guide.md",
+          "tokens": 72,
+          "bytes": 288
+        },
+        {
+          "path": "ui-behaviors/overflow-popup/guide.md",
+          "tokens": 72,
+          "bytes": 287
+        },
+        {
+          "path": "ui-components/spinner/targets/daily-grind/task.md",
+          "tokens": 72,
+          "bytes": 286
+        },
+        {
+          "path": "user-experience/guided-navigation/guide.md",
+          "tokens": 72,
+          "bytes": 286
+        },
+        {
+          "path": "accessibility/accessibility/targets/daily-grind/task.md",
+          "tokens": 71,
+          "bytes": 286
+        },
+        {
+          "path": "pwa/custom-window-title-bar/guide.md",
+          "tokens": 71,
+          "bytes": 282
+        },
+        {
+          "path": "security/client-side-encryption/targets/daily-grind/task.md",
+          "tokens": 71,
+          "bytes": 281
+        },
+        {
+          "path": "accessibility/respect-os-text-scale/targets/daily-grind/task.md",
+          "tokens": 70,
+          "bytes": 278
+        },
+        {
+          "path": "forms/rich-media-picker/tasks/task.md",
+          "tokens": 70,
+          "bytes": 277
+        },
+        {
+          "path": "webmcp/webmcp/targets/daily-grind/task.md",
+          "tokens": 70,
+          "bytes": 279
+        },
+        {
+          "path": "css/animate-to-intrinsic-sizes/tasks/task.md",
+          "tokens": 69,
+          "bytes": 276
+        },
+        {
+          "path": "ui-components/scrollspy/targets/daily-grind/task.md",
+          "tokens": 69,
+          "bytes": 275
+        },
+        {
+          "path": "performance/interaction-paint-timing/targets/daily-grind/task.md",
+          "tokens": 68,
+          "bytes": 269
+        },
+        {
+          "path": "ui-behaviors/platform-controls-dismiss-dialog/tasks/task.md",
+          "tokens": 68,
+          "bytes": 270
+        },
+        {
+          "path": "ui-behaviors/scroll-completion-effects/targets/daily-grind/task.md",
+          "tokens": 68,
+          "bytes": 271
+        },
+        {
+          "path": "css/responsive-design/targets/daily-grind/task.md",
+          "tokens": 67,
+          "bytes": 268
+        },
+        {
+          "path": "html/form-associated-custom-elements/targets/daily-grind/task.md",
+          "tokens": 66,
+          "bytes": 262
+        },
+        {
+          "path": "performance/lazy-load-video-and-audio/targets/daily-grind/task.md",
+          "tokens": 66,
+          "bytes": 264
+        },
+        {
+          "path": "pwa/app-badging-and-notifications/guide.md",
+          "tokens": 66,
+          "bytes": 264
+        },
+        {
+          "path": "pwa/migrate-web-app-origin/manifest.json",
+          "tokens": 66,
+          "bytes": 263
+        },
+        {
+          "path": "security/local-network-access/targets/devtools-times/task.md",
+          "tokens": 66,
+          "bytes": 263
+        },
+        {
+          "path": "ui-behaviors/consistent-cross-document-transitions/targets/devtools-times/task.md",
+          "tokens": 66,
+          "bytes": 264
+        },
+        {
+          "path": "ui-behaviors/scroll-snap-realtime-feedback/tasks/task.md",
+          "tokens": 66,
+          "bytes": 262
+        },
+        {
+          "path": "css/selector-atrule-combinations/targets/daily-grind/task.md",
+          "tokens": 65,
+          "bytes": 260
+        },
+        {
+          "path": "forms/rating/guide.md",
+          "tokens": 65,
+          "bytes": 258
+        },
+        {
+          "path": "html/html/targets/devtools-times/task.md",
+          "tokens": 65,
+          "bytes": 260
+        },
+        {
+          "path": "security/secure-external-subresources/targets/daily-grind/task.md",
+          "tokens": 65,
+          "bytes": 258
+        },
+        {
+          "path": "ui-behaviors/animate-to-from-top-layer/tasks/task.md",
+          "tokens": 65,
+          "bytes": 257
+        },
+        {
+          "path": "ui-behaviors/sortable-table/targets/daily-grind/task.md",
+          "tokens": 65,
+          "bytes": 260
+        },
+        {
+          "path": "ui-components/dark-mode-toggle/targets/daily-grind/task.md",
+          "tokens": 65,
+          "bytes": 257
+        },
+        {
+          "path": "visual-design/contrast-color/targets/daily-grind/task.md",
+          "tokens": 65,
+          "bytes": 260
+        },
+        {
+          "path": "visual-design/soft-edge-content-fade/tasks/task.md",
+          "tokens": 65,
+          "bytes": 260
+        },
+        {
+          "path": "forms/required-field-feedback/tasks/task.md",
+          "tokens": 64,
+          "bytes": 253
+        },
+        {
+          "path": "js/capture-location-agnostic-data/tasks/task.md",
+          "tokens": 64,
+          "bytes": 255
+        },
+        {
+          "path": "security/passkey-management/targets/devtools-times/task.md",
+          "tokens": 64,
+          "bytes": 254
+        },
+        {
+          "path": "visual-design/color-ramps/guide.md",
+          "tokens": 64,
+          "bytes": 254
+        },
+        {
+          "path": "visual-design/improve-text-layout-and-legibility/tasks/task.md",
+          "tokens": 64,
+          "bytes": 254
+        },
+        {
+          "path": "css/content-based-styling/tasks/task.md",
+          "tokens": 63,
+          "bytes": 250
+        },
+        {
+          "path": "pwa/os-content-sharing/guide.md",
+          "tokens": 63,
+          "bytes": 252
+        },
+        {
+          "path": "ui-behaviors/anchor-positioning-tab-underline/targets/daily-grind/task.md",
+          "tokens": 63,
+          "bytes": 250
+        },
+        {
+          "path": "visual-design/color/targets/daily-grind/task.md",
+          "tokens": 63,
+          "bytes": 250
+        },
+        {
+          "path": "visual-design/interactive-content-in-3d-scenes/tasks/task.md",
+          "tokens": 63,
+          "bytes": 251
+        },
+        {
+          "path": "visual-design/layout-dividers/guide.md",
+          "tokens": 63,
+          "bytes": 250
+        },
+        {
+          "path": "html/html/targets/daily-grind/task.md",
+          "tokens": 62,
+          "bytes": 245
+        },
+        {
+          "path": "security/verify-email-ownership/targets/daily-grind/task.md",
+          "tokens": 62,
+          "bytes": 245
+        },
+        {
+          "path": "ui-behaviors/line-drawing-animation/guide.md",
+          "tokens": 62,
+          "bytes": 249
+        },
+        {
+          "path": "ui-components/stack-drill-down/tasks/task.md",
+          "tokens": 62,
+          "bytes": 245
+        },
+        {
+          "path": "security/passkey-management/targets/daily-grind/task.md",
+          "tokens": 61,
+          "bytes": 242
+        },
+        {
+          "path": "ui-atoms/icons/targets/daily-grind/task.md",
+          "tokens": 61,
+          "bytes": 241
+        },
+        {
+          "path": "ui-behaviors/group-element-transitions/tasks/task.md",
+          "tokens": 61,
+          "bytes": 241
+        },
+        {
+          "path": "ui-components/context-menu/guide.md",
+          "tokens": 61,
+          "bytes": 244
+        },
+        {
+          "path": "ui-components/progress/targets/daily-grind/task.md",
+          "tokens": 61,
+          "bytes": 241
+        },
+        {
+          "path": "wasm/cpp-on-the-web/targets/daily-grind/task.md",
+          "tokens": 61,
+          "bytes": 242
+        },
+        {
+          "path": "wasm/cpp-on-the-web/targets/devtools-times/task.md",
+          "tokens": 61,
+          "bytes": 242
+        },
+        {
+          "path": "css/size-aware-styling/targets/daily-grind/task.md",
+          "tokens": 60,
+          "bytes": 239
+        },
+        {
+          "path": "forms/branded-select-styling/tasks/task.md",
+          "tokens": 60,
+          "bytes": 238
+        },
+        {
+          "path": "ui-behaviors/cross-document-transitions/tasks/task.md",
+          "tokens": 60,
+          "bytes": 238
+        },
+        {
+          "path": "ui-components/data-grid/guide.md",
+          "tokens": 60,
+          "bytes": 240
+        },
+        {
+          "path": "ui-components/persistent-toast-notifications/tasks/task.md",
+          "tokens": 60,
+          "bytes": 237
+        },
+        {
+          "path": "ui-behaviors/interest-triggered-tooltips/tasks/task.md",
+          "tokens": 59,
+          "bytes": 236
+        },
+        {
+          "path": "ui-behaviors/move-dom-element-without-losing-state/tasks/task.md",
+          "tokens": 59,
+          "bytes": 234
+        },
+        {
+          "path": "ui-behaviors/scroll-target-on-load/tasks/task.md",
+          "tokens": 59,
+          "bytes": 234
+        },
+        {
+          "path": "visual-design/apply-webgl-shaders/tasks/task.md",
+          "tokens": 59,
+          "bytes": 236
+        },
+        {
+          "path": "forms/sms-otp-form/targets/daily-grind/task.md",
+          "tokens": 58,
+          "bytes": 232
+        },
+        {
+          "path": "css/atrule-support-conditionals/targets/daily-grind/task.md",
+          "tokens": 57,
+          "bytes": 226
+        },
+        {
+          "path": "forms/slider-tooltip/guide.md",
+          "tokens": 57,
+          "bytes": 225
+        },
+        {
+          "path": "ui-atoms/position-aware-tooltips/tasks/task.md",
+          "tokens": 57,
+          "bytes": 228
+        },
+        {
+          "path": "built-in-ai/language-detection/tasks/task.md",
+          "tokens": 56,
+          "bytes": 221
+        },
+        {
+          "path": "performance/deprioritize-background-fetches/expectations.md",
+          "tokens": 56,
+          "bytes": 223
+        },
+        {
+          "path": "ui-atoms/single-line-overflow/targets/daily-grind/task.md",
+          "tokens": 56,
+          "bytes": 221
+        },
+        {
+          "path": "forms/autofill-sign-in-form/tasks/task.md",
+          "tokens": 55,
+          "bytes": 220
+        },
+        {
+          "path": "performance/identify-inp-causes/tasks/task.md",
+          "tokens": 55,
+          "bytes": 220
+        },
+        {
+          "path": "security/digital-signatures/targets/daily-grind/task.md",
+          "tokens": 55,
+          "bytes": 220
+        },
+        {
+          "path": "forms/cycle-toggle/guide.md",
+          "tokens": 54,
+          "bytes": 213
+        },
+        {
+          "path": "pwa/migrate-web-app-origin/new-site/manifest.json",
+          "tokens": 54,
+          "bytes": 213
+        },
+        {
+          "path": "forms/animated-select-picker/tasks/task.md",
+          "tokens": 53,
+          "bytes": 211
+        },
+        {
+          "path": "visual-design/complex-shapes/tasks/task.md",
+          "tokens": 53,
+          "bytes": 210
+        },
+        {
+          "path": "css/child-state-based-styling/tasks/task.md",
+          "tokens": 52,
+          "bytes": 208
+        },
+        {
+          "path": "privacy/privacy/targets/devtools-times/task.md",
+          "tokens": 52,
+          "bytes": 208
+        },
+        {
+          "path": "ui-behaviors/drag/targets/daily-grind/task.md",
+          "tokens": 52,
+          "bytes": 208
+        },
+        {
+          "path": "ui-behaviors/persistent-top-layer-ui/tasks/task.md",
+          "tokens": 52,
+          "bytes": 207
+        },
+        {
+          "path": "webmcp/agentic-forms/targets/daily-grind/task.md",
+          "tokens": 52,
+          "bytes": 208
+        },
+        {
+          "path": "css/usage-aware-component-variations/targets/daily-grind/task.md",
+          "tokens": 51,
+          "bytes": 203
+        },
+        {
+          "path": "ui-behaviors/prevent-page-scroll-under-modal-dialog/targets/daily-grind/task.md",
+          "tokens": 51,
+          "bytes": 202
+        },
+        {
+          "path": "ui-behaviors/custom-button-actions/tasks/task.md",
+          "tokens": 50,
+          "bytes": 200
+        },
+        {
+          "path": "visual-design/precise-text-alignment/tasks/task.md",
+          "tokens": 50,
+          "bytes": 199
+        },
+        {
+          "path": "forms/ime-safe-enter-submit/tasks/task.md",
+          "tokens": 49,
+          "bytes": 194
+        },
+        {
+          "path": "forms/slider/targets/daily-grind/task.md",
+          "tokens": 49,
+          "bytes": 193
+        },
+        {
+          "path": "performance/resolution-optimized-pseudo-elements/tasks/task.md",
+          "tokens": 49,
+          "bytes": 193
+        },
+        {
+          "path": "privacy/privacy/targets/daily-grind/task.md",
+          "tokens": 49,
+          "bytes": 194
+        },
+        {
+          "path": "security/trusted-types/targets/daily-grind/task.md",
+          "tokens": 49,
+          "bytes": 195
+        },
+        {
+          "path": "visual-design/visually-texture-content/tasks/task.md",
+          "tokens": 49,
+          "bytes": 194
+        },
+        {
+          "path": "ui-behaviors/swipe-to-reveal/targets/daily-grind/task.md",
+          "tokens": 48,
+          "bytes": 189
+        },
+        {
+          "path": "webmcp/webmcp/targets/devtools-times/task.md",
+          "tokens": 48,
+          "bytes": 191
+        },
+        {
+          "path": "pwa/install-web-app/targets/daily-grind/task.md",
+          "tokens": 47,
+          "bytes": 185
+        },
+        {
+          "path": "ui-components/copy-button/targets/daily-grind/task.md",
+          "tokens": 47,
+          "bytes": 186
+        },
+        {
+          "path": "security/passkeys/targets/daily-grind/task.md",
+          "tokens": 46,
+          "bytes": 183
+        },
+        {
+          "path": "built-in-ai/translator/targets/daily-grind/task.md",
+          "tokens": 45,
+          "bytes": 178
+        },
+        {
+          "path": "html/custom-elements/targets/daily-grind/task.md",
+          "tokens": 44,
+          "bytes": 173
+        },
+        {
+          "path": "performance/improve-next-page-load-performance/tasks/task.md",
+          "tokens": 44,
+          "bytes": 173
+        },
+        {
+          "path": "performance/performance/tasks/task.md",
+          "tokens": 44,
+          "bytes": 173
+        },
+        {
+          "path": "visual-design/equal-width-text-lines/targets/daily-grind/task.md",
+          "tokens": 44,
+          "bytes": 175
+        },
+        {
+          "path": "ui-behaviors/hierarchical-navigation/guide.md",
+          "tokens": 43,
+          "bytes": 172
+        },
+        {
+          "path": "html/accessible-web-components/targets/daily-grind/task.md",
+          "tokens": 42,
+          "bytes": 167
+        },
+        {
+          "path": "built-in-ai/translator/targets/devtools-times/task.md",
+          "tokens": 41,
+          "bytes": 163
+        },
+        {
+          "path": "html/web-components/targets/daily-grind/task.md",
+          "tokens": 41,
+          "bytes": 162
+        },
+        {
+          "path": "performance/identify-heavy-scripts/expectations.md",
+          "tokens": 41,
+          "bytes": 162
+        },
+        {
+          "path": "performance/performance/feature.js",
+          "tokens": 41,
+          "bytes": 163
+        },
+        {
+          "path": "ui-behaviors/parallax-scroll-effects/tasks/task.md",
+          "tokens": 41,
+          "bytes": 163
+        },
+        {
+          "path": "css/size-aware-styling/targets/devtools-times/task.md",
+          "tokens": 39,
+          "bytes": 155
+        },
+        {
+          "path": "forms/sms-otp-form/targets/devtools-times/task.md",
+          "tokens": 39,
+          "bytes": 155
+        },
+        {
+          "path": "performance/deliver-optimized-decorative-images/tasks/task.md",
+          "tokens": 39,
+          "bytes": 156
+        },
+        {
+          "path": "security/passkeys/targets/devtools-times/task.md",
+          "tokens": 39,
+          "bytes": 153
+        },
+        {
+          "path": "performance/identify-heavy-scripts/tasks/task.md",
+          "tokens": 35,
+          "bytes": 139
+        },
+        {
+          "path": "ui-behaviors/dynamic-sort/targets/daily-grind/task.md",
+          "tokens": 34,
+          "bytes": 136
+        },
+        {
+          "path": "visual-design/adapt-scrollbar-to-contrast-preferences/tasks/task.md",
+          "tokens": 33,
+          "bytes": 132
+        },
+        {
+          "path": "ui-behaviors/spatial-navigation/targets/daily-grind/task.md",
+          "tokens": 32,
+          "bytes": 125
+        },
+        {
+          "path": "visual-design/visually-stable-font-fallbacks/tasks/task.md",
+          "tokens": 31,
+          "bytes": 124
+        },
+        {
+          "path": "pwa/migrate-web-app-origin/targets/daily-grind/task.md",
+          "tokens": 28,
+          "bytes": 109
+        },
+        {
+          "path": "ui-behaviors/drag-and-drop/targets/daily-grind/task.md",
+          "tokens": 25,
+          "bytes": 100
+        },
+        {
+          "path": "ui-components/app-menus/targets/daily-grind/task.md",
+          "tokens": 25,
+          "bytes": 97
+        },
+        {
+          "path": "ui-components/carousel/targets/daily-grind/task.md",
+          "tokens": 25,
+          "bytes": 97
+        },
+        {
+          "path": "webmcp/agentic-forms/targets/devtools-times/task.md",
+          "tokens": 24,
+          "bytes": 94
+        },
+        {
+          "path": "forms/switch/targets/daily-grind/task.md",
+          "tokens": 15,
+          "bytes": 60
+        },
+        {
+          "path": "performance/deliver-optimized-decorative-images/serve-alternative-image-formats/expectations.md",
+          "tokens": 0,
+          "bytes": 0
         }
       ],
       "budget": {
         "limit": 10000,
-        "basis": "largest_skill",
-        "subject_tokens": 24393,
-        "over_by": 14393,
-        "over_pct": 143.9,
-        "package_over_by": 45399,
-        "largest_skill_tokens": 24393
+        "basis": "package",
+        "subject_tokens": 560414,
+        "over_by": 550414,
+        "over_pct": 5504.1,
+        "package_over_by": 550414,
+        "largest_skill_tokens": 2444
       },
-      "duplicates": [],
+      "duplicates": [
+        {
+          "hash": "079f3b",
+          "files": [
+            "wasm/cpp-on-the-web/targets/daily-grind/task.md",
+            "wasm/cpp-on-the-web/targets/devtools-times/task.md"
+          ],
+          "wasted_tokens": 61
+        }
+      ],
       "structure": {
-        "headings": 317,
-        "lists": 849,
-        "code_blocks": 252
+        "headings": 2026,
+        "lists": 6311,
+        "code_blocks": 1059
       },
       "warnings": [
-        "project-discipline-guides/mirrors/javascript/codex_mirror.md 超过 5000 token（10187），多数 harness 会截断",
-        "project-guides/SKILL.md 超过 5000 token（6541），多数 harness 会截断",
-        "project-discipline-guides/mirrors/javascript/claude_mirror.md 超过 5000 token（5494），多数 harness 会截断",
-        "nightly-eval-investigation/scripts/investigate.ts 超过 5000 token（5200），多数 harness 会截断",
-        "最大的单个技能 24393 token，超出注入预算 10000（+14393）",
-        "13 个技能模块，SkillsBench 结论是 ≤3 个模块更优"
+        "ui-components/tabs/targets/daily-grind/grader.ts 超过 5000 token（15982），多数 harness 会截断",
+        "ui-components/menu/targets/daily-grind/grader.ts 超过 5000 token（14037），多数 harness 会截断",
+        "accessibility/accessibility/guide.md 超过 5000 token（12934），多数 harness 会截断",
+        "ui-components/stack-drill-down/grader.ts 超过 5000 token（10007），多数 harness 会截断",
+        "ui-components/stack-drill-down/guide.md 超过 5000 token（9205），多数 harness 会截断",
+        "另有 35 个文件超单文件预算",
+        "注入上下文 560414 token，超出预算 10000（+550414）",
+        "包内脚本占 705529 token（56%），它们不进上下文"
       ]
     },
     "skill_shape": {
       "probe": "skill-shape",
       "supported": true,
-      "skill_count": 13,
+      "skill_count": 1,
       "frontmatter_rate": 1,
       "described_rate": 1,
-      "deferred_share": 0.308,
-      "monolith_share": 0.077,
-      "body_tokens_p50": 1875,
-      "description_tokens_p50": 44,
+      "deferred_share": 0,
+      "monolith_share": 0,
+      "body_tokens_p50": 2217,
+      "description_tokens_p50": 1,
       "skills": [
         {
-          "name": "project-guides",
-          "body_tokens": 6492,
-          "description_tokens": 40,
-          "resources": 0,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.993
-        },
-        {
-          "name": "project-evals",
-          "body_tokens": 4588,
-          "description_tokens": 65,
-          "resources": 0,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.984
-        },
-        {
-          "name": "project-features",
-          "body_tokens": 4163,
-          "description_tokens": 56,
-          "resources": 0,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.984
-        },
-        {
-          "name": "nightly-eval-investigation",
-          "body_tokens": 3943,
-          "description_tokens": 1,
-          "resources": 2,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.316
-        },
-        {
-          "name": "project-guide-validation",
-          "body_tokens": 3458,
-          "description_tokens": 69,
-          "resources": 0,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.977
-        },
-        {
-          "name": "project-use-cases",
-          "body_tokens": 3163,
-          "description_tokens": 50,
-          "resources": 0,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.981
-        },
-        {
-          "name": "project-coding-standards",
-          "body_tokens": 1875,
-          "description_tokens": 61,
-          "resources": 0,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.962
-        },
-        {
-          "name": "dev-prompt-canary",
-          "body_tokens": 1324,
+          "name": "modern-web-guidance",
+          "body_tokens": 2217,
           "description_tokens": 1,
           "resources": 0,
           "has_frontmatter": true,
           "has_name": true,
           "has_description": true,
-          "defer_ratio": 0.919
-        },
-        {
-          "name": "project-discipline-guides",
-          "body_tokens": 1265,
-          "description_tokens": 44,
-          "resources": 6,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.089
-        },
-        {
-          "name": "grader-replay",
-          "body_tokens": 1211,
-          "description_tokens": 1,
-          "resources": 1,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.192
-        },
-        {
-          "name": "coherence-auditor",
-          "body_tokens": 797,
-          "description_tokens": 56,
-          "resources": 1,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.407
-        },
-        {
-          "name": "project-maintenance",
-          "body_tokens": 278,
-          "description_tokens": 27,
-          "resources": 0,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.877
-        },
-        {
-          "name": "baseline-status",
-          "body_tokens": 194,
-          "description_tokens": 20,
-          "resources": 0,
-          "has_frontmatter": true,
-          "has_name": true,
-          "has_description": true,
-          "defer_ratio": 0.862
+          "defer_ratio": 0.907
         }
       ],
       "warnings": [
-        "3 个技能的 description 短于 20 tok（说不清什么时候该用）",
-        "1 个技能是「巨石单文件」（正文 ≥ 6000 tok 且无按需资源）"
+        "1 个技能的 description 短于 20 tok（说不清什么时候该用）"
       ]
     },
     "uninstall_clean": {
@@ -415,6 +4800,8 @@
     "grade": "A",
     "flags": [
       "static_cost_over_budget",
+      "retrieval_style_package",
+      "thin_descriptions",
       "ci_crosses_zero",
       "flaky_tasks"
     ]

@@ -1,5 +1,5 @@
 {
-  "$comment": "D7 要测的 5 个真实技能包。clone 到 benchmarks/skills/（gitignore），不改它们的代码。path = 技能包在仓库内的相对路径。",
+  "$comment": "要测的真实技能包。clone 到 benchmarks/skills/（gitignore），不改它们的代码。path = 技能包在仓库内的相对路径。带 tier1 的条目有跑过三臂（见 results/），其余只有 Tier 0 事实。",
   "skills": [
     {
       "id": "agent-skills",
@@ -12,8 +12,8 @@
       "id": "modern-web-guidance-src",
       "repo": "GoogleChrome/modern-web-guidance-src",
       "url": "https://github.com/GoogleChrome/modern-web-guidance-src.git",
-      "path": ".agents/skills",
-      "why": "全生态唯一公开 uplift 数字（+27~36pp），可以交叉验证我们的方法"
+      "path": "guides",
+      "why": "全生态唯一公开 uplift 数字（+27~36pp）。Tier 1 测的就是 guides/ 这个检索型知识库，所以 Tier 0 也只能探它——2026-11-13 之前探的是 .agents/skills，口径不一致，已修正"
     },
     {
       "id": "security-audit-skill",
@@ -36,6 +36,55 @@
       "url": "https://github.com/obra/superpowers.git",
       "path": "skills",
       "why": "skills 框架本体，15 个模块，用来验证「≤3 个模块更优」这条结论"
+    },
+    {
+      "id": "anthropics-skills",
+      "repo": "anthropics/skills",
+      "url": "https://github.com/anthropics/skills.git",
+      "path": "skills",
+      "why": "官方参考实现，19 个技能；其中 claude-api 单技能 526k token，是「参考库当技能」的样本"
+    },
+    {
+      "id": "mattpocock-skills",
+      "repo": "mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills.git",
+      "path": "skills",
+      "why": "323k★，39 个技能但正文中位 875 token —— 多技能不一定等于目录爆炸"
+    },
+    {
+      "id": "ecc",
+      "repo": "affaan-m/ECC",
+      "url": "https://github.com/affaan-m/ECC.git",
+      "path": ".agents/skills",
+      "why": "302k★，47 个技能、目录成本 2,375 token —— 反面对照：菜单本身就吃掉四分之一预算"
+    },
+    {
+      "id": "karpathy-skills",
+      "repo": "multica-ai/andrej-karpathy-skills",
+      "url": "https://github.com/multica-ai/andrej-karpathy-skills.git",
+      "path": "skills",
+      "why": "232k★，整包 644 token —— 正面对照：小到可以一直开着"
+    },
+    {
+      "id": "obsidian-skills",
+      "repo": "obsidianmd/obsidian-skills",
+      "url": "https://github.com/obsidianmd/obsidian-skills.git",
+      "path": "plugins/obsidian/skills",
+      "why": "52k★，7 个技能全部在预算内，正文短、长尾放 references/ —— 按需加载的标准形状"
+    },
+    {
+      "id": "humanizer-zh",
+      "repo": "op7418/Humanizer-zh",
+      "url": "https://github.com/op7418/Humanizer-zh.git",
+      "path": ".",
+      "why": "22.7k★ 单技能，正文 4.2k —— 中文写作类技能的代表"
+    },
+    {
+      "id": "khazix-skills",
+      "repo": "KKKKhazix/khazix-skills",
+      "url": "https://github.com/KKKKhazix/khazix-skills.git",
+      "path": ".",
+      "why": "22.2k★ 中文技能合集，6 个技能、最大单技能 17.6k —— 略超预算的典型"
     }
   ]
 }

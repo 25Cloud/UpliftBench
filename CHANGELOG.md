@@ -32,14 +32,33 @@
 ### 软件
 
 - `probe --only skill-shape`；卡片与 markdown 卡增加「技能形状」行（中英双语）
-- 5 张已发布的 SkillCard 重新生成，带上 shape 数据
+- **12 个包全部出卡**（`benchmarks/manifest.json` 从 5 条扩到 12 条），榜单页的 Tier 0 行
+  现在同时给 `largest skill` / 技能数 / 按需加载比例，并标出 `retrieval-style package` 与
+  `monolithic skill` —— 只报包内总量会让人误判「1.2M 的检索库」和「1.2M 的单技能巨石」是一回事
+- markdown 卡新增 flags 行（终端卡一直有，md 卡漏了）
 - `tools/review-table.mjs`：把一批 `--format json` 的卡摊成横评表（`--md` 出 markdown）
+- 新增两个派生标记：`retrieval_style_package`（包内 token > 最大单技能 20 倍）、
+  `monolith_skill`（最大单技能 > 预算 5 倍）、以及形状类 `missing_skill_description` /
+  `monolith_skills` / `thin_descriptions` / `fat_descriptions`
 - 单测 114 个（+5：frontmatter 解析、空包、按需/巨石判别、description 过短过长）
+
+### 修正：一个技能包的两个表面被统一了
+
+`modern-web-guidance-src` 之前在卡片上探 `Tier 0` 用的是仓库里的 `.agents/skills`（13 个开发用技能），
+而 `Tier 1` 三臂测的是 `guides/`（真正的检索型知识库）。**同一张卡混了两个产物。**
+现在 `manifest.path` 改成 `guides`，Tier 0 与 Tier 1 描述同一个东西；
+卡片因此显示 1,265,943 token / 超预算 5504%，同时带上 `retrieval_style_package` 标记——
+这个百分比是「把知识库当上下文」的结果，不是它的问题（详见 `docs/17 §五`）。
+
+### 新增：`docs/18-发布材料.md`
+
+Show HN 正文、X 六条串、首评（自我纠错三条）、评论区预案六问、发布前 checklist。
+原则一句话：**每一句都能被仓库里的某个命令复现**，复现不了的不写。
 
 ### 已知问题
 
-- `results/modern-web-guidance-src.json` 的 Tier 0 探的是仓库里 `.agents/skills`，
-  而 Tier 1 测的是 `guides/`。两张皮，已在 `docs/17 §五` 挂账，下一轮统一
+- 12 个包里只有 5 个有 Tier 1（三臂）数字；其余只有 Tier 0 事实，榜单上单列「不进主榜」
+- star 数是 2026-11-13 的快照，会漂；表里已注明
 
 ---
 

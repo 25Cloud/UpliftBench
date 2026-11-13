@@ -1,0 +1,115 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T11:44:42.320Z",
+  "skill": {
+    "source": "github",
+    "repo": "op7418/Humanizer-zh",
+    "commit": "f4518a8eab97b8bfebc66a89d34320a89bef6930",
+    "path": "benchmarks/skills/humanizer-zh",
+    "skill_count": 1,
+    "total_tokens": 8042
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 8042,
+      "context_tokens": 7689,
+      "tokenizer": "approx:weighted",
+      "file_count": 7,
+      "skill_count": 1,
+      "per_file": [
+        {
+          "path": "SKILL.md",
+          "tokens": 4204,
+          "bytes": 20935
+        },
+        {
+          "path": "README.md",
+          "tokens": 1367,
+          "bytes": 6600
+        },
+        {
+          "path": "tests/fixtures/cases.json",
+          "tokens": 1132,
+          "bytes": 5389
+        },
+        {
+          "path": "tests/README.md",
+          "tokens": 478,
+          "bytes": 2329
+        },
+        {
+          "path": "tests/check_structure.py",
+          "tokens": 353,
+          "bytes": 1409
+        },
+        {
+          "path": "CHANGELOG.md",
+          "tokens": 311,
+          "bytes": 1497
+        },
+        {
+          "path": "tests/fixtures/structure.md",
+          "tokens": 197,
+          "bytes": 885
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "basis": "package",
+        "subject_tokens": 7689,
+        "over_by": 0,
+        "over_pct": 0,
+        "package_over_by": 0,
+        "largest_skill_tokens": 4204
+      },
+      "duplicates": [],
+      "structure": {
+        "headings": 68,
+        "lists": 60,
+        "code_blocks": 8
+      },
+      "warnings": []
+    },
+    "skill_shape": {
+      "probe": "skill-shape",
+      "supported": true,
+      "skill_count": 1,
+      "frontmatter_rate": 1,
+      "described_rate": 1,
+      "deferred_share": 0,
+      "monolith_share": 0,
+      "body_tokens_p50": 4081,
+      "description_tokens_p50": 47,
+      "skills": [
+        {
+          "name": "humanizer-zh",
+          "body_tokens": 4081,
+          "description_tokens": 47,
+          "resources": 6,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.507
+        }
+      ],
+      "warnings": []
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": true,
+      "residual_delta_pp": null,
+      "leaked_paths": [],
+      "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
+      "declared_hooks": []
+    }
+  },
+  "verdict": {
+    "headline": "Tier 0 · 8,042 tok · 1 个技能",
+    "grade": "unrated",
+    "flags": []
+  }
+}

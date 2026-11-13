@@ -409,6 +409,9 @@ export function renderCardMarkdown(card: SkillCardJson): string {
   } else {
     out.push(`| ${t.tier1} | ${t.untested} |`);
   }
+  if (card.verdict.flags.length > 0) {
+    out.push(`| ${t.flags} | ${card.verdict.flags.map((f) => `\`${f}\``).join(' · ')} |`);
+  }
   out.push('');
   out.push(`> ${card.verdict.headline} · ${card.protocol_version} · ${t.mdGenerated(card.generated_at)}`);
   return out.join('\n');

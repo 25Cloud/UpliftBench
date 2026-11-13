@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fsp from 'node:fs/promises';
-import type { SkillCardJson } from '../types.js';
+import type { SkillCardJson, SkillShapeProbe, StaticCostProbe } from '../types.js';
 import { ensureDir } from '../util/fsx.js';
 import { signed1, trim1 } from '../util/num.js';
 import { upliftColor } from './badge.js';
@@ -24,9 +24,26 @@ function pct(n: number): string {
 function row(card: SkillCardJson): string {
   const t1 = card.tier1;
   if (!t1) {
+    /**
+     * Tier 0 行：不排名，但要让人一眼看到「贵在哪」。
+     * 只报包内总量是不够的——一个 1.2M 的检索型知识库和一个 1.2M 的单技能巨石，
+     * 性质完全不同。所以这里同时给 largest skill 与形状。
+     */
+    const sc = card.tier0.static_cost as StaticCostProbe | undefined;
+    const sh = card.tier0.skill_shape as SkillShapeProbe | undefined;
+    const largest = sc?.budget?.largest_skill_tokens ?? 0;
+    const bits: string[] = [];
+    if (largest > 0) bits.push(`largest skill ${largest.toLocaleString('en-US')} tok`);
+    if (sh?.supported) {
+      bits.push(`${sh.skill_count} skill${sh.skill_count === 1 ? '' : 's'} · defer ${Math.round(sh.deferred_share * 100)}%`);
+    }
+    if (card.verdict.flags.includes('retrieval_style_package')) bits.push('retrieval-style package');
+    if (card.verdict.flags.includes('monolith_skill')) bits.push('monolithic skill');
     return `<tr class="tier0">
       <td class="repo">${esc(card.skill.repo)}</td>
-      <td colspan="6" class="muted">Tier 0 only · ${(card.skill.total_tokens ?? 0).toLocaleString('en-US')} tok · 不进主榜（无任务集）</td>
+      <td colspan="6" class="muted">Tier 0 only · ${(card.skill.total_tokens ?? 0).toLocaleString('en-US')} tok · ${
+        bits.length > 0 ? esc(bits.join(' · ')) + ' · ' : ''
+      }不进主榜（无任务集）</td>
       <td class="grade">—</td>
     </tr>`;
   }

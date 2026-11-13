@@ -1,0 +1,1696 @@
+{
+  "schema_version": "1.0.0",
+  "protocol_version": "protocol/1.0.0",
+  "generated_at": "2026-11-13T11:44:39.568Z",
+  "skill": {
+    "source": "github",
+    "repo": "anthropics/skills",
+    "commit": "2c5958ecac7cee2b583967a2c4981d0f4a75c579",
+    "path": "benchmarks/skills/anthropics-skills/skills",
+    "skill_count": 19,
+    "total_tokens": 849607
+  },
+  "tier0": {
+    "static_cost": {
+      "probe": "static-cost",
+      "supported": true,
+      "total_tokens": 849607,
+      "context_tokens": 647806,
+      "tokenizer": "approx:weighted",
+      "file_count": 258,
+      "skill_count": 19,
+      "per_file": [
+        {
+          "path": "claude-api/shared/model-migration.md",
+          "tokens": 87148,
+          "bytes": 348675
+        },
+        {
+          "path": "claude-api/SKILL.md",
+          "tokens": 26434,
+          "bytes": 105762
+        },
+        {
+          "path": "claude-api/shared/preserved-thinking-migration/prefix_diff.py",
+          "tokens": 23885,
+          "bytes": 95540
+        },
+        {
+          "path": "claude-api/shared/evals/eval-hillclimb.md",
+          "tokens": 17365,
+          "bytes": 69491
+        },
+        {
+          "path": "claude-api/shared/preserved-thinking-migration/drop_block_probe.py",
+          "tokens": 16912,
+          "bytes": 67648
+        },
+        {
+          "path": "claude-api/shared/managed-agents-multiagent.md",
+          "tokens": 16765,
+          "bytes": 67086
+        },
+        {
+          "path": "claude-api/shared/preserved-thinking-migration.md",
+          "tokens": 16074,
+          "bytes": 64298
+        },
+        {
+          "path": "claude-api/shared/cost-optimization.md",
+          "tokens": 14664,
+          "bytes": 58693
+        },
+        {
+          "path": "claude-api/shared/evals/build-eval.md",
+          "tokens": 13760,
+          "bytes": 55068
+        },
+        {
+          "path": "claude-api/shared/prompt-audit.md",
+          "tokens": 12396,
+          "bytes": 49581
+        },
+        {
+          "path": "claude-api/shared/tool-use-concepts.md",
+          "tokens": 11234,
+          "bytes": 44936
+        },
+        {
+          "path": "claude-api/shared/preserved-thinking-migration/causes.md",
+          "tokens": 9951,
+          "bytes": 39803
+        },
+        {
+          "path": "claude-api/shared/managed-agents-tools.md",
+          "tokens": 9593,
+          "bytes": 38375
+        },
+        {
+          "path": "mcp-builder/reference/node_mcp_server_v2.md",
+          "tokens": 8960,
+          "bytes": 35918
+        },
+        {
+          "path": "claude-api/shared/managed-agents-api-reference.md",
+          "tokens": 8939,
+          "bytes": 35758
+        },
+        {
+          "path": "docx/scripts/office/validators/base.py",
+          "tokens": 8658,
+          "bytes": 34631
+        },
+        {
+          "path": "pptx/scripts/office/validators/base.py",
+          "tokens": 8658,
+          "bytes": 34631
+        },
+        {
+          "path": "xlsx/scripts/office/validators/base.py",
+          "tokens": 8658,
+          "bytes": 34631
+        },
+        {
+          "path": "claude-api/shared/managed-agents-core.md",
+          "tokens": 8469,
+          "bytes": 33890
+        },
+        {
+          "path": "claude-api/shared/evals/report/runner-scaffold.mjs",
+          "tokens": 8436,
+          "bytes": 33744
+        },
+        {
+          "path": "skill-creator/SKILL.md",
+          "tokens": 8368,
+          "bytes": 33653
+        },
+        {
+          "path": "claude-api/shared/prompt-caching.md",
+          "tokens": 8346,
+          "bytes": 33413
+        },
+        {
+          "path": "claude-api/shared/managed-agents-onboarding-from-url.md",
+          "tokens": 8250,
+          "bytes": 33019
+        },
+        {
+          "path": "claude-api/shared/evals/cost-hillclimb.md",
+          "tokens": 8034,
+          "bytes": 32153
+        },
+        {
+          "path": "mcp-builder/reference/node_mcp_server.md",
+          "tokens": 7410,
+          "bytes": 29716
+        },
+        {
+          "path": "claude-api/python/claude-api/sdk-upgrade.md",
+          "tokens": 7262,
+          "bytes": 29046
+        },
+        {
+          "path": "claude-api/shared/managed-agents-self-hosted-sandboxes.md",
+          "tokens": 7051,
+          "bytes": 28208
+        },
+        {
+          "path": "claude-api/shared/evals/eval-audit.md",
+          "tokens": 7023,
+          "bytes": 28096
+        },
+        {
+          "path": "claude-api/shared/evals/report/build-report-lite.mjs",
+          "tokens": 6955,
+          "bytes": 27817
+        },
+        {
+          "path": "claude-api/shared/managed-agents-events.md",
+          "tokens": 6573,
+          "bytes": 26306
+        },
+        {
+          "path": "mcp-builder/reference/python_mcp_server.md",
+          "tokens": 6455,
+          "bytes": 25817
+        },
+        {
+          "path": "claude-api/typescript/claude-api/tool-use.md",
+          "tokens": 6240,
+          "bytes": 24960
+        },
+        {
+          "path": "claude-api/shared/anthropic-cli.md",
+          "tokens": 6077,
+          "bytes": 24307
+        },
+        {
+          "path": "claude-api/go/managed-agents/README.md",
+          "tokens": 5768,
+          "bytes": 23071
+        },
+        {
+          "path": "mcp-builder/reference/evaluation.md",
+          "tokens": 5565,
+          "bytes": 22264
+        },
+        {
+          "path": "claude-api/python/claude-api/tool-use.md",
+          "tokens": 5514,
+          "bytes": 22054
+        },
+        {
+          "path": "claude-api/python/claude-api/README.md",
+          "tokens": 5298,
+          "bytes": 21191
+        },
+        {
+          "path": "claude-api/shared/error-codes.md",
+          "tokens": 5269,
+          "bytes": 21073
+        },
+        {
+          "path": "claude-api/java/managed-agents/README.md",
+          "tokens": 5238,
+          "bytes": 20952
+        },
+        {
+          "path": "pptx/SKILL.md",
+          "tokens": 5218,
+          "bytes": 21020
+        },
+        {
+          "path": "algorithmic-art/SKILL.md",
+          "tokens": 5035,
+          "bytes": 20173
+        },
+        {
+          "path": "claude-api/shared/managed-agents-onboarding-from-quickstart.md",
+          "tokens": 4986,
+          "bytes": 19960
+        },
+        {
+          "path": "claude-api/csharp/claude-api/README.md",
+          "tokens": 4824,
+          "bytes": 19296
+        },
+        {
+          "path": "docx/scripts/office/validators/docx.py",
+          "tokens": 4486,
+          "bytes": 17948
+        },
+        {
+          "path": "pptx/scripts/office/validators/docx.py",
+          "tokens": 4486,
+          "bytes": 17948
+        },
+        {
+          "path": "xlsx/scripts/office/validators/docx.py",
+          "tokens": 4486,
+          "bytes": 17948
+        },
+        {
+          "path": "claude-api/shared/live-sources.md",
+          "tokens": 4475,
+          "bytes": 17899
+        },
+        {
+          "path": "claude-api/shared/models.md",
+          "tokens": 4414,
+          "bytes": 17655
+        },
+        {
+          "path": "pdf/reference.md",
+          "tokens": 4326,
+          "bytes": 17303
+        },
+        {
+          "path": "claude-api/php/managed-agents/README.md",
+          "tokens": 4261,
+          "bytes": 17045
+        },
+        {
+          "path": "claude-api/shared/managed-agents-onboarding.md",
+          "tokens": 4215,
+          "bytes": 16873
+        },
+        {
+          "path": "skill-creator/eval-viewer/generate_review.py",
+          "tokens": 4192,
+          "bytes": 16836
+        },
+        {
+          "path": "claude-api/shared/evals/report/SCHEMA.md",
+          "tokens": 4115,
+          "bytes": 16460
+        },
+        {
+          "path": "docx/scripts/office/validators/pptx.py",
+          "tokens": 4102,
+          "bytes": 16407
+        },
+        {
+          "path": "pptx/scripts/office/validators/pptx.py",
+          "tokens": 4102,
+          "bytes": 16407
+        },
+        {
+          "path": "xlsx/scripts/office/validators/pptx.py",
+          "tokens": 4102,
+          "bytes": 16407
+        },
+        {
+          "path": "claude-api/typescript/claude-api/README.md",
+          "tokens": 4060,
+          "bytes": 16240
+        },
+        {
+          "path": "doc-coauthoring/SKILL.md",
+          "tokens": 4048,
+          "bytes": 16190
+        },
+        {
+          "path": "claude-api/python/managed-agents/README.md",
+          "tokens": 3806,
+          "bytes": 15223
+        },
+        {
+          "path": "pptx/scripts/add_slide.py",
+          "tokens": 3723,
+          "bytes": 14904
+        },
+        {
+          "path": "skill-creator/scripts/aggregate_benchmark.py",
+          "tokens": 3672,
+          "bytes": 14787
+        },
+        {
+          "path": "claude-api/shared/managed-agents-overview.md",
+          "tokens": 3660,
+          "bytes": 14651
+        },
+        {
+          "path": "claude-api/shared/managed-agents-environments.md",
+          "tokens": 3618,
+          "bytes": 14473
+        },
+        {
+          "path": "claude-api/typescript/managed-agents/README.md",
+          "tokens": 3612,
+          "bytes": 14449
+        },
+        {
+          "path": "docx/scripts/comment.py",
+          "tokens": 3604,
+          "bytes": 14422
+        },
+        {
+          "path": "skill-creator/scripts/run_loop.py",
+          "tokens": 3484,
+          "bytes": 13933
+        },
+        {
+          "path": "skill-creator/scripts/generate_report.py",
+          "tokens": 3291,
+          "bytes": 13173
+        },
+        {
+          "path": "mcp-builder/scripts/evaluation.py",
+          "tokens": 3233,
+          "bytes": 12952
+        },
+        {
+          "path": "claude-api/ruby/managed-agents/README.md",
+          "tokens": 3156,
+          "bytes": 12626
+        },
+        {
+          "path": "skill-creator/references/schemas.md",
+          "tokens": 3122,
+          "bytes": 12491
+        },
+        {
+          "path": "claude-api/shared/managed-agents-client-patterns.md",
+          "tokens": 3078,
+          "bytes": 12315
+        },
+        {
+          "path": "claude-api/python/claude-api/streaming.md",
+          "tokens": 3049,
+          "bytes": 12195
+        },
+        {
+          "path": "claude-api/java/claude-api/README.md",
+          "tokens": 3047,
+          "bytes": 12185
+        },
+        {
+          "path": "pdf/forms.md",
+          "tokens": 3037,
+          "bytes": 12148
+        },
+        {
+          "path": "canvas-design/SKILL.md",
+          "tokens": 3017,
+          "bytes": 12068
+        },
+        {
+          "path": "claude-api/shared/admin-api.md",
+          "tokens": 2947,
+          "bytes": 11785
+        },
+        {
+          "path": "skill-creator/scripts/run_eval.py",
+          "tokens": 2944,
+          "bytes": 11774
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/performance-tuner.md",
+          "tokens": 2894,
+          "bytes": 11576
+        },
+        {
+          "path": "claude-api/shared/managed-agents-memory.md",
+          "tokens": 2891,
+          "bytes": 11563
+        },
+        {
+          "path": "docx/LICENSE.txt",
+          "tokens": 2890,
+          "bytes": 11558
+        },
+        {
+          "path": "pdf/LICENSE.txt",
+          "tokens": 2890,
+          "bytes": 11558
+        },
+        {
+          "path": "pptx/LICENSE.txt",
+          "tokens": 2890,
+          "bytes": 11558
+        },
+        {
+          "path": "xlsx/LICENSE.txt",
+          "tokens": 2890,
+          "bytes": 11558
+        },
+        {
+          "path": "academy-guide/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "algorithmic-art/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "brand-guidelines/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "canvas-design/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "claude-api/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "discernment-nudge/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "internal-comms/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "mcp-builder/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "skill-creator/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "slack-gif-creator/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "theme-factory/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "web-artifacts-builder/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "webapp-testing/LICENSE.txt",
+          "tokens": 2887,
+          "bytes": 11546
+        },
+        {
+          "path": "docx/scripts/office/validators/redlining.py",
+          "tokens": 2883,
+          "bytes": 11530
+        },
+        {
+          "path": "pptx/scripts/office/validators/redlining.py",
+          "tokens": 2883,
+          "bytes": 11530
+        },
+        {
+          "path": "xlsx/scripts/office/validators/redlining.py",
+          "tokens": 2883,
+          "bytes": 11530
+        },
+        {
+          "path": "claude-api/shared/managed-agents-webhooks.md",
+          "tokens": 2866,
+          "bytes": 11464
+        },
+        {
+          "path": "claude-api/java/claude-api/tool-use.md",
+          "tokens": 2844,
+          "bytes": 11376
+        },
+        {
+          "path": "skill-creator/scripts/improve_description.py",
+          "tokens": 2839,
+          "bytes": 11363
+        },
+        {
+          "path": "mcp-builder/SKILL.md",
+          "tokens": 2836,
+          "bytes": 11381
+        },
+        {
+          "path": "claude-api/curl/managed-agents.md",
+          "tokens": 2801,
+          "bytes": 11205
+        },
+        {
+          "path": "xlsx/scripts/recalc.py",
+          "tokens": 2745,
+          "bytes": 10978
+        },
+        {
+          "path": "pptx/scripts/clean.py",
+          "tokens": 2681,
+          "bytes": 10724
+        },
+        {
+          "path": "discernment-nudge/SKILL.md",
+          "tokens": 2676,
+          "bytes": 10801
+        },
+        {
+          "path": "skill-creator/agents/analyzer.md",
+          "tokens": 2662,
+          "bytes": 10650
+        },
+        {
+          "path": "frontend-design/LICENSE.txt",
+          "tokens": 2588,
+          "bytes": 10351
+        },
+        {
+          "path": "claude-api/go/claude-api/tool-use.md",
+          "tokens": 2563,
+          "bytes": 10252
+        },
+        {
+          "path": "web-artifacts-builder/scripts/init-artifact.sh",
+          "tokens": 2545,
+          "bytes": 10246
+        },
+        {
+          "path": "pptx/scripts/thumbnail.py",
+          "tokens": 2529,
+          "bytes": 10113
+        },
+        {
+          "path": "slack-gif-creator/core/gif_builder.py",
+          "tokens": 2529,
+          "bytes": 10116
+        },
+        {
+          "path": "claude-api/php/claude-api/tool-use.md",
+          "tokens": 2497,
+          "bytes": 9989
+        },
+        {
+          "path": "claude-api/curl/examples.md",
+          "tokens": 2493,
+          "bytes": 9971
+        },
+        {
+          "path": "claude-api/typescript/claude-api/streaming.md",
+          "tokens": 2434,
+          "bytes": 9735
+        },
+        {
+          "path": "claude-api/shared/managed-agents-scheduled-deployments.md",
+          "tokens": 2429,
+          "bytes": 9717
+        },
+        {
+          "path": "docx/scripts/merge_runs.py",
+          "tokens": 2426,
+          "bytes": 9708
+        },
+        {
+          "path": "frontend-design/SKILL.md",
+          "tokens": 2359,
+          "bytes": 9461
+        },
+        {
+          "path": "skill-creator/agents/grader.md",
+          "tokens": 2314,
+          "bytes": 9272
+        },
+        {
+          "path": "claude-api/shared/managed-agents-outcomes.md",
+          "tokens": 2267,
+          "bytes": 9070
+        },
+        {
+          "path": "claude-api/shared/agent-design.md",
+          "tokens": 2209,
+          "bytes": 8837
+        },
+        {
+          "path": "claude-api/go/claude-api/README.md",
+          "tokens": 2167,
+          "bytes": 8667
+        },
+        {
+          "path": "xlsx/SKILL.md",
+          "tokens": 2157,
+          "bytes": 8683
+        },
+        {
+          "path": "pdf/SKILL.md",
+          "tokens": 2084,
+          "bytes": 8372
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/bug-hunter.md",
+          "tokens": 2051,
+          "bytes": 8202
+        },
+        {
+          "path": "slack-gif-creator/SKILL.md",
+          "tokens": 2024,
+          "bytes": 8095
+        },
+        {
+          "path": "academy-guide/SKILL.md",
+          "tokens": 1966,
+          "bytes": 7902
+        },
+        {
+          "path": "claude-api/csharp/claude-api/tool-use.md",
+          "tokens": 1951,
+          "bytes": 7801
+        },
+        {
+          "path": "algorithmic-art/templates/generator_template.js",
+          "tokens": 1900,
+          "bytes": 8048
+        },
+        {
+          "path": "mcp-builder/reference/mcp_best_practices.md",
+          "tokens": 1895,
+          "bytes": 7579
+        },
+        {
+          "path": "skill-creator/agents/comparator.md",
+          "tokens": 1871,
+          "bytes": 7489
+        },
+        {
+          "path": "claude-api/shared/platform-availability.md",
+          "tokens": 1868,
+          "bytes": 7469
+        },
+        {
+          "path": "docx/SKILL.md",
+          "tokens": 1737,
+          "bytes": 6988
+        },
+        {
+          "path": "claude-api/php/claude-api/README.md",
+          "tokens": 1683,
+          "bytes": 6729
+        },
+        {
+          "path": "slack-gif-creator/core/easing.py",
+          "tokens": 1625,
+          "bytes": 6499
+        },
+        {
+          "path": "docx/scripts/office/validate.py",
+          "tokens": 1579,
+          "bytes": 6315
+        },
+        {
+          "path": "pptx/scripts/office/validate.py",
+          "tokens": 1579,
+          "bytes": 6315
+        },
+        {
+          "path": "xlsx/scripts/office/validate.py",
+          "tokens": 1579,
+          "bytes": 6315
+        },
+        {
+          "path": "docx/scripts/office/soffice.py",
+          "tokens": 1529,
+          "bytes": 6119
+        },
+        {
+          "path": "pptx/scripts/office/soffice.py",
+          "tokens": 1529,
+          "bytes": 6119
+        },
+        {
+          "path": "xlsx/scripts/office/soffice.py",
+          "tokens": 1529,
+          "bytes": 6119
+        },
+        {
+          "path": "docx/scripts/office/helpers/pptx_chart.py",
+          "tokens": 1508,
+          "bytes": 6032
+        },
+        {
+          "path": "pptx/scripts/office/helpers/pptx_chart.py",
+          "tokens": 1508,
+          "bytes": 6032
+        },
+        {
+          "path": "xlsx/scripts/office/helpers/pptx_chart.py",
+          "tokens": 1508,
+          "bytes": 6032
+        },
+        {
+          "path": "claude-api/python/claude-api/batches.md",
+          "tokens": 1481,
+          "bytes": 5923
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/watchlist-scanner.md",
+          "tokens": 1435,
+          "bytes": 5738
+        },
+        {
+          "path": "mcp-builder/scripts/connections.py",
+          "tokens": 1257,
+          "bytes": 5026
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/explainer-video-maker.md",
+          "tokens": 1247,
+          "bytes": 4986
+        },
+        {
+          "path": "claude-api/ruby/claude-api/README.md",
+          "tokens": 1245,
+          "bytes": 4978
+        },
+        {
+          "path": "slack-gif-creator/core/frame_composer.py",
+          "tokens": 1181,
+          "bytes": 4724
+        },
+        {
+          "path": "claude-api/python/claude-api/files-api.md",
+          "tokens": 1168,
+          "bytes": 4669
+        },
+        {
+          "path": "canvas-design/canvas-fonts/LibreBaskerville-OFL.txt",
+          "tokens": 1136,
+          "bytes": 4542
+        },
+        {
+          "path": "canvas-design/canvas-fonts/Lora-OFL.txt",
+          "tokens": 1129,
+          "bytes": 4516
+        },
+        {
+          "path": "canvas-design/canvas-fonts/EricaOne-OFL.txt",
+          "tokens": 1126,
+          "bytes": 4504
+        },
+        {
+          "path": "canvas-design/canvas-fonts/BricolageGrotesque-OFL.txt",
+          "tokens": 1124,
+          "bytes": 4496
+        },
+        {
+          "path": "canvas-design/canvas-fonts/InstrumentSans-OFL.txt",
+          "tokens": 1124,
+          "bytes": 4496
+        },
+        {
+          "path": "canvas-design/canvas-fonts/BigShoulders-OFL.txt",
+          "tokens": 1123,
+          "bytes": 4490
+        },
+        {
+          "path": "canvas-design/canvas-fonts/JetBrainsMono-OFL.txt",
+          "tokens": 1123,
+          "bytes": 4492
+        },
+        {
+          "path": "canvas-design/canvas-fonts/NationalPark-OFL.txt",
+          "tokens": 1123,
+          "bytes": 4492
+        },
+        {
+          "path": "canvas-design/canvas-fonts/SmoochSans-OFL.txt",
+          "tokens": 1123,
+          "bytes": 4489
+        },
+        {
+          "path": "canvas-design/canvas-fonts/WorkSans-OFL.txt",
+          "tokens": 1123,
+          "bytes": 4490
+        },
+        {
+          "path": "canvas-design/canvas-fonts/YoungSerif-OFL.txt",
+          "tokens": 1123,
+          "bytes": 4491
+        },
+        {
+          "path": "canvas-design/canvas-fonts/CrimsonPro-OFL.txt",
+          "tokens": 1122,
+          "bytes": 4487
+        },
+        {
+          "path": "canvas-design/canvas-fonts/DMMono-OFL.txt",
+          "tokens": 1122,
+          "bytes": 4485
+        },
+        {
+          "path": "canvas-design/canvas-fonts/Italiana-OFL.txt",
+          "tokens": 1122,
+          "bytes": 4487
+        },
+        {
+          "path": "canvas-design/canvas-fonts/PixelifySans-OFL.txt",
+          "tokens": 1122,
+          "bytes": 4488
+        },
+        {
+          "path": "canvas-design/canvas-fonts/RedHatMono-OFL.txt",
+          "tokens": 1122,
+          "bytes": 4487
+        },
+        {
+          "path": "canvas-design/canvas-fonts/Silkscreen-OFL.txt",
+          "tokens": 1122,
+          "bytes": 4487
+        },
+        {
+          "path": "canvas-design/canvas-fonts/Boldonse-OFL.txt",
+          "tokens": 1121,
+          "bytes": 4483
+        },
+        {
+          "path": "canvas-design/canvas-fonts/GeistMono-OFL.txt",
+          "tokens": 1121,
+          "bytes": 4481
+        },
+        {
+          "path": "canvas-design/canvas-fonts/Outfit-OFL.txt",
+          "tokens": 1121,
+          "bytes": 4482
+        },
+        {
+          "path": "canvas-design/canvas-fonts/Tektur-OFL.txt",
+          "tokens": 1120,
+          "bytes": 4478
+        },
+        {
+          "path": "claude-api/shared/claude-platform-on-aws.md",
+          "tokens": 1120,
+          "bytes": 4479
+        },
+        {
+          "path": "canvas-design/canvas-fonts/Gloock-OFL.txt",
+          "tokens": 1119,
+          "bytes": 4474
+        },
+        {
+          "path": "canvas-design/canvas-fonts/Jura-OFL.txt",
+          "tokens": 1119,
+          "bytes": 4473
+        },
+        {
+          "path": "canvas-design/canvas-fonts/ArsenalSC-OFL.txt",
+          "tokens": 1117,
+          "bytes": 4466
+        },
+        {
+          "path": "canvas-design/canvas-fonts/PoiretOne-OFL.txt",
+          "tokens": 1115,
+          "bytes": 4459
+        },
+        {
+          "path": "canvas-design/canvas-fonts/IBMPlexMono-OFL.txt",
+          "tokens": 1114,
+          "bytes": 4456
+        },
+        {
+          "path": "canvas-design/canvas-fonts/NothingYouCouldDo-OFL.txt",
+          "tokens": 1114,
+          "bytes": 4456
+        },
+        {
+          "path": "pdf/scripts/extract_form_field_info.py",
+          "tokens": 1106,
+          "bytes": 4422
+        },
+        {
+          "path": "skill-creator/scripts/package_skill.py",
+          "tokens": 1088,
+          "bytes": 4370
+        },
+        {
+          "path": "docx/scripts/accept_changes.py",
+          "tokens": 1047,
+          "bytes": 4186
+        },
+        {
+          "path": "skill-creator/scripts/quick_validate.py",
+          "tokens": 1019,
+          "bytes": 4074
+        },
+        {
+          "path": "pdf/scripts/extract_form_structure.py",
+          "tokens": 1015,
+          "bytes": 4060
+        },
+        {
+          "path": "webapp-testing/SKILL.md",
+          "tokens": 989,
+          "bytes": 4008
+        },
+        {
+          "path": "slack-gif-creator/core/validators.py",
+          "tokens": 981,
+          "bytes": 3921
+        },
+        {
+          "path": "pdf/scripts/fill_fillable_fields.py",
+          "tokens": 980,
+          "bytes": 3917
+        },
+        {
+          "path": "webapp-testing/scripts/with_server.py",
+          "tokens": 950,
+          "bytes": 3798
+        },
+        {
+          "path": "docx/scripts/office/helpers/pptx_theme.py",
+          "tokens": 906,
+          "bytes": 3624
+        },
+        {
+          "path": "pptx/scripts/office/helpers/pptx_theme.py",
+          "tokens": 906,
+          "bytes": 3624
+        },
+        {
+          "path": "xlsx/scripts/office/helpers/pptx_theme.py",
+          "tokens": 906,
+          "bytes": 3624
+        },
+        {
+          "path": "docx/scripts/office/helpers/__init__.py",
+          "tokens": 868,
+          "bytes": 3469
+        },
+        {
+          "path": "pptx/scripts/office/helpers/__init__.py",
+          "tokens": 868,
+          "bytes": 3469
+        },
+        {
+          "path": "xlsx/scripts/office/helpers/__init__.py",
+          "tokens": 868,
+          "bytes": 3469
+        },
+        {
+          "path": "internal-comms/examples/company-newsletter.md",
+          "tokens": 840,
+          "bytes": 3360
+        },
+        {
+          "path": "pdf/scripts/fill_pdf_form_with_annotations.py",
+          "tokens": 836,
+          "bytes": 3342
+        },
+        {
+          "path": "internal-comms/examples/3p-updates.md",
+          "tokens": 830,
+          "bytes": 3320
+        },
+        {
+          "path": "theme-factory/SKILL.md",
+          "tokens": 796,
+          "bytes": 3183
+        },
+        {
+          "path": "web-artifacts-builder/SKILL.md",
+          "tokens": 787,
+          "bytes": 3160
+        },
+        {
+          "path": "pdf/scripts/check_bounding_boxes.py",
+          "tokens": 710,
+          "bytes": 2839
+        },
+        {
+          "path": "claude-api/ruby/claude-api/tool-use.md",
+          "tokens": 686,
+          "bytes": 2743
+        },
+        {
+          "path": "claude-api/typescript/claude-api/batches.md",
+          "tokens": 675,
+          "bytes": 2700
+        },
+        {
+          "path": "claude-api/typescript/claude-api/files-api.md",
+          "tokens": 621,
+          "bytes": 2482
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/deep-researcher.md",
+          "tokens": 620,
+          "bytes": 2480
+        },
+        {
+          "path": "internal-comms/examples/faq-answers.md",
+          "tokens": 599,
+          "bytes": 2395
+        },
+        {
+          "path": "brand-guidelines/SKILL.md",
+          "tokens": 577,
+          "bytes": 2308
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/field-monitor.md",
+          "tokens": 543,
+          "bytes": 2171
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/sprint-retro-facilitator.md",
+          "tokens": 541,
+          "bytes": 2164
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/support-to-eng-escalator.md",
+          "tokens": 474,
+          "bytes": 1894
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/contract-tracker.md",
+          "tokens": 463,
+          "bytes": 1850
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/incident-commander.md",
+          "tokens": 445,
+          "bytes": 1778
+        },
+        {
+          "path": "docx/scripts/office/helpers/pptx_slide.py",
+          "tokens": 434,
+          "bytes": 1735
+        },
+        {
+          "path": "pptx/scripts/office/helpers/pptx_slide.py",
+          "tokens": 434,
+          "bytes": 1735
+        },
+        {
+          "path": "xlsx/scripts/office/helpers/pptx_slide.py",
+          "tokens": 434,
+          "bytes": 1735
+        },
+        {
+          "path": "skill-creator/scripts/utils.py",
+          "tokens": 427,
+          "bytes": 1708
+        },
+        {
+          "path": "claude-api/shared/token-counting.md",
+          "tokens": 415,
+          "bytes": 1659
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/data-analyst.md",
+          "tokens": 401,
+          "bytes": 1603
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/structured-extractor.md",
+          "tokens": 394,
+          "bytes": 1576
+        },
+        {
+          "path": "internal-comms/SKILL.md",
+          "tokens": 386,
+          "bytes": 1543
+        },
+        {
+          "path": "web-artifacts-builder/scripts/bundle-artifact.sh",
+          "tokens": 386,
+          "bytes": 1570
+        },
+        {
+          "path": "claude-api/shared/managed-agents-quickstarts/support-agent.md",
+          "tokens": 382,
+          "bytes": 1526
+        },
+        {
+          "path": "webapp-testing/examples/element_discovery.py",
+          "tokens": 376,
+          "bytes": 1502
+        },
+        {
+          "path": "pdf/scripts/create_validation_image.py",
+          "tokens": 324,
+          "bytes": 1295
+        },
+        {
+          "path": "claude-api/java/claude-api/files-api.md",
+          "tokens": 307,
+          "bytes": 1225
+        },
+        {
+          "path": "claude-api/go/claude-api/streaming.md",
+          "tokens": 268,
+          "bytes": 1069
+        },
+        {
+          "path": "webapp-testing/examples/console_logging.py",
+          "tokens": 266,
+          "bytes": 1061
+        },
+        {
+          "path": "pdf/scripts/convert_pdf_to_images.py",
+          "tokens": 261,
+          "bytes": 1041
+        },
+        {
+          "path": "webapp-testing/examples/static_html_automation.py",
+          "tokens": 247,
+          "bytes": 985
+        },
+        {
+          "path": "claude-api/go/claude-api/files-api.md",
+          "tokens": 240,
+          "bytes": 959
+        },
+        {
+          "path": "claude-api/csharp/claude-api/files-api.md",
+          "tokens": 232,
+          "bytes": 925
+        },
+        {
+          "path": "claude-api/csharp/claude-api/streaming.md",
+          "tokens": 204,
+          "bytes": 815
+        },
+        {
+          "path": "claude-api/php/claude-api/streaming.md",
+          "tokens": 178,
+          "bytes": 709
+        },
+        {
+          "path": "claude-api/java/claude-api/streaming.md",
+          "tokens": 170,
+          "bytes": 679
+        },
+        {
+          "path": "internal-comms/examples/general-comms.md",
+          "tokens": 155,
+          "bytes": 617
+        },
+        {
+          "path": "theme-factory/themes/sunset-boulevard.md",
+          "tokens": 145,
+          "bytes": 577
+        },
+        {
+          "path": "theme-factory/themes/ocean-depths.md",
+          "tokens": 144,
+          "bytes": 574
+        },
+        {
+          "path": "theme-factory/themes/modern-minimalist.md",
+          "tokens": 142,
+          "bytes": 568
+        },
+        {
+          "path": "theme-factory/themes/tech-innovation.md",
+          "tokens": 142,
+          "bytes": 566
+        },
+        {
+          "path": "theme-factory/themes/arctic-frost.md",
+          "tokens": 141,
+          "bytes": 563
+        },
+        {
+          "path": "theme-factory/themes/golden-hour.md",
+          "tokens": 137,
+          "bytes": 547
+        },
+        {
+          "path": "theme-factory/themes/botanical-garden.md",
+          "tokens": 135,
+          "bytes": 538
+        },
+        {
+          "path": "theme-factory/themes/midnight-galaxy.md",
+          "tokens": 133,
+          "bytes": 532
+        },
+        {
+          "path": "theme-factory/themes/forest-canopy.md",
+          "tokens": 132,
+          "bytes": 525
+        },
+        {
+          "path": "theme-factory/themes/desert-rose.md",
+          "tokens": 129,
+          "bytes": 515
+        },
+        {
+          "path": "claude-api/php/claude-api/files-api.md",
+          "tokens": 123,
+          "bytes": 489
+        },
+        {
+          "path": "claude-api/php/claude-api/batches.md",
+          "tokens": 116,
+          "bytes": 462
+        },
+        {
+          "path": "claude-api/csharp/claude-api/batches.md",
+          "tokens": 107,
+          "bytes": 427
+        },
+        {
+          "path": "docx/scripts/office/validators/__init__.py",
+          "tokens": 88,
+          "bytes": 351
+        },
+        {
+          "path": "pptx/scripts/office/validators/__init__.py",
+          "tokens": 88,
+          "bytes": 351
+        },
+        {
+          "path": "xlsx/scripts/office/validators/__init__.py",
+          "tokens": 88,
+          "bytes": 351
+        },
+        {
+          "path": "pdf/scripts/check_fillable_fields.py",
+          "tokens": 70,
+          "bytes": 279
+        },
+        {
+          "path": "claude-api/ruby/claude-api/streaming.md",
+          "tokens": 63,
+          "bytes": 251
+        },
+        {
+          "path": "slack-gif-creator/requirements.txt",
+          "tokens": 18,
+          "bytes": 69
+        },
+        {
+          "path": "mcp-builder/scripts/requirements.txt",
+          "tokens": 8,
+          "bytes": 31
+        },
+        {
+          "path": "docx/scripts/__init__.py",
+          "tokens": 1,
+          "bytes": 2
+        },
+        {
+          "path": "pptx/scripts/__init__.py",
+          "tokens": 0,
+          "bytes": 0
+        },
+        {
+          "path": "skill-creator/scripts/__init__.py",
+          "tokens": 0,
+          "bytes": 0
+        }
+      ],
+      "budget": {
+        "limit": 10000,
+        "basis": "largest_skill",
+        "subject_tokens": 526405,
+        "over_by": 516405,
+        "over_pct": 5164.1,
+        "package_over_by": 637806,
+        "largest_skill_tokens": 526405
+      },
+      "duplicates": [
+        {
+          "hash": "89604c",
+          "files": [
+            "academy-guide/LICENSE.txt",
+            "algorithmic-art/LICENSE.txt",
+            "brand-guidelines/LICENSE.txt",
+            "canvas-design/LICENSE.txt",
+            "claude-api/LICENSE.txt",
+            "discernment-nudge/LICENSE.txt",
+            "internal-comms/LICENSE.txt",
+            "mcp-builder/LICENSE.txt",
+            "skill-creator/LICENSE.txt",
+            "slack-gif-creator/LICENSE.txt",
+            "theme-factory/LICENSE.txt",
+            "web-artifacts-builder/LICENSE.txt",
+            "webapp-testing/LICENSE.txt"
+          ],
+          "wasted_tokens": 34644
+        },
+        {
+          "hash": "fec290",
+          "files": [
+            "docx/scripts/office/validators/base.py",
+            "pptx/scripts/office/validators/base.py",
+            "xlsx/scripts/office/validators/base.py"
+          ],
+          "wasted_tokens": 17316
+        },
+        {
+          "hash": "d35636",
+          "files": [
+            "docx/scripts/office/validators/docx.py",
+            "pptx/scripts/office/validators/docx.py",
+            "xlsx/scripts/office/validators/docx.py"
+          ],
+          "wasted_tokens": 8972
+        },
+        {
+          "hash": "accad2",
+          "files": [
+            "docx/LICENSE.txt",
+            "pdf/LICENSE.txt",
+            "pptx/LICENSE.txt",
+            "xlsx/LICENSE.txt"
+          ],
+          "wasted_tokens": 8670
+        },
+        {
+          "hash": "f43be0",
+          "files": [
+            "docx/scripts/office/validators/pptx.py",
+            "pptx/scripts/office/validators/pptx.py",
+            "xlsx/scripts/office/validators/pptx.py"
+          ],
+          "wasted_tokens": 8204
+        },
+        {
+          "hash": "a424ab",
+          "files": [
+            "docx/scripts/office/validators/redlining.py",
+            "pptx/scripts/office/validators/redlining.py",
+            "xlsx/scripts/office/validators/redlining.py"
+          ],
+          "wasted_tokens": 5766
+        },
+        {
+          "hash": "7794d9",
+          "files": [
+            "docx/scripts/office/validate.py",
+            "pptx/scripts/office/validate.py",
+            "xlsx/scripts/office/validate.py"
+          ],
+          "wasted_tokens": 3158
+        },
+        {
+          "hash": "f426fd",
+          "files": [
+            "docx/scripts/office/soffice.py",
+            "pptx/scripts/office/soffice.py",
+            "xlsx/scripts/office/soffice.py"
+          ],
+          "wasted_tokens": 3058
+        },
+        {
+          "hash": "4eb7dc",
+          "files": [
+            "docx/scripts/office/helpers/pptx_chart.py",
+            "pptx/scripts/office/helpers/pptx_chart.py",
+            "xlsx/scripts/office/helpers/pptx_chart.py"
+          ],
+          "wasted_tokens": 3016
+        },
+        {
+          "hash": "def64b",
+          "files": [
+            "docx/scripts/office/helpers/pptx_theme.py",
+            "pptx/scripts/office/helpers/pptx_theme.py",
+            "xlsx/scripts/office/helpers/pptx_theme.py"
+          ],
+          "wasted_tokens": 1812
+        },
+        {
+          "hash": "82f9db",
+          "files": [
+            "docx/scripts/office/helpers/__init__.py",
+            "pptx/scripts/office/helpers/__init__.py",
+            "xlsx/scripts/office/helpers/__init__.py"
+          ],
+          "wasted_tokens": 1736
+        },
+        {
+          "hash": "58c4dd",
+          "files": [
+            "docx/scripts/office/helpers/pptx_slide.py",
+            "pptx/scripts/office/helpers/pptx_slide.py",
+            "xlsx/scripts/office/helpers/pptx_slide.py"
+          ],
+          "wasted_tokens": 868
+        },
+        {
+          "hash": "c84006",
+          "files": [
+            "docx/scripts/office/validators/__init__.py",
+            "pptx/scripts/office/validators/__init__.py",
+            "xlsx/scripts/office/validators/__init__.py"
+          ],
+          "wasted_tokens": 176
+        }
+      ],
+      "structure": {
+        "headings": 2013,
+        "lists": 3430,
+        "code_blocks": 818
+      },
+      "warnings": [
+        "claude-api/shared/model-migration.md 超过 5000 token（87148），多数 harness 会截断",
+        "claude-api/SKILL.md 超过 5000 token（26434），多数 harness 会截断",
+        "claude-api/shared/preserved-thinking-migration/prefix_diff.py 超过 5000 token（23885），多数 harness 会截断",
+        "claude-api/shared/evals/eval-hillclimb.md 超过 5000 token（17365），多数 harness 会截断",
+        "claude-api/shared/preserved-thinking-migration/drop_block_probe.py 超过 5000 token（16912），多数 harness 会截断",
+        "另有 36 个文件超单文件预算",
+        "最大的单个技能 526405 token，超出注入预算 10000（+516405）",
+        "重复内容 97396 token，占 11.5%（阈值 10%）",
+        "19 个技能模块，SkillsBench 结论是 ≤3 个模块更优"
+      ]
+    },
+    "skill_shape": {
+      "probe": "skill-shape",
+      "supported": true,
+      "skill_count": 19,
+      "frontmatter_rate": 1,
+      "described_rate": 1,
+      "deferred_share": 0.842,
+      "monolith_share": 0,
+      "body_tokens_p50": 1956,
+      "description_tokens_p50": 72,
+      "skills": [
+        {
+          "name": "claude-api",
+          "body_tokens": 26144,
+          "description_tokens": 1,
+          "resources": 12,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.554
+        },
+        {
+          "name": "skill-creator",
+          "body_tokens": 8278,
+          "description_tokens": 80,
+          "resources": 12,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.222
+        },
+        {
+          "name": "pptx",
+          "body_tokens": 5014,
+          "description_tokens": 185,
+          "resources": 12,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.194
+        },
+        {
+          "name": "algorithmic-art",
+          "body_tokens": 4933,
+          "description_tokens": 81,
+          "resources": 2,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.502
+        },
+        {
+          "name": "doc-coauthoring",
+          "body_tokens": 3929,
+          "description_tokens": 107,
+          "resources": 0,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.971
+        },
+        {
+          "name": "canvas-design",
+          "body_tokens": 2924,
+          "description_tokens": 73,
+          "resources": 12,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.16
+        },
+        {
+          "name": "mcp-builder",
+          "body_tokens": 2747,
+          "description_tokens": 70,
+          "resources": 6,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.155
+        },
+        {
+          "name": "discernment-nudge",
+          "body_tokens": 2396,
+          "description_tokens": 1,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.431
+        },
+        {
+          "name": "frontend-design",
+          "body_tokens": 2286,
+          "description_tokens": 51,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.462
+        },
+        {
+          "name": "pdf",
+          "body_tokens": 1956,
+          "description_tokens": 110,
+          "resources": 11,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.111
+        },
+        {
+          "name": "slack-gif-creator",
+          "body_tokens": 1945,
+          "description_tokens": 57,
+          "resources": 6,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.173
+        },
+        {
+          "name": "xlsx",
+          "body_tokens": 1900,
+          "description_tokens": 238,
+          "resources": 12,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.073
+        },
+        {
+          "name": "academy-guide",
+          "body_tokens": 1686,
+          "description_tokens": 1,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.347
+        },
+        {
+          "name": "docx",
+          "body_tokens": 1509,
+          "description_tokens": 209,
+          "resources": 12,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.081
+        },
+        {
+          "name": "webapp-testing",
+          "body_tokens": 917,
+          "description_tokens": 51,
+          "resources": 5,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.16
+        },
+        {
+          "name": "theme-factory",
+          "body_tokens": 710,
+          "description_tokens": 66,
+          "resources": 11,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.14
+        },
+        {
+          "name": "web-artifacts-builder",
+          "body_tokens": 692,
+          "description_tokens": 72,
+          "resources": 3,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.105
+        },
+        {
+          "name": "brand-guidelines",
+          "body_tokens": 497,
+          "description_tokens": 59,
+          "resources": 1,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.143
+        },
+        {
+          "name": "internal-comms",
+          "body_tokens": 283,
+          "description_tokens": 83,
+          "resources": 5,
+          "has_frontmatter": true,
+          "has_name": true,
+          "has_description": true,
+          "defer_ratio": 0.05
+        }
+      ],
+      "warnings": [
+        "3 个技能的 description 短于 20 tok（说不清什么时候该用）",
+        "2 个技能的 description 超过 200 tok（在目录里塞正文）"
+      ]
+    },
+    "uninstall_clean": {
+      "probe": "uninstall-clean",
+      "supported": true,
+      "clean": true,
+      "residual_delta_pp": null,
+      "leaked_paths": [],
+      "note": "包内没有安装脚本也没有 hooks：只可能污染技能目录本身（已测，无残留）",
+      "declared_hooks": []
+    }
+  },
+  "verdict": {
+    "headline": "Tier 0 · 849,607 tok · 19 个技能",
+    "grade": "unrated",
+    "flags": [
+      "static_cost_over_budget",
+      "duplicate_content",
+      "monolith_skill"
+    ]
+  }
+}

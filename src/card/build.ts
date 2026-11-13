@@ -12,6 +12,7 @@ import type {
   NegativeTransferProbe,
   ProbeResult,
   SkillCardJson,
+  SkillShapeProbe,
   StaticCostProbe,
   Tier1Block,
   TriggerPrecisionProbe,
@@ -41,6 +42,27 @@ export function buildSkillCard(input: BuildCardInput): SkillCardJson {
   if (sc?.supported && sc.duplicates.reduce((s, d) => s + d.wasted_tokens, 0) > 0) {
     const wasted = sc.duplicates.reduce((s, d) => s + d.wasted_tokens, 0);
     if (sc.total_tokens > 0 && (wasted / sc.total_tokens) * 100 > 10) flags.push('duplicate_content');
+  }
+  /**
+   * 两个形状标记，都是为了不让读者被一个百分比误导。
+   *
+   * - retrieval_style_package：包里知识远大于单个 SKILL.md（20 倍以上）。
+   *   这类包（比如 modern-web-guidance）是**检索型**：知识在包里、正文只给检索指令，
+   *   整包 token 是磁盘成本，不是上下文成本。把整包当上下文判预算，会得出「超预算 5504%」
+   *   这种荒谬百分比。标记出来，让人知道该看 largest skill 而不是 pkg tokens。
+   * - monolith_skill：最大单技能本身就是预算的 5 倍以上——这个是真正的问题，不是口径问题。
+   */
+  if (sc?.supported && sc.budget.largest_skill_tokens > 0) {
+    if (sc.total_tokens > sc.budget.largest_skill_tokens * 20) flags.push('retrieval_style_package');
+    if (sc.budget.largest_skill_tokens > sc.budget.limit * 5) flags.push('monolith_skill');
+  }
+
+  const sh = input.tier0.skill_shape as SkillShapeProbe | undefined;
+  if (sh?.supported) {
+    if (sh.described_rate < 1) flags.push('missing_skill_description');
+    if (sh.monolith_share > 0) flags.push('monolith_skills');
+    if (sh.description_tokens_p50 > 0 && sh.description_tokens_p50 < 20) flags.push('thin_descriptions');
+    if (sh.description_tokens_p50 > 200) flags.push('fat_descriptions');
   }
 
   const tp = input.tier0.trigger_precision as TriggerPrecisionProbe | undefined;

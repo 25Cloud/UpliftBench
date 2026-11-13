@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="118" height="20" role="img" aria-label="uplift: 75.5k tok">
+  <title>UpliftBench · KKKKhazix/khazix-skills · Tier 0
+静态开销 75,483 tok（approx:weighted）
+Tier 1 未测（需要任务集）
+protocol/1.0.0 · 2026-11-13</title>
+  <linearGradient id="s57615" x2="0" y2="100%">
+    <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
+    <stop offset="1" stop-opacity=".1"/>
+  </linearGradient>
+  <clipPath id="rs57615">
+    <rect width="118" height="20" rx="3" fill="#fff"/>
+  </clipPath>
+  <g clip-path="url(#rs57615)">
+    <rect width="50" height="20" fill="#555"/>
+    <rect x="50" width="68" height="20" fill="#9e9e9e"/>
+    <rect width="118" height="20" fill="url(#s57615)"/>
+  </g>
+  <g fill="#fff" text-anchor="middle" font-family="Verdana,DejaVu Sans,Geneva,sans-serif" font-size="11">
+    <text x="25" y="14" fill="#010101" fill-opacity=".3">uplift</text>
+    <text x="25" y="13">uplift</text>
+    <text x="84" y="14" fill="#010101" fill-opacity=".3">75.5k tok</text>
+    <text x="84" y="13">75.5k tok</text>
+  </g>
+</svg>
