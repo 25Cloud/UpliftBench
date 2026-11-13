@@ -192,21 +192,60 @@ A benchmark that never corrects itself is a marketing site. All of these are in 
 
 ---
 
-## The six Tier 0 probes
+## Field notes: 12 skill packages, measured (no model, no money)
+
+Before spending a dollar on three arms, look at the shape. Three Tier 0 probes run in seconds on any
+package: `static-cost` (tokens, budget, duplication), `skill-shape` (frontmatter, description quality,
+defer-loading) and `uninstall-clean`. Twelve real packages, snapshot 2026-11-13:
+
+| package | stars | skills | pkg tokens | largest skill | catalog | over budget | body p50 |
+|---|---|---|---|---|---|---|---|
+| `anthropics/skills` | 193.9k | 19 | 849,607 | 526,405 | 1,595 | **5164%** | 1,956 |
+| `Nutlope/hallmark` | — | 1 | 409,006 | 409,006 | 63 | **2823%** | 4,443 |
+| `cloudflare/security-audit-skill` | — | 1 | 79,967 | 79,967 | 90 | 399% | 5,445 |
+| `obra/superpowers` | 317.0k | 15 | 100,774 | 25,738 | 586 | 157% | 1,893 |
+| `KKKKhazix/khazix-skills` | 22.2k | 6 | 75,483 | 17,578 | 200 | 76% | 2,986 |
+| `affaan-m/ECC` | 302.2k | 47 | 109,921 | 12,192 | **2,375** | 22% | 1,548 |
+| `mattpocock/skills` | 323.4k | 39 | 80,583 | 10,808 | 1,390 | 8% | **875** |
+| `obsidianmd/obsidian-skills` | 52.2k | 7 | 16,902 | 6,350 | 446 | **0%** | 1,498 |
+| `op7418/Humanizer-zh` | 22.7k | 1 | 8,042 | 4,204 | 47 | 0% | 4,081 |
+| `multica-ai/andrej-karpathy-skills` | 232.7k | 1 | **644** | 644 | **55** | 0% | 573 |
+
+Three things this table says out loud:
+
+1. **Stars are not effect.** A 302k-star package spends 2,375 tokens of context just *listing its 47 skills*
+   before anything activates. A 233k-star package spends 55.
+2. **The failure mode is not "bad writing", it's "wrong container".** `hallmark` puts a 113k-token
+   `photos.json` inside the skill directory; `claude-api` references an 87k-token migration doc.
+   Neither needs to be in context, both are one `Read` away.
+3. **`largest skill` is the column that matters**, not package size. `modern-web-guidance-src` is
+   1.27M tokens on disk but 2,444 in the largest skill — it's a retrieval corpus, not an injection.
+
+Full write-up with the three good patterns and the three unworkable ones:
+[docs/17-横向评测.md](docs/17-横向评测.md). Repro: `node tools/review-table.mjs --md`.
+
+---
+
+## The seven Tier 0 probes
 
 No task set, no model, seconds. These produce **facts, not scores** — which is why they need no placebo.
 
 | # | Probe | What it answers |
 |---|---|---|
 | 1 | `static-cost` | how many tokens, duplicated how much, over budget? |
-| 2 | `trigger-precision` | does it fire when it should, and stay quiet when it shouldn't? |
-| 3 | `constraint-following` | do its "never/must" rules survive contact with the agent? |
-| 4 | `injection-resistance` | does installing it make tool-output injection **easier**? |
-| 5 | `negative-transfer` | does it make **unrelated** tasks worse? |
-| 6 | `uninstall-clean` | after removal, is the environment really clean? |
+| 2 | `skill-shape` | is it written to be usable: frontmatter, description, defer-loaded or monolithic? |
+| 3 | `trigger-precision` | does it fire when it should, and stay quiet when it shouldn't? |
+| 4 | `constraint-following` | do its "never/must" rules survive contact with the agent? |
+| 5 | `injection-resistance` | does installing it make tool-output injection **easier**? |
+| 6 | `negative-transfer` | does it make **unrelated** tasks worse? |
+| 7 | `uninstall-clean` | after removal, is the environment really clean? |
 
-Probes 4–6 are the dimensions nobody else measures: **a skill that is +20pp in its domain and −10pp
+Probes 4–7 are the dimensions nobody else measures: **a skill that is +20pp in its domain and −10pp
 outside it can be net negative**, and a skill that writes to `~/.claude` on install is a liability.
+
+**A note on reading these numbers:** they are raw facts, not a verdict on anyone's writing. A large
+reference corpus can be a perfectly reasonable design — what the probes give you is the price tag,
+and the price tag is usually the thing nobody had measured before.
 
 ---
 
@@ -241,7 +280,7 @@ summary ([`action.yml`](action.yml)):
 ```
 src/
 ├─ cli.ts          probe | run | card | badge | taskset | compare | site | demo | doctor
-├─ probes/         the six Tier 0 probes
+├─ probes/         the seven Tier 0 probes
 ├─ runner/         three-arm scheduler, git-worktree isolation, SQLite store
 ├─ harness/        openai-compat (own agent loop) | claude-code (hooks) | mock
 ├─ graders/        tests (A) | exact (A) | rubric (B) | visual-diff (B)

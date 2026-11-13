@@ -10,7 +10,7 @@
 uplift <command> [options]
 
 命令：
-  probe      跑 Tier 0 六探针（不需要任务集）
+  probe      跑 Tier 0 七探针（不需要任务集）
   run        跑 Tier 1 三臂对照（需要任务集）
   card       查看/渲染已有的 SkillCard
   badge      生成 badge SVG

@@ -4,6 +4,45 @@
 
 ---
 
+## 2026-11-13 · v0.2.1（第 7 个探针 skill-shape + 12 个真实包横评）
+
+### 新增探针：`skill-shape`
+
+评 12 个真实技能包时发现：**「内容对不对」之前还有一道门——「写法能不能被用起来」**，
+而这道门不需要模型就能测。于是补了 Tier 0 的第 7 个探针（规格写进 `docs/03` 探针 7）：
+
+- `frontmatter_rate` / `described_rate`：没有 description 的技能在目录里等于不存在
+- `description_tokens_p50`：<20 tok 说不清什么时候该用，>200 tok 是在目录里塞正文
+- `defer_ratio` / `deferred_share`：正文 vs 按需资源。「短正文 + references/」是好形状
+- `monolith_share`：正文 ≥6000 tok 且没有任何按需资源 = 巨石单文件
+
+### 新增：`docs/17-横向评测.md`
+
+12 个包（合计 ~190 万 GitHub star）的零模型横评，`tools/review-table.mjs` 一键出表。几条硬数字：
+
+- `multica-ai/andrej-karpathy-skills`（232.7k★）整个包 **644 token**，目录成本 55 token
+- `affaan-m/ECC`（302.2k★）47 个技能，**光目录就 2,375 token**，按需加载只有 6%
+- `anthropics/skills` 的 `claude-api` 单技能 **526,405 token**，是预算的 52 倍
+- `Nutlope/hallmark` 409,006 token，其中 `scripts/photos.json` 一个文件 113,128
+
+结论不是「谁好谁坏」，而是三条可执行的写法：正文 ≤2k、description 写触发条件、
+大知识放 references/ 并按需读。以及一条容易混的口径：**看 largest skill，不看 pkg tokens**
+（检索型技能如 `modern-web-guidance` 磁盘 1.27M、最大单技能只有 2,444）。
+
+### 软件
+
+- `probe --only skill-shape`；卡片与 markdown 卡增加「技能形状」行（中英双语）
+- 5 张已发布的 SkillCard 重新生成，带上 shape 数据
+- `tools/review-table.mjs`：把一批 `--format json` 的卡摊成横评表（`--md` 出 markdown）
+- 单测 114 个（+5：frontmatter 解析、空包、按需/巨石判别、description 过短过长）
+
+### 已知问题
+
+- `results/modern-web-guidance-src.json` 的 Tier 0 探的是仓库里 `.agents/skills`，
+  而 Tier 1 测的是 `guides/`。两张皮，已在 `docs/17 §五` 挂账，下一轮统一
+
+---
+
 ## 2026-11-13 · v0.2.0（英文 README · `uplift demo` · 复合 Action · 中英双语输出）
 
 目标是把仓库从「研究笔记 + 工具」推到「别人能立刻上手、能贴进自己 README」的状态。

@@ -1,6 +1,9 @@
-# 03 · Tier 0 六探针（通用层）
+# 03 · Tier 0 通用探针（通用层）
 
 > **这是本项目能「覆盖任意技能包」的原因。**
+>
+> 最初这里只有六个探针；2026-11-13 补了第 7 个 `skill-shape`（见文末「探针 7」），
+> 因为在评测真实技能包时发现「写法」这道门必须单独测。文件名保留旧名以免断链。
 > Tier 0 不需要题库，不需要领域知识，任何 `SKILL.md` 目录都能秒级测量。
 > Tier 0 的产出是**事实**（facts），不是**分数**（scores）——所以它不需要安慰剂臂。
 
@@ -272,6 +275,57 @@ SkillsBench 这类基准的致命限制：**必须先有题和 verifier，才能
 
 ---
 
+## 探针 7：技能形状（`skill-shape`）
+
+> 这一节是 2026-11-13 补的（v0.2.1）。前六个探针是这一层最初的规格，第 7 个是实测之后补的：
+> 评测一批真实技能包时发现，**「内容写得对不对」之前还有一道门——「写法能不能被用起来」**，
+> 而这道门不需要模型就能测。
+
+### 输入
+`SKILL.md` 的正文（frontmatter + 内容）与该技能声明的 `resources`（references/ 等文件名）。
+
+### 输出
+
+```json
+{
+  "probe": "skill-shape",
+  "supported": true,
+  "skill_count": 19,
+  "frontmatter_rate": 1.0,
+  "described_rate": 1.0,
+  "deferred_share": 0.84,
+  "monolith_share": 0.0,
+  "body_tokens_p50": 1956,
+  "description_tokens_p50": 84,
+  "skills": [{ "name": "...", "body_tokens": 2444, "description_tokens": 61, "resources": 3, "has_frontmatter": true, "has_name": true, "has_description": true, "defer_ratio": 0.31 }],
+  "warnings": ["2 个技能是「巨石单文件」（正文 ≥ 6000 tok 且无按需资源）"]
+}
+```
+
+### 三个结构指标
+| 指标 | 定义 | 为什么是硬指标 |
+|---|---|---|
+| `frontmatter_rate` / `described_rate` | 有 YAML frontmatter / 有 description 的技能占比 | 目录里只显示 description。没有它就等于不存在——模型不会激活一个它看不见的技能 |
+| `description_tokens` | description 的 token 数 | <20 tok 说不清什么时候该用；>200 tok 是在目录里塞正文，会把别的技能的曝光挤掉 |
+| `defer_ratio` | 正文 tokens / 技能总 tokens | 好的形状是「短正文 + references/ 按需读」。正文占 100% 意味着一次激活就把全部内容灌进上下文 |
+
+### 判定规则
+| 指标 | 阈值 |
+|---|---|
+| `frontmatter_rate` < 1 | ⚠️ 列出缺 frontmatter 的技能 |
+| `described_rate` < 1 | ⚠️ 没有 description 的技能在目录里等于不存在 |
+| `monolith_share` > 0 | ⚠️ 「巨石单文件」：正文 ≥ 6000 tok 且没有任何按需资源 |
+| `description_tokens_p50` < 20 或 > 200 | ⚠️ 触发条件写不清 or 目录塞正文 |
+
+### 为什么重要
+一个技能包能不能起作用，一半在内容，一半在**它有没有机会被加载**。
+写法的病不需要跑模型就能确诊，而且改起来最便宜：`docs/17-横向评测.md` 里 12 个真实包，
+最大的那个单技能 526,405 token——预算 10,000，**52 倍**。这类数字以前没人测过。
+
+**它同样不是分数。** 它不说「这个技能好不好」，只说「它以什么形状存在」。
+
+---
+
 ## Tier 0 的产出格式
 
 Tier 0 不给分数，给**卡**：
@@ -281,6 +335,8 @@ SkillCard  <owner>/<repo>   [Tier 0]
 ──────────────────────────────────────────────
 静态开销      12,400 tok   ⚠️ 超预算 24%
               └ 重复内容 1,800 tok (14.5%)
+技能形状      13 个技能 · frontmatter 100% · 有 description 100% · 按需加载 31%
+              └ 正文中位 2,217 tok · description 中位 61 tok
 触发精度      P 0.91 / R 0.78 / F1 0.84
 约束遵循      40 条规则，违规 2 条 (5.0%)
 注入抗性      12 例，被劫持 1 例（baseline 0）⚠️
