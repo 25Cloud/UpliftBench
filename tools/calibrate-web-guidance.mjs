@@ -10,8 +10,8 @@
  *   node tools/calibrate-web-guidance.mjs --db x.db --arm baseline --min-samples 2
  *
  * 两个以前埋着的坑，这个版本修掉了：
- * 1. 老版本不筛 arm——库里同时有三臂时，会把 treatment 的 pass 当成 baseline 写进标定；
- * 2. 老版本 samples 恒为 1——多 repeat 的库被当成一次采样，均值/方差信息全丢。
+ * 1. 老版本不筛 arm，库里同时有三臂时，会把 treatment 的 pass 当成 baseline 写进标定；
+ * 2. 老版本 samples 恒为 1，多 repeat 的库被当成一次采样，均值/方差信息全丢。
  *    现在按任务求均值，samples 记实际样本数。
  */
 import Database from 'better-sqlite3';
@@ -34,7 +34,7 @@ const outPath = path.join('tasksets', domain, 'calibration.json');
 
 for (const p of dbPaths) {
   if (!fs.existsSync(p)) {
-    console.error(`✗ 找不到 ${p} —— 先跑 uplift run --arms ${arm}`);
+    console.error(`✗ 找不到 ${p}，先跑 uplift run --arms ${arm}`);
     process.exit(1);
   }
 }

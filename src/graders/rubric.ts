@@ -10,7 +10,7 @@ export const DEFAULT_PASS_THRESHOLD = 0.6;
  * B 级 rubric 评分器（协议 §4.3）。
  *
  * 硬要求：judge 的精确版本号、prompt 全文、rubric 必须公开（都在 taskset.json / 文件里）。
- * κ < 0.6 的评分器在准入检查里会被降级成 C —— 这里只管打分，不管分级。
+ * κ < 0.6 的评分器在准入检查里会被降级成 C，这里只管打分，不管分级。
  */
 export const rubricGrader: Grader = {
   kind: 'rubric',

@@ -329,7 +329,7 @@ export async function runBenchmark(cfg: RunnerConfig): Promise<RunnerResult> {
    *
    * 为什么：`uplift = treatment − placebo` 需要两臂都存在。少一臂时算出来的数是
    * 「0 减某个数」这种垃圾（以前会打印 `uplift 0pp / placebo -100pp`），
-   * 而且它会带着 A 级标记进卡片——协议 §1 硬约束 2 明确禁止两臂结果进榜。
+   * 而且它会带着 A 级标记进卡片，协议 §1 硬约束 2 明确禁止两臂结果进榜。
    * 所以这里直接不出 tier1，让上层打「未做三臂对照（uncorrected）」。
    */
   const armsPresent = new Set(rows.map((r) => r.arm));

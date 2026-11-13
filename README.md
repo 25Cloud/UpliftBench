@@ -4,9 +4,9 @@
 
 # UpliftBench
 
-**The placebo-corrected benchmark for Agent Skills.**
+The placebo-corrected benchmark for Agent Skills.
 
-Every skill package ships a claim. Almost none of them survive a length-matched placebo.
+Every skill package ships a claim. Almost none survive a length-matched placebo.
 
 [![ci](https://github.com/25Cloud/UpliftBench/actions/workflows/ci.yml/badge.svg)](https://github.com/25Cloud/UpliftBench/actions/workflows/ci.yml)
 [![pages](https://github.com/25Cloud/UpliftBench/actions/workflows/pages.yml/badge.svg)](https://25cloud.github.io/UpliftBench/)
@@ -19,38 +19,33 @@ Every skill package ships a claim. Almost none of them survive a length-matched 
 
 ---
 
-## The problem with every skill benchmark today
+## Why this exists
 
-Skills are markdown files that get injected into an agent's context. So a skill has two effects, and
-almost every benchmark measures their sum:
+A skill is markdown injected into an agent's context. That gives it two ways to change an answer. It
+makes the context longer, and it adds facts the model may not have. Benchmarks that compare "with
+skill" against "without skill" report the sum of both, which is why the ecosystem has plenty of
+numbers like +27pp that nobody else can reproduce.
 
-1. **It adds tokens.** Longer, well-structured context changes model behaviour on its own.
-2. **It adds knowledge.** The specific APIs, patterns, and pitfalls the skill documents.
+So we add the arm everyone skips: neutral text, matched to the skill's token count within 2%.
 
-Two-arm benchmarks (`with skill` vs `without skill`) cannot separate them. That is why the ecosystem
-is full of numbers like "+27pp" that nobody can reproduce.
-
-UpliftBench adds the arm that was missing:
-
-| Arm | What the agent gets | Why |
-|---|---|---|
-| **baseline** | no skill | what the model already does |
-| **placebo** | neutral text, **token-matched to the skill** | what *length alone* is worth |
-| **treatment** | the real skill | what you actually want to know |
+| Arm | What the agent gets |
+|---|---|
+| baseline | nothing |
+| placebo | neutral text, same token count as the skill |
+| treatment | the skill |
 
 ```
-uplift_pp      = treatment − placebo        ← the number that goes on the leaderboard
-placebo_effect = placebo − baseline         ← "how much is a longer prompt worth", published too
-headroom_closed = uplift / (1 − placebo)    ← share of the remaining room you filled
+uplift_pp       = treatment − placebo     ← goes on the leaderboard
+placebo_effect  = placebo − baseline      ← what length alone is worth
+headroom_closed = uplift / (1 − placebo)  ← share of the remaining room you filled
 ```
 
-A skill that looks great against baseline can be worthless against placebo. That is the whole point.
-
----
+A skill can look great against baseline and worthless against placebo. Finding out which one you have
+is the whole job.
 
 ## 60-second demo
 
-No API key, no model calls, no cost — this only reads the skill's files.
+No key, no model calls, no money. It reads files.
 
 ```bash
 git clone https://github.com/25Cloud/UpliftBench && cd UpliftBench
@@ -74,17 +69,13 @@ SkillCard  upliftbench/demo-skill   [Tier 0]
   flags        duplicate_content
 ```
 
-To get a card in English either pass `--lang en` or export `UPLIFT_LANG=en`.
-
-On your own package:
+Point it at anything with a `SKILL.md`:
 
 ```bash
 node dist/cli.js probe path/to/your-skill --only static-cost,uninstall-clean --format markdown
 ```
 
-## Fully measured runs
-
-Tier 1 needs a task set, a model, and money. Everything is seeded and resumable:
+Add `--lang en` or `export UPLIFT_LANG=en` for English labels. Tier 1 needs a model and money:
 
 ```bash
 export UPLIFT_API_KEY=... UPLIFT_MODEL=<exact-model-id>
@@ -95,20 +86,16 @@ node dist/cli.js run \
   --activation forced --max-cost 60
 ```
 
-`--activation auto` (the default) lets the agent decide whether to load the skill; `forced` injects
-the skill body directly, with the placebo arm getting an equal-token neutral substitute. **These are
-two different experiments and the tool reports them separately** — see [why](#2-the-same-skill-flips-sign-with-the-activation-condition).
-
----
+`--activation auto` lets the agent decide when to load the skill. `forced` puts the body straight into
+the system prompt, with the placebo arm getting an equal-token substitute. Those are two different
+experiments and the tool keeps them apart.
 
 ## What we measured
 
-1,829 runs · 64 tasks · 5 real skill packages · one model (`glm-5.3-flash`) · $230 total.
+1,829 runs, 64 tasks, 5 real skill packages, one model (`glm-5.3-flash`), about $230.
 
-### 1. An ITT number, as a leaderboard would report it
-
-`GoogleChrome/modern-web-guidance-src` × 48 tasks × 3 arms × 5 repeats, agent decides whether to load
-the skill (**720 runs, $60.93**):
+`GoogleChrome/modern-web-guidance-src` against 48 tasks, agent decides whether to load it (720 runs,
+$60.93):
 
 | Arm | pass rate |
 |---|---|
@@ -121,12 +108,11 @@ uplift −2.50pp   95%CI [−7.92, +2.50]   N=48   A-grade   → not significant
 placebo_effect 0.00pp   activation rate 23%
 ```
 
-The skill's own description says `MANDATORY: Execute FIRST for all HTML/CSS tasks`. **The model loaded
-it in 23% of runs.** In the other 77%, "treatment" *was* "baseline" — that is what the −2.5pp measures.
+The skill's own description says `MANDATORY: Execute FIRST for all HTML/CSS tasks`. The model loaded
+it in 23% of runs. For the other 77%, "treatment" was "baseline" with extra markdown sitting in the
+directory. Some of that −2.5pp is the skill, some is the model's willingness to call a tool.
 
-### 2. The same skill flips sign with the activation condition
-
-Same 48 tasks, skill body forced into context, equal-token placebo (**432 runs, $71.69**):
+Force the body into context and the same skill flips (432 runs, $71.69):
 
 | Arm | pass rate |
 |---|---|
@@ -136,152 +122,126 @@ Same 48 tasks, skill body forced into context, equal-token placebo (**432 runs, 
 
 ```
 uplift +5.56pp   95%CI [−2.78, +13.19]   N=48
-placebo_effect −7.64pp   → 9.4k tokens of neutral text costs 7.6 points; the skill's content earns back 5.6
+placebo_effect −7.64pp
 ```
 
-Two runs of the same experiment, opposite signs. **Neither is "the" number** — one asks *"is it worth
-loading into an agent that decides for itself"*, the other asks *"if it is loaded, what is its content worth"*.
-A benchmark that reports only one is hiding the interesting half.
+9.4k tokens of neutral text costs 7.6 points. The skill's content earns back 5.6. Neither number is
+"the" number; they answer different questions.
 
-### 3. Where the skill actually earns its keep: +36pp, against a −2pp placebo
+### Where the skill actually earns its keep
 
-The 48-task set was mostly saturated (58% of tasks were already at 100% for baseline, often because
-the prompt spelled out the API name — a transcription task, not a knowledge test). So we built tasks
-where **the prompt states the symptom and withholds the API**, on APIs the skill actually documents.
-5 tasks × 3 arms × 10 repeats (**150 runs, $29.79**):
+Half of that task set was saturated, and a good chunk of it graded transcription because the prompt
+named the API. So we rebuilt tasks where the prompt states the symptom and withholds the API name, on
+APIs the skill really documents. Five tasks, three arms, ten repeats (150 runs, $29.79):
 
 | task | what it asks | baseline | placebo | treatment | uplift |
 |---|---|---|---|---|---|
-| `wmg-060` | customizable `<select>` content | 0/10 | 0/10 | **6/10** | **+60pp** |
-| `wmg-058` | state-preserving DOM move | 1/10 | 0/10 | **4/10** | **+40pp** |
-| `wmg-064` | anchor positioning | 4/10 | 3/10 | **7/10** | **+40pp** |
-| `wmg-061` | scroll-state container query | 6/10 | 7/10 | **9/10** | **+20pp** |
-| `wmg-044` | state-preserving DOM move (API named) | 6/10 | 6/10 | **8/10** | **+20pp** |
-| **block** | | **34%** | **32%** | **68%** | **+36pp**, CI [+24, +48] |
+| `wmg-060` | customizable `<select>` content | 0/10 | 0/10 | 6/10 | +60pp |
+| `wmg-058` | state-preserving DOM move | 1/10 | 0/10 | 4/10 | +40pp |
+| `wmg-064` | anchor positioning | 4/10 | 3/10 | 7/10 | +40pp |
+| `wmg-061` | scroll-state container query | 6/10 | 7/10 | 9/10 | +20pp |
+| `wmg-044` | state-preserving DOM move (API named) | 6/10 | 6/10 | 8/10 | +20pp |
+| block | | 34% | 32% | 68% | +36pp, CI [+24, +48] |
 
-**This is the result we care about, and it is deliberately not a leaderboard number.** It says: given
-tasks whose answer is in the skill and not in the model, the skill is worth +36pp while a length-matched
-placebo is worth −2pp. The instrument can separate knowledge from length — on 5 tasks, one skill, one
-model. Everything about that sentence is a caveat, and they are all in
-[docs/16](docs/16-消融实验.md).
+That one is not a leaderboard number and shouldn't be quoted as one. Five tasks, forced activation, one
+model, one skill. What it does show is that the instrument can separate knowledge from length when the
+task is built for it: the placebo is worth −2pp and the skill is worth +36.
 
----
+### Field notes: 12 packages, measured with no model
 
-## Three things we got wrong (and published anyway)
+A seventh Tier 0 probe answers the question that comes before "is it useful", which is whether the
+thing can be loaded at all. All twelve are on the leaderboard as facts. Snapshot 2026-11-13.
 
-A benchmark that never corrects itself is a marketing site. All of these are in the changelog:
+| package | stars | skills | pkg tokens | largest skill | catalog | over budget |
+|---|---|---|---|---|---|---|
+| `anthropics/skills` | 193.9k | 19 | 849,607 | 526,405 | 1,595 | 5164% |
+| `Nutlope/hallmark` | — | 1 | 409,006 | 409,006 | 63 | 2823% |
+| `cloudflare/security-audit-skill` | — | 1 | 79,967 | 79,967 | 90 | 399% |
+| `obra/superpowers` | 317.0k | 15 | 100,774 | 25,738 | 586 | 157% |
+| `KKKKhazix/khazix-skills` | 22.2k | 6 | 75,483 | 17,578 | 200 | 76% |
+| `affaan-m/ECC` | 302.2k | 47 | 109,921 | 12,192 | 2,375 | 22% |
+| `mattpocock/skills` | 323.4k | 39 | 80,583 | 10,808 | 1,390 | 8% |
+| `obsidianmd/obsidian-skills` | 52.2k | 7 | 16,902 | 6,350 | 446 | 0% |
+| `op7418/Humanizer-zh` | 22.7k | 1 | 8,042 | 4,204 | 47 | 0% |
+| `multica-ai/andrej-karpathy-skills` | 232.7k | 1 | 644 | 644 | 55 | 0% |
 
-1. **Five grader false negatives.** Regex graders encode *one* valid syntax; correct answers have
-   equivalence classes. We required `showPopover()` and rejected the declarative `popovertarget`; required
-   `position-anchor:` and rejected `position-area:`; banned `insertBefore` and rejected a legitimate
-   feature-detection fallback. **Every one of them made the skill look worse**, three of them flipped
-   "helps" into "hurts". Fixed by behaviour tests + alternation, and by a rule: *never finalise a grader
-   before you have seen what the model actually writes*.
-2. **A placebo explanation that the data destroyed.** We said "round 1's −4.4pp placebo effect came from
-   injecting neutral text" — then checked `by_arm` and found the placebo arm had **never been activated**
-   in round 1. The −4.4pp was noise. Corrected in [docs/15 §六](docs/15-第二轮实测.md).
-3. **Tasks that graded transcription.** 28 of 48 tasks named the target API in the prompt, so a model
-   that can type scored 100%. Same fixture, prompt with the API name removed: **0%**. That one word was
-   worth 100 percentage points. See [docs/16](docs/16-消融实验.md).
+Catalog is the sum of every description, which you pay before anything activates. A 302k-star package
+spends 2,375 tokens listing 47 skills; a 233k-star package spends 55. Package size is the wrong column
+to look at anyway, because a 1.27M-token retrieval corpus can cost 2,444 tokens at activation while a
+400k-token single skill costs all 400k. Write-up with the patterns behind those numbers:
+[docs/17-横向评测.md](docs/17-横向评测.md).
 
----
+## Things we got wrong
 
-## What this does *not* claim
+Regex graders encode one valid syntax. Correct answers have equivalence classes. We required
+`showPopover()` and rejected the declarative `popovertarget`. We banned `insertBefore` and rejected a
+feature-detection fallback that the skill itself recommended. Five of these in one day, and every one
+made the skill look worse.
 
-- **Not** that any particular skill is useless. One task set, one model, one harness per number.
-- **Not** a cross-package ranking. Five packages have cards; only two have three-arm numbers.
-- **Not** stable at small n. `wmg-064`'s baseline was 0/3 in one batch and 2/3 in the next — same task,
-  same model, same prompt. Single-task numbers never leave the lab.
-- **Not** a replacement for your own evals. It is a protocol plus a ruler, and the ruler is
-  `protocol/1.0.0` — changing the metric definition is a MAJOR bump, not a code change.
+Then we published an explanation the data destroyed: we said round 1's −4.4pp placebo effect came from
+injecting neutral text, checked `by_arm`, and found the placebo arm had never been activated in round 1.
+It was noise.
 
----
+And 28 of the original 48 tasks graded transcription, because the prompt named the API. Same fixture
+with the name removed: baseline dropped from 100% to 0%. One word, 100 points.
 
-## Field notes: 12 skill packages, measured (no model, no money)
+All three are in the changelog and in [docs/16](docs/16-消融实验.md), with the numbers that overturned
+the earlier claims.
 
-Before spending a dollar on three arms, look at the shape. Three Tier 0 probes run in seconds on any
-package: `static-cost` (tokens, budget, duplication), `skill-shape` (frontmatter, description quality,
-defer-loading) and `uninstall-clean`. Twelve real packages, snapshot 2026-11-13:
+## What this does not claim
 
-| package | stars | skills | pkg tokens | largest skill | catalog | over budget | body p50 |
-|---|---|---|---|---|---|---|---|
-| `anthropics/skills` | 193.9k | 19 | 849,607 | 526,405 | 1,595 | **5164%** | 1,956 |
-| `Nutlope/hallmark` | — | 1 | 409,006 | 409,006 | 63 | **2823%** | 4,443 |
-| `cloudflare/security-audit-skill` | — | 1 | 79,967 | 79,967 | 90 | 399% | 5,445 |
-| `obra/superpowers` | 317.0k | 15 | 100,774 | 25,738 | 586 | 157% | 1,893 |
-| `KKKKhazix/khazix-skills` | 22.2k | 6 | 75,483 | 17,578 | 200 | 76% | 2,986 |
-| `affaan-m/ECC` | 302.2k | 47 | 109,921 | 12,192 | **2,375** | 22% | 1,548 |
-| `mattpocock/skills` | 323.4k | 39 | 80,583 | 10,808 | 1,390 | 8% | **875** |
-| `obsidianmd/obsidian-skills` | 52.2k | 7 | 16,902 | 6,350 | 446 | **0%** | 1,498 |
-| `op7418/Humanizer-zh` | 22.7k | 1 | 8,042 | 4,204 | 47 | 0% | 4,081 |
-| `multica-ai/andrej-karpathy-skills` | 232.7k | 1 | **644** | 644 | **55** | 0% | 573 |
+Not that any particular skill is useless. One task set, one model, one harness per number.
 
-Three things this table says out loud:
+Not a cross-package ranking. Twelve packages have cards, five have three-arm numbers.
 
-1. **Stars are not effect.** A 302k-star package spends 2,375 tokens of context just *listing its 47 skills*
-   before anything activates. A 233k-star package spends 55.
-2. **The failure mode is not "bad writing", it's "wrong container".** `hallmark` puts a 113k-token
-   `photos.json` inside the skill directory; `claude-api` references an 87k-token migration doc.
-   Neither needs to be in context, both are one `Read` away.
-3. **`largest skill` is the column that matters**, not package size. `modern-web-guidance-src` is
-   1.27M tokens on disk but 2,444 in the largest skill — it's a retrieval corpus, not an injection.
+Not stable at small n. `wmg-064`'s baseline came out 0/3 in one batch and 2/3 in the next, same task,
+same model, same prompt. Single-task numbers stay in the lab.
 
-Full write-up with the three good patterns and the three unworkable ones:
-[docs/17-横向评测.md](docs/17-横向评测.md). Repro: `node tools/review-table.mjs --md`.
-
-All 12 packages are on the leaderboard as Tier 0 facts (no ranking, no task set):
-[`site/index.html`](site/index.html).
-
----
+Not a replacement for your own evals. This is a protocol and a ruler, and changing the metric
+definition is a major version bump rather than a code change.
 
 ## The seven Tier 0 probes
 
-No task set, no model, seconds. These produce **facts, not scores** — which is why they need no placebo.
+No task set, no model, seconds. They produce facts, not scores, which is why they need no placebo.
 
-| # | Probe | What it answers |
+| # | Probe | Question it answers |
 |---|---|---|
-| 1 | `static-cost` | how many tokens, duplicated how much, over budget? |
-| 2 | `skill-shape` | is it written to be usable: frontmatter, description, defer-loaded or monolithic? |
+| 1 | `static-cost` | how many tokens, how much duplicated, over budget? |
+| 2 | `skill-shape` | frontmatter present, description usable, defer-loaded or monolithic? |
 | 3 | `trigger-precision` | does it fire when it should, and stay quiet when it shouldn't? |
-| 4 | `constraint-following` | do its "never/must" rules survive contact with the agent? |
-| 5 | `injection-resistance` | does installing it make tool-output injection **easier**? |
-| 6 | `negative-transfer` | does it make **unrelated** tasks worse? |
+| 4 | `constraint-following` | do its never/must rules survive contact with the agent? |
+| 5 | `injection-resistance` | does installing it make tool-output injection easier? |
+| 6 | `negative-transfer` | does it make unrelated tasks worse? |
 | 7 | `uninstall-clean` | after removal, is the environment really clean? |
 
-Probes 4–7 are the dimensions nobody else measures: **a skill that is +20pp in its domain and −10pp
-outside it can be net negative**, and a skill that writes to `~/.claude` on install is a liability.
+The last four are the dimensions nobody else measures. A skill that is +20pp inside its domain and
+−10pp outside it is net negative, and one that writes to `~/.claude` on install is a liability.
 
-**A note on reading these numbers:** they are raw facts, not a verdict on anyone's writing. A large
-reference corpus can be a perfectly reasonable design — what the probes give you is the price tag,
-and the price tag is usually the thing nobody had measured before.
+Read the numbers as facts, not verdicts. A large reference corpus can be a defensible design. What the
+probes give you is the price tag.
 
----
-
-## Put a number on your own skill
+## Putting a number on your own skill
 
 ```bash
-node dist/cli.js probe path/to/skill --format markdown   # Tier 0 card, seconds, free
+node dist/cli.js probe path/to/skill --format markdown   # Tier 0, seconds, free
 node dist/cli.js run --taskset tasksets/web-guidance --skill path/to/skill \
   --arms baseline,placebo,treatment --repeats 5           # Tier 1, needs a model
-node dist/cli.js site                                     # static leaderboard → site/index.html
+node dist/cli.js site                                     # static leaderboard
 ```
 
-Embed the badge (self-contained SVG, no external requests):
+Two ways to carry the result around. A self-contained badge:
 
 ```markdown
 ![uplift](results/modern-web-guidance-src.badge.svg)
 ```
 
-Run it in CI on every PR — this repo dogfoods a composite action that posts a Tier 0 card to the job
-summary ([`action.yml`](action.yml)):
+Or a CI step that posts a Tier 0 card on every PR ([`action.yml`](action.yml)):
 
 ```yaml
 - uses: 25Cloud/UpliftBench@main
   with:
     path: path/to/skill
 ```
-
----
 
 ## Repository layout
 
@@ -293,49 +253,46 @@ src/
 ├─ harness/        openai-compat (own agent loop) | claude-code (hooks) | mock
 ├─ graders/        tests (A) | exact (A) | rubric (B) | visual-diff (B)
 ├─ metrics/        uplift / headroom / paired bootstrap CI / flaky detection
-├─ placebo/        neutral corpus + equal-token construction
+├─ placebo/        neutral corpus and equal-token construction
 └─ render/         SkillCard, badge, static leaderboard
 tasksets/          64-task web-guidance@1.4.0 (10 behaviour-graded) + general-20@1.0
-results/           5 real SkillCards, 6 with both activation conditions
+results/           13 SkillCards across 12 packages
 docs/              01 competition · 02 protocol · 03 probes · 05 schema · 07 roadmap
-                   12 implementation notes · 13 calibration · 14/15 measured rounds
-                   16 ablation: why adding tasks doesn't fix a ceiling
-tests/             109 tests, incl. 21 grader self-checks (fixture must fail, reference must pass)
+                   12 implementation notes · 13 calibration · 14 15 measured rounds
+                   16 ablation · 17 field notes · 18 launch notes
+tests/             114 tests, 21 of them grader self-checks
 ```
 
-**Design constraints we do not bend:** protocol over implementation · the placebo arm is mandatory ·
-grader tiers A/B/C never share a table · task sets are locked to commit + grader version ·
-we measure skills, we do not ship them.
+Design constraints we don't bend: the protocol outranks the implementation, the placebo arm is
+mandatory, A/B/C tiers never share a table, a task set is locked to its commit and grader version, and
+we measure skills rather than ship them.
 
----
-
-## Docs worth reading first
+## Where to read next
 
 | | |
 |---|---|
-| [`docs/02-protocol.en.md`](docs/02-protocol.en.md) | **The protocol (English)** — three-arm semantics, metric definitions, grader tiers, versioning |
-| [docs/16](docs/16-消融实验.md) | What actually moves a skill's number: the ablation, the five grader bugs, the +36pp block |
-| [docs/15](docs/15-第二轮实测.md) | 1,152 runs of the same skill under `auto` vs `forced` |
-| [docs/13](docs/13-任务集标定.md) | Why task difficulty is bimodal and 58% of tasks are saturated |
-| [docs/12](docs/12-实现说明.md) | Every default we chose where the spec was silent |
+| [`docs/02-protocol.en.md`](docs/02-protocol.en.md) | the protocol in English: three arms, metrics, grader tiers, versioning |
+| [docs/16](docs/16-消融实验.md) | what actually moves a skill's number, five grader bugs, the +36pp block |
+| [docs/15](docs/15-第二轮实测.md) | 1,152 runs of the same skill under auto and forced |
+| [docs/13](docs/13-任务集标定.md) | why task difficulty is bimodal and 58% of tasks are saturated |
+| [docs/12](docs/12-实现说明.md) | every default we chose where the spec was silent |
 
-The protocol is translated; the deeper analysis docs are Chinese-only for now (they are written for the
-maintainers who run the experiments). If you need a specific section in English, open an issue.
-
----
+The protocol is translated. The analysis docs are Chinese, written for whoever runs the next round. Ask
+for a section and it gets translated.
 
 ## Status
 
-- `protocol/1.0.0` · software `v0.2.0` · Node ≥ 22 · Apache-2.0 · no services, no accounts, no telemetry
-- 109 tests, CI runs build + tests + task-set validation + card schema + docs link check + a Tier 0 demo smoke
-- Everything in `results/` and `docs/` is generated from committed run databases; costs are recorded per run
-- Name collision note: this has nothing to do with Criteo's *uplift modeling* in marketing. Same word, different target.
+`protocol/1.0.0`, software `v0.2.1`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
 
-## Contributing
+CI runs build, tests, task-set validation, a card schema check, a markdown link check, and the demo.
+Everything in `results/` and `site/` is generated from committed run databases, and every run's cost is
+recorded.
 
-The most useful contribution is **[challenging a published number](.github/ISSUE_TEMPLATE/challenge-a-number.md)** —
-we have published five corrections of our own graders, and a benchmark that cannot be corrected is a marketing site.
-Task sets are federated; see [`CONTRIBUTING.md`](CONTRIBUTING.md) for the admission criteria and the two rules
-that matter most (graders must accept equivalent answers; prompts must not name the solution).
+The most useful thing you can send us is a number you think is wrong.
+[There is a template for it](.github/ISSUE_TEMPLATE/challenge-a-number.md). Task sets are federated;
+[`CONTRIBUTING.md`](CONTRIBUTING.md) has the admission rules and the two that matter most (graders must
+accept equivalent answers, prompts must not name the solution). Cite it with
+[`CITATION.cff`](CITATION.cff).
 
-Cite it with [`CITATION.cff`](CITATION.cff).
+Name collision note: this has nothing to do with Criteo's uplift modeling in marketing. Same word,
+different target.

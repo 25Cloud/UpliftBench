@@ -116,7 +116,7 @@ export async function runStaticCost(root: string, opts: StaticCostOptions = {}):
 
   /**
    * 预算口径：10,000 token 是「一次技能注入」的预算，不是「整包」的预算。
-   * 25 个技能的包总共 100k token 很正常——agent 一次只激活一两个。
+   * 25 个技能的包总共 100k token 很正常，agent 一次只激活一两个。
    * 所以多技能包的判定基准取**最大的单个技能**（最坏情况激活成本）。
    */
   const largestSkill = pkg.skills.reduce((m, s) => Math.max(m, s.tokens), 0);

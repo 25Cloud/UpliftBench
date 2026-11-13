@@ -2,7 +2,7 @@
  * harness 适配层契约。
  *
  * 关键设计决定：**技能激活（activation）必须是可观测事件**。
- * 这不是装饰——探针 2（触发精度）和探针 3/4 全靠它。
+ * 这不是装饰，探针 2（触发精度）和探针 3/4 全靠它。
  * 能自己掌控 agent loop 的 harness（openai-compat / mock）把 activation 做成显式工具调用；
  * 只能外挂的 harness（claude-code）读 hook 日志，读不到就老实标 unsupported，绝不编数字。
  */

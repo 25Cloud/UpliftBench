@@ -1,5 +1,5 @@
 /**
- * 生成 docs/assets/hero.svg —— README 顶部那张图。
+ * 生成 docs/assets/hero.svg，README 顶部那张图。
  *
  * 为什么用脚本而不是手画：这张图上的每个数字都来自实测，改数字时必须能一起改，
  * 而不是留一张"看起来专业"的旧图。数字与出处写在 NUMBERS 里，改的时候去 docs/16 对照。

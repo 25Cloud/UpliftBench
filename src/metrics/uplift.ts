@@ -213,7 +213,7 @@ function parseMeta(raw: string | null): Record<string, unknown> {
  * - activation_mode 决定这一栏是 ITT（auto）还是强制注入（forced）
  *
  * 只在 placebo/treatment 上算：baseline 不装技能，把它算进来会稀释激活率。
- * 一行都不带 activated 字段时返回 undefined —— 「不知道」不等于「0%」。
+ * 一行都不带 activated 字段时返回 undefined，「不知道」不等于「0%」。
  */
 export function computeActivation(rows: RunRow[]): ActivationStats | undefined {
   const skillArms = rows.filter((r) => r.arm !== 'baseline');

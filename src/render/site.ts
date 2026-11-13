@@ -26,7 +26,7 @@ function row(card: SkillCardJson): string {
   if (!t1) {
     /**
      * Tier 0 行：不排名，但要让人一眼看到「贵在哪」。
-     * 只报包内总量是不够的——一个 1.2M 的检索型知识库和一个 1.2M 的单技能巨石，
+     * 只报包内总量是不够的，一个 1.2M 的检索型知识库和一个 1.2M 的单技能巨石，
      * 性质完全不同。所以这里同时给 largest skill 与形状。
      */
     const sc = card.tier0.static_cost as StaticCostProbe | undefined;
@@ -147,12 +147,12 @@ export function renderSite(entries: SiteCardEntry[], generatedAt = new Date().to
 </head>
 <body>
   <h1>UpliftBench</h1>
-  <div class="tag">技能包的净增益基准 —— 减去安慰剂之后，你的技能包还剩多少。</div>
+  <div class="tag">技能包的净增益基准，减去安慰剂之后，你的技能包还剩多少。</div>
   ${sections.join('\n')}
   <div class="note">
     <strong>怎么读这张表</strong><br/>
     <code>uplift</code> = treatment − <em>placebo</em>（不是减 baseline）。<code>headroom</code> 是填掉了多少剩余空间；<code>placebo</code> 列是「上下文变长本身值多少分」。<br/>
-    <code>激活率</code> = placebo + treatment 两臂里技能真的进了上下文的 run 占比。<b>低的激活率会让 uplift 天然趋近 0</b>——技能没进上下文，treatment 就是 baseline。<br/>
+    <code>激活率</code> = placebo + treatment 两臂里技能真的进了上下文的 run 占比。<b>低的激活率会让 uplift 天然趋近 0</b>，技能没进上下文，treatment 就是 baseline。<br/>
     <b>自动激活</b>与<b>强制注入</b>是两种实验条件，同一个技能包可能各有一行，不许互相比较，也不许只挑好看的那个。<br/>
     A 级（可执行验证）与 B 级（固定版本 LLM judge）分组显示，不并排排名：用不同尺子量出来的身高不能排在一起。<br/>
     ⚠️ = 安慰剂效应大于净增益，说明分数主要来自长度。<br/>

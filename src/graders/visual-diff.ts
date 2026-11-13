@@ -6,7 +6,7 @@ import type { GradeContext, GradeOutcome, Grader } from './tests.js';
  * 可选依赖的加载器。
  *
  * 用 new Function 而不是 `await import('pngjs')`，是为了让 TypeScript 不去解析
- * 这两个可选依赖——没人会因为跑 A 级任务集而被迫安装像素比对库。
+ * 这两个可选依赖，没人会因为跑 A 级任务集而被迫安装像素比对库。
  */
 const dynamicImport = new Function('specifier', 'return import(specifier)') as (
   specifier: string

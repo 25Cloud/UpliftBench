@@ -2,7 +2,7 @@
  * 标定报告：把 tasksets/<domain>/calibration.json 摊开看难度分布。
  *
  * 为什么需要它：`docs/13` 里那张难度表是手抄的，抄一次就过期一次。
- * 这个脚本直接从标定文件算，顺便回答一个关键问题——**有多少题的 baseline 已经 100%**，
+ * 这个脚本直接从标定文件算，顺便回答一个关键问题，**有多少题的 baseline 已经 100%**，
  * 那些题在 uplift 里只贡献噪声（天花板效应）。
  *
  * 用法：
@@ -52,7 +52,7 @@ const saturated = buckets['100%'];
 if (saturated.length > 0) {
   const share = (saturated.length / Math.max(1, ids.length)) * 100;
   console.log(`\n⚠️ 天花板：${saturated.length} 题 baseline=100%，占 ${share.toFixed(0)}%。`);
-  console.log('   这些题在 uplift 里只贡献噪声——treatment 再好也上不去。');
+  console.log('   这些题在 uplift 里只贡献噪声，treatment 再好也上不去。');
 }
 
 const missing = (taskset.tasks ?? []).map((t) => t.id).filter((id) => !cal.tasks?.[id]);

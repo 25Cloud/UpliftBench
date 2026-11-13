@@ -22,7 +22,7 @@ export async function withTempWorkspace<T>(
 
 export interface TriggerCase {
   prompt: string;
-  /** docs/11 Q6：三档负样本 —— unrelated / adjacent / same-domain-different-task */
+  /** docs/11 Q6：三档负样本，unrelated / adjacent / same-domain-different-task */
   kind?: 'unrelated' | 'adjacent' | 'same_domain';
 }
 

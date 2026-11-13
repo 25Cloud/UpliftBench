@@ -15,7 +15,7 @@ const outDir = path.join(root, 'tasksets', 'web-guidance');
 
 /**
  * fixture 的 commit 锁定（AGENTS.md 硬约束 4）。
- * 只有在 tasksets/<domain> 已经提交且工作区干净时才能填——否则填进去的 sha 是假的。
+ * 只有在 tasksets/<domain> 已经提交且工作区干净时才能填，否则填进去的 sha 是假的。
  * 首次生成时省略该字段（schema 里它是可选的），提交后再跑一次生成器自动回填。
  */
 function fixtureCommit(domain: string): string | undefined {
@@ -426,7 +426,7 @@ export async function run(ws) {
 }
 `;
 
-/** 056 字符与语言：字素簇、NFC、土耳其语 i —— 三个都是「看着没问题其实错」的经典坑 */
+/** 056 字符与语言：字素簇、NFC、土耳其语 i，三个都是「看着没问题其实错」的经典坑 */
 const BEHAVIOR_056 = `import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
@@ -471,7 +471,7 @@ export async function run(ws) {
 /**
  * 058 状态保留式移动：用假 DOM 真跑，判「首选是不是 moveBefore」而不是「文件里有没有这个词」。
  *
- * 为什么必须行为化：正则分不清下面这两种，而它们的性质完全相反——
+ * 为什么必须行为化：正则分不清下面这两种，而它们的性质完全相反，
  *   A) 首选 moveBefore，特性检测失败时回退 removeChild+insertBefore   ← 对（渐进增强）
  *   B) 根本不知道有别的方法，只写 removeChild+insertBefore            ← 错（状态丢失）
  * 之前用 forbid 把两者一起判错，导致 treatment 臂（唯一读了 guide、唯一写回退的臂）
@@ -1161,7 +1161,7 @@ export function firstBig(list) {
    * 为什么加这批：1.0 的 30 题实测呈**双峰分布**（22 题 100%、8 题 0%），
    * 原因是单点替换类任务「知道就一次做对，不知道就完全做不对」。
    * 这批任务每题含 3–5 条互相独立的规则、跨 2–3 个文件，
-   * 让「做对一部分」成为可能——这样通过率才有中间地带，uplift 才有测量范围。
+   * 让「做对一部分」成为可能，这样通过率才有中间地带，uplift 才有测量范围。
    * --------------------------------------------------------------- */
   {
     id: 'wmg-031',
@@ -1866,7 +1866,7 @@ export function fold(s) {
    *
    * 为什么要有这一组：wmg-045 的提示词直接写了 popover / popovertarget / showPopover，
    * 于是它变成一道「照抄」题，baseline 100%。把 API 名字删掉，同样的活就变成
-   * 「你知道浏览器有这个东西吗」——那才是技能要补的信息差。
+   * 「你知道浏览器有这个东西吗」，那才是技能要补的信息差。
    * 两组配对（045 ↔ 057、044 ↔ 058）构成一个干净的对照：变量只有提示词。
    */
 
@@ -1900,7 +1900,7 @@ export function fold(s) {
     },
     forbid: ['classList\\.toggle\\(', 'classList\\.remove\\(', "document\\.addEventListener\\('click'"],
     // 这里**不要求**某一种特定写法：声明式（popovertarget）和命令式（showPopover()）都是正解。
-    // 用单条正则里的 alternation 表达「二者其一」，否则会把另一条正解判成错——
+    // 用单条正则里的 alternation 表达「二者其一」，否则会把另一条正解判成错，
     // 这一条是实测踩出来的：第一版要求 showPopover() 把声明式答案全判错了，见 docs/16 §四。
     require: ['popover', '(popovertarget|showPopover\\(\\))']
   },
@@ -1926,7 +1926,7 @@ export function swapSections(parent, a, b) {
 `
     },
     // 不 forbid removeChild/insertBefore：回退分支是合法工程。
-    // 靠 behavior 判「首选是不是 moveBefore」——见 BEHAVIOR_058 的注释。
+    // 靠 behavior 判「首选是不是 moveBefore」，见 BEHAVIOR_058 的注释。
     forbid: [],
     require: ['moveBefore\\('],
     behavior: BEHAVIOR_058
@@ -1938,7 +1938,7 @@ export function swapSections(parent, a, b) {
    * 只挑技能覆盖得到、且模型先验大概率没有的：
    *   field-sizing(24) · appearance:base-select(38) · scroll-state(74)
    *   subgrid(29) · light-dark(51) · anchor-name(21)
-   * 提示词一律只写症状，不写属性名——这是这一批和 v1.1 那 28 道题的根本区别。
+   * 提示词一律只写症状，不写属性名，这是这一批和 v1.1 那 28 道题的根本区别。
    */
 
   {
@@ -2002,7 +2002,7 @@ export function swapSections(parent, a, b) {
     },
     forbid: ['IntersectionObserver', 'addEventListener\\(', 'scrollTop'],
     // 具名容器（`@container sticky-header scroll-state(...)`）和不具名写法都是正解，
-    // 只匹配不具名那种会把更常见的具名写法判成缺——这是第五次被自己的正则坑（docs/16 §四.3）
+    // 只匹配不具名那种会把更常见的具名写法判成缺，这是第五次被自己的正则坑（docs/16 §四.3）
     require: ['container-type:\\s*scroll-state', '@container\\s+(?:[\\w-]+\\s+)?scroll-state\\(']
   },
   {

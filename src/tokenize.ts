@@ -1,7 +1,7 @@
 /**
  * token 近似计数（docs/11 Q5 默认值）。
  *
- * 为什么不用 tiktoken：体积大、且和 harness 真实 tokenizer 并不一致——
+ * 为什么不用 tiktoken：体积大、且和 harness 真实 tokenizer 并不一致，
  * 一个「精确但错」的数字比一个「标注清楚的近似」更危险。
  * 输出里必须带 `tokenizer: "approx:weighted"`，Tier 1 用 harness 真实 usage。
  */

@@ -56,7 +56,7 @@ for (const f of files) {
     defer: ss?.supported ? ss.deferred_share * 100 : null,
     bodyP50: ss?.supported ? ss.body_tokens_p50 : null,
     descP50: ss?.supported ? ss.description_tokens_p50 : null,
-    // 目录成本：所有技能的 description 加起来——不激活任何技能也要付这笔账
+    // 目录成本：所有技能的 description 加起来，不激活任何技能也要付这笔账
     catalog: ss?.supported ? ss.skills.reduce((s, k) => s + k.description_tokens, 0) : null,
     clean: uc?.supported ? uc.clean : null
   });

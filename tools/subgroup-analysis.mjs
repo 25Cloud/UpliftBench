@@ -77,7 +77,7 @@ console.log('\n激活统计（treatment+placebo）:', JSON.stringify(names));
 /*
  * per-protocol：只看 treatment 臂里「技能真的被激活」的那些 run。
  *
- * 声明：这不是随机对照——激活是模型自己选的（难任务更容易去求助），
+ * 声明：这不是随机对照，激活是模型自己选的（难任务更容易去求助），
  * 所以这一栏只能说明「激活之后表现如何」，不能当作因果效应。
  */
 const treatmentRows = db

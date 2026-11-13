@@ -15,7 +15,7 @@ import { countTokens } from '../tokenize.js';
  * 三个结构指标（全部可复现、零模型调用）：
  *
  * 1. **frontmatter 质量**：有没有 YAML frontmatter、有没有 name + description。
- *    没有 description 的技能，在「目录」里等于不存在——模型看不到它就不会激活。
+ *    没有 description 的技能，在「目录」里等于不存在，模型看不到它就不会激活。
  * 2. **description token 数**：太短（<20 tok）说明没说清什么时候该用；太长（>200 tok）
  *    是在目录里塞正文，会把别的技能的曝光挤掉。
  * 3. **按需加载比例**：正文 tokens 占该技能全部 tokens 的比例。好技能通常是

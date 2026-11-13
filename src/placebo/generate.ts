@@ -35,7 +35,7 @@ export function generatePlaceboDocument(spec: PlaceboSpec): string {
   /*
    * 组合阶段的性能很关键：292k token 的安慰剂如果每加一段就重新分词，是 O(n²)。
    * 所以大循环用「字符数上界估算」终止（纯英文约 4 chars/token，取 4.2 保证只会过长），
-   * 精确收敛交给后面的二分——二分只能往下收，所以宁可多写。
+   * 精确收敛交给后面的二分，二分只能往下收，所以宁可多写。
    */
   const estimatedChars = Math.ceil(target * 4.2);
 

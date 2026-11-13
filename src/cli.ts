@@ -204,7 +204,7 @@ program
         console.log(kv('', 'node dist/cli.js probe examples/demo-skill --only static-cost,uninstall-clean'));
       } else {
         console.log(c.bold('  这只是 Tier 0（事实），还不是分数。'));
-        console.log(c.dim('  Tier 1 才有 uplift：同一套任务跑三臂——空技能 / 等 token 中性文本 / 真技能，'));
+        console.log(c.dim('  Tier 1 才有 uplift：同一套任务跑三臂，空技能 / 等 token 中性文本 / 真技能，'));
         console.log(c.dim('  uplift = treatment − placebo。少了安慰剂那一臂，你测到的是"多塞 token 有没有用"。'));
         console.log('');
         console.log(kv('  下一步', 'node dist/cli.js run --taskset tasksets/general-20 --skill examples/demo-skill --arms baseline,placebo,treatment --repeats 1 --max-cost 2'));
@@ -327,7 +327,7 @@ program
       } else if (!result.tier1) {
         /**
          * 少跑了臂，就**不出 uplift**。
-         * 以前这里照样打印 `uplift 0pp / placebo -100pp`——那不是数字，是没做对照的痕迹，
+         * 以前这里照样打印 `uplift 0pp / placebo -100pp`，那不是数字，是没做对照的痕迹，
          * 而且它会以 A 级卡片的样子出现在屏幕上。协议 §1 硬约束 2：两臂/单臂结果必须标 uncorrected。
          */
         console.log(heading('UpliftBench · 未做三臂对照', 'uncorrected'));

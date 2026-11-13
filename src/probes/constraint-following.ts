@@ -18,7 +18,7 @@ const IMPERATIVE = /(?:^|\n)[ \t]*(?:[-*+]|\d+\.)?[ \t]*(never|always|must|do no
  *
  * 只抽「祈使句 + 绝对化词」，再从同一句里挖一个可机检的 pattern
  * （反引号代码 > 引号短语 > 带点/下划线/驼峰的标识符 > 全大写常量）。
- * 挖不到 pattern 的就标 testable: false —— 这类占比过高本身就是技能包的缺陷。
+ * 挖不到 pattern 的就标 testable: false，这类占比过高本身就是技能包的缺陷。
  */
 export function extractConstraints(bodies: string[], sourceName: string): ExtractedConstraint[] {
   const out: ExtractedConstraint[] = [];

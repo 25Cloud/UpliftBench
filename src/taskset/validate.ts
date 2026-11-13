@@ -62,7 +62,7 @@ export async function validateSkillCardJson(json: unknown): Promise<{ ok: boolea
  * 准入检查（docs/04 §6）。
  *
  * 结构性检查全部自动；行为性检查（第 3、4 条）需要真跑模型，
- * 所以这里老实标 skipped 并说明「需要 uplift run 才能验证」——
+ * 所以这里老实标 skipped 并说明「需要 uplift run 才能验证」，
  * 假装验过是这类工具最常见的失信方式。
  */
 export async function admissionCheck(dir: string, json: TaskSetJson): Promise<ValidationReport> {
