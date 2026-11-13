@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "max-height:\\s*\\d"
+  ],
+  "require": [
+    "::details-content",
+    "allow-discrete"
+  ]
+}

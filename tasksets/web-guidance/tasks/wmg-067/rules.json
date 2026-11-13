@@ -1,0 +1,8 @@
+{
+  "forbid": [
+    "addEventListener"
+  ],
+  "require": [
+    "closedby\\s*="
+  ]
+}

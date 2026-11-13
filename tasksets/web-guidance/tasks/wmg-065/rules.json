@@ -1,0 +1,11 @@
+{
+  "forbid": [
+    "getBoundingClientRect",
+    "innerHeight",
+    "offsetHeight"
+  ],
+  "require": [
+    "position-try-fallbacks",
+    "(anchor-name:|position-anchor:|anchor=)"
+  ]
+}

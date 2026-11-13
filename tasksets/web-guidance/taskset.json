@@ -1,22 +1,22 @@
 {
   "schema_version": "1.0.0",
   "domain": "web-guidance",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "title": "Modern Web Guidance 合规任务集",
-  "description": "64 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~048 是多规则/多文件任务，wmg-049~056 是行为测试题（评分器把候选代码 import 进来真跑边界用例），wmg-057~058 是消融组（同 fixture、同评分器，只把提示词里的 API 名字拿掉），wmg-059~064 是「技能覆盖 + 提示词不给名字」的第三批（field-sizing / base-select / scroll-state / subgrid / light-dark / anchor）。评分器都是 A 级 tests：可执行检查，零主观判断。",
+  "description": "64 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~048 是多规则/多文件任务，wmg-049~056 是行为测试题（评分器把候选代码 import 进来真跑边界用例），wmg-057~058 是消融组（同 fixture、同评分器，只把提示词里的 API 名字拿掉），wmg-059~069 是「技能覆盖 + 提示词不给名字」的第三批（base-select / scroll-state / subgrid / light-dark / anchor / field-sizing / calc-size / closedby / starting-style / content-visibility）。评分器都是 A 级 tests：可执行检查，零主观判断。",
   "maintainer": "upliftbench",
   "official": true,
   "grader": {
     "kind": "tests",
     "tier": "A",
     "entry": "tasks/wmg-001/verify.mjs",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "timeout_sec": 120
   },
   "env": {
     "kind": "local"
   },
-  "task_count": 64,
+  "task_count": 69,
   "tasks": [
     {
       "id": "wmg-001",
@@ -1199,6 +1199,106 @@
         "positioning",
         "withheld",
         "v1.4",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-065",
+      "title": "提示框没空间时自动翻面（提示词不给属性名）",
+      "prompt_file": "tasks/wmg-065/prompt.md",
+      "fixture": "tasks/wmg-065/fixture/",
+      "verify": "tasks/wmg-065/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0,
+        "max": 0.15
+      },
+      "tags": [
+        "css",
+        "positioning",
+        "withheld",
+        "v1.5",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-066",
+      "title": "折叠区展开要有过渡（提示词不给属性名）",
+      "prompt_file": "tasks/wmg-066/prompt.md",
+      "fixture": "tasks/wmg-066/fixture/",
+      "verify": "tasks/wmg-066/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "html",
+        "animation",
+        "withheld",
+        "v1.5",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-067",
+      "title": "弹窗点背景或按 Esc 关闭（提示词不给属性名）",
+      "prompt_file": "tasks/wmg-067/prompt.md",
+      "fixture": "tasks/wmg-067/fixture/",
+      "verify": "tasks/wmg-067/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "html",
+        "dialog",
+        "withheld",
+        "v1.5",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-068",
+      "title": "列表重排时的转场（提示词不给属性名）",
+      "prompt_file": "tasks/wmg-068/prompt.md",
+      "fixture": "tasks/wmg-068/fixture/",
+      "verify": "tasks/wmg-068/verify.mjs",
+      "weight": 1,
+      "difficulty": "hard",
+      "expected_baseline": {
+        "min": 0,
+        "max": 0.15
+      },
+      "tags": [
+        "js",
+        "animation",
+        "withheld",
+        "v1.5",
+        "calibrated"
+      ]
+    },
+    {
+      "id": "wmg-069",
+      "title": "用户真输错了才标红（提示词不给伪类名）",
+      "prompt_file": "tasks/wmg-069/prompt.md",
+      "fixture": "tasks/wmg-069/fixture/",
+      "verify": "tasks/wmg-069/verify.mjs",
+      "weight": 1,
+      "difficulty": "easy",
+      "expected_baseline": {
+        "min": 0.85,
+        "max": 1
+      },
+      "tags": [
+        "css",
+        "forms",
+        "withheld",
+        "v1.5",
         "calibrated"
       ]
     }

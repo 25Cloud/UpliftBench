@@ -1,0 +1,9 @@
+{
+  "forbid": [
+    "setTimeout"
+  ],
+  "require": [
+    "startViewTransition",
+    "view-transition-class"
+  ]
+}

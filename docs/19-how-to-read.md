@@ -64,7 +64,7 @@ Read it in this order:
 4. flags. `static_cost_over_budget` means the payload is bigger than the 10k injection budget.
    `retrieval_style_package` means the package is a knowledge base read on demand, so package size is
    a disk cost and the column to look at is the largest single skill.
-5. `headroom_closed`. +36pp on a task set that starts at 34% is a different achievement from +36pp on
+5. `headroom_closed`. +27pp on a task set that starts at 36% is a different achievement from +27pp on
    one that starts at 90%.
 
 ## What a number here cannot tell you

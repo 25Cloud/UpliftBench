@@ -92,7 +92,7 @@ experiments and the tool keeps them apart.
 
 ## What we measured
 
-1,829 runs, 64 tasks, 5 real skill packages, one model (`glm-5.3-flash`), about $230.
+2,500+ runs, 69 tasks, 12 skill packages, one model (`glm-5.3-flash`), about $340.
 
 `GoogleChrome/modern-web-guidance-src` against 48 tasks, agent decides whether to load it (720 runs,
 $60.93):
@@ -143,9 +143,23 @@ APIs the skill really documents. Five tasks, three arms, ten repeats (150 runs, 
 | `wmg-044` | state-preserving DOM move (API named) | 6/10 | 6/10 | 8/10 | +20pp |
 | block | | 34% | 32% | 68% | +36pp, CI [+24, +48] |
 
-That one is not a leaderboard number and shouldn't be quoted as one. Five tasks, forced activation, one
-model, one skill. What it does show is that the instrument can separate knowledge from length when the
-task is built for it: the placebo is worth −2pp and the skill is worth +36.
+That run was published. Then we re-ran it, because a CI that tight after so much trouble looked
+suspicious. Same five tasks, same model, same harness:
+
+| run | tasks | baseline | placebo | treatment | uplift | 95% CI |
+|---|---|---|---|---|---|---|
+| first, 2026-11-12 | 5 | 34% | 32% | 68% | +36pp | [+24, +48] |
+| re-run, same 5 tasks | 5 | 34% | 42% | 72% | +30pp | — |
+| expanded block | 7 | 36% | 40% | 67% | **+27pp** | [+1, +56] |
+
+The sign is stable. The magnitude is not, and the first interval was optimistic: the placebo arm
+landed at −2pp that day and at +8pp the next, on identical tasks. We now quote **+27pp,
+95% CI [+1, +56]** for the seven-task block and treat the +36 as one draw from it.
+
+The seven are the five above plus `wmg-065` (anchor fallback) and `wmg-068` (view transitions), both
+added because their calibrated baseline was 0%. We also wrote five other tasks on other modern CSS
+features; three of them the model already solves 100% of the time, so they carry no information and
+stay out of the block. That is in [docs/16](docs/16-消融实验.md) §九.
 
 ### Field notes: 12 packages, measured with no model
 
@@ -186,14 +200,14 @@ it against the 27 tasks that still had headroom. 243 runs, $22.92.
 uplift +4.9pp, 95% CI [−3.7, +14.8], placebo effect −6.2pp. It loaded in all 81 treatment runs,
 because its description says "Use when writing, reviewing, or refactoring code" and every task is
 code. Generic advice is not worthless on coding tasks, but 27 tasks cannot tell +4.9pp from noise, and
-it never came close to the +36pp block. Whatever the instrument is measuring, it is not manufacturing
+it never came close to the +27pp block. Whatever the instrument is measuring, it is not manufacturing
 gains.
 
 ### About that +27pp number
 
 `GoogleChrome/modern-web-guidance` is the only package in this ecosystem that published a number about
 itself: +27 to +36 percentage points. We measured the same skill and got −2.50pp, then +5.56pp when the
-body was forced into context, then +36pp on the five tasks built to depend on its content. Nobody has
+body was forced into context, then +27pp on the seven tasks built to depend on its content. Nobody has
 to be lying for those to coexist; they differ in which arm is subtracted, whether the skill was loaded,
 and which tasks were used. [docs/20-the-27pp-claim.md](docs/20-the-27pp-claim.md) lays the four
 differences side by side and says what would settle it.
@@ -211,6 +225,12 @@ It was noise.
 
 And 28 of the original 48 tasks graded transcription, because the prompt named the API. Same fixture
 with the name removed: baseline dropped from 100% to 0%. One word, 100 points.
+
+The fourth one is newer. We published a block result at +36pp with a ±12pp interval, then re-ran the
+same five tasks the next day and got +30pp with the placebo arm moving from −2pp to +8pp. Expanding the
+block to seven tasks gives +27pp with an interval that touches zero. The published interval was
+optimistic because it came from one lucky draw of the placebo arm; the effect is real and smaller.
+Details in [docs/16](docs/16-消融实验.md) §九.
 
 All three are in the changelog and in [docs/16](docs/16-消融实验.md), with the numbers that overturned
 the earlier claims.
@@ -282,7 +302,7 @@ src/
 ├─ metrics/        uplift / headroom / paired bootstrap CI / flaky detection
 ├─ placebo/        neutral corpus and equal-token construction
 └─ render/         SkillCard, badge, static leaderboard
-tasksets/          64-task web-guidance@1.4.0 (10 behaviour-graded) + general-20@1.0
+tasksets/          69-task web-guidance@1.5.0 (10 behaviour-graded) + general-20@1.0
 results/           13 SkillCards across 12 packages
 docs/              01 competition · 02 protocol · 03 probes · 05 schema · 07 roadmap
                    12 implementation notes · 13 calibration · 14 15 measured rounds
@@ -311,7 +331,7 @@ gets translated.
 
 ## Status
 
-`protocol/1.0.0`, software `v0.2.3`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
+`protocol/1.0.0`, software `v0.2.4`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
 
 CI runs build, tests, task-set validation, a card schema check, a markdown link check, and the demo.
 Everything in `results/` and `site/` is generated from committed run databases, and every run's cost is

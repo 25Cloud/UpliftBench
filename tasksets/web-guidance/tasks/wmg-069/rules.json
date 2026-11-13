@@ -1,0 +1,8 @@
+{
+  "forbid": [
+    "classList.add\\("
+  ],
+  "require": [
+    "user-invalid"
+  ]
+}

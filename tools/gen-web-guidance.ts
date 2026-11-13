@@ -2069,6 +2069,115 @@ body { background: var(--bg); color: var(--fg); }
     // 选中锚点有三种等价写法：position-anchor / position-area / HTML 上的 anchor 属性。
     // 只认 position-anchor 会把「用 position-area 一次说清上下左右」的更优解判错。
     require: ['anchor-name:', '(position-anchor:|position-area:|anchor=)']
+  },
+  {
+    id: 'wmg-065',
+    title: '提示框没空间时自动翻面（提示词不给属性名）',
+    difficulty: 'hard',
+    tags: ['css', 'positioning', 'withheld', 'v1.5'],
+    prompt:
+      'place.js 先用 getBoundingClientRect 和 window.innerHeight 判断上方还剩多少空间，再决定把提示框摆上面还是下面，' +
+      '窗口一改大小就得重算。请把这套判断删掉：给提示框声明首选位置，并声明「放不下时浏览器可以往哪翻」，' +
+      '脚本不再参与决策。',
+    files: {
+      'place.js': `export function place(btn, tip) {
+  const r = btn.getBoundingClientRect();
+  const above = r.top > tip.offsetHeight + 8;
+  tip.style.top = (above ? r.top - tip.offsetHeight - 8 : r.bottom + 8) + 'px';
+  tip.style.left = r.left + 'px';
+}
+`,
+      'tooltip.css': `.tip { position: absolute; inset: auto; }
+`
+    },
+    forbid: ['getBoundingClientRect', 'innerHeight', 'offsetHeight'],
+    require: ['position-try-fallbacks', '(anchor-name:|position-anchor:|anchor=)']
+  },
+  {
+    id: 'wmg-066',
+    title: '折叠区展开要有过渡（提示词不给属性名）',
+    difficulty: 'hard',
+    tags: ['html', 'animation', 'withheld', 'v1.5'],
+    prompt:
+      'fold.css 为了让展开有过渡，写死了一个猜出来的 max-height，内容一变就被截断。' +
+      '请改成让「内容块本身」参与过渡：用到 details 里那个专门装内容的伪元素，' +
+      '并且让 display 这种本该瞬间变化的属性也能跟着过渡。固定像素上限不许再出现。',
+    files: {
+      'fold.css': `details > .body { max-height: 0; overflow: hidden; transition: max-height .25s; }
+details[open] > .body { max-height: 360px; }
+`
+    },
+    forbid: ['max-height:\\s*\\d'],
+    require: ['::details-content', 'allow-discrete']
+  },
+  {
+    id: 'wmg-067',
+    title: '弹窗点背景或按 Esc 关闭（提示词不给属性名）',
+    difficulty: 'easy',
+    tags: ['html', 'dialog', 'withheld', 'v1.5'],
+    prompt:
+      'modal.js 现在用脚本判断「点到的是不是背景」「按的是不是 Esc」，然后自己调 close。' +
+      '这两段监听可以完全不要：请改成在元素上声明「允许哪些方式关闭」，让浏览器自己处理。脚本里一行监听都不该剩。',
+    files: {
+      'modal.js': `export function wire(dialog) {
+  dialog.addEventListener('click', (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') dialog.close();
+  });
+}
+`,
+      'modal.html': `<dialog id="dlg"><p>确认删除？</p></dialog>
+`
+    },
+    forbid: ['addEventListener'],
+    require: ['closedby\\s*=']
+  },
+  {
+    id: 'wmg-068',
+    title: '列表重排时的转场（提示词不给属性名）',
+    difficulty: 'hard',
+    tags: ['js', 'animation', 'withheld', 'v1.5'],
+    prompt:
+      'reorder-ui.js 用 setTimeout 加 class 手动让旧位置淡出、新位置淡入，排序一快就闪，也跟不上拖拽。' +
+      '请改成浏览器原生的视图过渡：把重排包进一次过渡里，并给参与过渡的元素一个「类别名」，' +
+      '这样同一个类别可以统一配置动画。手动 setTimeout 那套删掉。',
+    files: {
+      'reorder-ui.js': `export function move(list, from, to) {
+  const el = list.children[from];
+  el.style.opacity = '0';
+  setTimeout(() => {
+    list.insertBefore(el, list.children[to] ?? null);
+    el.style.opacity = '1';
+  }, 150);
+}
+`
+    },
+    forbid: ['setTimeout'],
+    require: ['startViewTransition', 'view-transition-class']
+  },
+  {
+    id: 'wmg-069',
+    title: '用户真输错了才标红（提示词不给伪类名）',
+    difficulty: 'medium',
+    tags: ['css', 'forms', 'withheld', 'v1.5'],
+    prompt:
+      'validate.js 在提交时遍历字段、判空、给不合法的加 class 标红，刷新后红框还在。' +
+      '请改成让浏览器自己判断：用「用户已经动过、且当前值无效」这个状态来标红，' +
+      '脚本里不要再往元素上加 class。',
+    files: {
+      'validate.js': `export function mark(form) {
+  for (const field of form.elements) {
+    if (field.name && !field.value) field.classList.add('invalid');
+  }
+}
+`,
+      'form.css': `.invalid { border-color: #d00; }
+`
+    },
+    forbid: ['classList.add\\('],
+    require: ['user-invalid']
   }
 ];
 
@@ -2282,17 +2391,17 @@ async function main(): Promise<void> {
   const taskset = {
     schema_version: '1.0.0',
     domain: 'web-guidance',
-    version: '1.4.0',
+    version: '1.5.0',
     title: 'Modern Web Guidance 合规任务集',
     description:
-      '64 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~048 是多规则/多文件任务，wmg-049~056 是行为测试题（评分器把候选代码 import 进来真跑边界用例），wmg-057~058 是消融组（同 fixture、同评分器，只把提示词里的 API 名字拿掉），wmg-059~064 是「技能覆盖 + 提示词不给名字」的第三批（field-sizing / base-select / scroll-state / subgrid / light-dark / anchor）。评分器都是 A 级 tests：可执行检查，零主观判断。',
+      '64 个小型 fixture：wmg-001~030 是单点 API 替换，wmg-031~048 是多规则/多文件任务，wmg-049~056 是行为测试题（评分器把候选代码 import 进来真跑边界用例），wmg-057~058 是消融组（同 fixture、同评分器，只把提示词里的 API 名字拿掉），wmg-059~069 是「技能覆盖 + 提示词不给名字」的第三批（base-select / scroll-state / subgrid / light-dark / anchor / field-sizing / calc-size / closedby / starting-style / content-visibility）。评分器都是 A 级 tests：可执行检查，零主观判断。',
     maintainer: 'upliftbench',
     official: true,
     grader: {
       kind: 'tests',
       tier: 'A',
       entry: 'tasks/wmg-001/verify.mjs',
-      version: '1.4.0',
+      version: '1.5.0',
       timeout_sec: 120
     },
     env: {

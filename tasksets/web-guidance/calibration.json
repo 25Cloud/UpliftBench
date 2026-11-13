@@ -273,6 +273,32 @@
     "wmg-064": {
       "baseline": 0.37,
       "samples": 19
+    },
+    "wmg-065": {
+      "baseline": 0,
+      "samples": 3,
+      "source": "glm-5.3-flash · harness=openai-compat · activation=auto"
+    },
+    "wmg-066": {
+      "baseline": 1,
+      "samples": 3,
+      "source": "glm-5.3-flash · harness=openai-compat · activation=auto"
+    },
+    "wmg-067": {
+      "baseline": 1,
+      "samples": 3,
+      "source": "glm-5.3-flash · harness=openai-compat · activation=auto"
+    },
+    "wmg-068": {
+      "baseline": 0,
+      "samples": 3,
+      "source": "glm-5.3-flash · harness=openai-compat · activation=auto"
+    },
+    "wmg-069": {
+      "baseline": 1,
+      "samples": 3,
+      "source": "glm-5.3-flash · harness=openai-compat · activation=auto"
     }
-  }
+  },
+  "updated_at": "2026-11-13T14:01:17.682Z"
 }
