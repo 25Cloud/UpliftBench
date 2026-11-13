@@ -144,12 +144,30 @@ export interface Tier1Stability {
   determinism_gain: number;
 }
 
+/**
+ * 激活统计。
+ *
+ * 为什么它不是可选的花边：auto 模式下 treatment 臂可能根本没触发技能，
+ * 那时 treatment 退化成 baseline，uplift≈0 测的其实是「模型肯不肯调工具」。
+ * 不公开激活率的 uplift 数字，读者无法判断分子分母到底是什么。
+ */
+export interface ActivationStats {
+  /** auto = 模型自己决定是否触发；forced = 技能正文直接注入 system prompt */
+  mode: 'auto' | 'forced';
+  /** 技能被激活的 run 占比（placebo + treatment 两臂合计；baseline 不装技能，不计入） */
+  rate: number;
+  by_arm?: Partial<Record<ArmName, number>>;
+  /** forced 模式下每臂实际注入的 token 中位数（auto 模式为 null） */
+  preloaded_tokens_p50?: number | null;
+}
+
 export interface Tier1Block {
   taskset: string;
   grader_tier: GraderTier;
   n: number;
   arms: Record<ArmName, ArmStats>;
   metrics: Tier1Metrics;
+  activation?: ActivationStats;
   cost?: Tier1Cost;
   stability?: Tier1Stability;
   failures?: Record<FailureKind, number>;

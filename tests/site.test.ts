@@ -49,10 +49,32 @@ describe('静态榜单页', () => {
   });
 
   it('显示 uplift / headroom / placebo / CI / N', () => {
-    expect(html).toContain('+2pp');
-    expect(html).toContain('9%');
-    expect(html).toContain('[-2, 7]');
+    expect(html).toContain('+2.2pp');
+    expect(html).toContain('8.7%');
+    expect(html).toContain('[-2.2, 6.7]');
     expect(html).toContain('>30<');
+  });
+
+  it('auto 与 forced 是两个条件，分成两张表而不是混排', () => {
+    const forced: Tier1Block = {
+      ...tier1(),
+      activation: { mode: 'forced', rate: 1, by_arm: { placebo: 1, treatment: 1 }, preloaded_tokens_p50: 12000 }
+    };
+    const auto: Tier1Block = { ...tier1(), activation: { mode: 'auto', rate: 0.23, preloaded_tokens_p50: null } };
+    const out = renderSite([
+      { card: card('owner/same-skill-auto', auto), cardPath: 'a.json' },
+      { card: card('owner/same-skill-forced', forced), cardPath: 'b.json' }
+    ]);
+    expect(out).toContain('自动激活');
+    expect(out).toContain('强制注入');
+    // auto 表在 forced 表之前：默认条件先出现，不许只挂好看的那个
+    expect(out.indexOf('自动激活')).toBeLessThan(out.indexOf('强制注入'));
+    // 两个条件各成一张表
+    expect(out.match(/<table>/g)).toHaveLength(2);
+  });
+
+  it('激活未知时显示 —，不编一个 0%', () => {
+    expect(html).toContain('<td class="num">—</td>');
   });
 
   it('placebo 效应大于 uplift 时加 ⚠️', () => {

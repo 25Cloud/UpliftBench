@@ -1,4 +1,5 @@
-import type { ArmName, FailureKind, GraderTier, RunRow, Tier1Block, Tier1Metrics } from '../types.js';
+import type { ActivationStats, ArmName, FailureKind, GraderTier, RunRow, Tier1Block, Tier1Metrics } from '../types.js';
+import { signed1, trim1 } from '../util/num.js';
 import { ARM_NAMES } from '../types.js';
 import { mean, pairedBootstrapCI, sampleStd } from './stats.js';
 
@@ -189,21 +190,101 @@ export function computeTier1(rows: RunRow[], opts: ComputeTier1Options): Tier1Bl
       determinism_gain: round4(stdOf('baseline') - stdOf('treatment'))
     },
     failures,
+    activation: computeActivation(rows),
     protocol_notes: opts.protocolNotes
   };
+}
+
+function parseMeta(raw: string | null): Record<string, unknown> {
+  if (!raw) return {};
+  try {
+    const v = JSON.parse(raw) as unknown;
+    return v && typeof v === 'object' ? (v as Record<string, unknown>) : {};
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * 从原始 run 的 meta_json 里算激活统计。
+ *
+ * 依据：runner 在每行写 {activated, activation_mode, preloaded, preloaded_tokens}。
+ * - activated 为空数组 = 这个 run 技能压根没进上下文
+ * - activation_mode 决定这一栏是 ITT（auto）还是强制注入（forced）
+ *
+ * 只在 placebo/treatment 上算：baseline 不装技能，把它算进来会稀释激活率。
+ * 一行都不带 activated 字段时返回 undefined —— 「不知道」不等于「0%」。
+ */
+export function computeActivation(rows: RunRow[]): ActivationStats | undefined {
+  const skillArms = rows.filter((r) => r.arm !== 'baseline');
+
+  const modeCount = new Map<string, number>();
+  const perArm = new Map<ArmName, { total: number; hit: number }>();
+  const preloadTokens: number[] = [];
+  let counted = 0;
+
+  for (const r of skillArms) {
+    const meta = parseMeta(r.meta_json);
+    if (typeof meta.activation_mode === 'string') {
+      modeCount.set(meta.activation_mode, (modeCount.get(meta.activation_mode) ?? 0) + 1);
+    }
+    const activated = meta.activated;
+    if (!Array.isArray(activated)) continue;
+    counted += 1;
+
+    const st = perArm.get(r.arm) ?? { total: 0, hit: 0 };
+    st.total += 1;
+    if (activated.length > 0) st.hit += 1;
+    perArm.set(r.arm, st);
+
+    if (typeof meta.preloaded_tokens === 'number' && meta.preloaded_tokens > 0) {
+      preloadTokens.push(meta.preloaded_tokens);
+    }
+  }
+  if (counted === 0) return undefined;
+
+  let mode: 'auto' | 'forced' = 'auto';
+  let best = -1;
+  for (const [m, c] of modeCount) {
+    if (c > best) {
+      best = c;
+      mode = m === 'forced' ? 'forced' : 'auto';
+    }
+  }
+
+  let hit = 0;
+  let total = 0;
+  const byArm: Partial<Record<ArmName, number>> = {};
+  for (const [arm, st] of perArm) {
+    hit += st.hit;
+    total += st.total;
+    byArm[arm] = st.total === 0 ? 0 : round4(st.hit / st.total);
+  }
+
+  return {
+    mode,
+    rate: total === 0 ? 0 : round4(hit / total),
+    by_arm: byArm,
+    preloaded_tokens_p50: preloadTokens.length === 0 ? null : Math.round(median(preloadTokens))
+  };
+}
+
+function median(values: number[]): number {
+  const s = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(s.length / 2);
+  return s.length % 2 === 0 ? (s[mid - 1] + s[mid]) / 2 : s[mid];
 }
 
 /** 协议 §6：任何对外数字都必须带这五项，缺一项就不合格 */
 export function formatHeadlineMetrics(block: Tier1Block, grade: GraderTier): string {
   const m = block.metrics;
-  const sign = (v: number) => (v >= 0 ? '+' : '');
   return [
-    `uplift ${sign(m.uplift_pp)}${m.uplift_pp.toFixed(0)}pp`,
-    `headroom ${(m.headroom_closed * 100).toFixed(0)}%`,
+    `uplift ${signed1(m.uplift_pp)}pp`,
+    `headroom ${trim1(m.headroom_closed * 100)}%`,
     `N=${block.n}`,
-    `95%CI [${m.ci95[0].toFixed(0)}, ${m.ci95[1].toFixed(0)}]`,
+    `95%CI [${trim1(m.ci95[0])}, ${trim1(m.ci95[1])}]`,
     `${grade}级`,
-    `placebo_effect ${sign(m.placebo_effect_pp)}${m.placebo_effect_pp.toFixed(0)}pp`
+    `placebo_effect ${signed1(m.placebo_effect_pp)}pp`
   ].join('  |  ');
 }
 

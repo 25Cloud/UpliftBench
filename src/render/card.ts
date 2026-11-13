@@ -1,6 +1,8 @@
 import { humanInt, humanBytes } from '../util/fsx.js';
 import { c, sym } from '../util/log.js';
+import { signed1, trim1 } from '../util/num.js';
 import type {
+  ActivationStats,
   ConstraintFollowingProbe,
   InjectionResistanceProbe,
   NegativeTransferProbe,
@@ -12,6 +14,18 @@ import type {
 } from '../types.js';
 
 const pad = (label: string) => label.padEnd(8);
+
+/** 两种激活条件的人话名字。auto 是协议默认（模型自己决定触发），forced 是审计用的强制注入。 */
+export function activationModeLabel(mode: 'auto' | 'forced'): string {
+  return mode === 'forced' ? '强制注入' : '自动激活';
+}
+
+/** 激活率的简短说明，卡片正文与榜单页共用 */
+export function activationSummary(a: ActivationStats): string {
+  const parts = [`${activationModeLabel(a.mode)} ${(a.rate * 100).toFixed(0)}%`];
+  if (a.preloaded_tokens_p50) parts.push(`中位注入 ${humanInt(a.preloaded_tokens_p50)} tok`);
+  return parts.join(' · ');
+}
 
 function flag(v: boolean, text: string): string {
   return v ? `${c.yellow(sym.warn)} ${text}` : text;
@@ -135,12 +149,21 @@ export function renderCardText(card: SkillCardJson): string {
   lines.push(c.gray(rule));
   if (card.tier1) {
     const m = card.tier1.metrics;
-    const ci = `[${m.ci95[0].toFixed(0)}, ${m.ci95[1].toFixed(0)}]`;
+    const ci = `[${trim1(m.ci95[0])}, ${trim1(m.ci95[1])}]`;
     lines.push(
-      `  ${pad('Tier 1')} uplift ${m.uplift_pp >= 0 ? '+' : ''}${m.uplift_pp.toFixed(0)}pp / headroom ${(
-        m.headroom_closed * 100
-      ).toFixed(0)}%   ${c.dim(`95%CI ${ci} · N=${card.tier1.n} · placebo ${m.placebo_effect_pp >= 0 ? '+' : ''}${m.placebo_effect_pp.toFixed(0)}pp`)}`
+      `  ${pad('Tier 1')} uplift ${signed1(m.uplift_pp)}pp / headroom ${trim1(m.headroom_closed * 100)}%   ${c.dim(`95%CI ${ci} · N=${card.tier1.n} · placebo ${signed1(m.placebo_effect_pp)}pp`)}`
     );
+    if (card.tier1.activation) {
+      const a = card.tier1.activation;
+      const perArm =
+        a.by_arm && (a.by_arm.treatment !== undefined || a.by_arm.placebo !== undefined)
+          ? `（treatment ${((a.by_arm.treatment ?? 0) * 100).toFixed(0)}% / placebo ${((a.by_arm.placebo ?? 0) * 100).toFixed(0)}%）`
+          : '';
+      lines.push(`  ${pad('激活')} ${c.bold(activationSummary(a))}${c.dim(perArm)}`);
+      if (a.mode === 'auto' && a.rate < 0.5) {
+        lines.push(`  ${pad('')} ${c.yellow(`${sym.warn} 大半 run 没触发技能，这个 uplift 主要反映「肯不肯调工具」`)}`);
+      }
+    }
   } else {
     lines.push(`  ${pad('Tier 1')} ${c.dim('未测（需任务集）')}`);
   }
@@ -184,8 +207,11 @@ export function renderCardMarkdown(card: SkillCardJson): string {
   if (card.tier1) {
     const m = card.tier1.metrics;
     out.push(
-      `| Tier 1 | uplift ${m.uplift_pp >= 0 ? '+' : ''}${m.uplift_pp.toFixed(0)}pp · headroom ${(m.headroom_closed * 100).toFixed(0)}% · N=${card.tier1.n} · 95%CI [${m.ci95[0].toFixed(0)}, ${m.ci95[1].toFixed(0)}] · ${card.tier1.grader_tier} 级 · placebo ${m.placebo_effect_pp >= 0 ? '+' : ''}${m.placebo_effect_pp.toFixed(0)}pp |`
+      `| Tier 1 | uplift ${signed1(m.uplift_pp)}pp · headroom ${trim1(m.headroom_closed * 100)}% · N=${card.tier1.n} · 95%CI [${trim1(m.ci95[0])}, ${trim1(m.ci95[1])}] · ${card.tier1.grader_tier} 级 · placebo ${signed1(m.placebo_effect_pp)}pp |`
     );
+    if (card.tier1.activation) {
+      out.push(`| 技能激活 | ${activationSummary(card.tier1.activation)} |`);
+    }
   } else {
     out.push('| Tier 1 | 未测（需任务集） |');
   }

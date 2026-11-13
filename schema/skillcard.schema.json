@@ -76,6 +76,27 @@
             "cost_usd_total": { "type": "number" }
           }
         },
+        "activation": {
+          "type": "object",
+          "description": "技能激活统计。缺这一栏的卡片无法判断 uplift 的分母是什么。",
+          "required": ["mode", "rate"],
+          "properties": {
+            "mode": { "enum": ["auto", "forced"], "description": "auto=模型自己触发；forced=技能正文直接注入 system prompt" },
+            "rate": { "type": "number", "minimum": 0, "maximum": 1, "description": "placebo+treatment 两臂里技能真被激活的 run 占比" },
+            "by_arm": {
+              "type": "object",
+              "properties": {
+                "baseline": { "type": "number" },
+                "placebo": { "type": "number" },
+                "treatment": { "type": "number" }
+              }
+            },
+            "preloaded_tokens_p50": {
+              "type": ["number", "null"],
+              "description": "forced 模式下每臂实际注入的 token 中位数"
+            }
+          }
+        },
         "stability": {
           "type": "object",
           "properties": {

@@ -15,7 +15,7 @@ import { renderCardText, renderCardMarkdown } from '../src/render/card.js';
 import { renderBadgeSvg } from '../src/render/badge.js';
 import { loadSkillsForPackage } from '../src/runner/package-scan.js';
 import { openStore, queryRuns } from '../src/runner/store.js';
-import { computeTier1 } from '../src/metrics/uplift.js';
+import { computeTier1, computeActivation } from '../src/metrics/uplift.js';
 import { writeJson } from '../src/util/json.js';
 import { ensureDir, pathExists, writeTextFile } from '../src/util/fsx.js';
 import { loadEnv } from '../src/util/env.js';
@@ -44,8 +44,15 @@ async function main(): Promise<void> {
   const runsDbs = (dbArg ?? '.uplift/main/runs.db')
     .split(',')
     .map((p) => (path.isAbsolute(p) ? p : path.join(root, p)));
+  // --only=id,id 只出这几个包（只是重出某一种条件时，别把 5 个包的探针全跑一遍）
+  const onlyArg = process.argv.find((a) => a.startsWith('--only='))?.split('=')[1];
+  const only = onlyArg ? new Set(onlyArg.split(',').map((s) => s.trim()).filter(Boolean)) : null;
+  // --suffix=forced → results/<id>.forced.json，同一种条件一套文件，互不覆盖
+  const suffix = process.argv.find((a) => a.startsWith('--suffix='))?.split('=')[1]?.trim();
+  const outName = (id: string) => (suffix ? `${id}.${suffix}` : id);
 
   for (const entry of manifest.skills) {
+    if (only && !only.has(entry.id)) continue;
     const skillPath = path.join(root, 'benchmarks', 'skills', entry.id, entry.path ?? '.');
     if (!(await pathExists(skillPath))) {
       console.log(`✗ ${entry.id}: 未克隆`);
@@ -81,6 +88,7 @@ async function main(): Promise<void> {
       if (rows.length > 0) {
         const tasksetName = rows[0].taskset;
         const repeats = Math.max(...rows.map((r) => r.repeat_idx)) + 1;
+        const act = computeActivation(rows);
         tier1 = computeTier1(rows, {
           taskset: tasksetName,
           graderTier: 'A',
@@ -90,6 +98,7 @@ async function main(): Promise<void> {
             'harness=openai-compat',
             `model=${rows[0].model}`,
             `repeats=${repeats}`,
+            `activation=${act?.mode ?? 'auto'}`,
             `runs_db=${path.relative(root, runsDb)}`
           ]
         });
@@ -110,9 +119,9 @@ async function main(): Promise<void> {
       extraFlags: []
     });
 
-    await writeJson(path.join(resultsDir, `${entry.id}.json`), card);
-    await writeTextFile(path.join(resultsDir, `${entry.id}.badge.svg`), renderBadgeSvg(card, { style: 'full' }));
-    await writeTextFile(path.join(resultsDir, `${entry.id}.md`), renderCardMarkdown(card));
+    await writeJson(path.join(resultsDir, `${outName(entry.id)}.json`), card);
+    await writeTextFile(path.join(resultsDir, `${outName(entry.id)}.badge.svg`), renderBadgeSvg(card, { style: 'full' }));
+    await writeTextFile(path.join(resultsDir, `${outName(entry.id)}.md`), renderCardMarkdown(card));
     console.log(renderCardText(card));
   }
   console.log(`\n结果写入 ${path.relative(root, resultsDir)}/`);

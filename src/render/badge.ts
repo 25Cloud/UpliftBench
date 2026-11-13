@@ -1,4 +1,5 @@
 import type { SkillCardJson } from '../types.js';
+import { signed1, trim1 } from '../util/num.js';
 import { PROTOCOL_VERSION } from '../version.js';
 
 export type BadgeStyle = 'full' | 'compact';
@@ -104,10 +105,10 @@ export function buildTooltip(card: SkillCardJson): string {
   const grade = card.verdict.grade === 'unrated' ? card.tier1.grader_tier : card.verdict.grade;
   lines.push(`UpliftBench · ${card.tier1.taskset} · ${grade}级`);
   lines.push(
-    `uplift ${m.uplift_pp >= 0 ? '+' : ''}${m.uplift_pp.toFixed(0)}pp (headroom ${(m.headroom_closed * 100).toFixed(0)}%), N=${card.tier1.n}, 95%CI [${m.ci95[0].toFixed(0)}, ${m.ci95[1].toFixed(0)}]`
+    `uplift ${signed1(m.uplift_pp)}pp (headroom ${trim1(m.headroom_closed * 100)}%), N=${card.tier1.n}, 95%CI [${trim1(m.ci95[0])}, ${trim1(m.ci95[1])}]`
   );
   lines.push(
-    `placebo effect ${m.placebo_effect_pp >= 0 ? '+' : ''}${m.placebo_effect_pp.toFixed(0)}pp, baseline ${Math.round(
+    `placebo effect ${signed1(m.placebo_effect_pp)}pp, baseline ${Math.round(
       card.tier1.arms.baseline.pass_rate * 100
     )}%, treatment ${Math.round(card.tier1.arms.treatment.pass_rate * 100)}%`
   );

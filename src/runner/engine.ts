@@ -128,22 +128,24 @@ export async function runBenchmark(cfg: RunnerConfig): Promise<RunnerResult> {
    * 因为安慰剂是**逐技能**对齐的，两边贪心出来的技能数一致。
    */
   const preloadBudget = cfg.preloadBudgetTokens ?? 12_000;
-  const preloadCache = new Map<ArmName, string[]>();
-  const preloadFor = (arm: ArmName): string[] => {
-    if (cfg.activation !== 'forced' || arm === 'baseline') return [];
+  const preloadCache = new Map<ArmName, { names: string[]; tokens: number }>();
+  const preloadPick = (arm: ArmName): { names: string[]; tokens: number } => {
+    if (cfg.activation !== 'forced' || arm === 'baseline') return { names: [], tokens: 0 };
     const cached = preloadCache.get(arm);
     if (cached) return cached;
     const pool = arm === 'treatment' ? treatmentSkills : placeboWithFiles;
-    const picked: string[] = [];
+    const names: string[] = [];
     let sum = 0;
     for (const s of pool) {
-      if (picked.length > 0 && sum + s.tokens > preloadBudget) break;
-      picked.push(s.name);
+      if (names.length > 0 && sum + s.tokens > preloadBudget) break;
+      names.push(s.name);
       sum += s.tokens;
     }
-    preloadCache.set(arm, picked);
-    return picked;
+    const pick = { names, tokens: sum };
+    preloadCache.set(arm, pick);
+    return pick;
   };
+  const preloadFor = (arm: ArmName): string[] => preloadPick(arm).names;
 
   const runUnit = async (workerId: number, unit: RunUnit): Promise<void> => {
     const taskRepo = await getTaskRepo(unit.taskId);
@@ -259,7 +261,8 @@ export async function runBenchmark(cfg: RunnerConfig): Promise<RunnerResult> {
         detail,
         activated,
         activation_mode: cfg.activation ?? 'auto',
-        preloaded: preloadFor(unit.arm)
+        preloaded: preloadFor(unit.arm),
+        preloaded_tokens: preloadPick(unit.arm).tokens
       })
     };
     insertRun(db, row);
