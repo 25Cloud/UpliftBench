@@ -2,7 +2,7 @@ import { randomUUID, createHash } from 'node:crypto';
 
 export const PROTOCOL_VERSION = 'protocol/1.0.0';
 export const SCHEMA_VERSION = '1.0.0';
-export const SOFTWARE_VERSION = '0.1.3';
+export const SOFTWARE_VERSION = '0.1.4';
 export const DEFAULT_BUDGET_TOKENS = 10_000;
 export const DEFAULT_ADMIN_LIMITS = {
   totalTokensWarn: 10_000,
