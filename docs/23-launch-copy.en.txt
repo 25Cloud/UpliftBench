@@ -1,0 +1,179 @@
+==========================================================
+UpliftBench · launch copy (plain text, copy-paste ready)
+生成 2026-11-14。逐段复制，不要整段复制。
+X 每条都 ≤280 字符，见每段末尾的 [n/280]。
+==========================================================
+
+
+##########  X / TWITTER THREAD  ##########
+
+[1/8]  ← 发完这条之后不要等，立刻用「＋」接第 2 条
+
+Every agent skill ships a claim.
+
+Almost none of them subtract the placebo.
+
+We measured 12 real skill packages in three arms. Of the four with error bars, none beats a length-matched placebo.
+
+
+[2/8]
+
+The three arms are the whole idea:
+
+baseline - nothing
+placebo - neutral text, same token count (+/-2%)
+treatment - the actual skill
+
+uplift = treatment - placebo
+
+A skill that looks great against baseline can be worth 0 against placebo.
+
+
+[3/8]
+
+Everyone quotes modern-web-guidance at "+27 to +36pp".
+
+Same package, same model, three runs:
+- agent decides when to load it: -2.5pp [-7.9, +2.5]
+- forced into context: +5.6pp [-2.8, +13.2]
+- 7 tasks written for its content: +35pp [+16, +59]
+
+
+[4/8]
+
+9.4k tokens of neutral text costs 7.6 points.
+The skill's content earns back 5.6.
+
+That's not a debunk, it's the decomposition: length vs knowledge. Two-arm benchmarks report the sum and call it the skill.
+
+
+[5/8]
+
+It says "MANDATORY: Execute FIRST for all HTML/CSS tasks".
+The model loaded it in 23% of runs.
+
+For the other 77%, the treatment arm was the baseline arm with extra markdown on disk. Activation rate is the denominator nobody publishes.
+
+
+[6/8]
+
+Same seven tasks, second model (deepseek-v4.1-flash): +14.1pp [0.0, +39.5].
+
+And the wins moved: glm gains 93pp on base-select, deepseek gains 89pp on scroll-state.
+
+A skill's effect is skill x model x task distribution. Not the skill.
+
+
+[7/8]
+
+Where we were wrong, all of it in the repo:
+- 5 grader bugs, each one made the skill look worse
+- 1 explanation the data destroyed
+- 28 of 48 tasks graded transcription because the prompt named the API
+- 1 block result, re-run 3 times, corrected down, then pooled
+
+
+[8/8]  ← 这条带链接
+
+It's a CLI, not a SaaS.
+
+npx upliftbench demo   (2s, no key, no model calls)
+npx upliftbench probe ./my-skill
+
+Leaderboard, index.json, badge, GitHub Action.
+Protocol versioned, placebo arm mandatory.
+
+Think a number is wrong? There's a template.
+
+github.com/25Cloud/UpliftBench
+
+
+##########  SHOW HN  ##########
+
+标题（三选一，用 A）：
+
+A. Show HN: Measuring agent skills against a length-matched placebo
+B. Show HN: A placebo arm for agent-skill benchmarks
+C. Show HN: Agent skills are measured against the wrong baseline
+
+URL 栏填：https://github.com/25Cloud/UpliftBench
+
+正文：
+
+Every agent skill package ships a claim. "MANDATORY: execute FIRST for all HTML/CSS tasks."
+"+27 to +36 percentage points." Almost none of them subtract the one thing that inflates
+every result: the skill makes the prompt longer, and a longer prompt changes answers on its own.
+
+So we added the arm everyone skips. Neutral text, matched to the skill's token count within 2%.
+Three arms: no skill, placebo, real skill. uplift = treatment - placebo.
+
+We ran it on 12 real packages, ~2,900 runs, two models, about $600.
+
+What came out is less flattering than what went in. Of the four rows with enough runs to carry
+a confidence interval, none is distinguishable from the placebo: +2.2pp [-2.2, +6.7],
++4.9pp [-3.7, +14.8], +5.6pp [-2.8, +13.2], -2.5pp [-7.9, +2.5].
+
+The one interval that does clear zero is +35pp [+16, +59] - on seven tasks we wrote ourselves,
+after the first 48 tasks gave the -2.5pp. Both numbers are in the repo, in the same table.
+
+The tool is a CLI (node 22, no services, no accounts):
+  npx upliftbench demo        # Tier 0 card, ~2s, no key, no model calls
+
+There is also a static leaderboard, a machine-readable index.json, a badge, and a GitHub Action
+that posts a Tier 0 card on every PR. The protocol is versioned and the placebo arm is mandatory -
+a two-arm number is marked "uncorrected" and never enters the leaderboard.
+
+The most useful thing anyone can send us is a number they think is wrong. There's an issue
+template for exactly that.
+
+
+##########  首评（发完 60 秒内自己发）  ##########
+
+Author here. Three things that are not in the README, in order of how much they changed my mind.
+
+1. The grader is the weakest link, not the model. We found five cases where a correct answer was
+rejected because the regex only accepted one syntax - requiring showPopover() and rejecting the
+declarative popovertarget, banning insertBefore and rejecting a feature-detection fallback the
+skill itself recommends. Every one of those made the skill look worse than it is. Graders now
+carry a tier (A executable / B pinned judge / C human spot-check) and tiers are never mixed in
+one table.
+
+2. Activation rate is an unmeasured denominator in this ecosystem. modern-web-guidance says
+"MANDATORY: execute FIRST" and the model loaded it in 23% of runs. For the other 77%,
+"treatment" was "baseline with extra markdown sitting in a directory". Any uplift number
+without an activation rate is measuring the harness's willingness to call a tool as much as
+the skill's content.
+
+3. We published a block result, re-ran it, and it moved. +36pp [+/-12] -> +30pp -> +27pp, then
+20 repeats of the same block gave +39pp. Pooling 30 repeats per task lands at +35pp [+16, +59].
+The lesson isn't that +36 was wrong, it's that five tasks with ten repeats cannot support a
++/-12pp interval, and we published one anyway. docs/16 has the whole sequence including the
+numbers that overturned the earlier claims.
+
+Happy to answer anything about the method, including the parts that are still weak: n=30 per
+cell, one harness per number, and a task set we chose ourselves.
+
+
+##########  REDDIT  ##########
+
+r/LocalLLaMA 标题：
+We measured 12 agent skill packages against a length-matched placebo. None of the 4 with confidence intervals beats it.
+
+正文：用上面 Show HN 正文，末尾加一行：
+Raw run databases are in the repo; every card links to one.
+
+---
+
+r/ClaudeAI 标题：
+12 Claude Code skill packages, three arms each (no skill / token-matched placebo / skill). Activation rate is the number nobody publishes.
+
+正文：用 Show HN 正文，但把第二段换成 X 第 5 条那段（激活率 23%），结尾加：
+What activation rates are you seeing on your own skills?
+
+---
+
+r/LLMDevs 标题：
+The missing arm in agent evals: token-matched placebo
+
+正文：只讲三臂设计 + 五个评分器误判 + A/B/C 分级，末尾放 repo 链接。
+同一天最多发 2 个子版，间隔 4 小时以上。
