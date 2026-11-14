@@ -4,9 +4,10 @@
 
 # UpliftBench
 
-The placebo-corrected benchmark for Agent Skills.
+**One skill, three arms, three different answers: −2.5pp, +5.6pp, +35pp.**
 
-Every skill package ships a claim. Almost none survive a length-matched placebo.
+Same package (`GoogleChrome/modern-web-guidance-src`), same model, same harness. The number moved
+because the arm and the task set moved — not because the skill did.
 
 [![ci](https://github.com/25Cloud/UpliftBench/actions/workflows/ci.yml/badge.svg)](https://github.com/25Cloud/UpliftBench/actions/workflows/ci.yml)
 [![pages](https://github.com/25Cloud/UpliftBench/actions/workflows/pages.yml/badge.svg)](https://25cloud.github.io/UpliftBench/)
@@ -15,7 +16,29 @@ Every skill package ships a claim. Almost none survive a length-matched placebo.
 
 **[Leaderboard](https://25cloud.github.io/UpliftBench/)** ([`index.json`](https://25cloud.github.io/UpliftBench/index.json)) · [60-second demo](#60-second-demo) · [Results](#what-we-measured) · [Protocol](docs/02-protocol.en.md) · [中文说明](README.zh-CN.md)
 
+```bash
+npx upliftbench demo     # Tier 0 card in ~2s. No key, no model calls, no money.
+```
+
 </div>
+
+---
+
+## Read this before you trust any uplift number
+
+Twelve skill packages have cards. Four rows have three arms and a confidence interval. **None of those
+four is distinguishable from a length-matched placebo:**
+
+| package | uplift | 95% CI | N | what it means |
+|---|---|---|---|---|
+| `addyosmani/agent-skills` | +2.2pp | [−2.2, +6.7] | 30 | crosses zero |
+| `multica-ai/andrej-karpathy-skills` | +4.9pp | [−3.7, +14.8] | 27 | crosses zero |
+| `modern-web-guidance-src` (forced) | +5.6pp | [−2.8, +13.2] | 48 | crosses zero |
+| `modern-web-guidance-src` (auto) | −2.5pp | [−7.9, +2.5] | 48 | crosses zero |
+
+The only interval in this repository that clears zero is **+35pp [+16, +59]** on seven tasks — and we
+wrote those seven ourselves, after the first 48 tasks produced the −2.5pp in the last row. Both facts
+are the product. Publishing only the second one is how this ecosystem acquired its +27pp problem.
 
 ---
 
@@ -48,9 +71,7 @@ is the whole job.
 No key, no model calls, no money. It reads files.
 
 ```bash
-git clone https://github.com/25Cloud/UpliftBench && cd UpliftBench
-pnpm install && pnpm build
-node dist/cli.js demo
+npx upliftbench demo
 ```
 
 ```
@@ -72,14 +93,14 @@ SkillCard  upliftbench/demo-skill   [Tier 0]
 Point it at anything with a `SKILL.md`:
 
 ```bash
-node dist/cli.js probe path/to/your-skill --only static-cost,uninstall-clean --format markdown
+npx upliftbench probe path/to/your-skill --only static-cost,uninstall-clean --format markdown
 ```
 
 Add `--lang en` or `export UPLIFT_LANG=en` for English labels. Tier 1 needs a model and money:
 
 ```bash
 export UPLIFT_API_KEY=... UPLIFT_MODEL=<exact-model-id>
-node dist/cli.js run \
+npx upliftbench run \
   --taskset tasksets/web-guidance \
   --skill benchmarks/skills/modern-web-guidance-src/guides \
   --arms baseline,placebo,treatment --repeats 5 \
@@ -267,7 +288,7 @@ the earlier claims.
 
 Not that any particular skill is useless. One task set, one model, one harness per number.
 
-Not a cross-package ranking. Twelve packages have cards, three have three-arm numbers.
+Not a cross-package ranking. Twelve packages have cards; four rows carry three-arm numbers.
 
 Not stable at small n. `wmg-064`'s baseline came out 0/3 in one batch and 2/3 in the next, same task,
 same model, same prompt. Single-task numbers stay in the lab.
@@ -298,12 +319,16 @@ probes give you is the price tag.
 ## Putting a number on your own skill
 
 ```bash
-node dist/cli.js probe path/to/skill --format markdown   # Tier 0, seconds, free
-node dist/cli.js run --taskset tasksets/web-guidance --skill path/to/skill \
-  --arms baseline,placebo,treatment --repeats 5           # Tier 1, needs a model
-node dist/cli.js pool --db .uplift/a/runs.db,.uplift/b/runs.db   # merge repeats of one block
-node dist/cli.js site                                     # static leaderboard
+npx upliftbench probe path/to/skill --format markdown   # Tier 0, seconds, free
+npx upliftbench run --taskset tasksets/web-guidance --skill path/to/skill \
+  --arms baseline,placebo,treatment --repeats 5          # Tier 1, needs a model
+npx upliftbench pool --db .uplift/a/runs.db,.uplift/b/runs.db   # merge repeats of one block
+npx upliftbench site                                     # static leaderboard, en + zh-CN
 ```
+
+Tier 0 runs on Node 22 alone. Tier 1 writes to SQLite and therefore wants `better-sqlite3`, which is
+shipped as an optional dependency: if the native build fails on your machine, `demo` and `probe` still
+work and `run` tells you what to install.
 
 Two ways to carry the result around. A self-contained badge:
 
@@ -335,8 +360,8 @@ tasksets/          69-task web-guidance@1.5.0 (10 behaviour-graded) + general-20
 results/           13 SkillCards across 12 packages
 docs/              01 competition · 02 protocol · 03 probes · 05 schema · 07 roadmap
                    12 implementation notes · 13 calibration · 14 15 measured rounds
-                   16 ablation · 17 field notes · 18 launch notes
-tests/             114 tests, 21 of them grader self-checks
+                   16 ablation · 17 field notes · 18 launch notes (zh) · 22 launch pack (en)
+tests/             126 tests, 21 of them grader self-checks
 ```
 
 Design constraints we don't bend: the protocol outranks the implementation, the placebo arm is
@@ -361,7 +386,7 @@ gets translated.
 
 ## Status
 
-`protocol/1.0.0`, software `v0.2.7`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
+`protocol/1.0.0`, software `v0.2.8`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
 
 CI runs build, tests, task-set validation, a card schema check, a markdown link check, and the demo.
 Everything in `results/` and `site/` is generated from committed run databases, and every run's cost is

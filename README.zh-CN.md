@@ -1,10 +1,31 @@
 # UpliftBench
 
-技能包的净增益基准，命令行叫 `uplift`。
+**同一个技能，三臂，三个答案：−2.5pp、+5.6pp、+35pp。**
 
-英文版在 [README.md](README.md)。
+同一个包（`GoogleChrome/modern-web-guidance-src`）、同一个模型、同一套 harness。数字变了，是因为臂变了、题变了，不是因为技能变了。
+
+技能包的净增益基准，命令行叫 `uplift`。英文版在 [README.md](README.md)。
 
 ![uplift](results/agent-skills.badge.svg)
+
+```bash
+npx upliftbench demo     # Tier 0 出卡，约 2 秒，不要 key，不花钱
+```
+
+---
+
+## 先看这四个区间，再信任何 uplift 数字
+
+12 个技能包有卡，其中 4 行有三臂和区间。**这 4 行没有一行能和等 token 安慰剂区分开：**
+
+| 技能包 | uplift | 95% CI | N | 结论 |
+|---|---|---|---|---|
+| `addyosmani/agent-skills` | +2.2pp | [−2.2, +6.7] | 30 | 跨 0 |
+| `multica-ai/andrej-karpathy-skills` | +4.9pp | [−3.7, +14.8] | 27 | 跨 0 |
+| `modern-web-guidance-src`（强制注入） | +5.6pp | [−2.8, +13.2] | 48 | 跨 0 |
+| `modern-web-guidance-src`（自动激活） | −2.5pp | [−7.9, +2.5] | 48 | 跨 0 |
+
+整个仓库里唯一不跨 0 的区间，是那七道题上的 **+35pp [+16, +59]**——而那七道题是我们自己写的，写在最初 48 道题跑出 −2.5pp 之后。两件事都是产品的一部分：只发后面那个，就是这套生态 +27pp 问题的来源。
 
 ---
 
@@ -33,9 +54,7 @@ headroom_closed = uplift / (1 − placebo)  ← 剩余空间填掉了多少
 不需要 key，不调模型，不花钱。
 
 ```bash
-git clone https://github.com/25Cloud/UpliftBench && cd UpliftBench
-pnpm install && pnpm build
-node dist/cli.js demo
+npx upliftbench demo
 ```
 
 ```
@@ -52,16 +71,18 @@ SkillCard  upliftbench/demo-skill   [Tier 0]
 换成你自己的包，一样能跑：
 
 ```bash
-node dist/cli.js probe path/to/your-skill --only static-cost,uninstall-clean --format markdown
+npx upliftbench probe path/to/your-skill --only static-cost,uninstall-clean --format markdown
 ```
 
 要分数就得有任务集和模型，也要花钱：
 
 ```bash
 export UPLIFT_API_KEY=... UPLIFT_MODEL=<精确模型 id>
-node dist/cli.js run --taskset tasksets/web-guidance \
+npx upliftbench run --taskset tasksets/web-guidance \
   --skill path/to/your-skill --arms baseline,placebo,treatment --repeats 5
 ```
+
+Tier 0 只要有 Node 22；Tier 1 要写 SQLite，所以要 `better-sqlite3`，它挂在 optionalDependencies 里——你机器上原生编译挂了，`demo` 和 `probe` 照跑，`run` 会告诉你补装什么。
 
 `--activation auto` 让模型自己决定要不要加载技能；`forced` 把正文直接写进 system prompt，安慰剂也等量注入。这是两个实验，工具会分开报。
 
@@ -189,7 +210,7 @@ src/
 tasksets/          69 题 web-guidance@1.5.0 + 20 题 general-20@1.0
 results/           12 个包、13 张卡
 docs/              20 篇：协议、实现、标定、实测、消融、横评
-tests/             114 个单测，其中 21 个是评分器自检
+tests/             126 个单测，其中 21 个是评分器自检
 ```
 
 ## 文档
@@ -206,7 +227,7 @@ tests/             114 个单测，其中 21 个是评分器自检
 
 ## 状态
 
-`protocol/1.0.0`，软件 `v0.2.7`，Node ≥ 22，Apache-2.0。没有后端，不用账号，不采集任何东西。
+`protocol/1.0.0`，软件 `v0.2.8`，Node ≥ 22，Apache-2.0。没有后端，不用账号，不采集任何东西。
 
 CI 跑 build、测试、任务集校验、卡片 schema、markdown 链接检查和 demo。`results/` 和 `site/` 里的东西都能从提交的 run 数据库重新生成，每次 run 的成本都记着。
 

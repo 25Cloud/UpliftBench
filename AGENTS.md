@@ -1,13 +1,15 @@
 # AGENTS.md — 给下一个 Agent 的操作手册
 
-> **状态（2026-11-14）**：v0.2.7，T1–T6 全部完成，**七个** Tier 0 探针可用，三臂 runner 跑过
-> 2,945 次真实 run（两个模型、$600），**12 个真实技能包出了卡**（其中 3 个有三臂数字，一个出两种激活条件，共 13 张卡），
+> **状态（2026-11-14）**：v0.2.8，T1–T6 全部完成，**七个** Tier 0 探针可用，三臂 runner 跑过
+> 2,945 次真实 run（两个模型、$600），**12 个真实技能包出了卡**（其中 3 个包出了 4 行三臂数字，一个包出两种激活条件，共 13 张卡），
 > 榜单页可生成，任务集 `web-guidance@1.5.0` 有 69 题（含 10 道行为测试题、11 道「提示词不给答案」的题）。
 > **`README.md` 是英文版（面向国际读者），`README.zh-CN.md` 是中文版**，两边互链；终端输出支持
 > `--lang en`。`uplift demo` 零依赖出卡（不需要 key），`action.yml` 是复合 GitHub Action。
 > 先读 `docs/12`（实现时做的判断）、`docs/13`（实测难度）、`docs/14`/`docs/15`（两轮真数字）、
 > `docs/16`（消融实验 + 五次评分器误判 + 合并后的 +35pp 七题块）、`docs/17`（12 个包横评：写法如何决定可用性）。
-> **对外发布前看 `docs/18-发布材料.md`**（Show HN / X / 首评 / 评论区预案 / checklist）。
+> **对外发布前看 `docs/22-launch-pack.en.md`**（可直接复制的 Show HN / 首评 / X thread / Reddit 文案、发布前 checklist、当天斜率判据），
+> 中文计划见 `docs/18-发布材料.md`。榜单页现在是双语：`site/index.html`（en，默认）与 `site/zh-CN.html`。
+> `npx upliftbench demo` 必须能在空目录跑（Tier 0 不依赖 `better-sqlite3`，它挂在 optionalDependencies 且惰性加载）。
 > 下一步看 `docs/07` 的进度表和 `docs/16 §七` 的选题判据。
 >
 > **六条最重要的实测结论**：

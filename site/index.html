@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>UpliftBench · 技能包净增益榜</title>
+<title>UpliftBench · placebo-corrected Agent Skills leaderboard</title>
 <meta name="description" content="Agent Skills measured against a token-matched placebo. uplift = treatment − placebo."/>
+<link rel="alternate" hreflang="zh-CN" href="./zh-CN.html"/>
 <style>
   :root { color-scheme: light dark; --fg:#1f2328; --muted:#656d76; --line:#d0d7de; --bg:#fff; --accent:#2ea44f; }
   @media (prefers-color-scheme: dark) { :root { --fg:#e6edf3; --muted:#8b949e; --line:#30363d; --bg:#0d1117; } }
@@ -14,6 +15,8 @@
   h1 { font-size: 30px; margin: 0 0 6px; letter-spacing: -0.02em; }
   .tag { color: var(--muted); margin-bottom: 6px; }
   .lead { color: var(--muted); font-size: 13px; margin-bottom: 26px; }
+  .lang { text-align: right; font-size: 13px; margin-bottom: 10px; }
+  .lang a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--line); }
   h2 { font-size: 17px; margin: 36px 0 10px; font-weight: 600; }
   table { width:100%; border-collapse: collapse; font-size: 14px; }
   th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
@@ -31,13 +34,14 @@
 </style>
 </head>
 <body>
+  <div class="lang"><a href="./zh-CN.html" title="Read this page in Chinese">中文</a></div>
   <img class="hero" src="./assets/hero.svg" alt="Same skill, same model. The only difference is whether it gets loaded."/>
   <h1>UpliftBench</h1>
-  <div class="tag">技能包的净增益基准。减掉安慰剂之后，还剩多少。</div>
-  <div class="lead">Agent Skills, measured against a token-matched placebo. <code>uplift = treatment − placebo</code>. Every row carries N and a 95% CI; the JSON behind this page is <a href="./index.json">index.json</a>.</div>
-  <h2>web-guidance@1.0.0 · A级 · 自动激活<span class="cond">模型自己决定是否触发技能（协议默认）</span></h2>
+  <div class="tag">What an Agent Skill adds, after you subtract the placebo.</div>
+  <div class="lead">Every row comes from three arms — no skill / token-matched neutral text / the real skill. <code>uplift = treatment − placebo</code>. Every row carries N and a 95% CI; the JSON behind this page is <a href="./index.json">index.json</a>.</div>
+  <h2>web-guidance@1.0.0 · grade A · auto activation<span class="cond">the agent decides whether to load it (protocol default)</span></h2>
     <table>
-      <thead><tr><th>技能包</th><th>uplift</th><th>headroom</th><th>placebo</th><th>95%CI</th><th>激活率</th><th>N</th><th>等级</th></tr></thead>
+      <thead><tr><th>Skill package</th><th>uplift</th><th>headroom</th><th>placebo</th><th>95% CI</th><th>activation</th><th>N</th><th>grade</th></tr></thead>
       <tbody><tr>
       <td class="repo">addyosmani/agent-skills<span class="commit">@301b02b</span></td>
       <td class="num" style="color:#9e9e9e;font-weight:600">+2.2pp</td>
@@ -49,9 +53,9 @@
       <td class="grade">A</td>
     </tr></tbody>
     </table>
-<h2>web-guidance@1.1.0 · A级 · 自动激活<span class="cond">模型自己决定是否触发技能（协议默认）</span></h2>
+<h2>web-guidance@1.1.0 · grade A · auto activation<span class="cond">the agent decides whether to load it (protocol default)</span></h2>
     <table>
-      <thead><tr><th>技能包</th><th>uplift</th><th>headroom</th><th>placebo</th><th>95%CI</th><th>激活率</th><th>N</th><th>等级</th></tr></thead>
+      <thead><tr><th>Skill package</th><th>uplift</th><th>headroom</th><th>placebo</th><th>95% CI</th><th>activation</th><th>N</th><th>grade</th></tr></thead>
       <tbody><tr>
       <td class="repo">GoogleChrome/modern-web-guidance-src<span class="commit">@3bb177a</span></td>
       <td class="num" style="color:#d73a49;font-weight:600">-2.5pp ⚠️</td>
@@ -63,9 +67,9 @@
       <td class="grade">A</td>
     </tr></tbody>
     </table>
-<h2>web-guidance@1.1.0 · A级 · 强制注入<span class="cond">技能正文直接注入 system prompt，安慰剂按等 token 对齐</span></h2>
+<h2>web-guidance@1.1.0 · grade A · forced injection<span class="cond">skill body injected into the system prompt; placebo matched by token count</span></h2>
     <table>
-      <thead><tr><th>技能包</th><th>uplift</th><th>headroom</th><th>placebo</th><th>95%CI</th><th>激活率</th><th>N</th><th>等级</th></tr></thead>
+      <thead><tr><th>Skill package</th><th>uplift</th><th>headroom</th><th>placebo</th><th>95% CI</th><th>activation</th><th>N</th><th>grade</th></tr></thead>
       <tbody><tr>
       <td class="repo">GoogleChrome/modern-web-guidance-src<span class="commit">@3bb177a</span></td>
       <td class="num" style="color:#4c9a2a;font-weight:600">+5.6pp</td>
@@ -77,9 +81,9 @@
       <td class="grade">A</td>
     </tr></tbody>
     </table>
-<h2>web-guidance@1.4.0 · A级 · 自动激活<span class="cond">模型自己决定是否触发技能（协议默认）</span></h2>
+<h2>web-guidance@1.4.0 · grade A · auto activation<span class="cond">the agent decides whether to load it (protocol default)</span></h2>
     <table>
-      <thead><tr><th>技能包</th><th>uplift</th><th>headroom</th><th>placebo</th><th>95%CI</th><th>激活率</th><th>N</th><th>等级</th></tr></thead>
+      <thead><tr><th>Skill package</th><th>uplift</th><th>headroom</th><th>placebo</th><th>95% CI</th><th>activation</th><th>N</th><th>grade</th></tr></thead>
       <tbody><tr>
       <td class="repo">multica-ai/andrej-karpathy-skills<span class="commit">@2c60614</span></td>
       <td class="num" style="color:#9e9e9e;font-weight:600">+4.9pp</td>
@@ -91,72 +95,72 @@
       <td class="grade">B</td>
     </tr></tbody>
     </table>
-<h2>Tier 0 · 事实查询（不排名）</h2>
+<h2>Tier 0 · facts only (not ranked)</h2>
     <table>
-      <thead><tr><th>技能包</th><th colspan="6">探针结果</th><th>等级</th></tr></thead>
+      <thead><tr><th>Skill package</th><th colspan="6">probe results</th><th>grade</th></tr></thead>
       <tbody><tr class="tier0">
       <td class="repo">anthropics/skills</td>
-      <td colspan="6" class="muted">Tier 0 only · 849,607 tok · largest skill 526,405 tok · 19 skills · defer 84% · monolithic skill · 不进主榜（无任务集）</td>
+      <td colspan="6" class="muted">Tier 0 only · 849,607 tok · largest skill 526,405 tok · 19 skills · defer 84% · monolithic skill · not on the main board (no task set)</td>
       <td class="grade">—</td>
     </tr>
 <tr class="tier0">
       <td class="repo">affaan-m/ECC</td>
-      <td colspan="6" class="muted">Tier 0 only · 109,921 tok · largest skill 12,192 tok · 47 skills · defer 6% · 不进主榜（无任务集）</td>
+      <td colspan="6" class="muted">Tier 0 only · 109,921 tok · largest skill 12,192 tok · 47 skills · defer 6% · not on the main board (no task set)</td>
       <td class="grade">—</td>
     </tr>
 <tr class="tier0">
       <td class="repo">Nutlope/hallmark</td>
-      <td colspan="6" class="muted">Tier 0 only · 409,006 tok · largest skill 409,006 tok · 1 skill · defer 100% · monolithic skill · 不进主榜（无任务集）</td>
+      <td colspan="6" class="muted">Tier 0 only · 409,006 tok · largest skill 409,006 tok · 1 skill · defer 100% · monolithic skill · not on the main board (no task set)</td>
       <td class="grade">—</td>
     </tr>
 <tr class="tier0">
       <td class="repo">op7418/Humanizer-zh</td>
-      <td colspan="6" class="muted">Tier 0 only · 8,042 tok · largest skill 4,204 tok · 1 skill · defer 0% · 不进主榜（无任务集）</td>
+      <td colspan="6" class="muted">Tier 0 only · 8,042 tok · largest skill 4,204 tok · 1 skill · defer 0% · not on the main board (no task set)</td>
       <td class="grade">—</td>
     </tr>
 <tr class="tier0">
       <td class="repo">KKKKhazix/khazix-skills</td>
-      <td colspan="6" class="muted">Tier 0 only · 75,483 tok · largest skill 17,578 tok · 6 skills · defer 83% · 不进主榜（无任务集）</td>
+      <td colspan="6" class="muted">Tier 0 only · 75,483 tok · largest skill 17,578 tok · 6 skills · defer 83% · not on the main board (no task set)</td>
       <td class="grade">—</td>
     </tr>
 <tr class="tier0">
       <td class="repo">mattpocock/skills</td>
-      <td colspan="6" class="muted">Tier 0 only · 80,583 tok · largest skill 10,808 tok · 39 skills · defer 28% · 不进主榜（无任务集）</td>
+      <td colspan="6" class="muted">Tier 0 only · 80,583 tok · largest skill 10,808 tok · 39 skills · defer 28% · not on the main board (no task set)</td>
       <td class="grade">—</td>
     </tr>
 <tr class="tier0">
       <td class="repo">obsidianmd/obsidian-skills</td>
-      <td colspan="6" class="muted">Tier 0 only · 16,902 tok · largest skill 6,350 tok · 7 skills · defer 0% · 不进主榜（无任务集）</td>
+      <td colspan="6" class="muted">Tier 0 only · 16,902 tok · largest skill 6,350 tok · 7 skills · defer 0% · not on the main board (no task set)</td>
       <td class="grade">—</td>
     </tr>
 <tr class="tier0">
       <td class="repo">cloudflare/security-audit-skill</td>
-      <td colspan="6" class="muted">Tier 0 only · 79,967 tok · largest skill 79,967 tok · 1 skill · defer 100% · monolithic skill · 不进主榜（无任务集）</td>
+      <td colspan="6" class="muted">Tier 0 only · 79,967 tok · largest skill 79,967 tok · 1 skill · defer 100% · monolithic skill · not on the main board (no task set)</td>
       <td class="grade">—</td>
     </tr>
 <tr class="tier0">
       <td class="repo">obra/superpowers</td>
-      <td colspan="6" class="muted">Tier 0 only · 100,774 tok · largest skill 25,738 tok · 15 skills · defer 47% · 不进主榜（无任务集）</td>
+      <td colspan="6" class="muted">Tier 0 only · 100,774 tok · largest skill 25,738 tok · 15 skills · defer 47% · not on the main board (no task set)</td>
       <td class="grade">—</td>
     </tr></tbody>
     </table>
   <div class="note">
-    <strong>怎么读这张表</strong><br/>
-    <code>uplift</code> = treatment − <em>placebo</em>，不是减 baseline。<code>headroom</code> 是填掉了多少剩余空间；<code>placebo</code> 列是「上下文变长本身值多少分」。<br/>
-    <code>激活率</code> = placebo + treatment 两臂里技能真的进了上下文的 run 占比。激活率低，uplift 天然趋近 0，因为没进上下文时 treatment 就是 baseline。<br/>
-    自动激活与强制注入是两种实验条件，同一个技能包可能各有一行。两行不能互相比较，也不能只报好看的那个。<br/>
-    A 级（可执行验证）与 B 级（固定版本 judge）分组显示，不并排排名。<br/>
-    ⚠️ 表示安慰剂效应大于净增益，分数主要来自长度。<br/>
-    生成于 2026-11-13T13:39:20.911Z · <code>protocol/1.0.0</code>
+    <strong>How to read this table</strong><br/>
+    <code>uplift</code> is treatment − <em>placebo</em>, not minus baseline. <code>headroom</code> is the share of the remaining room that was filled; the <code>placebo</code> column is what length alone is worth.<br/>
+    <code>activation</code> is the share of runs, across the placebo and treatment arms, where the skill actually reached the context. Low activation drags uplift toward zero, because a treatment run that never loads the skill is a baseline run.<br/>
+    Auto activation and forced injection are two different experiments; the same package can have one row each. Those rows cannot be compared with each other, and shipping only the flattering one is how the ecosystem ended up with numbers nobody can reproduce.<br/>
+    Grade A (executable checks) and grade B (a pinned judge) are shown in separate groups, never in one ranking.<br/>
+    ⚠️ means the placebo effect is larger than the net gain — most of that number is length.<br/>
+    Generated 2026-11-14T02:55:36.111Z · <code>protocol/1.0.0</code>
   </div>
   <footer>
-    数字可以复现：<code>node dist/cli.js site</code> 读 <code>results/*.json</code> 重新生成这一页，
-    每张卡背后是提交在仓库里的 run 数据库。觉得哪个数不对，
-    <a href="https://github.com/25Cloud/UpliftBench/issues/new?template=challenge-a-number.md">开个 issue 挑战它</a>，
-    或者先读
-    <a href="https://github.com/25Cloud/UpliftBench/blob/main/docs/17-%E6%A8%AA%E5%90%91%E8%AF%84%E6%B5%8B.md">写法层分析</a>
-    与
-    <a href="https://github.com/25Cloud/UpliftBench/blob/main/docs/02-protocol.en.md">协议</a>。
+    The numbers reproduce: <code>node dist/cli.js site</code> reads
+    <code>results/*.json</code> and rebuilds this page, and every card points at a run database
+    committed to the repository. If one of them looks wrong,
+    <a href="https://github.com/25Cloud/UpliftBench/issues/new?template=challenge-a-number.md">open an issue and challenge it</a>, or read the
+    <a href="https://github.com/25Cloud/UpliftBench/blob/main/docs/17-%E6%A8%AA%E5%90%91%E8%AF%84%E6%B5%8B.md">field notes</a> and the
+    <a href="https://github.com/25Cloud/UpliftBench/blob/main/docs/02-protocol.en.md">protocol</a> first.
+    Generated 2026-11-14T02:55:36.111Z.
   </footer>
 </body>
 </html>

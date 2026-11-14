@@ -1,11 +1,12 @@
 {
   "name": "upliftbench",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "The placebo-corrected benchmark for Agent Skills — measure what your skill actually adds.",
   "license": "Apache-2.0",
   "type": "module",
   "bin": {
-    "uplift": "dist/cli.js"
+    "uplift": "dist/cli.js",
+    "upliftbench": "dist/cli.js"
   },
   "files": [
     "dist",
@@ -14,6 +15,13 @@
     "README.md",
     "LICENSE"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "homepage": "https://25cloud.github.io/UpliftBench/",
+  "bugs": {
+    "url": "https://github.com/25Cloud/UpliftBench/issues"
+  },
   "engines": {
     "node": ">=22"
   },
@@ -31,6 +39,8 @@
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
+    "prepack": "npm run build",
+    "prepublishOnly": "npm test",
     "dev": "tsx src/cli.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test": "vitest run",
@@ -46,8 +56,10 @@
   },
   "dependencies": {
     "ajv": "^8.17.1",
-    "better-sqlite3": "^11.10.0",
     "commander": "^12.1.0"
+  },
+  "optionalDependencies": {
+    "better-sqlite3": "^11.10.0"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",

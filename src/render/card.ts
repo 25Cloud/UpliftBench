@@ -23,12 +23,31 @@ const pad = (label: string) => label.padEnd(LANG === 'en' ? 12 : 8);
  * 文档可以是中文（docs/ 全是），但**终端输出**必须两边都能读，不然英文 README 里
  * 贴一张中文卡，看起来就像半成品。
  *
- * 默认中文（保持与历史文档里引用的输出一致），`UPLIFT_LANG=en` 或 `--lang en` 切英文。
+ * 默认按系统 locale 走：中文环境看中文，其余一律英文。`UPLIFT_LANG=en|zh` 与 `--lang` 仍然最优先。
+ * 为什么不再硬默认中文：README 是英文版，第一条命令 `npx upliftbench demo` 的输出必须和 README 里
+ * 贴的那张卡逐字对得上；国际读者第一眼看到中文标签，这一个动作就丢了。
  * 注意：只翻译「人读的标签」，JSON 字段名一律不动（那是数据契约）。
  */
 export type Lang = 'zh' | 'en';
 
-let LANG: Lang = /^en/i.test(process.env.UPLIFT_LANG ?? '') ? 'en' : 'zh';
+/**
+ * 三档优先级：UPLIFT_LANG > LC_ALL/LC_MESSAGES/LANG > Intl 推断的本地化。
+ * Windows 上前两个通常不存在，所以 Intl 那一档是必要的——它在本机给 'zh-CN'。
+ */
+function detectLang(): Lang {
+  const forced = process.env.UPLIFT_LANG ?? '';
+  if (/^en/i.test(forced)) return 'en';
+  if (/^zh/i.test(forced)) return 'zh';
+  const locale =
+    process.env.LC_ALL ??
+    process.env.LC_MESSAGES ??
+    process.env.LANG ??
+    Intl.DateTimeFormat().resolvedOptions().locale ??
+    '';
+  return /^zh/i.test(locale) ? 'zh' : 'en';
+}
+
+let LANG: Lang = detectLang();
 
 export function setLang(lang: Lang): void {
   LANG = lang;

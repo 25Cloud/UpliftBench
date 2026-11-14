@@ -1,6 +1,6 @@
 # docs 索引
 
-二十一篇文章，按「先看什么」排，不按编号。
+二十三篇文章，按「先看什么」排，不按编号。
 
 规格（改代码前必读）
 
@@ -47,7 +47,8 @@
 | [08-风险与对策](08-风险与对策.md) | 会被怎么质疑，准备好怎么答 |
 | [09-命名与品牌](09-命名与品牌.md) | 名字、域名、仓库命名 |
 | [10-背景调研](10-背景调研.md) | 生态现状 |
-| [18-发布材料](18-发布材料.md) | Show HN 正文、X 串、首评、评论区预案 |
+| [18-发布材料](18-发布材料.md) | Show HN 正文、X 串、首评、评论区预案（中文计划） |
+| [22-launch-pack.en](22-launch-pack.en.md) | 英文发布包：可原样复制的 Show HN / 首评 / X thread / Reddit 文案、发布前 checklist、当天斜率判据 |
 
 英文资料：[02-protocol.en.md](02-protocol.en.md) 是协议译文，[19-how-to-read.md](19-how-to-read.md) 与
 [20-the-27pp-claim.md](20-the-27pp-claim.md) 直接用英文写，[README.md](../README.md) 是英文主 README。

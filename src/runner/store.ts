@@ -1,10 +1,35 @@
 import path from 'node:path';
 import fs from 'node:fs';
-import Database from 'better-sqlite3';
+import { createRequire } from 'node:module';
+import type Database from 'better-sqlite3';
 import type { ArmName, FailureKind, RunRow } from '../types.js';
 import { ensureDir } from '../util/fsx.js';
 
 export type Store = Database.Database;
+
+/**
+ * better-sqlite3 是原生模块，装不上是常态（Node 版本太新、没有编译器、Alpine、
+ * 某些 CI 缓存脏掉）。它被声明成 optionalDependency，而且只在真的要动数据库时
+ * 才 require：`uplift demo` / `uplift probe` 全程不碰它，`npx upliftbench demo`
+ * 拉下来就能跑，不会因为一个 native build 失败把整个入口打死。
+ *
+ * 用 createRequire 而不是顶层 import，是因为 ESM 的静态 import 会在模块加载期
+ * 就求值，那样「没装」就变成「启动即崩」。
+ */
+const requireCjs = createRequire(import.meta.url);
+
+function loadSqlite(): typeof Database {
+  try {
+    return requireCjs('better-sqlite3') as typeof Database;
+  } catch (e) {
+    const detail = e instanceof Error ? e.message : String(e);
+    throw new Error(
+      `better-sqlite3 没装上：${detail}\n` +
+        `它只用于 run / query / pool（要写 SQLite），Tier 0 的 probe 与 demo 不需要它。\n` +
+        `装回来：npm i better-sqlite3`
+    );
+  }
+}
 
 export const RUNS_TABLE_SQL = `
 CREATE TABLE IF NOT EXISTS runs (
@@ -49,7 +74,7 @@ GROUP BY skill_repo, skill_commit, taskset, arm;
 
 export function openStore(dbPath: string): Store {
   ensureDir(path.dirname(dbPath));
-  const db = new Database(dbPath);
+  const db = loadSqlite()(dbPath);
   db.pragma('journal_mode = WAL');
   db.pragma('foreign_keys = ON');
   db.exec(RUNS_TABLE_SQL);

@@ -4,6 +4,54 @@
 
 ---
 
+## 2026-11-14 · v0.2.8（npm 发布就绪 · 榜单页双语）
+
+协议未变（`protocol/1.0.0`）。这一版全部是"能不能被别人拉下来跑"的问题。
+
+### `npx upliftbench demo` 现在真的能在任何目录跑
+
+- `demo` 从**包根**找 `examples/demo-skill`，不再依赖 cwd。以前在空目录里跑会报"找不到内置示例技能"，
+  而 npm 用户 100% 是在空目录里跑。
+- `package.json` 增加 `upliftbench` 这个 bin 别名（原来只有 `uplift`），两个名字都能用。
+- 加 `prepack: npm run build`、`prepublishOnly: npm test`、`publishConfig.access=public`、`homepage`、`bugs`。
+
+### `better-sqlite3` 降级为 optionalDependency，并且改成惰性 require
+
+- `src/runner/store.ts` 不再顶层 `import Database`，改为 `createRequire` 按需加载。
+  原生模块装不上是常态（Node 版本、没有编译器、Alpine、脏缓存），以前那会让**任何**命令启动即崩，
+  包括完全不碰数据库的 `demo`。
+- 现在：Tier 0（`demo` / `probe`）零原生依赖，`run` / `query` / `pool` 真要用时才加载，
+  缺了给一句人话（"装回来：npm i better-sqlite3"）而不是堆栈。
+- 实测：`npm pack` → 空目录 `npm i --omit=optional` → `npx upliftbench demo` 退出码 0。
+
+### 榜单页默认英文，中文挪到 `zh-CN.html`
+
+- `uplift site` 现在写**两个文件**：`index.html`（en）与 `zh-CN.html`（zh-CN），互相 `hreflang` + 右上角切换。
+  默认英文是因为榜单页是国际读者（HN / X / Reddit）落地看到的第一屏。
+- `renderSite(entries, opts)` 新增 `lang` / `altHref`；旧的 `renderSite(entries, generatedAt)` 调用方式仍然可用。
+- 两页共用同一份数据与同一套分组规则（auto / forced 不混排，A/B/C 不混排）。
+
+### README 首屏重写
+
+首屏从"愿景 + 臂说明"改成四个区间：12 个包有卡，**4 行有三臂和区间，没有一行能跟等 token 安慰剂区分开**，
+唯一不跨 0 的 +35pp [+16, +59] 是七道自己出的题。删除"三个包有三臂数字"的旧说法（现在是四行）。
+
+### 终端输出默认语言改按系统 locale 推断
+
+- `src/render/card.ts`：优先级 `UPLIFT_LANG` > `LC_ALL` / `LC_MESSAGES` / `LANG` > `Intl.DateTimeFormat().resolvedOptions().locale`。
+  中文环境照旧中文，其余一律英文。
+- 原因：英文 README 的第一条命令是 `npx upliftbench demo`，输出必须和 README 里贴的那张英文卡逐字对得上；
+  以前硬默认中文，国际读者第一次运行就看到中文标签。三个分支都实测过（en locale / zh locale / 强设 `UPLIFT_LANG=en`），
+  126 个单测在 en 与 zh 两种 locale 下都通过。
+
+### 新增 `docs/22-launch-pack.en.md`
+
+可直接复制的英文发布包：Show HN 标题三选一 + 正文 + 首评、8 条 X thread、三个 subreddit 的差异化标题、
+发布前 10 条 checklist、当天斜率判据表、HN 六个必问问题的答法。基准事实：2026-11-14 全球日榜第 1 名
+24h **+215** 星（第 2 名 +1,925 却排第二），进榜下限约 60–100 星/天。
+
+---
+
 ## 2026-11-14 · v0.2.7（第二个模型 · 方法论文）
 
 ### 跨模型：同一个七题块，换 `deepseek-v4.1-flash`

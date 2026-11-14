@@ -30,16 +30,24 @@ function card(repo: string, t1?: Tier1Block): SkillCardJson {
   });
 }
 
-describe('静态榜单页', () => {
-  const html = renderSite([
-    { card: card('owner/with-tier1', tier1()), cardPath: 'a.json' },
-    { card: card('owner/tier0-only'), cardPath: 'b.json' }
-  ]);
+/** 榜单页默认英文；中文版是同一张表的第二份渲染，断言必须显式指定语言。 */
+const ZH = { lang: 'zh-CN' as const };
+const EN = { lang: 'en' as const };
+
+describe('静态榜单页（中文版）', () => {
+  const html = renderSite(
+    [
+      { card: card('owner/with-tier1', tier1()), cardPath: 'a.json' },
+      { card: card('owner/tier0-only'), cardPath: 'b.json' }
+    ],
+    ZH
+  );
 
   it('产出完整 HTML', () => {
     expect(html.startsWith('<!doctype html>')).toBe(true);
     expect(html).toContain('</html>');
     expect(html).toContain('charset="utf-8"');
+    expect(html).toContain('<html lang="zh-CN">');
   });
 
   it('Tier 1 与 Tier 0 分组显示，不混排（协议 §4 铁律）', () => {
@@ -61,10 +69,13 @@ describe('静态榜单页', () => {
       activation: { mode: 'forced', rate: 1, by_arm: { placebo: 1, treatment: 1 }, preloaded_tokens_p50: 12000 }
     };
     const auto: Tier1Block = { ...tier1(), activation: { mode: 'auto', rate: 0.23, preloaded_tokens_p50: null } };
-    const out = renderSite([
-      { card: card('owner/same-skill-auto', auto), cardPath: 'a.json' },
-      { card: card('owner/same-skill-forced', forced), cardPath: 'b.json' }
-    ]);
+    const out = renderSite(
+      [
+        { card: card('owner/same-skill-auto', auto), cardPath: 'a.json' },
+        { card: card('owner/same-skill-forced', forced), cardPath: 'b.json' }
+      ],
+      ZH
+    );
     expect(out).toContain('自动激活');
     expect(out).toContain('强制注入');
     // auto 表在 forced 表之前：默认条件先出现，不许只挂好看的那个
@@ -82,11 +93,61 @@ describe('静态榜单页', () => {
       ...tier1(),
       metrics: { uplift_pp: 1, headroom_closed: 0.02, placebo_effect_pp: 9, ci95: [0, 3] }
     });
-    const out = renderSite([{ card: warnCard, cardPath: 'c.json' }]);
+    const out = renderSite([{ card: warnCard, cardPath: 'c.json' }], ZH);
     expect(out).toContain('⚠️');
   });
 
   it('Tier 0 条目注明不进主榜', () => {
     expect(html).toContain('不进主榜');
+  });
+
+  it('中文页可带语言切换链接，指向英文页', () => {
+    const out = renderSite([{ card: card('owner/x', tier1()), cardPath: 'a.json' }], {
+      ...ZH,
+      altHref: './index.html'
+    });
+    expect(out).toContain('href="./index.html"');
+    expect(out).toContain('hreflang="en"');
+    expect(out).toContain('English');
+  });
+});
+
+describe('静态榜单页（英文版，默认）', () => {
+  const entries = [
+    { card: card('owner/with-tier1', tier1()), cardPath: 'a.json' },
+    { card: card('owner/tier0-only'), cardPath: 'b.json' }
+  ];
+  const html = renderSite(entries);
+
+  it('不传 lang 时默认英文', () => {
+    expect(html).toContain('<html lang="en">');
+    expect(html).toContain('web-guidance@1.0 · grade A · auto activation');
+    expect(html).toContain('Tier 0 · facts only (not ranked)');
+  });
+
+  it('数字与分组规则与中文页一致', () => {
+    expect(html).toContain('+2.2pp');
+    expect(html).toContain('[-2.2, 6.7]');
+    expect(html).toContain('>30<');
+    expect(html).toContain('not on the main board (no task set)');
+    expect(html.indexOf('Tier 0 · facts only')).toBeGreaterThan(html.indexOf('web-guidance@1.0'));
+  });
+
+  it('英文页不带中文字样（首屏不能混排）', () => {
+    expect(html).not.toContain('技能包');
+    expect(html).not.toContain('不进主榜');
+    expect(html).not.toContain('怎么读这张表');
+  });
+
+  it('英文页可带语言切换链接，指向中文页', () => {
+    const out = renderSite(entries, { ...EN, altHref: './zh-CN.html' });
+    expect(out).toContain('href="./zh-CN.html"');
+    expect(out).toContain('hreflang="zh-CN"');
+    expect(out).toContain('中文');
+  });
+
+  it('没给 altHref 就不渲染切换链接（不给死链）', () => {
+    expect(html).not.toContain('class="lang"');
+    expect(html).not.toContain('rel="alternate"');
   });
 });

@@ -4,12 +4,21 @@ import type { SkillCardJson, SkillShapeProbe, StaticCostProbe } from '../types.j
 import { ensureDir } from '../util/fsx.js';
 import { signed1, trim1 } from '../util/num.js';
 import { upliftColor } from './badge.js';
-import { activationModeLabel } from './card.js';
 
 export interface SiteCardEntry {
   card: SkillCardJson;
   cardPath: string;
   badgePath?: string;
+}
+
+export type SiteLang = 'en' | 'zh-CN';
+
+export interface SiteOptions {
+  /** 页面语言。默认 en：榜单页是给国际读者看的第一屏，中文版另存一份。 */
+  lang?: SiteLang;
+  generatedAt?: string;
+  /** 另一语言的页面地址。给了才渲染语言切换链接，没给就不渲染。 */
+  altHref?: string;
 }
 
 function esc(s: string): string {
@@ -21,7 +30,134 @@ function pct(n: number): string {
   return `${signed1(n)}pp`;
 }
 
-function row(card: SkillCardJson): string {
+/**
+ * 页面文案。两种语言各一份，而不是靠全局 LANG：
+ * 同一次生成会产出英文页和中文页两个文件，渲染期不能共用一份可变状态。
+ */
+interface Copy {
+  htmlLang: string;
+  title: string;
+  description: string;
+  tagline: string;
+  lead: string;
+  switchLabel: string;
+  switchTitle: string;
+  colSkill: string;
+  colUplift: string;
+  colHeadroom: string;
+  colPlacebo: string;
+  colCi: string;
+  colActivation: string;
+  colN: string;
+  colGrade: string;
+  tier0Title: string;
+  tier0HeadCols: string;
+  tier0Only: (tokens: string, bits: string) => string;
+  autoLabel: string;
+  forcedLabel: string;
+  autoHint: string;
+  forcedHint: string;
+  sectionTitle: (taskset: string, tier: string, mode: string) => string;
+  note: string;
+  footer: (generatedAt: string) => string;
+}
+
+const LINK_CHALLENGE =
+  'https://github.com/25Cloud/UpliftBench/issues/new?template=challenge-a-number.md';
+const LINK_FIELD_NOTES =
+  'https://github.com/25Cloud/UpliftBench/blob/main/docs/17-%E6%A8%AA%E5%90%91%E8%AF%84%E6%B5%8B.md';
+const LINK_PROTOCOL = 'https://github.com/25Cloud/UpliftBench/blob/main/docs/02-protocol.en.md';
+
+const en: Copy = {
+  htmlLang: 'en',
+  title: 'UpliftBench · placebo-corrected Agent Skills leaderboard',
+  description: 'Agent Skills measured against a token-matched placebo. uplift = treatment − placebo.',
+  tagline: 'What an Agent Skill adds, after you subtract the placebo.',
+  lead: `Every row comes from three arms — no skill / token-matched neutral text / the real skill. <code>uplift = treatment − placebo</code>. Every row carries N and a 95% CI; the JSON behind this page is <a href="./index.json">index.json</a>.`,
+  switchLabel: '中文',
+  switchTitle: 'Read this page in Chinese',
+  colSkill: 'Skill package',
+  colUplift: 'uplift',
+  colHeadroom: 'headroom',
+  colPlacebo: 'placebo',
+  colCi: '95% CI',
+  colActivation: 'activation',
+  colN: 'N',
+  colGrade: 'grade',
+  tier0Title: 'Tier 0 · facts only (not ranked)',
+  tier0HeadCols: 'probe results',
+  tier0Only: (tokens, bits) =>
+    `Tier 0 only · ${tokens} tok · ${bits ? `${bits} · ` : ''}not on the main board (no task set)`,
+  autoLabel: 'auto activation',
+  forcedLabel: 'forced injection',
+  autoHint: 'the agent decides whether to load it (protocol default)',
+  forcedHint: 'skill body injected into the system prompt; placebo matched by token count',
+  sectionTitle: (taskset, tier, mode) => `${taskset} · grade ${tier} · ${mode}`,
+  note: `<strong>How to read this table</strong><br/>
+    <code>uplift</code> is treatment − <em>placebo</em>, not minus baseline. <code>headroom</code> is the share of the remaining room that was filled; the <code>placebo</code> column is what length alone is worth.<br/>
+    <code>activation</code> is the share of runs, across the placebo and treatment arms, where the skill actually reached the context. Low activation drags uplift toward zero, because a treatment run that never loads the skill is a baseline run.<br/>
+    Auto activation and forced injection are two different experiments; the same package can have one row each. Those rows cannot be compared with each other, and shipping only the flattering one is how the ecosystem ended up with numbers nobody can reproduce.<br/>
+    Grade A (executable checks) and grade B (a pinned judge) are shown in separate groups, never in one ranking.<br/>
+    ⚠️ means the placebo effect is larger than the net gain — most of that number is length.<br/>
+    Generated ${esc('{{GENERATED_AT}}')} · <code>protocol/1.0.0</code>`,
+  footer: (generatedAt) => `The numbers reproduce: <code>node dist/cli.js site</code> reads
+    <code>results/*.json</code> and rebuilds this page, and every card points at a run database
+    committed to the repository. If one of them looks wrong,
+    <a href="${LINK_CHALLENGE}">open an issue and challenge it</a>, or read the
+    <a href="${LINK_FIELD_NOTES}">field notes</a> and the
+    <a href="${LINK_PROTOCOL}">protocol</a> first.
+    Generated ${esc(generatedAt)}.`
+};
+
+const zh: Copy = {
+  htmlLang: 'zh-CN',
+  title: 'UpliftBench · 技能包净增益榜',
+  description: 'Agent Skills measured against a token-matched placebo. uplift = treatment − placebo.',
+  tagline: '技能包的净增益基准。减掉安慰剂之后，还剩多少。',
+  lead: `Agent Skills, measured against a token-matched placebo. <code>uplift = treatment − placebo</code>. Every row carries N and a 95% CI; the JSON behind this page is <a href="./index.json">index.json</a>.`,
+  switchLabel: 'English',
+  switchTitle: 'English version of this page',
+  colSkill: '技能包',
+  colUplift: 'uplift',
+  colHeadroom: 'headroom',
+  colPlacebo: 'placebo',
+  colCi: '95%CI',
+  colActivation: '激活率',
+  colN: 'N',
+  colGrade: '等级',
+  tier0Title: 'Tier 0 · 事实查询（不排名）',
+  tier0HeadCols: '探针结果',
+  tier0Only: (tokens, bits) =>
+    `Tier 0 only · ${tokens} tok · ${bits ? `${bits} · ` : ''}不进主榜（无任务集）`,
+  autoLabel: '自动激活',
+  forcedLabel: '强制注入',
+  autoHint: '模型自己决定是否触发技能（协议默认）',
+  forcedHint: '技能正文直接注入 system prompt，安慰剂按等 token 对齐',
+  sectionTitle: (taskset, tier, mode) => `${taskset} · ${tier}级 · ${mode}`,
+  note: `<strong>怎么读这张表</strong><br/>
+    <code>uplift</code> = treatment − <em>placebo</em>，不是减 baseline。<code>headroom</code> 是填掉了多少剩余空间；<code>placebo</code> 列是「上下文变长本身值多少分」。<br/>
+    <code>激活率</code> = placebo + treatment 两臂里技能真的进了上下文的 run 占比。激活率低，uplift 天然趋近 0，因为没进上下文时 treatment 就是 baseline。<br/>
+    自动激活与强制注入是两种实验条件，同一个技能包可能各有一行。两行不能互相比较，也不能只报好看的那个。<br/>
+    A 级（可执行验证）与 B 级（固定版本 judge）分组显示，不并排排名。<br/>
+    ⚠️ 表示安慰剂效应大于净增益，分数主要来自长度。<br/>
+    生成于 {{GENERATED_AT}} · <code>protocol/1.0.0</code>`,
+  footer: (generatedAt) => `数字可以复现：<code>node dist/cli.js site</code> 读 <code>results/*.json</code> 重新生成这一页，
+    每张卡背后是提交在仓库里的 run 数据库。觉得哪个数不对，
+    <a href="${LINK_CHALLENGE}">开个 issue 挑战它</a>，
+    或者先读
+    <a href="${LINK_FIELD_NOTES}">写法层分析</a>
+    与
+    <a href="${LINK_PROTOCOL}">协议</a>。
+    生成于 ${esc(generatedAt)}。`
+};
+
+const COPIES: Record<SiteLang, Copy> = { en, 'zh-CN': zh };
+
+function copyFor(lang: SiteLang): Copy {
+  return COPIES[lang] ?? en;
+}
+
+function row(card: SkillCardJson, t: Copy): string {
   const t1 = card.tier1;
   if (!t1) {
     /**
@@ -41,9 +177,9 @@ function row(card: SkillCardJson): string {
     if (card.verdict.flags.includes('monolith_skill')) bits.push('monolithic skill');
     return `<tr class="tier0">
       <td class="repo">${esc(card.skill.repo)}</td>
-      <td colspan="6" class="muted">Tier 0 only · ${(card.skill.total_tokens ?? 0).toLocaleString('en-US')} tok · ${
-        bits.length > 0 ? esc(bits.join(' · ')) + ' · ' : ''
-      }不进主榜（无任务集）</td>
+      <td colspan="6" class="muted">${esc(
+        t.tier0Only((card.skill.total_tokens ?? 0).toLocaleString('en-US'), bits.join(' · '))
+      )}</td>
       <td class="grade">—</td>
     </tr>`;
   }
@@ -64,7 +200,16 @@ function row(card: SkillCardJson): string {
 }
 
 /** 静态榜单页（docs/11 Q12 默认值：纯 HTML，不引后端/构建器） */
-export function renderSite(entries: SiteCardEntry[], generatedAt = new Date().toISOString()): string {
+export function renderSite(
+  entries: SiteCardEntry[],
+  opts: SiteOptions | string = {}
+): string {
+  // 兼容旧签名 renderSite(entries, generatedAt)
+  const o: SiteOptions = typeof opts === 'string' ? { generatedAt: opts } : opts;
+  const lang: SiteLang = o.lang ?? 'en';
+  const generatedAt = o.generatedAt ?? new Date().toISOString();
+  const t = copyFor(lang);
+
   const withTier1 = entries.filter((e) => e.card.tier1);
   const tier0Only = entries.filter((e) => !e.card.tier1);
   withTier1.sort((a, b) => (b.card.tier1!.metrics.uplift_pp ?? 0) - (a.card.tier1!.metrics.uplift_pp ?? 0));
@@ -100,31 +245,38 @@ export function renderSite(entries: SiteCardEntry[], generatedAt = new Date().to
 
   const sections: string[] = [];
   for (const g of ordered) {
-    const hint =
-      g.mode === 'forced'
-        ? '技能正文直接注入 system prompt，安慰剂按等 token 对齐'
-        : '模型自己决定是否触发技能（协议默认）';
-    sections.push(`<h2>${esc(g.taskset)} · ${esc(g.tier)}级 · ${esc(activationModeLabel(g.mode))}<span class="cond">${esc(hint)}</span></h2>
+    const hint = g.mode === 'forced' ? t.forcedHint : t.autoHint;
+    const modeLabel = g.mode === 'forced' ? t.forcedLabel : t.autoLabel;
+    sections.push(`<h2>${esc(t.sectionTitle(g.taskset, g.tier, modeLabel))}<span class="cond">${esc(hint)}</span></h2>
     <table>
-      <thead><tr><th>技能包</th><th>uplift</th><th>headroom</th><th>placebo</th><th>95%CI</th><th>激活率</th><th>N</th><th>等级</th></tr></thead>
-      <tbody>${g.list.map((e) => row(e.card)).join('\n')}</tbody>
+      <thead><tr><th>${t.colSkill}</th><th>${t.colUplift}</th><th>${t.colHeadroom}</th><th>${t.colPlacebo}</th><th>${t.colCi}</th><th>${t.colActivation}</th><th>${t.colN}</th><th>${t.colGrade}</th></tr></thead>
+      <tbody>${g.list.map((e) => row(e.card, t)).join('\n')}</tbody>
     </table>`);
   }
   if (tier0Only.length > 0) {
-    sections.push(`<h2>Tier 0 · 事实查询（不排名）</h2>
+    sections.push(`<h2>${esc(t.tier0Title)}</h2>
     <table>
-      <thead><tr><th>技能包</th><th colspan="6">探针结果</th><th>等级</th></tr></thead>
-      <tbody>${tier0Only.map((e) => row(e.card)).join('\n')}</tbody>
+      <thead><tr><th>${t.colSkill}</th><th colspan="6">${esc(t.tier0HeadCols)}</th><th>${t.colGrade}</th></tr></thead>
+      <tbody>${tier0Only.map((e) => row(e.card, t)).join('\n')}</tbody>
     </table>`);
   }
 
+  const note = t.note.replace('{{GENERATED_AT}}', esc(generatedAt));
+  const switcher = o.altHref
+    ? `<div class="lang"><a href="${esc(o.altHref)}" title="${esc(t.switchTitle)}">${esc(t.switchLabel)}</a></div>`
+    : '';
+  const altLink = o.altHref
+    ? `<link rel="alternate" hreflang="${lang === 'en' ? 'zh-CN' : 'en'}" href="${esc(o.altHref)}"/>`
+    : '';
+
   return `<!doctype html>
-<html lang="zh-CN">
+<html lang="${t.htmlLang}">
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>UpliftBench · 技能包净增益榜</title>
-<meta name="description" content="Agent Skills measured against a token-matched placebo. uplift = treatment − placebo."/>
+<title>${esc(t.title)}</title>
+<meta name="description" content="${esc(t.description)}"/>
+${altLink}
 <style>
   :root { color-scheme: light dark; --fg:#1f2328; --muted:#656d76; --line:#d0d7de; --bg:#fff; --accent:#2ea44f; }
   @media (prefers-color-scheme: dark) { :root { --fg:#e6edf3; --muted:#8b949e; --line:#30363d; --bg:#0d1117; } }
@@ -134,6 +286,8 @@ export function renderSite(entries: SiteCardEntry[], generatedAt = new Date().to
   h1 { font-size: 30px; margin: 0 0 6px; letter-spacing: -0.02em; }
   .tag { color: var(--muted); margin-bottom: 6px; }
   .lead { color: var(--muted); font-size: 13px; margin-bottom: 26px; }
+  .lang { text-align: right; font-size: 13px; margin-bottom: 10px; }
+  .lang a { color: var(--muted); text-decoration: none; border-bottom: 1px dotted var(--line); }
   h2 { font-size: 17px; margin: 36px 0 10px; font-weight: 600; }
   table { width:100%; border-collapse: collapse; font-size: 14px; }
   th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
@@ -151,34 +305,27 @@ export function renderSite(entries: SiteCardEntry[], generatedAt = new Date().to
 </style>
 </head>
 <body>
+  ${switcher}
   <img class="hero" src="./assets/hero.svg" alt="Same skill, same model. The only difference is whether it gets loaded."/>
   <h1>UpliftBench</h1>
-  <div class="tag">技能包的净增益基准。减掉安慰剂之后，还剩多少。</div>
-  <div class="lead">Agent Skills, measured against a token-matched placebo. <code>uplift = treatment − placebo</code>. Every row carries N and a 95% CI; the JSON behind this page is <a href="./index.json">index.json</a>.</div>
+  <div class="tag">${esc(t.tagline)}</div>
+  <div class="lead">${t.lead}</div>
   ${sections.join('\n')}
   <div class="note">
-    <strong>怎么读这张表</strong><br/>
-    <code>uplift</code> = treatment − <em>placebo</em>，不是减 baseline。<code>headroom</code> 是填掉了多少剩余空间；<code>placebo</code> 列是「上下文变长本身值多少分」。<br/>
-    <code>激活率</code> = placebo + treatment 两臂里技能真的进了上下文的 run 占比。激活率低，uplift 天然趋近 0，因为没进上下文时 treatment 就是 baseline。<br/>
-    自动激活与强制注入是两种实验条件，同一个技能包可能各有一行。两行不能互相比较，也不能只报好看的那个。<br/>
-    A 级（可执行验证）与 B 级（固定版本 judge）分组显示，不并排排名。<br/>
-    ⚠️ 表示安慰剂效应大于净增益，分数主要来自长度。<br/>
-    生成于 ${esc(generatedAt)} · <code>protocol/1.0.0</code>
+    ${note}
   </div>
   <footer>
-    数字可以复现：<code>node dist/cli.js site</code> 读 <code>results/*.json</code> 重新生成这一页，
-    每张卡背后是提交在仓库里的 run 数据库。觉得哪个数不对，
-    <a href="https://github.com/25Cloud/UpliftBench/issues/new?template=challenge-a-number.md">开个 issue 挑战它</a>，
-    或者先读
-    <a href="https://github.com/25Cloud/UpliftBench/blob/main/docs/17-%E6%A8%AA%E5%90%91%E8%AF%84%E6%B5%8B.md">写法层分析</a>
-    与
-    <a href="https://github.com/25Cloud/UpliftBench/blob/main/docs/02-protocol.en.md">协议</a>。
+    ${t.footer(generatedAt)}
   </footer>
 </body>
 </html>`;
 }
 
-export async function writeSite(outFile: string, entries: SiteCardEntry[]): Promise<void> {
+export async function writeSite(
+  outFile: string,
+  entries: SiteCardEntry[],
+  opts: SiteOptions = {}
+): Promise<void> {
   await ensureDir(path.dirname(outFile));
-  await fsp.writeFile(outFile, renderSite(entries), 'utf8');
+  await fsp.writeFile(outFile, renderSite(entries, opts), 'utf8');
 }

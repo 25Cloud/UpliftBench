@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import path from 'node:path';
 import os from 'node:os';
+import { fileURLToPath } from 'node:url';
 import fsp from 'node:fs/promises';
 import { Command } from 'commander';
 import { createHarness, type HarnessName } from './harness/index.js';
@@ -158,7 +159,13 @@ program
     try {
       if (opts.lang === 'en' || opts.lang === 'zh') setLang(opts.lang);
       const en = opts.lang === 'en';
-      const skillPath = path.resolve('examples', 'demo-skill');
+      /**
+       * 从包根找示例技能，不是从 cwd：`npx upliftbench demo` 得能在任何目录跑。
+       * 源码用 tsx 跑时 import.meta.url 在 src/，编译后在 dist/，上一级都是包根。
+       */
+      const pkgRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+      const bundledSkill = path.join(pkgRoot, 'examples', 'demo-skill');
+      const skillPath = (await pathExists(bundledSkill)) ? bundledSkill : path.resolve('examples', 'demo-skill');
       if (!(await pathExists(skillPath))) {
         throw new UpliftError(
           '找不到内置示例技能',
@@ -201,15 +208,15 @@ program
         console.log(c.dim('  uplift = treatment − placebo. Without the placebo arm you are only'));
         console.log(c.dim('  measuring "does a longer prompt help".'));
         console.log('');
-        console.log(kv('  next', 'node dist/cli.js run --taskset tasksets/general-20 --skill examples/demo-skill --arms baseline,placebo,treatment --repeats 1 --max-cost 2'));
-        console.log(kv('', 'node dist/cli.js probe examples/demo-skill --only static-cost,uninstall-clean'));
+        console.log(kv('  next', 'npx upliftbench probe examples/demo-skill --only static-cost,uninstall-clean'));
+        console.log(kv('', 'npx upliftbench run --taskset tasksets/general-20 --skill examples/demo-skill --arms baseline,placebo,treatment --repeats 1 --max-cost 2'));
       } else {
         console.log(c.bold('  这只是 Tier 0（事实），还不是分数。'));
         console.log(c.dim('  Tier 1 才有 uplift：同一套任务跑三臂，空技能 / 等 token 中性文本 / 真技能，'));
         console.log(c.dim('  uplift = treatment − placebo。少了安慰剂那一臂，你测到的是"多塞 token 有没有用"。'));
         console.log('');
-        console.log(kv('  下一步', 'node dist/cli.js run --taskset tasksets/general-20 --skill examples/demo-skill --arms baseline,placebo,treatment --repeats 1 --max-cost 2'));
-        console.log(kv('', 'node dist/cli.js probe examples/demo-skill --only static-cost,uninstall-clean'));
+        console.log(kv('  下一步', 'npx upliftbench probe examples/demo-skill --only static-cost,uninstall-clean'));
+        console.log(kv('', 'npx upliftbench run --taskset tasksets/general-20 --skill examples/demo-skill --arms baseline,placebo,treatment --repeats 1 --max-cost 2'));
       }
       process.exit(0);
     } catch (e) {
@@ -717,7 +724,18 @@ program
       }
       const out = path.resolve(opts.out);
       await ensureDir(path.dirname(out));
-      await writeTextFile(out, renderSite(entries));
+
+      /**
+       * 两份页面，而不是一页塞一段 JS。
+       *
+       * 默认英文：榜单页是国际读者（HN / X / Reddit）落地看到的第一屏，中文那版
+       * 挪到同目录的 zh-CN.html，两个文件互相 link + hreflang。静态站不需要脚本
+       * 也能切语言，也方便搜索器分开索引。
+       */
+      const genAt = new Date().toISOString();
+      const zhOut = path.join(path.dirname(out), 'zh-CN.html');
+      await writeTextFile(out, renderSite(entries, { lang: 'en', generatedAt: genAt, altHref: './zh-CN.html' }));
+      await writeTextFile(zhOut, renderSite(entries, { lang: 'zh-CN', generatedAt: genAt, altHref: './index.html' }));
 
       /**
        * 页面用的图要跟着页面走。Pages 只发布 site/ 这一个目录，
@@ -762,7 +780,12 @@ program
         })
       });
 
-      console.log(`${sym.ok} 榜单页写入 ${path.relative(process.cwd(), out)}（${entries.length} 张卡）`);
+      console.log(
+        `${sym.ok} 榜单页写入 ${path.relative(process.cwd(), out)}（en）与 ${path.relative(
+          process.cwd(),
+          zhOut
+        )}（zh-CN），共 ${entries.length} 张卡`
+      );
       process.exit(0);
     } catch (e) {
       fail(e);
