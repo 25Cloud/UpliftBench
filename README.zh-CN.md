@@ -67,7 +67,7 @@ node dist/cli.js run --taskset tasksets/web-guidance \
 
 ## 跑过什么
 
-到目前 1,829 次真实 run，64 道题，5 个真实技能包，一个模型（`glm-5.3-flash`），花了约 $230。
+到目前 2,945 次真实 run，69 道题，12 个真实技能包，两个模型，花了约 $600。
 
 第一轮拿 `addyosmani/agent-skills` 试水，30 题 270 次 run（$27.09）：baseline 78.89%，placebo 74.44%，treatment 76.67%，uplift +2.22pp，95%CI [−2.22, +6.69]。安慰剂效应 −4.44pp，比技能本身的效应还大，符号能被它翻过去。详见 [docs/14](docs/14-首轮实测.md)。
 
@@ -206,7 +206,7 @@ tests/             114 个单测，其中 21 个是评分器自检
 
 ## 状态
 
-`protocol/1.0.0`，软件 `v0.2.6`，Node ≥ 22，Apache-2.0。没有后端，不用账号，不采集任何东西。
+`protocol/1.0.0`，软件 `v0.2.7`，Node ≥ 22，Apache-2.0。没有后端，不用账号，不采集任何东西。
 
 CI 跑 build、测试、任务集校验、卡片 schema、markdown 链接检查和 demo。`results/` 和 `site/` 里的东西都能从提交的 run 数据库重新生成，每次 run 的成本都记着。
 

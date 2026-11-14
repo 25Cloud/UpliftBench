@@ -16,6 +16,7 @@
 
 | | |
 |---|---|
+| [21-methodology](21-methodology.md) | 方法论文：设计、出题、四轮块、跨模型、局限，约 3000 词 |
 | [19-how-to-read](19-how-to-read.md) | 怎么读一张卡，以及让数字失效的四种情况 |
 | [20-the-27pp-claim](20-the-27pp-claim.md) | 上游那个 +27~36pp 和我们这三个数为什么不矛盾 |
 

@@ -92,7 +92,7 @@ experiments and the tool keeps them apart.
 
 ## What we measured
 
-2,732 runs, 69 tasks, 12 skill packages, one model (`glm-5.3-flash`), about $400.
+2,945 runs, 69 tasks, 12 skill packages, two models, about $600.
 
 `GoogleChrome/modern-web-guidance-src` against 48 tasks, agent decides whether to load it (720 runs,
 $60.93):
@@ -163,6 +163,30 @@ The seven are the five above plus `wmg-065` (anchor fallback) and `wmg-068` (vie
 added because their calibrated baseline was 0%. All seven are positive when pooled. We also wrote five
 other tasks on other modern CSS features; three of them the model already solves 100% of the time, so
 they carry no information and stay out of the block. That is in [docs/16](docs/16-消融实验.md) §九.
+
+### The same seven tasks on a second model
+
+`deepseek-v4.1-flash`, forced activation, 10 repeats, 210 runs, $195.89:
+
+| arm | pass rate |
+|---|---|
+| baseline | 12.9% |
+| placebo | 7.2% |
+| treatment | 21.4% |
+
+uplift **+14.1pp, 95% CI [0.0, +39.5]**, placebo effect −5.6pp. Smaller, and concentrated differently:
+
+| task | glm | deepseek |
+|---|---|---|
+| `wmg-061` scroll-state query | +17pp | **+89pp** |
+| `wmg-060` customizable select | +93pp | +10pp |
+| `wmg-058` DOM move | +60pp | 0pp |
+| the other four | +0 to +33pp | 0pp |
+
+glm cannot write `base-select` and gains 93 points there; deepseek half-knows it and gains 10, but
+cannot write a scroll-state container query and gains 89 there. A block effect belongs to a skill *and*
+a model *and* a task distribution. Methods, threats and the full sequence:
+[docs/21-methodology.md](docs/21-methodology.md).
 
 ### Field notes: 12 packages, measured with no model
 
@@ -323,6 +347,7 @@ we measure skills rather than ship them.
 
 | | |
 |---|---|
+| [`docs/21-methodology.md`](docs/21-methodology.md) | the methods paper: design, tasks, all four block runs, cross-model, threats to validity |
 | [`docs/19-how-to-read.md`](docs/19-how-to-read.md) | what the columns mean and the four ways a skill's number goes wrong |
 | [`docs/02-protocol.en.md`](docs/02-protocol.en.md) | the protocol: three arms, metrics, grader tiers, versioning |
 | [docs/16](docs/16-消融实验.md) | what actually moves a skill's number, five grader bugs, the +36pp block |
@@ -336,7 +361,7 @@ gets translated.
 
 ## Status
 
-`protocol/1.0.0`, software `v0.2.6`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
+`protocol/1.0.0`, software `v0.2.7`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
 
 CI runs build, tests, task-set validation, a card schema check, a markdown link check, and the demo.
 Everything in `results/` and `site/` is generated from committed run databases, and every run's cost is
