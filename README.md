@@ -10,6 +10,7 @@ Same package (`GoogleChrome/modern-web-guidance-src`), same model, same harness.
 because the arm and the task set moved — not because the skill did.
 
 [![ci](https://github.com/25Cloud/UpliftBench/actions/workflows/ci.yml/badge.svg)](https://github.com/25Cloud/UpliftBench/actions/workflows/ci.yml)
+[![npm](https://img.shields.io/npm/v/upliftbench.svg)](https://www.npmjs.com/package/upliftbench)
 [![pages](https://github.com/25Cloud/UpliftBench/actions/workflows/pages.yml/badge.svg)](https://25cloud.github.io/UpliftBench/)
 [![protocol](https://img.shields.io/badge/protocol-1.0.0-blue)](docs/02-protocol.en.md)
 [![license](https://img.shields.io/badge/license-Apache--2.0-green)](LICENSE)
@@ -386,7 +387,7 @@ gets translated.
 
 ## Status
 
-`protocol/1.0.0`, software `v0.2.8`, Node ≥ 22, Apache-2.0. No services, no accounts, no telemetry.
+`protocol/1.0.0`, software `v0.2.8`, Node ≥ 22, Apache-2.0. Published on npm as [`upliftbench`](https://www.npmjs.com/package/upliftbench). No services, no accounts, no telemetry.
 
 CI runs build, tests, task-set validation, a card schema check, a markdown link check, and the demo.
 Everything in `results/` and `site/` is generated from committed run databases, and every run's cost is

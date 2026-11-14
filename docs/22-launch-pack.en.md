@@ -17,7 +17,7 @@
 
 | # | 检查 | 命令 / 动作 | 期望 |
 |---|---|---|---|
-| 1 | npm 上真有包 | `npm view upliftbench version` | 输出 `0.2.8` |
+| 1 | npm 上真有包 | `npm view upliftbench version` | 输出 `0.2.8`（2026-11-14 已发） |
 | 2 | 干净目录能跑 demo | 新建空目录 `cd` 进去，`npx upliftbench demo` | 2 秒内出 SkillCard，退出码 0 |
 | 3 | 榜单页默认英文 | 打开 https://25cloud.github.io/UpliftBench/ | 第一行是英文；右上角有「中文」 |
 | 4 | 中文版可达 | 同上，点「中文」 | 落到 `/zh-CN.html`，能切回 |
