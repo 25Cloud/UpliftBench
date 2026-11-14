@@ -35,6 +35,22 @@
 
 ## 1 · Show HN
 
+**这台机器的网络前提（2026-11-14 实测，别到时候抓瞎）**
+
+- 直连全挂；开代理 **TUN 模式** 后 GitHub / Google 通，HN 仍显示 000。
+- 原因两个：`news.ycombinator.com` 的 DNS 被污染（AAAA 会解析到 Facebook 的地址段），以及 Windows schannel 的证书吊销检查在墙内超时（`CRYPT_E_REVOCATION_OFFLINE`）。
+- 解法：**把 HN 的域名钉死在真实 IP 上**，绕过被污染的 DNS。
+
+```bash
+# 命令行验证
+curl.exe -s --ssl-no-revoke --resolve news.ycombinator.com:443:209.216.230.13 https://news.ycombinator.com/ -o NUL -w "%{http_code}\n"
+# Chrome / Playwright 启动参数
+--host-resolver-rules=MAP news.ycombinator.com 209.216.230.13
+```
+
+- 已验证：钉住之后 HN 登录页 200、注册成功、发帖页面可达（账号 `upliftbench30`，2026-11-14 注册，karma=1）。
+- 新号 karma=0/1，**当天发 Show HN 极易被 [flagged]**；先注册、隔两天再发是正确顺序。
+
 **URL**：`https://github.com/25Cloud/UpliftBench`
 
 **标题**（三选一，A 最稳）：
