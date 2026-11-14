@@ -13,7 +13,7 @@ import path from 'node:path';
 const NUMBERS = [
   { value: '−2.50pp', label: 'agent decides when to load it', tone: '#f85149' },
   { value: '+5.56pp', label: 'skill forced into context', tone: '#3fb950' },
-  { value: '+36pp', label: 'prompt withholds the API name', tone: '#3fb950' }
+  { value: '+35pp', label: '7 tasks written for its content', tone: '#3fb950' }
 ];
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -33,7 +33,7 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="640" v
   <text x="96" y="340" font-size="22" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">uplift = treatment − placebo</text>
   ${cols}
   <line x1="96" y1="506" x2="1184" y2="506" stroke="#30363d"/>
-  <text x="96" y="546" font-size="20" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">1,829 runs · 12 skill packages · every number with N and a 95% CI</text>
+  <text x="96" y="546" font-size="20" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">2,945 runs · 12 skill packages · every number carries N and a 95% CI</text>
   <text x="96" y="592" font-size="20" fill="#58a6ff" font-family="ui-monospace,SFMono-Regular,Menlo,monospace">github.com/25Cloud/UpliftBench</text>
 </svg>
 `;
